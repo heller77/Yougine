@@ -2,7 +2,7 @@
 hide empty members
 
 
-GameObject o-- Components.Component
+GameObject o--o Components.Component
 class GameObject{
     List<Component> componentList
     GameObject parentGameObject
@@ -13,34 +13,52 @@ class Scene{
     List<GameObject> gameObjectList
 }
 left to right direction
+Managers.ComponentList o-- GameObject
 namespace Managers{
-    RenderManager o-- Components.RenderComponent
+  
+    RenderManager *-- ComponentList
     class RenderManager{
-        List<RenderComponent> renderComponentList
+        ComponentList componentList
     }
-    UIRendeManager o-- Components.UI.IUIRender
+    
+    UIRendeManager *-- ComponentList
     class UIRendeManager{
-        List<IUIRender> IUIRenderList
+        LComponentList componentList
     }
     
     note bottom of UIColliderManager
     uiのマウスクリックの為のマネージャ
     end note
     
-    UIColliderManager --|> ColliderManager
-    class UIColliderManager{}
-     
-    RigidBodyManager o-- Components.RigidBodyComponent
+    UIColliderManager *-- ComponentList
+    class UIColliderManager{
+        ComponentList componentList
+    }
+    
+    RigidBodyManager *-- ComponentList
     class RigidBodyManager{
-        List<RigidBodyComponent> RigidBodyComponentList
+        ComponentList componentList
     }
-    ColliderManager o--- Components.ColliderComponent
+    ColliderManager *-- ComponentList
     class ColliderManager{
-        List<ColliderComponent> ColliderComponentList
+       ComponentList componentList
     }
-    CustomScriptManager o--- Components.CustomScriptComponent
-    class CustomScriptManager{}
+    CustomScriptManager *-- ComponentList
+    class CustomScriptManager{
+    ComponentList componentList
+    }
+    class ComponentList{
+        Dictionary<Components,List<GameObject>> GameObjectListDictionary
+    }
+    ComponentList *- Managers.Components
+    enum Components{
+        Collider,RigidBody,Render,UIRende,UICollider
+    }
 }
+
+Editor.SceneWindow o-- Scene
+Editor.HierarchyWindow o-- Scene
+Editor.GameWindow o-- Scene
 namespace Editor{
     class EditorWindowsManager{
         List<EditorWindow> EditorWindowList
@@ -52,10 +70,17 @@ namespace Editor{
     InspectorWindow --|> EditorWindow
     GameWindow --|> EditorWindow
     ProjectWindow --|> EditorWindow
-    class SceneWindow{}
-    class HierarchyWindow{}
+    
+    class SceneWindow{
+        Scene scene
+    }
+    class HierarchyWindow{
+        Scene scene
+    }
     class InspectorWindow{}
-    class GameWindow{}
+    class GameWindow{
+        Scene scene
+    }
     class ProjectWindow{}
 }
 namespace Components{
@@ -89,7 +114,7 @@ namespace Components{
     ' ui
     namespace UI{
         RectTransformComponent --|> Components.Component
-        UiColliderComponent --|> Components.Component
+        UIColliderComponent --|> Components.Component
         ImageComponent --|> Components.Component
         TextComponent --|> Components.Component
         interface IUIRender{
@@ -103,7 +128,7 @@ namespace Components{
             vector3 rotation
             vector3 scale
         }
-        class UiColliderComponent {}
+        class UIColliderComponent {}
         class ImageComponent{}
         class TextComponent{}
     }
