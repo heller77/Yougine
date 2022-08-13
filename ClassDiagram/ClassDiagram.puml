@@ -1,26 +1,80 @@
 ﻿@startuml
+hide empty members
+
+
+GameObject o-- Components.Component
+class GameObject{
+    List<Component> componentList
+    GameObject parentGameObject
+}
+
+Scene o--GameObject
 class Scene{
-
+    List<GameObject> gameObjectList
 }
-
-RenderManager -- RenderComponent
-class RenderManager{
-    List<RenderComponent> renderComponentList;
+left to right direction
+namespace Managers{
+    RenderManager o-- Components.RenderComponent
+    class RenderManager{
+        List<RenderComponent> renderComponentList
+    }
+    UIRendeManager o-- Components.UI.IUIRender
+    class UIRendeManager{
+        List<IUIRender> IUIRenderList
+    }
+    
+    note bottom of UIColliderManager
+    uiのマウスクリックの為のマネージャ
+    end note
+    
+    UIColliderManager --|> ColliderManager
+    class UIColliderManager{}
+     
+    RigidBodyManager o-- Components.RigidBodyComponent
+    class RigidBodyManager{
+        List<RigidBodyComponent> RigidBodyComponentList
+    }
+    ColliderManager o--- Components.ColliderComponent
+    class ColliderManager{
+        List<ColliderComponent> ColliderComponentList
+    }
+    CustomScriptManager o--- Components.CustomScriptComponent
+    class CustomScriptManager{}
 }
-
-class GameObject{}
-
-class Scene{}
-
+namespace Editor{
+    class EditorWindowsManager{
+        List<EditorWindow> EditorWindowList
+    }
+    EditorWindowsManager o-- EditorWindow
+    class EditorWindow{}
+    SceneWindow --|> EditorWindow
+    HierarchyWindow --|> EditorWindow
+    InspectorWindow --|> EditorWindow
+    GameWindow --|> EditorWindow
+    ProjectWindow --|> EditorWindow
+    class SceneWindow{}
+    class HierarchyWindow{}
+    class InspectorWindow{}
+    class GameWindow{}
+    class ProjectWindow{}
+}
 namespace Components{
-    class Component{}
+    class Component{
+        GameObject gameObject
+    }
     
     RenderComponent --|>Component
     RigidBodyComponent --|>Component
     TransformComponent --|>Component
+    CustomScriptComponent --|> Component
     class RenderComponent {}
     class RigidBodyComponent {}
-    class TransformComponent{}
+    class TransformComponent{
+                vector3 position
+                vector3 rotation
+                vector3 scale
+                }
+    class CustomScriptComponent{}
     
     ColliderComponent ---|>Component
     BoxColliderComponet --|>ColliderComponent
@@ -32,21 +86,26 @@ namespace Components{
     class SphereColliderComponent{}
     class CapsuleColliderComponent{}
     class MeshColliderComponent{}
-    
-    
     ' ui
-    namespace ui{
-        RectTransform --|> Components.Component
+    namespace UI{
+        RectTransformComponent --|> Components.Component
         UiColliderComponent --|> Components.Component
         ImageComponent --|> Components.Component
         TextComponent --|> Components.Component
-        
-        class RectTransform{}
+        interface IUIRender{
+            RectTransformComponent transform
+        }
+        RectTransformComponent --o IUIRender
+        ImageComponent ..|> IUIRender
+        TextComponent ..|> IUIRender
+        class RectTransformComponent{
+            vector3 position
+            vector3 rotation
+            vector3 scale
+        }
         class UiColliderComponent {}
         class ImageComponent{}
         class TextComponent{}
     }
 }
-
-
 @enduml
