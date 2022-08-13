@@ -1,0 +1,52 @@
+﻿@startuml
+class Scene{
+
+}
+
+RenderManager -- RenderComponent
+class RenderManager{
+    List<RenderComponent> renderComponentList;
+}
+
+class GameObject{}
+
+class Scene{}
+
+namespace Components{
+    class Component{}
+    
+    RenderComponent --|>Component
+    RigidBodyComponent --|>Component
+    TransformComponent --|>Component
+    class RenderComponent {}
+    class RigidBodyComponent {}
+    class TransformComponent{}
+    
+    ColliderComponent ---|>Component
+    BoxColliderComponet --|>ColliderComponent
+    SphereColliderComponent --|>ColliderComponent
+    CapsuleColliderComponent --|>ColliderComponent
+    MeshColliderComponent --|>ColliderComponent
+    class ColliderComponent{}
+    class BoxColliderComponet{}
+    class SphereColliderComponent{}
+    class CapsuleColliderComponent{}
+    class MeshColliderComponent{}
+    
+    
+    ' ui
+    namespace ui{
+        RectTransform --|> Components.Component
+        UiColliderComponent --|> Components.Component
+        ImageComponent --|> Components.Component
+        TextComponent --|> Components.Component
+        
+        class RectTransform{}
+        class UiColliderComponent {}
+        class ImageComponent{}
+        class TextComponent{}
+    }
+}
+
+
+@enduml
