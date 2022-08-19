@@ -13,5 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Yougine">
+      <UniqueIdentifier>{d8687039-a729-4c82-ae9f-c241b674a67b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Yougine\Components">
+      <UniqueIdentifier>{d8e71381-f4de-4897-9803-8cb6947b03a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Yougine\Managers">
+      <UniqueIdentifier>{07dfcfa8-2ac0-49db-91bf-f8b4c9d9ca16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine">
+      <UniqueIdentifier>{b4dc322a-e2bb-4b0c-9643-da73d534ef68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine\Components">
+      <UniqueIdentifier>{ff005ab5-426b-4d4a-ad28-976a08711ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine\Managers">
+      <UniqueIdentifier>{d8dd3cc3-8a56-4d0f-a0cb-627e6f9bd7dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h">
+      <Filter>ヘッダー ファイル\Yougine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentList.h">
+      <Filter>ヘッダー ファイル\Yougine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentName.h">
+      <Filter>ヘッダー ファイル\Yougine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ヘッダー ファイル\Yougine</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
