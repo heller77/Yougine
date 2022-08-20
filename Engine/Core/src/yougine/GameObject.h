@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Yougine/Components/Component.h"
+#include "Component.h"
 
 namespace yougine
 {

@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Editor",
+    "\\Editor\\Core"
   ],
-  "SelectedNode": "\\Editor.sln",
+  "SelectedNode": "\\Editor",
   "PreviewInSolutionExplorer": false
 }

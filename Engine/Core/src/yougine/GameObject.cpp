@@ -1,9 +1,10 @@
 #include "GameObject.h"
 
-std::vector<components::Component> componentList;
 
 namespace yougine
 {
+	std::vector<components::Component> component_list;
+
 	GameObject::GameObject()
 	{
 		InitializeComponentList();
@@ -11,9 +12,8 @@ namespace yougine
 
 	void GameObject::InitializeComponentList()
 	{
-		for(Components::Component component : Components::Component)
+		for (components::Component component : component_list)
 		{
-			componentList.push_back(component);
 		}
 
 		//parentObjectèâä˙âª

@@ -1,5 +1,4 @@
 #include "CustomScriptManager.h"
-#include "../../GameObject.h"
 
 namespace yougine::managers
 {
@@ -22,9 +21,9 @@ namespace yougine::managers
 
 	void CustomScriptManager::ExcuteCoponents()
 	{
-		for(GameObject gameObject : component_list.GetObjectsDictionary()[ComponentName::kCustom])
+		for (GameObject gameObject : component_list.GetObjectsDictionary()[ComponentName::kCustom])
 		{
-			for(components::Component component : gameObject.GetComponents())
+			for (components::Component component : gameObject.GetComponents())
 			{
 				component.excute();
 			}

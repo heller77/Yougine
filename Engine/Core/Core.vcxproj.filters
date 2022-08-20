@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{866a4b66-b027-4853-899b-b2b70824e9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\yougine">
+      <UniqueIdentifier>{cdc755c9-55bb-4a5e-95b7-3d849051e4f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\yougine\components">
+      <UniqueIdentifier>{d9c4490a-765d-4bc5-a4ca-a8645864a15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\yougine\managers">
+      <UniqueIdentifier>{f96d2369-f9ae-4a8a-8115-6ea04798a0bc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>src\yougine</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentList.cpp">
+      <Filter>src\yougine\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomScriptManager.cpp">
+      <Filter>src\yougine\managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObject.h">
+      <Filter>src\yougine</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>src\yougine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentList.h">
+      <Filter>src\yougine\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentName.h">
+      <Filter>src\yougine\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomScriptManager.h">
+      <Filter>src\yougine\managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
