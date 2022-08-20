@@ -13,5 +13,54 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Yougine">
+      <UniqueIdentifier>{b2062673-9a1f-423d-81ac-72e5c60d14da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine">
+      <UniqueIdentifier>{cd5c0058-5022-4ab0-9bb0-e46d5bc7eb22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Yougine\Components">
+      <UniqueIdentifier>{5b1c7143-f446-4f7e-8b95-1c2ede0ac8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine\Components">
+      <UniqueIdentifier>{d2c40d51-7898-4f2b-960b-cac48c0619f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Yougine\Managers">
+      <UniqueIdentifier>{b4a7fdef-e488-43b7-9a22-262b4acdd959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Yougine\Managers">
+      <UniqueIdentifier>{ce1096e9-bbbd-4967-9c4e-ef5318d1137b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Component.h">
+      <Filter>ヘッダー ファイル\Yougine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentList.h">
+      <Filter>ヘッダー ファイル\Yougine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ヘッダー ファイル\Yougine</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentName.h">
+      <Filter>ヘッダー ファイル\Yougine\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomScriptManager.h">
+      <Filter>ヘッダー ファイル\Yougine\Managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ComponentList.cpp">
+      <Filter>ソース ファイル\Yougine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>ソース ファイル\Yougine</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomScriptManager.cpp">
+      <Filter>ソース ファイル\Yougine\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>ソース ファイル\Yougine\Components</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
