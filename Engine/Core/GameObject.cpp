@@ -12,11 +12,7 @@ namespace yougine
 
 	void GameObject::InitializeComponentList()
 	{
-		for (components::Component component : component_list)
-		{
-		}
 
-		//parentObject‰Šú‰»
 	}
 
 	std::vector<components::Component> GameObject::GetComponents()
