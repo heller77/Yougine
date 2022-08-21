@@ -1,9 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Editor",
-    "\\Editor\\Core"
+    "\\Engine",
+    "\\Engine\\Core",
+    "\\Engine\\Core\\src",
+    "\\Engine\\Core\\src\\yougine",
+    "\\Engine\\Core\\src\\yougine\\components",
+    "\\Engine\\Core\\src\\yougine\\managers"
   ],
-  "SelectedNode": "\\Editor",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
