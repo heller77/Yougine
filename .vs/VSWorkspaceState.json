@@ -1,13 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Engine",
-    "\\Engine\\Core",
-    "\\Engine\\Core\\src",
-    "\\Engine\\Core\\src\\yougine",
-    "\\Engine\\Core\\src\\yougine\\components",
-    "\\Engine\\Core\\src\\yougine\\managers"
+    ""
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\Engine.sln",
   "PreviewInSolutionExplorer": false
 }

@@ -8,7 +8,7 @@ namespace yougine::managers
 	class CustomScriptManager
 	{
 	private:
-		ComponentList component_list;
+		static ComponentList componentlist_instance;
 		ComponentName component_name = ComponentName::kCustom;
 
 	private:

@@ -9,6 +9,7 @@ namespace yougine::components
 		GameObject gameobject;
 
 	public:
-		void excute();
+		void Excute();
+		void Initialize();
 	};
 }
