@@ -17,6 +17,6 @@ namespace yougine
 		std::vector<components::Component> GetComponents();
 		void AddComponent(components::Component);
 		void RemoveComponent(components::Component);
-		bool operator==(const GameObject& rhs) const
+		bool operator==(const GameObject& rhs) const;
 	};
 }
