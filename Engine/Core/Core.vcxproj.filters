@@ -45,6 +45,9 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>ソース ファイル\yougine</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>ソース ファイル\yougine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h">
@@ -60,6 +63,9 @@
       <Filter>ヘッダー ファイル\yougine\managers</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>ヘッダー ファイル\yougine</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>ヘッダー ファイル\yougine</Filter>
     </ClInclude>
   </ItemGroup>
