@@ -1,5 +1,6 @@
 #pragma once
 #include "ComponentName.h"
+#include "../components/Component.h"
 #include "ComponentList.h"
 #include <vector>
 
