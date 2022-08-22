@@ -4,16 +4,16 @@ namespace yougine
 {
 	void Scene::CreateGameObject()
 	{
-		GameObject *gameobject = new GameObject();
+		GameObject gameobject = GameObject();
 
 		gameobject_list.push_back(gameobject);
 	}
 
-	void Scene::RemoveGameObject(GameObject* gameobject)
+	void Scene::RemoveGameObject(GameObject gameobject)
 	{
-		std::list<GameObject*> new_list;
+		std::list<GameObject> new_list;
 
-		for (GameObject* obj : gameobject_list)
+		for (GameObject obj : gameobject_list)
 		{
 			if (gameobject == obj)
 			{

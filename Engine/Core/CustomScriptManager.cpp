@@ -15,7 +15,7 @@ namespace yougine::managers
 		{
 			for (components::Component component : gameobject.GetComponents())
 			{
-				component.Initialize();
+				component.InitializeOnPlayBack();
 			}
 		}
 	}

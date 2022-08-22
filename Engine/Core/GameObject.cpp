@@ -13,21 +13,21 @@ namespace yougine
 
 	}
 
-	std::vector<components::Component*> GameObject::GetComponentsPtr()
+	std::vector<components::Component> GameObject::GetComponents()
 	{
 		return component_list;
 	}
 
-	void GameObject::AddComponent(components::Component* component)
+	void GameObject::AddComponent(components::Component component)
 	{
 		GameObject::component_list.push_back(component);
 	}
 
-	void GameObject::RemoveComponent(components::Component* component)
+	void GameObject::RemoveComponent(components::Component component)
 	{
-		std::vector<components::Component*> new_list;
+		std::vector<components::Component> new_list;
 
-		for (components::Component* c : component_list)
+		for (components::Component c : component_list)
 		{
 			if (c == component)
 			{
@@ -36,5 +36,10 @@ namespace yougine
 		}
 
 		component_list = new_list;
+	}
+
+	bool GameObject::operator==(const GameObject& rhs) const
+	{
+		return *this == rhs;
 	}
 }

@@ -8,8 +8,12 @@ namespace yougine::components
 	private:
 		GameObject gameobject;
 
+	private:
+		void InitializeProperties();
+
 	public:
 		void Excute();
-		void Initialize();
+		void InitializeOnPlayBack();
+		bool operator==(const Component& rhs) const;
 	};
 }
