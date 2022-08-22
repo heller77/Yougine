@@ -33,33 +33,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Component.cpp">
+    <ClCompile Include="src\yougine\components\Component.cpp">
       <Filter>ソース ファイル\yougine\components</Filter>
     </ClCompile>
-    <ClCompile Include="ComponentList.cpp">
+    <ClCompile Include="src\yougine\managers\ComponentList.cpp">
       <Filter>ソース ファイル\yougine\managers</Filter>
     </ClCompile>
-    <ClCompile Include="CustomScriptManager.cpp">
+    <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp">
       <Filter>ソース ファイル\yougine\managers</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="src\yougine\GameObject.cpp">
       <Filter>ソース ファイル\yougine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h">
+    <ClInclude Include="src\yougine\components\Component.h">
       <Filter>ヘッダー ファイル\yougine\components</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentList.h">
+    <ClInclude Include="src\yougine\managers\ComponentList.h">
       <Filter>ヘッダー ファイル\yougine\managers</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentName.h">
+    <ClInclude Include="src\yougine\managers\ComponentName.h">
       <Filter>ヘッダー ファイル\yougine\managers</Filter>
     </ClInclude>
-    <ClInclude Include="CustomScriptManager.h">
+    <ClInclude Include="src\yougine\managers\CustomScriptManager.h">
       <Filter>ヘッダー ファイル\yougine\managers</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="src\yougine\GameObject.h">
       <Filter>ヘッダー ファイル\yougine</Filter>
     </ClInclude>
   </ItemGroup>

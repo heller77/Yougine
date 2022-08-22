@@ -2,7 +2,7 @@
 #include <iostream>
 #include <map>
 #include "ComponentName.h"
-#include "GameObject.h"
+#include "../GameObject.h"
 //vector already included at GameObject.h
 
 //SingletonInstance

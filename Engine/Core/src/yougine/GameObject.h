@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Component.h"
+#include "components/Component.h"
 
 namespace yougine
 {
@@ -15,5 +15,8 @@ namespace yougine
 	public:
 		GameObject();
 		std::vector<components::Component> GetComponents();
+		void AddComponent(components::Component);
+		void RemoveComponent(components::Component);
+		bool operator==(const GameObject& rhs) const;
 	};
 }
