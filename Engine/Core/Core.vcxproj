@@ -145,6 +145,7 @@
     <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\GameObject.cpp" />
+    <ClCompile Include="src\yougine\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\yougine\components\Component.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="src\yougine\managers\ComponentName.h" />
     <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
     <ClInclude Include="src\yougine\GameObject.h" />
+    <ClInclude Include="src\yougine\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
