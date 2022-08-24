@@ -13,21 +13,21 @@ namespace yougine
 
 	}
 
-	std::vector<components::Component> GameObject::GetComponents()
+	std::vector<components::Component*> GameObject::GetComponents()
 	{
 		return component_list;
 	}
 
-	void GameObject::AddComponent(components::Component component)
+	void GameObject::AddComponent(components::Component* component)
 	{
 		GameObject::component_list.push_back(component);
 	}
 
-	void GameObject::RemoveComponent(components::Component component)
+	void GameObject::RemoveComponent(components::Component* component)
 	{
-		std::vector<components::Component> new_list;
+		std::vector<components::Component*> new_list;
 
-		for (components::Component c : component_list)
+		for (components::Component* c : GetComponents())
 		{
 			if (c == component)
 			{

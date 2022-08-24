@@ -45,8 +45,11 @@
     <ClCompile Include="src\yougine\GameObject.cpp">
       <Filter>ソース ファイル\yougine</Filter>
     </ClCompile>
-    <ClCompile Include="src\yougine\Scene.cpp">
+    <ClCompile Include="src\yougine\main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Scene.cpp">
+      <Filter>ソース ファイル\yougine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +69,7 @@
       <Filter>ヘッダー ファイル\yougine</Filter>
     </ClInclude>
     <ClInclude Include="src\yougine\Scene.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\yougine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

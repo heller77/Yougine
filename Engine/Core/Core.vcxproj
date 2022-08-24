@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp" />
+    <ClCompile Include="src\yougine\main.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\GameObject.cpp" />
