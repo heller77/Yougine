@@ -1,5 +1,4 @@
 #pragma once
-#include "ComponentName.h"
 #include "../components/Component.h"
 #include "ComponentList.h"
 #include <vector>
@@ -9,7 +8,7 @@ namespace yougine::managers
 	class CustomScriptManager
 	{
 	private:
-		static ComponentList componentlist_instance;
+		ComponentList componentlist_instance;
 		ComponentName component_name = ComponentName::kCustom;
 
 	private:

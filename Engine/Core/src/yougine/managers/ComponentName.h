@@ -1,7 +1,7 @@
 #pragma once
 namespace yougine::managers
 {
-	enum ComponentName
+	enum class ComponentName
 	{
 		kCollider,
 		kRigidBody,

@@ -3,6 +3,16 @@
 
 namespace yougine::components
 {
+	Component::Component()
+	{
+		gameobject = nullptr;
+	}
+
+	Component::~Component()
+	{
+
+	}
+
 	//private
 	void InitializeProperties()
 	{

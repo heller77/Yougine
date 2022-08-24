@@ -6,7 +6,7 @@ namespace yougine::managers
 	using std::vector;
 	using std::map;
 
-	ComponentList* ComponentList::m_instance = nullptr;
+	//ComponentList* ComponentList::m_instance = nullptr;
 
 	map<managers::ComponentName, vector<GameObject>> gameobjects_dictionary =
 	{
@@ -17,6 +17,7 @@ namespace yougine::managers
 		{ managers::ComponentName::kUICollider, vector<GameObject>() },
 	};
 
+	/*
 	ComponentList::ComponentList()
 	{
 
@@ -53,6 +54,7 @@ namespace yougine::managers
 
 		return nullptr;
 	}
+	*/
 
 	map<managers::ComponentName, vector<GameObject>> ComponentList::GetObjectsDictionary()
 	{

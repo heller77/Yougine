@@ -4,18 +4,17 @@ namespace yougine::managers
 {
 	CustomScriptManager::CustomScriptManager()
 	{
+		componentlist_instance = ComponentList();
 		InitializeMembers();
 	}
 
 	void CustomScriptManager::InitializeMembers()
 	{
-		componentlist_instance = *ComponentList::GetInstance();
-
 		for(GameObject gameobject : componentlist_instance.GetReferObjectList(ComponentName::kCustom))
 		{
-			for (components::Component component : gameobject.GetComponents())
+			for (components::Component* component : gameobject.GetComponents())
 			{
-				component.InitializeOnPlayBack();
+				component->InitializeOnPlayBack();
 			}
 		}
 	}
@@ -24,9 +23,9 @@ namespace yougine::managers
 	{
 		for (GameObject gameObject : componentlist_instance.GetObjectsDictionary()[ComponentName::kCustom])
 		{
-			for (components::Component component : gameObject.GetComponents())
+			for (components::Component* component : gameObject.GetComponents())
 			{
-				component.Excute();
+				component->Excute();
 			}
 		}
 	}

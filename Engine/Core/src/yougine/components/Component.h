@@ -1,17 +1,20 @@
 #pragma once
-#include "../GameObject.h"
 
 namespace yougine::components
 {
+	class GameObject;
+
 	class Component
 	{
 	private:
-		GameObject gameobject;
+		GameObject* gameobject;
 
 	private:
 		void InitializeProperties();
 
 	public:
+		Component();
+		~Component();
 		void Excute();
 		void InitializeOnPlayBack();
 		bool operator==(const Component& rhs) const;
