@@ -29,7 +29,7 @@ namespace yougine
 
 		for (components::Component* c : GetComponents())
 		{
-			if (c == component)
+			if (c != component)
 			{
 				new_list.push_back(c);
 			}

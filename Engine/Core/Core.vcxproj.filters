@@ -49,6 +49,12 @@
     <Filter Include="ヘッダー ファイル\lib\imgui">
       <UniqueIdentifier>{5436608f-4450-4dfa-b76f-a63677686474}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\src\yougine\Editor">
+      <UniqueIdentifier>{5be7705f-0899-4ef8-8ea9-ebfa7dc3d7b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\src\yougine\Editor">
+      <UniqueIdentifier>{fd235166-7506-4d20-9ef9-8bbf2efdd355}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -89,6 +95,15 @@
     </ClCompile>
     <ClCompile Include="lib\imgui\imgui_widgets.cpp">
       <Filter>ソース ファイル\lib\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp">
+      <Filter>ソース ファイル\src\yougine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Editor\EditorWindow.cpp">
+      <Filter>ソース ファイル\src\yougine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp">
+      <Filter>ソース ファイル\src\yougine\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +151,15 @@
     </ClInclude>
     <ClInclude Include="lib\imgui\imstb_truetype.h">
       <Filter>ヘッダー ファイル\lib\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\HierarchyWindow.h">
+      <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\EditorWindow.h">
+      <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h">
+      <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
