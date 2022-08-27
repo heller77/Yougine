@@ -22,7 +22,7 @@ namespace yougine
 	{
 		T* component;
 
-		for (components::Component c : component_list)
+		for (components::Component* c : component_list)
 		{
 			component = dynamic_cast<T*>(c);
 			if (component != nullptr)
