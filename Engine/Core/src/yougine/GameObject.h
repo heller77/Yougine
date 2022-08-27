@@ -16,8 +16,9 @@ namespace yougine
 	public:
 		GameObject();
 		std::vector<components::Component*> GetComponents();
-		void AddComponent(components::Component*);
-		void RemoveComponent(components::Component*);
+		template <class T> T* GetComponent();
+		template <class T> T* AddComponent();
+		template <class T> void RemoveComponent();
 		bool operator==(const GameObject& rhs) const;
 	};
 }
