@@ -18,18 +18,39 @@ namespace yougine
 		return component_list;
 	}
 
-	void GameObject::AddComponent(components::Component* component)
+	template <class T> T* GameObject::GetComponent()
 	{
-		GameObject::component_list.push_back(component);
+		T* component;
+
+		for (components::Component* c : component_list)
+		{
+			component = dynamic_cast<T*>(c);
+			if (component != nullptr)
+			{
+				return component;
+			}
+		}
+
+		return nullptr;
 	}
 
-	void GameObject::RemoveComponent(components::Component* component)
+	//forbit same component duplication
+	template <class T> T* GameObject::AddComponent()
 	{
+		T* component = new T();
+		component_list.push_back(component);
+		return component;
+	}
+
+	template <class T> void GameObject::RemoveComponent()
+	{
+		T* component;
 		std::vector<components::Component*> new_list;
 
 		for (components::Component* c : GetComponents())
 		{
-			if (c == component)
+			component = dynamic_cast<T*>(c);
+			if (component == nullptr)
 			{
 				new_list.push_back(c);
 			}
