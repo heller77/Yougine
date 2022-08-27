@@ -1,11 +1,14 @@
 ﻿#include <iostream>
+/*
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "imgui/imgui.h"
 #include <stdio.h>
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+*/
 
+#include "Editor/EditorWindowsManager.h"
 #include <fstream>
 
 static void glfw_error_callback(int error, const char* description)
@@ -59,8 +62,17 @@ int main()
 	int gVCBWidth = 300;
 	int gVCBHeight = 300;
 
+
+	//Add Code
+	Editor::EditorWindowsManager* editor_windows_manager = new Editor::EditorWindowsManager();
+	editor_windows_manager->AddWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::GameWindow));
+	editor_windows_manager->AddWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::SceneWindow));
+	
 	while (glfwWindowShouldClose(window) == GL_FALSE)
 	{
+		editor_windows_manager->CreateWindows(window);
+		
+		/*
 		static float f = 0.0f;
 
 		ImGui_ImplOpenGL3_NewFrame();
@@ -84,6 +96,7 @@ int main()
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		*/
 	}
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
