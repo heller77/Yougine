@@ -171,6 +171,7 @@
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\GameObject.cpp" />
     <ClCompile Include="src\yougine\Scene.cpp" />
+    <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -191,6 +192,8 @@
     <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />
+    <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag" />
