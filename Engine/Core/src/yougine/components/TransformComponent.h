@@ -8,6 +8,8 @@ private:
 	Vector3* position;
 public:
 	TransformComponent(float x, float y, float z);
+	Vector3 GetPosition();
+	void SetPosition(Vector3 position);
 
 };
 

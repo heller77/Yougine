@@ -10,5 +10,11 @@ public:
 		z(z)
 	{
 	}
+	Vector3& operator=(const Vector3& v)
+	{
+		this->x = v.x;
+		this->y = v.y;
+		this->z = v.z;
+	}
 };
 
