@@ -37,8 +37,8 @@ namespace Editor
 	public:
 		EditorWindowsManager();
 		void CreateWindows(GLFWwindow*);
-		template <class T> void AddRenderWindow();
-		template <class T> void HideWindow();
+		void AddRenderWindow(EditorWindow* new_window);
+		void HideWindow(EditorWindow* delete_target);
 		std::string GetWindowName(EditorWindowName);
 	
 	private:

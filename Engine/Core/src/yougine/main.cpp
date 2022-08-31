@@ -65,8 +65,8 @@ int main()
 
 	//Add Code
 	Editor::EditorWindowsManager* editor_windows_manager = new Editor::EditorWindowsManager();
-	editor_windows_manager->AddRenderWindow<Editor::EditorWindow>();
-	editor_windows_manager->AddRenderWindow<Editor::EditorWindow>();
+	editor_windows_manager->AddRenderWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::GameWindow));
+	editor_windows_manager->AddRenderWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::SceneWindow));
 	
 	while (glfwWindowShouldClose(window) == GL_FALSE)
 	{

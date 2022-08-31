@@ -46,23 +46,21 @@ namespace Editor
 	* if exist target in hide_window_list, add target to render_window_list, remove target on hide_window_list
 	* not exist in hide_window, add target to render_window_list
 	*/
-	template <class T> void EditorWindowsManager::AddRenderWindow()
+	void EditorWindowsManager::AddRenderWindow(EditorWindow* new_window)
 	{
-		EditorWindow* add_target;
-		std::vector<EditorWindow> new_hide_list(hide_window_list.size());
+		std::vector<EditorWindow*> new_hide_list(hide_window_list.size());
 		std::copy(hide_window_list.begin(), hide_window_list.end(), new_hide_list.begin());
 
-		for (int i=0; i<hide_window_list.size; i++)
+		for (EditorWindow* editor_window : hide_window_list)
 		{
-			add_target = dynamic_cast<T*>(hide_window_list[i]);
-			if (add_target != nullptr)
+			if (new_window == editor_window)
 			{
-				new_hide_list.erase(std::remove(new_hide_list.begin(), new_hide_list.end(), add_target), new_hide_list.end());
+				new_hide_list.erase(std::remove(new_hide_list.begin(), new_hide_list.end(), new_window), new_hide_list.end());
 				break;
 			}
 		}
 
-		render_window_list.push_back(T*);
+		render_window_list.push_back(new_window);
 		hide_window_list = new_hide_list;
 	}
 
@@ -71,22 +69,20 @@ namespace Editor
 	* 
 	* if target window class are exits, the one remove, the others are not hide
 	*/
-	template <class T> void EditorWindowsManager::HideWindow()
+	void EditorWindowsManager::HideWindow(EditorWindow* delete_target)
 	{
-		EditorWindow* hide_target;
 		std::vector<EditorWindow*> new_list;
 		bool is_hided = false;
 
 		for (EditorWindow* editor_window : render_window_list)
 		{
-			hide_target = dynamic_cast<T*>(editor_window);
-			if (hide_target == nullptr || is_hided)
+			if (editor_window != delete_target || is_hided)
 			{
 				new_list.push_back(editor_window);
 			}
 			else
 			{
-				hide_window_list.push_back(hide_target);
+				hide_window_list.push_back(delete_target);
 				is_hided = true;
 			}
 		}
