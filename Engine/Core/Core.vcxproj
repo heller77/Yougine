@@ -193,6 +193,7 @@
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag" />

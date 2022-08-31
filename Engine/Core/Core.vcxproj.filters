@@ -167,6 +167,9 @@
     <ClInclude Include="src\yougine\components\TransformComponent.h">
       <Filter>ヘッダー ファイル\src\yougine\components</Filter>
     </ClInclude>
+    <ClInclude Include="src\yougine\Vector3.h">
+      <Filter>ヘッダー ファイル\src\yougine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="test.frag">
