@@ -10,6 +10,12 @@ public:
 		z(z)
 	{
 	}
+
+	/**
+	 * \brief ‘ã“ü‰‰ŽZŽq
+	 * \param v ‘ã“ü‚·‚é’l‚ 
+	 * \return ‘ã“ü‚³‚ê‚½ŽQÆ
+	 */
 	Vector3& operator=(const Vector3& v)
 	{
 		this->x = v.x;
