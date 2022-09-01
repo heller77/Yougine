@@ -11,7 +11,7 @@
 #include <algorithm>
 #include "EditorWindow.h"
 
-namespace Editor
+namespace editor
 {
 	class EditorWindow;
 

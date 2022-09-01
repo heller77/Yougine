@@ -1,6 +1,6 @@
 #include "EditorWindow.h"
 
-namespace Editor
+namespace editor
 {
 	EditorWindow::EditorWindow(EditorWindowsManager* editor_windows_manager, EditorWindowName editor_window_name)
 	{

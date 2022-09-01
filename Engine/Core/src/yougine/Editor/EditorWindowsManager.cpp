@@ -1,6 +1,6 @@
 #include "EditorWindowsManager.h"
 
-namespace Editor
+namespace editor
 {
 	using std::vector;
 	using std::map;

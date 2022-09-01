@@ -1,12 +1,12 @@
 #pragma once
 #include "EditorWindow.h"
 
-namespace Editor
+namespace editor
 {
 	class HierarchyWindow : public EditorWindow
 	{
 	public:
-		HierarchyWindow();
+		HierarchyWindow(EditorWindowsManager*);
 		~HierarchyWindow();
 	};
 }

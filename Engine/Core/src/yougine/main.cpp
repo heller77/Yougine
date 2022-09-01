@@ -9,6 +9,7 @@
 */
 
 #include "Editor/EditorWindowsManager.h"
+#include "Editor/HierarchyWindow.h"
 #include <fstream>
 
 static void glfw_error_callback(int error, const char* description)
@@ -64,9 +65,8 @@ int main()
 
 
 	//Add Code
-	Editor::EditorWindowsManager* editor_windows_manager = new Editor::EditorWindowsManager();
-	editor_windows_manager->AddRenderWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::GameWindow));
-	editor_windows_manager->AddRenderWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::SceneWindow));
+	editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
+	editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager));
 	
 	while (glfwWindowShouldClose(window) == GL_FALSE)
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include "EditorWindowsManager.h"
 
-namespace Editor
+namespace editor
 {
 	class EditorWindowsManager;
 	enum class EditorWindowName;
