@@ -34,4 +34,9 @@ namespace yougine::components
 	{
 		return *this == rhs;
 	}
+
+	GameObject* Component::GetGameObject()
+	{
+		return gameobject;
+	}
 }
