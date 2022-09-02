@@ -6,4 +6,13 @@ namespace editor
 	{
 
 	}
+
+     void HierarchyWindow::Draw()
+	{
+		 ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str());
+		 ImGui::End();
+		 glClearColor(1.0, 0., 0., 1.0);
+
+		 glClear(GL_COLOR_BUFFER_BIT);
+	}
 }

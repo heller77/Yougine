@@ -8,11 +8,6 @@ namespace editor
 		window_name = editor_window_name;
 	}
 
-	void EditorWindow::Setup()
-	{
-
-	}
-
 	void EditorWindow::Draw()
 	{
 		ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str());

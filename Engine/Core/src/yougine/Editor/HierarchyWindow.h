@@ -8,5 +8,8 @@ namespace editor
 	public:
 		HierarchyWindow(EditorWindowsManager*);
 		~HierarchyWindow();
+
+		using EditorWindow::Draw;
+		virtual void Draw();
 	};
 }

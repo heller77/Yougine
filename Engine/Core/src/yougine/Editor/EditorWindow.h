@@ -8,14 +8,12 @@ namespace editor
 
 	class EditorWindow
 	{
-	private:
-		EditorWindowsManager* editor_windows_manager;
 	protected:
+		EditorWindowsManager* editor_windows_manager;
 		EditorWindowName window_name;
 
 	public:
 		EditorWindow(EditorWindowsManager*, EditorWindowName);
-		~EditorWindow();
 		void Draw();
 
 	protected:
