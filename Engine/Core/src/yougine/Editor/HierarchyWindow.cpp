@@ -70,7 +70,7 @@ namespace editor
 		{
 			if (ImGui::MenuItem(item.c_str()))
 			{
-				//on click Å® true
+				//CreateGameObject(s_selection_info.obj_name + "_" + std::to_string(s_selection_info.b_index+1), s_selection_info.obj_name);
 			};
 		}
 	}
