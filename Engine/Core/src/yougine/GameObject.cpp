@@ -45,54 +45,7 @@ namespace yougine
         return gameobject_childs;
     }
 
-    template <class T> T* GameObject::GetComponent()
-    {
-        T* component;
 
-        for (components::Component* c : component_list)
-        {
-            component = dynamic_cast<T*>(c);
-            if (component != nullptr)
-            {
-                return component;
-            }
-        }
-
-        return nullptr;
-    }
-
-    //component already exist on component_list, not add & return nullptr
-    template <class T> T* GameObject::AddComponent()
-    {
-        for (components::Component* c : component_list)
-        {
-            if (typeid(c) == typeid(T*))
-            {
-                return nullptr;
-            }
-        }
-
-        T* component = new T();
-        component_list.push_back(component);
-        return component;
-    }
-
-    template <class T> void GameObject::RemoveComponent()
-    {
-        T* component;
-        std::vector<components::Component*> new_list;
-
-        for (components::Component* c : GetComponents())
-        {
-            component = dynamic_cast<T*>(c);
-            if (component == nullptr)
-            {
-                new_list.push_back(c);
-            }
-        }
-
-        component_list = new_list;
-    }
 
     bool GameObject::operator==(const GameObject& rhs) const
     {
