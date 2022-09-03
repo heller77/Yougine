@@ -5,31 +5,31 @@
 
 namespace yougine
 {
-	enum class KeyBind
-	{
-		RightClick,
-		BindMax,
-	};
+    enum class KeyBind
+    {
+        RightClick,
+        BindMax,
+    };
 
-	class KeyInfo
-	{
-	public:
-		int state;
-		int state_old;
-	};
+    class KeyInfo
+    {
+    public:
+        int state;
+        int state_old;
+    };
 
-	class InputManager
-	{
-	private:
-		KeyInfo* key_info;
-		std::map<KeyBind, int> keycode_list;
+    class InputManager
+    {
+    private:
+        KeyInfo* key_info;
+        std::map<KeyBind, int> keycode_list;
 
-	public:
-		InputManager();
-		int GetKeyCodeID(KeyBind code);
-		void UpdateInput();
-		bool IsPressKey(KeyBind);
-		bool IsPushKey(KeyBind);
-		bool IsReleaseKey(KeyBind);
-	};
+    public:
+        InputManager();
+        int GetKeyCodeID(KeyBind code);
+        void UpdateInput();
+        bool IsPressKey(KeyBind);
+        bool IsPushKey(KeyBind);
+        bool IsReleaseKey(KeyBind);
+    };
 }

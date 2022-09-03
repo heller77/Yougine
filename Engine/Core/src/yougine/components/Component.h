@@ -2,24 +2,24 @@
 
 namespace yougine
 {
-	class GameObject;
+    class GameObject;
 }
 namespace yougine::components
 {
-	class Component
-	{
-	private:
-		GameObject* gameobject;
+    class Component
+    {
+    private:
+        GameObject* gameobject;
 
-	private:
-		void InitializeProperties();
+    private:
+        void InitializeProperties();
 
-	public:
-		Component();
-		~Component();
-		void Excute();
-		void InitializeOnPlayBack();
-		bool operator==(const Component& rhs) const;
-		GameObject* GetGameObject();
-	};
+    public:
+        Component();
+        ~Component();
+        void Excute();
+        void InitializeOnPlayBack();
+        bool operator==(const Component& rhs) const;
+        GameObject* GetGameObject();
+    };
 }
