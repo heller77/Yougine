@@ -1,13 +1,13 @@
 #pragma once
 namespace yougine::managers
 {
-	enum class ComponentName
-	{
-		kCollider,
-		kRigidBody,
-		kRender,
-		kUIRender,
-		kUICollider,
-		kCustom
-	};
+    enum class ComponentName
+    {
+        kCollider,
+        kRigidBody,
+        kRender,
+        kUIRender,
+        kUICollider,
+        kCustom
+    };
 }
