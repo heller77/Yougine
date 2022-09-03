@@ -14,7 +14,7 @@ namespace yougine::components
 	}
 
 	//private
-	void InitializeProperties()
+	void Component::InitializeProperties()
 	{
 
 	}

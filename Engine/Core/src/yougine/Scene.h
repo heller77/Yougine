@@ -4,6 +4,8 @@
 
 namespace yougine
 {
+	class GameObject;
+
 	class Scene
 	{
 	private:
@@ -20,10 +22,11 @@ namespace yougine
 		std::list<GameObject*> gameobject_list;
 
 	private:
-		void CreateGameObject(std::string, GameObject*);
 		void RemoveGameObject(GameObject*);
 
 	public:
 		std::list<GameObject*> GetGameObjects();
+		void CreateGameObject(std::string, std::string);
+		GameObject* GetGameObjectByName(std::string);
 	};
 }
