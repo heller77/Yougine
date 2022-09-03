@@ -2,18 +2,18 @@
 
 namespace yougine
 {
-	void Scene::CreateGameObject()
+	void Scene::CreateGameObject(std::string name)
 	{
-		GameObject gameobject = GameObject();
+		GameObject* gameobject = new GameObject(name);
 
 		gameobject_list.push_back(gameobject);
 	}
 
-	void Scene::RemoveGameObject(GameObject gameobject)
+	void Scene::RemoveGameObject(GameObject* gameobject)
 	{
-		std::list<GameObject> new_list;
+		std::list<GameObject*> new_list;
 
-		for (GameObject obj : gameobject_list)
+		for (GameObject* obj : gameobject_list)
 		{
 			if (gameobject == obj)
 			{
@@ -22,5 +22,10 @@ namespace yougine
 		}
 
 		gameobject_list = new_list;
+	}
+
+	std::list<GameObject*> Scene::GetGameObjects()
+	{
+		return gameobject_list;
 	}
 }

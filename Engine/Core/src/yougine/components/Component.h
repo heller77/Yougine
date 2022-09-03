@@ -1,9 +1,12 @@
 #pragma once
 
-namespace yougine::components
+namespace yougine
 {
 	class GameObject;
+}
 
+namespace yougine::components
+{
 	class Component
 	{
 	private:

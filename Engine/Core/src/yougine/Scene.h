@@ -7,10 +7,13 @@ namespace yougine
 	class Scene
 	{
 	private:
-		std::list<GameObject> gameobject_list;
+		std::list<GameObject*> gameobject_list;
 
 	private:
-		void CreateGameObject();
-		void RemoveGameObject(GameObject);
+		void CreateGameObject(std::string name);
+		void RemoveGameObject(GameObject*);
+
+	public:
+		std::list<GameObject*> GetGameObjects();
 	};
 }

@@ -3,14 +3,25 @@
 
 namespace yougine
 {
-	GameObject::GameObject()
+	GameObject::GameObject(std::string name)
 	{
+		this->name = name;
 		InitializeComponentList();
 	}
 
 	void GameObject::InitializeComponentList()
 	{
 
+	}
+
+	std::string GameObject::GetName()
+	{
+		return name;
+	}
+
+	void GameObject::SetName(std::string name)
+	{
+		this->name = name;
 	}
 
 	std::vector<components::Component*> GameObject::GetComponents()

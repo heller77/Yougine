@@ -1,5 +1,6 @@
 #pragma once
 #include "EditorWindowsManager.h"
+#include "../Scene.h"
 
 namespace editor
 {

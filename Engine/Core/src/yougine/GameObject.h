@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 namespace yougine
 {
@@ -9,12 +10,15 @@ namespace yougine
 	{
 	private:
 		std::vector<components::Component*> component_list;
+		std::string name;
 
 	private:
 		void InitializeComponentList();
 
 	public:
-		GameObject();
+		GameObject(std::string);
+		std::string GetName();
+		void SetName(std::string);
 		std::vector<components::Component*> GetComponents();
 		template <class T> T* GetComponent();
 		template <class T> T* AddComponent();
