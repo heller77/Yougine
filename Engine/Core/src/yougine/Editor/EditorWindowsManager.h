@@ -8,9 +8,10 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <algorithm>
 #include "EditorWindow.h"
 
-namespace Editor
+namespace editor
 {
 	class EditorWindow;
 
@@ -26,14 +27,21 @@ namespace Editor
 	class EditorWindowsManager
 	{
 	private:
-		std::vector<EditorWindow*> editor_window_list;
+		//render windows list on editor
+		std::vector<EditorWindow*> render_window_list;
+		//hide windows list on editor, reuse this elems when add window
+		//hide list elems are not duplication
+		std::vector<EditorWindow*> hide_window_list;
 		std::map<EditorWindowName, std::string> str_window_name;
 
 	public:
 		EditorWindowsManager();
 		void CreateWindows(GLFWwindow*);
-		void AddWindow(EditorWindow* new_window);
-		void DeleteWindow(EditorWindow* delete_target);
+		void AddRenderWindow(EditorWindow* new_window);
+		void HideWindow(EditorWindow* delete_target);
 		std::string GetWindowName(EditorWindowName);
+	
+	private:
+		void CheckDuplicationOnList(std::vector<EditorWindow*>);
 	};
 }

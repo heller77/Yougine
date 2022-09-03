@@ -69,9 +69,6 @@
     <ClCompile Include="src\yougine\GameObject.cpp">
       <Filter>ソース ファイル\src\yougine</Filter>
     </ClCompile>
-    <ClCompile Include="src\yougine\main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\yougine\Scene.cpp">
       <Filter>ソース ファイル\src\yougine</Filter>
     </ClCompile>
@@ -104,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp">
       <Filter>ソース ファイル\src\yougine\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\components\TransformComponent.cpp">
+      <Filter>ソース ファイル\src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\InputManager.cpp">
+      <Filter>ソース ファイル\src\yougine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\main.cpp">
+      <Filter>ソース ファイル\src\yougine</Filter>
     </ClCompile>
     <ClCompile Include="src\yougine\components\TransformComponent.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
@@ -163,6 +169,15 @@
     </ClInclude>
     <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h">
       <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\components\TransformComponent.h">
+      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Vector3.h">
+      <Filter>ヘッダー ファイル\src\yougine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\InputManager.h">
+      <Filter>ヘッダー ファイル\src\yougine</Filter>
     </ClInclude>
     <ClInclude Include="src\yougine\components\TransformComponent.h">
       <Filter>ヘッダー ファイル\src\yougine\components</Filter>

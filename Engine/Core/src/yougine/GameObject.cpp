@@ -3,8 +3,10 @@
 
 namespace yougine
 {
-	GameObject::GameObject()
+	GameObject::GameObject(std::string name, GameObject* gameobject_parent)
 	{
+		this->name = name;
+		this->gameobject_parent = gameobject_parent;
 		InitializeComponentList();
 	}
 
@@ -13,9 +15,34 @@ namespace yougine
 
 	}
 
+	std::string GameObject::GetName()
+	{
+		return name;
+	}
+
+	void GameObject::SetName(std::string name)
+	{
+		this->name = name;
+	}
+
 	std::vector<components::Component*> GameObject::GetComponents()
 	{
 		return component_list;
+	}
+
+	void GameObject::AddChild(GameObject* gameobject)
+	{
+		gameobject_childs.push_back(gameobject);
+	}
+
+	GameObject* GameObject::GetParentObject()
+	{
+		return gameobject_parent;
+	}
+
+	std::vector<GameObject*> GameObject::GetChildObjects()
+	{
+		return gameobject_childs;
 	}
 
 	template <class T> T* GameObject::GetComponent()
@@ -34,9 +61,17 @@ namespace yougine
 		return nullptr;
 	}
 
-	//forbit same component duplication
+	//component already exist on component_list, not add & return nullptr
 	template <class T> T* GameObject::AddComponent()
 	{
+		for (components::Component* c : component_list)
+		{
+			if (typeid(c) == typeid(T*))
+			{
+				return nullptr;
+			}
+		}
+
 		T* component = new T();
 		component_list.push_back(component);
 		return component;

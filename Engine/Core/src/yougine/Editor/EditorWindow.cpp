@@ -1,16 +1,11 @@
 #include "EditorWindow.h"
 
-namespace Editor
+namespace editor
 {
 	EditorWindow::EditorWindow(EditorWindowsManager* editor_windows_manager, EditorWindowName editor_window_name)
 	{
 		this->editor_windows_manager = editor_windows_manager;
 		window_name = editor_window_name;
-	}
-
-	void EditorWindow::Setup()
-	{
-
 	}
 
 	void EditorWindow::Draw()

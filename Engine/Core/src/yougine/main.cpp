@@ -9,7 +9,9 @@
 */
 
 #include "Editor/EditorWindowsManager.h"
+#include "Editor/HierarchyWindow.h"
 #include <fstream>
+#include "InputManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -62,42 +64,25 @@ int main()
 	int gVCBWidth = 300;
 	int gVCBHeight = 300;
 
+	yougine::Scene* scene = new yougine::Scene();
 
 	//Add Code
-	Editor::EditorWindowsManager* editor_windows_manager = new Editor::EditorWindowsManager();
-	editor_windows_manager->AddWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::GameWindow));
-	editor_windows_manager->AddWindow(new Editor::EditorWindow(editor_windows_manager, Editor::EditorWindowName::SceneWindow));
+	editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
+	editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene));
+
+	yougine::InputManager* input_manager = new yougine::InputManager();
 	
 	while (glfwWindowShouldClose(window) == GL_FALSE)
 	{
 		editor_windows_manager->CreateWindows(window);
-		
-		/*
-		static float f = 0.0f;
 
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
-
-		ImGui::Begin("inspector window");
-		ImGui::Text("");
-		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);
-
-		ImGui::End();
-
-		// テクスチャを ImGui のウィンドウに描く
-		ImGui::Begin("Game View window");
-		ImGui::End();
-		ImGui::Render();
-		glClearColor(0.3, 0.3, 0.3, 1.0);
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-		*/
+		input_manager->UpdateInput();
+		if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
+		{
+			std::cout << "RightClick" << std::endl;
+		}
 	}
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
