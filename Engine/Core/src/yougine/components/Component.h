@@ -4,7 +4,6 @@ namespace yougine
 {
 	class GameObject;
 }
-
 namespace yougine::components
 {
 	class Component

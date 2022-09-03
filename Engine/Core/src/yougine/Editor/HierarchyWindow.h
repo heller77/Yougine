@@ -1,25 +1,30 @@
 #pragma once
 #include "EditorWindow.h"
-#include "vector"
+#include "../Scene.h"
+#include <algorithm>
+#include <list>
 
 namespace editor
 {
 	class HierarchyWindow : public EditorWindow
 	{
 	private:
+		yougine::Scene* scene;
 		std::vector<std::string> MENU_ITEMS_LIST;
-		std::vector<std::vector<std::string>> node_trees_list;
+		//useless for memory
+		std::vector<std::vector<std::string>> tree_objects_list;
 
 	private:
 		void RenderMenuItems();
-		void RenderObjectsTree(std::vector<std::string>);
+		void RenderObjectsTree();
 		void RecursiveTree(std::vector<std::string>, int);
 
 	public:
-		HierarchyWindow(EditorWindowsManager*);
+		HierarchyWindow(EditorWindowsManager*, yougine::Scene*);
 		~HierarchyWindow();
 
 		using EditorWindow::Draw;
 		virtual void Draw();
+		void AddObjectToTreeList(std::string name, std::string top_name);
 	};
 }

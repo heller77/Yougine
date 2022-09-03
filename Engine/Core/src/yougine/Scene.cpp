@@ -2,11 +2,13 @@
 
 namespace yougine
 {
-	void Scene::CreateGameObject(std::string name)
+	void Scene::CreateGameObject(std::string name, GameObject* parent)
 	{
-		GameObject* gameobject = new GameObject(name);
+		GameObject* gameobject = new GameObject(name, parent);
 
-		gameobject_list.push_back(gameobject);
+		//add list only top hierarchy gameobject
+		if(parent == nullptr)
+			gameobject_list.push_back(gameobject);
 	}
 
 	void Scene::RemoveGameObject(GameObject* gameobject)

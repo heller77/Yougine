@@ -3,17 +3,17 @@
 
 namespace editor
 {
-	HierarchyWindow::HierarchyWindow(EditorWindowsManager* editor_windows_manager) :EditorWindow(editor_windows_manager, EditorWindowName::HierarchyWindow)
+	HierarchyWindow::HierarchyWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene) :EditorWindow(editor_windows_manager, EditorWindowName::HierarchyWindow)
 	{
+		this->scene = scene;
+
 		MENU_ITEMS_LIST =
 		{
 			"GameObject",
 		};
 
-		node_trees_list =
+		tree_objects_list =
 		{
-			{"Obj1", "Obj1_c1", "Obj1_c2"},
-			{"Obj2", "Obj2_c1", "Obj2_c2"},
 		};
 	}
 
@@ -32,8 +32,7 @@ namespace editor
 			ImGui::EndMenuBar();
 		}
 
-		RenderObjectsTree(node_trees_list[0]);
-		RenderObjectsTree(node_trees_list[1]);
+		RenderObjectsTree();
 
 		ImGui::End();
 		glClearColor(1.0, 0., 0., 1.0);
@@ -49,20 +48,16 @@ namespace editor
 		}
 	}
 
-	void HierarchyWindow::RenderObjectsTree(std::vector<std::string> node_names)
+	void HierarchyWindow::RenderObjectsTree()
 	{
 		int n = 0;
-		if (ImGui::TreeNode(node_names[n].c_str()))
+		for (std::vector<std::string> list : tree_objects_list)
 		{
-			/*
-			* 
-			* node_names[0]
-			*  - node_names[1]
-			*  - node_names[2]
-			* 
-			*/
-			RecursiveTree(node_names, ++n);
-			ImGui::TreePop();
+			if (ImGui::TreeNode(list[n].c_str()))
+			{
+				RecursiveTree(list, ++n);
+				ImGui::TreePop();
+			}
 		}
 	}
 
@@ -72,10 +67,32 @@ namespace editor
 		{
 			if (ImGui::TreeNode(node_names[n].c_str()))
 			{
+				RecursiveTree(node_names, ++n);
 				ImGui::TreePop();
 			}
-
-			RecursiveTree(node_names, ++n);
 		}
+	}
+
+	void HierarchyWindow::AddObjectToTreeList(std::string name, std::string top_name)
+	{
+		int tree_index = -1;
+
+		for (int i = 0; i < tree_objects_list.size(); i++)
+		{
+			if (top_name == tree_objects_list[i][0])
+			{
+				tree_index = i;
+			}
+		}
+
+		if (tree_index != -1)
+		{
+			tree_objects_list[tree_index].push_back(name);
+		}
+		else
+		{
+			tree_objects_list.push_back(std::vector<std::string>{ name });
+		}
+
 	}
 }

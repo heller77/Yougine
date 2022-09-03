@@ -64,10 +64,11 @@ int main()
 	int gVCBWidth = 300;
 	int gVCBHeight = 300;
 
+	yougine::Scene* scene = new yougine::Scene();
 
 	//Add Code
 	editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
-	editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager));
+	editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene));
 
 	yougine::InputManager* input_manager = new yougine::InputManager();
 	
