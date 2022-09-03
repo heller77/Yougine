@@ -18,5 +18,6 @@ namespace yougine::components
 		void Excute();
 		void InitializeOnPlayBack();
 		bool operator==(const Component& rhs) const;
+		GameObject* GetGameObject();
 	};
 }

@@ -14,7 +14,7 @@ namespace editor
 
 	public:
 		EditorWindow(EditorWindowsManager*, EditorWindowName);
-		void Draw();
+		virtual void Draw();
 
 	protected:
 		void Setup();
