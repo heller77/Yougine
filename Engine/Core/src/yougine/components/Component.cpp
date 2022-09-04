@@ -3,40 +3,40 @@
 
 namespace yougine::components
 {
-	Component::Component()
-	{
-		gameobject = nullptr;
-	}
+    Component::Component()
+    {
+        gameobject = nullptr;
+    }
 
-	Component::~Component()
-	{
+    Component::~Component()
+    {
 
-	}
+    }
 
-	//private
-	void InitializeProperties()
-	{
+    //private
+    void Component::InitializeProperties()
+    {
 
-	}
+    }
 
-	//public
-	void Component::Excute()
-	{
-		std::cout << "excute" << std::endl;
-	}
+    //public
+    void Component::Excute()
+    {
+        std::cout << "excute" << std::endl;
+    }
 
-	void Component::InitializeOnPlayBack()
-	{
-		std::cout << "initialize component" << std::endl;
-	}
+    void Component::InitializeOnPlayBack()
+    {
+        std::cout << "initialize component" << std::endl;
+    }
 
-	bool Component::operator==(const Component& rhs) const
-	{
-		return *this == rhs;
-	}
+    bool Component::operator==(const Component& rhs) const
+    {
+        return *this == rhs;
+    }
 
-	GameObject* Component::GetGameObject()
-	{
-		return gameobject;
-	}
+    GameObject* Component::GetGameObject()
+    {
+        return gameobject;
+    }
 }
