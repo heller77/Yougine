@@ -123,6 +123,9 @@
     <ClCompile Include="src\yougine\managers\RenderManager.cpp">
       <Filter>ソース ファイル\src\yougine\managers</Filter>
     </ClCompile>
+    <ClCompile Include="src\yougine\Editor\SceneWindow.cpp">
+      <Filter>ソース ファイル\src\yougine\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\yougine\components\Component.h">
@@ -201,7 +204,7 @@
       <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
     </ClInclude>
     <ClInclude Include="src\yougine\Editor\SceneWindow.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
