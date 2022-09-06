@@ -6,11 +6,17 @@ namespace yougine
     {
         GameObject* gameobject = new GameObject(name, parent);
 
-        //add list only top hierarchy gameobject
         if (parent == nullptr)
+        {
             gameobject_list.push_back(gameobject);
+        }
+        else
+        {
+            parent->AddChild(gameobject);
+        }
     }
 
+    //èàóùïœÇ¶ÇÈ
     void Scene::RemoveGameObject(GameObject* gameobject)
     {
         std::list<GameObject*> new_list;
@@ -35,12 +41,13 @@ namespace yougine
     {
         if (name.empty()) return nullptr;
 
+        GameObject* r_obj = nullptr;
         for (GameObject* game_object : gameobject_list)
         {
-            RecursiveGameObjects({ game_object }, name);
+            r_obj = RecursiveGameObjects({ game_object }, name);
         }
 
-        return nullptr;
+        return r_obj;
     }
 
     GameObject* Scene::RecursiveGameObjects(std::vector<GameObject*> game_objects, std::string name)

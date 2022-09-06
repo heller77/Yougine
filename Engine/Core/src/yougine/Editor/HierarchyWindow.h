@@ -8,9 +8,7 @@ namespace editor
 {
     struct SelectionInfo
     {
-        std::string obj_name = "";
-        int f_index = -1; //one dimension
-        int b_index = -1; //two dimension
+        yougine::GameObject* game_object = nullptr;
     };
 
     class HierarchyWindow : public EditorWindow
@@ -18,17 +16,14 @@ namespace editor
     private:
         yougine::Scene* scene;
         std::vector<std::string> MENU_ITEMS_LIST;
-        //useless for memory
-        std::vector<std::vector<std::string>> tree_objects_list;
         struct SelectionInfo s_selection_info;
-        std::string STR_EMPTY = "";
 
     private:
-        void SetSelectionInfo(std::string, int, int);
+        void SetSelectionInfo(yougine::GameObject*);
         void RenderMenuItems();
         void RenderObjectsTree();
-        void RecursiveTree(std::vector<std::string>, int, int);
-        void CreateGameObject(std::string, std::string);
+        void RecursiveTree(std::vector<yougine::GameObject*>);
+        void CreateGameObject(std::string, yougine::GameObject*);
 
     public:
         HierarchyWindow(EditorWindowsManager*, yougine::Scene*);
@@ -36,6 +31,5 @@ namespace editor
 
         using EditorWindow::Draw;
         virtual void Draw();
-        void AddObjectToTreeList(std::string, std::string);
     };
 }
