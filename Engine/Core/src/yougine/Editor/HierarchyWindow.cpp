@@ -131,7 +131,7 @@ namespace editor
 
     void HierarchyWindow::CreateGameObject(std::string name, std::string name_parent)
     {
-        scene->CreateGameObject(name, name_parent);
+        scene->CreateGameObject(name, scene->GetGameObjectByName(name_parent));
 
         std::string name_top = STR_EMPTY;
         if (tree_objects_list.size() > s_selection_info.f_index)
