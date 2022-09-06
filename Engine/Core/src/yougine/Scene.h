@@ -23,10 +23,12 @@ namespace yougine
 
     private:
         void RemoveGameObject(GameObject*);
+        GameObject* RecursiveGameObjects(std::vector<GameObject*>, std::string);
 
     public:
         std::list<GameObject*> GetGameObjects();
-        void CreateGameObject(std::string, std::string);
+        void CreateGameObject(std::string, GameObject*);
         GameObject* GetGameObjectByName(std::string);
     };
+
 }

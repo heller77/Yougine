@@ -2,9 +2,8 @@
 
 namespace yougine
 {
-    void Scene::CreateGameObject(std::string name, std::string name_parent)
+    void Scene::CreateGameObject(std::string name, GameObject* parent)
     {
-        GameObject* parent = GetGameObjectByName(name_parent);
         GameObject* gameobject = new GameObject(name, parent);
 
         //add list only top hierarchy gameobject
@@ -36,16 +35,27 @@ namespace yougine
     {
         if (name.empty()) return nullptr;
 
-
-        for (GameObject* obj_top : GetGameObjects())
+        for (GameObject* game_object : gameobject_list)
         {
-            for (GameObject* obj : obj_top->GetChildObjects()) //これの階層以下のオブジェクトどうやって参照すんの
-            {
-                if (obj->GetName() == name)
-                    return obj;
-            }
+            RecursiveGameObjects({ game_object }, name);
         }
 
         return nullptr;
     }
+
+    GameObject* Scene::RecursiveGameObjects(std::vector<GameObject*> game_objects, std::string name)
+    {
+        for (GameObject* obj : game_objects)
+        {
+            if (obj->GetName() == name)
+            {
+                return obj;
+            }
+
+            RecursiveGameObjects(obj->GetChildObjects(), name);
+        }
+
+        return nullptr;
+    }
+
 }

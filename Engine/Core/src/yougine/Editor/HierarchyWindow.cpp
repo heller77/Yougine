@@ -14,6 +14,9 @@ namespace editor
 
         tree_objects_list =
         {
+            // {Obj1, Obj1_c1}
+            // {Obj2, Obj2_c1, Obj2_c2}
+            // {Obj3, Obj3_c1}
         };
 
         SetSelectionInfo(STR_EMPTY, -1, -1); //initialize
