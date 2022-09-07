@@ -55,6 +55,9 @@
     <Filter Include="ヘッダー ファイル\src\yougine\Editor">
       <UniqueIdentifier>{fd235166-7506-4d20-9ef9-8bbf2efdd355}</UniqueIdentifier>
     </Filter>
+    <Filter Include="リソース ファイル\shader">
+      <UniqueIdentifier>{50683727-4de2-417a-8fb0-e7847fbf1e54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -113,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="src\yougine\components\TransformComponent.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\components\RenderComponent.cpp">
+      <Filter>ソース ファイル\src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\managers\RenderManager.cpp">
+      <Filter>ソース ファイル\src\yougine\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Editor\SceneWindow.cpp">
+      <Filter>ソース ファイル\src\yougine\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,13 +197,22 @@
     <ClInclude Include="src\yougine\Vector3.h">
       <Filter>ヘッダー ファイル\src\yougine</Filter>
     </ClInclude>
+    <ClInclude Include="src\yougine\components\RenderComponent.h">
+      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\managers\RenderManager.h">
+      <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\SceneWindow.h">
+      <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="test.frag">
-      <Filter>ソース ファイル</Filter>
+    <None Include="src\yougine\test.vert">
+      <Filter>リソース ファイル\shader</Filter>
     </None>
-    <None Include="test.vert">
-      <Filter>ソース ファイル</Filter>
+    <None Include="src\yougine\test.frag">
+      <Filter>リソース ファイル\shader</Filter>
     </None>
   </ItemGroup>
 </Project>
