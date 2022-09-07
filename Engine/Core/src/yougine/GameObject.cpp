@@ -40,7 +40,7 @@ namespace yougine
         return gameobject_parent;
     }
 
-    std::vector<GameObject*> GameObject::GetChildObjects()
+    std::list<GameObject*> GameObject::GetChildObjects()
     {
         return gameobject_childs;
     }

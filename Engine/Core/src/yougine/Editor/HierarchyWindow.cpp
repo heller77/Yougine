@@ -61,31 +61,32 @@ namespace editor
         {
             if (ImGui::MenuItem(item.c_str()))
             {
-                CreateGameObject(s_selection_info.game_object->GetName() + "_" + std::to_string((s_selection_info.game_object->GetChildObjects().size() + 1)), s_selection_info.game_object);
+                std::string o_name = s_selection_info.game_object != nullptr ? s_selection_info.game_object->GetName() + "_c" + std::to_string((s_selection_info.game_object->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
+                std::cout << "create : " + o_name << std::endl;
+                CreateGameObject(o_name, s_selection_info.game_object);
             };
         }
     }
 
     void HierarchyWindow::RenderObjectsTree()
     {
-        for (yougine::GameObject* game_object : scene->GetGameObjects())
-        {
-            if (ImGui::TreeNode(game_object->GetName().c_str()))
-            {
-                SetSelectionInfo(game_object);
-                RecursiveTree(game_object->GetChildObjects());
-                ImGui::TreePop();
-            }
-        }
+        RecursiveTree(scene->GetGameObjects());
     }
 
-    void HierarchyWindow::RecursiveTree(std::vector<yougine::GameObject*> game_objects)
+    void HierarchyWindow::RecursiveTree(std::list<yougine::GameObject*> game_objects)
     {
         for (yougine::GameObject* game_object : game_objects)
         {
-            if (ImGui::TreeNode(game_object->GetName().c_str()))
+            bool is_leaf = game_object->GetChildObjects().size() == 0;
+            ImGuiTreeNodeFlags node_flag = (ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow | (is_leaf ? ImGuiTreeNodeFlags_Leaf : 0));
+            bool is_open_tree = ImGui::TreeNodeEx(game_object->GetName().c_str(), node_flag);
+            if (ImGui::IsItemClicked())
             {
                 SetSelectionInfo(game_object);
+                std::cout << "select : " + s_selection_info.game_object->GetName() << std::endl;
+            }
+            if (is_open_tree)
+            {
                 RecursiveTree(game_object->GetChildObjects());
                 ImGui::TreePop();
             }

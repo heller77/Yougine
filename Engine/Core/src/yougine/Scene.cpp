@@ -2,6 +2,11 @@
 
 namespace yougine
 {
+    Scene::Scene(std::string name)
+    {
+        this->name = name;
+    }
+
     void Scene::CreateGameObject(std::string name, GameObject* parent)
     {
         GameObject* gameobject = new GameObject(name, parent);
@@ -32,6 +37,16 @@ namespace yougine
         gameobject_list = new_list;
     }
 
+    std::string Scene::GetName()
+    {
+        return name;
+    }
+
+    void Scene::SetName(std::string name)
+    {
+        this->name = name;
+    }
+
     std::list<GameObject*> Scene::GetGameObjects()
     {
         return gameobject_list;
@@ -50,7 +65,7 @@ namespace yougine
         return r_obj;
     }
 
-    GameObject* Scene::RecursiveGameObjects(std::vector<GameObject*> game_objects, std::string name)
+    GameObject* Scene::RecursiveGameObjects(std::list<GameObject*> game_objects, std::string name)
     {
         for (GameObject* obj : game_objects)
         {

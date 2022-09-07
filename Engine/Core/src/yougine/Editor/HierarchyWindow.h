@@ -2,7 +2,6 @@
 #include "EditorWindow.h"
 #include "../Scene.h"
 #include <algorithm>
-#include <list>
 
 namespace editor
 {
@@ -22,7 +21,7 @@ namespace editor
         void SetSelectionInfo(yougine::GameObject*);
         void RenderMenuItems();
         void RenderObjectsTree();
-        void RecursiveTree(std::vector<yougine::GameObject*>);
+        void RecursiveTree(std::list<yougine::GameObject*>);
         void CreateGameObject(std::string, yougine::GameObject*);
 
     public:

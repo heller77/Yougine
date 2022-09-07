@@ -7,6 +7,7 @@ namespace yougine
 {
     enum class KeyBind
     {
+        LeftClick,
         RightClick,
         BindMax,
     };
