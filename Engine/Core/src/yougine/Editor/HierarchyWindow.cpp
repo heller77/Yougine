@@ -12,7 +12,7 @@ namespace editor
             "GameObject",
         };
 
-        SetSelectionInfo(nullptr); //initialize
+        SetSelectionInfo(nullptr);
 
         SetSelectionInfo(nullptr);
         CreateGameObject("Obj1", nullptr);
