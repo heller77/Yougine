@@ -8,14 +8,14 @@ namespace yougine::managers
     class CustomScriptManager
     {
     private:
-        ComponentList componentlist_instance;
+        ComponentList* componentlist;
         ComponentName component_name = ComponentName::kCustom;
 
     private:
         void InitializeMembers();
 
     public:
-        CustomScriptManager();
+        CustomScriptManager(ComponentList*);
         void ExcuteCoponents();
     };
 }

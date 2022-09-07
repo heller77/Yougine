@@ -13,6 +13,7 @@
 #include "Editor/SceneWindow.h"
 #include <fstream>
 #include "InputManager.h"
+#include "managers/ComponentList.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -66,7 +67,8 @@ int main()
     int gVCBWidth = 300;
     int gVCBHeight = 300;
 
-    yougine::Scene* scene = new yougine::Scene();
+    yougine::Scene* scene = new yougine::Scene("Scene1");
+    yougine::managers::ComponentList* component_list = new yougine::managers::ComponentList();
 
     //Add Code
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();

@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <list>
 #include <string>
 
 namespace yougine::components
@@ -16,7 +17,7 @@ namespace yougine
         std::vector<components::Component*> component_list;
         std::string name;
         GameObject* gameobject_parent;
-        std::vector<GameObject*> gameobject_childs;
+        std::list<GameObject*> gameobject_childs;
 
     private:
         void InitializeComponentList();
@@ -28,7 +29,7 @@ namespace yougine
         std::vector<components::Component*> GetComponents();
         void AddChild(GameObject*);
         GameObject* GetParentObject();
-        std::vector<GameObject*> GetChildObjects();
+        std::list<GameObject*> GetChildObjects();
         bool operator==(const GameObject& rhs) const;
 
         template <class T> T* GetComponent()

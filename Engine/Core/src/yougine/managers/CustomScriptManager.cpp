@@ -2,15 +2,15 @@
 
 namespace yougine::managers
 {
-    CustomScriptManager::CustomScriptManager()
+    CustomScriptManager::CustomScriptManager(ComponentList* component_list)
     {
-        componentlist_instance = ComponentList();
+        this->componentlist = component_list;
         InitializeMembers();
     }
 
     void CustomScriptManager::InitializeMembers()
     {
-        for (GameObject gameobject : componentlist_instance.GetReferObjectList(ComponentName::kCustom))
+        for (GameObject gameobject : componentlist->GetReferObjectList(ComponentName::kCustom))
         {
             for (components::Component* component : gameobject.GetComponents())
             {
@@ -21,7 +21,7 @@ namespace yougine::managers
 
     void CustomScriptManager::ExcuteCoponents()
     {
-        for (GameObject gameObject : componentlist_instance.GetObjectsDictionary()[ComponentName::kCustom])
+        for (GameObject gameObject : componentlist->GetObjectsDictionary()[ComponentName::kCustom])
         {
             for (components::Component* component : gameObject.GetComponents())
             {

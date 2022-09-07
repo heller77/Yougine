@@ -9,24 +9,20 @@ namespace yougine
     class Scene
     {
     private:
-        /*
-        top hierarchy gameobject list
-
-        obj
-         - o_c1
-         - o_c2
-
-        if access obj->o_c2, gameobject_list[0].GetChildsObject()
-        GetChildsObject return obj's child objects
-        */
         std::list<GameObject*> gameobject_list;
+        std::string name;
 
     private:
         void RemoveGameObject(GameObject*);
+        GameObject* RecursiveGameObjects(std::list<GameObject*>, std::string);
 
     public:
+        Scene(std::string);
         std::list<GameObject*> GetGameObjects();
-        void CreateGameObject(std::string, std::string);
+        std::string GetName();
+        void SetName(std::string);
+        void CreateGameObject(std::string, GameObject*);
         GameObject* GetGameObjectByName(std::string);
     };
+
 }

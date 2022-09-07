@@ -6,6 +6,7 @@ namespace yougine
     {
         keycode_list =
         {
+            { KeyBind::LeftClick, 0x01 },
             { KeyBind::RightClick, 0x02 },
         };
 

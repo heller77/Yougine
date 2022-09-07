@@ -12,33 +12,27 @@ namespace editor
             "GameObject",
         };
 
-        tree_objects_list =
-        {
-        };
+        SetSelectionInfo(nullptr);
 
-        SetSelectionInfo(STR_EMPTY, -1, -1); //initialize
-
-        SetSelectionInfo(STR_EMPTY, 0, 0);
-        CreateGameObject("Obj1", STR_EMPTY);
-        SetSelectionInfo(STR_EMPTY, 0, 1);
-        CreateGameObject("Obj1_c1", "Obj1");
-        SetSelectionInfo(STR_EMPTY, 1, 0);
-        CreateGameObject("Obj2", STR_EMPTY);
-        SetSelectionInfo(STR_EMPTY, 1, 1);
-        CreateGameObject("Obj2_c1", "Obj2");
-        SetSelectionInfo(STR_EMPTY, 1, 2);
-        CreateGameObject("Obj2_c2", "Obj2_c1");
-        SetSelectionInfo(STR_EMPTY, 2, 0);
-        CreateGameObject("Obj3", STR_EMPTY);
-        SetSelectionInfo(STR_EMPTY, 2, 1);
-        CreateGameObject("Obj3_c1", "Obj3");
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj1", nullptr);
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj1_c1", scene->GetGameObjectByName("Obj1"));
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj2", nullptr);
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj2_c1", scene->GetGameObjectByName("Obj2"));
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj2_c2", scene->GetGameObjectByName("Obj2"));
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj3", nullptr);
+        SetSelectionInfo(nullptr);
+        CreateGameObject("Obj3_c1", scene->GetGameObjectByName("Obj3"));
     }
 
-    void HierarchyWindow::SetSelectionInfo(std::string obj_name, int f_index, int b_index)
+    void HierarchyWindow::SetSelectionInfo(yougine::GameObject* game_object)
     {
-        s_selection_info.obj_name = obj_name;
-        s_selection_info.f_index = f_index;
-        s_selection_info.b_index = b_index;
+        s_selection_info.game_object = game_object;
     }
 
     void HierarchyWindow::Draw()
@@ -67,72 +61,40 @@ namespace editor
         {
             if (ImGui::MenuItem(item.c_str()))
             {
-                //CreateGameObject(s_selection_info.obj_name + "_" + std::to_string(s_selection_info.b_index+1), s_selection_info.obj_name);
+                std::string o_name = s_selection_info.game_object != nullptr ? s_selection_info.game_object->GetName() + "_c" + std::to_string((s_selection_info.game_object->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
+                std::cout << "create : " + o_name << std::endl;
+                CreateGameObject(o_name, s_selection_info.game_object);
             };
         }
     }
 
     void HierarchyWindow::RenderObjectsTree()
     {
-        int n_p = 0, n = 0; //n_p, n ¨ s—ñ
-        for (std::vector<std::string> list : tree_objects_list)
-        {
-            if (ImGui::TreeNode(list[0].c_str()))
-            {
-                SetSelectionInfo(list[0], n_p, 0);
-                RecursiveTree(list, n_p, ++n);
-                ImGui::TreePop();
-            }
-
-            n_p++;
-            n = 0;
-        }
+        RecursiveTree(scene->GetGameObjects());
     }
 
-    void HierarchyWindow::RecursiveTree(std::vector<std::string> node_names, int n_p, int n)
+    void HierarchyWindow::RecursiveTree(std::list<yougine::GameObject*> game_objects)
     {
-        if (n < node_names.size())
+        for (yougine::GameObject* game_object : game_objects)
         {
-            if (ImGui::TreeNode(node_names[n].c_str()))
+            bool is_leaf = game_object->GetChildObjects().size() == 0;
+            ImGuiTreeNodeFlags node_flag = (ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow | (is_leaf ? ImGuiTreeNodeFlags_Leaf : 0));
+            bool is_open_tree = ImGui::TreeNodeEx(game_object->GetName().c_str(), node_flag);
+            if (ImGui::IsItemClicked())
             {
-                SetSelectionInfo(node_names[n], n_p, n);
-                RecursiveTree(node_names, n_p, ++n);
+                SetSelectionInfo(game_object);
+                std::cout << "select : " + s_selection_info.game_object->GetName() << std::endl;
+            }
+            if (is_open_tree)
+            {
+                RecursiveTree(game_object->GetChildObjects());
                 ImGui::TreePop();
             }
         }
     }
 
-    void HierarchyWindow::AddObjectToTreeList(std::string name, std::string name_top)
+    void HierarchyWindow::CreateGameObject(std::string name, yougine::GameObject* parent)
     {
-        int tree_index = -1;
-
-
-        for (int i = 0; i < tree_objects_list.size(); i++)
-        {
-
-            if (name_top == tree_objects_list[i][0])
-            {
-                tree_index = i;
-            }
-        }
-
-        if (tree_index != -1)
-        {
-            tree_objects_list[tree_index].push_back(name);
-        }
-        else
-        {
-            tree_objects_list.push_back(std::vector<std::string>{ name });
-        }
-    }
-
-    void HierarchyWindow::CreateGameObject(std::string name, std::string name_parent)
-    {
-        scene->CreateGameObject(name, name_parent);
-
-        std::string name_top = STR_EMPTY;
-        if (tree_objects_list.size() > s_selection_info.f_index)
-            name_top = tree_objects_list[s_selection_info.f_index][0];
-        AddObjectToTreeList(name, name_top);
+        scene->CreateGameObject(name, parent);
     }
 }

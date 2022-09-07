@@ -2,16 +2,26 @@
 
 namespace yougine
 {
-    void Scene::CreateGameObject(std::string name, std::string name_parent)
+    Scene::Scene(std::string name)
     {
-        GameObject* parent = GetGameObjectByName(name_parent);
-        GameObject* gameobject = new GameObject(name, parent);
-
-        //add list only top hierarchy gameobject
-        if (parent == nullptr)
-            gameobject_list.push_back(gameobject);
+        this->name = name;
     }
 
+    void Scene::CreateGameObject(std::string name, GameObject* parent)
+    {
+        GameObject* gameobject = new GameObject(name, parent);
+
+        if (parent == nullptr)
+        {
+            gameobject_list.push_back(gameobject);
+        }
+        else
+        {
+            parent->AddChild(gameobject);
+        }
+    }
+
+    //処理変える
     void Scene::RemoveGameObject(GameObject* gameobject)
     {
         std::list<GameObject*> new_list;
@@ -27,6 +37,16 @@ namespace yougine
         gameobject_list = new_list;
     }
 
+    std::string Scene::GetName()
+    {
+        return name;
+    }
+
+    void Scene::SetName(std::string name)
+    {
+        this->name = name;
+    }
+
     std::list<GameObject*> Scene::GetGameObjects()
     {
         return gameobject_list;
@@ -36,16 +56,28 @@ namespace yougine
     {
         if (name.empty()) return nullptr;
 
-
-        for (GameObject* obj_top : GetGameObjects())
+        GameObject* r_obj = nullptr;
+        for (GameObject* game_object : gameobject_list)
         {
-            for (GameObject* obj : obj_top->GetChildObjects()) //これの階層以下のオブジェクトどうやって参照すんの
+            r_obj = RecursiveGameObjects({ game_object }, name);
+        }
+
+        return r_obj;
+    }
+
+    GameObject* Scene::RecursiveGameObjects(std::list<GameObject*> game_objects, std::string name)
+    {
+        for (GameObject* obj : game_objects)
+        {
+            if (obj->GetName() == name)
             {
-                if (obj->GetName() == name)
-                    return obj;
+                return obj;
             }
+
+            RecursiveGameObjects(obj->GetChildObjects(), name);
         }
 
         return nullptr;
     }
+
 }
