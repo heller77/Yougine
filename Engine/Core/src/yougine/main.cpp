@@ -10,6 +10,7 @@
 
 #include "Editor/EditorWindowsManager.h"
 #include "Editor/HierarchyWindow.h"
+#include "Editor/SceneWindow.h"
 #include <fstream>
 #include "InputManager.h"
 
@@ -31,8 +32,8 @@ int main()
     const char* glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on Mac
 
     //�E�B���h�E���쐬
     GLFWwindow* const window = glfwCreateWindow(1280, 720, "Game Engine", NULL, NULL);
@@ -47,7 +48,8 @@ int main()
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
 
     // Setup Dear ImGui style
     //ImGui::StyleColorsDark();
@@ -69,7 +71,7 @@ int main()
     //Add Code
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
     editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene));
-
+    editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     yougine::InputManager* input_manager = new yougine::InputManager();
 
     while (glfwWindowShouldClose(window) == GL_FALSE)
@@ -90,4 +92,3 @@ int main()
     glfwDestroyWindow(window);
     glfwTerminate();
 }
-
