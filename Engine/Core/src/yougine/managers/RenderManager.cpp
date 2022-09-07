@@ -16,6 +16,37 @@ namespace yougine
 }
 namespace yougine::managers
 {
+    RenderManager::RenderManager(int width, int height)
+    {
+        this->width = width;
+        this->height = height;
+        //カラーバッファ
+        glGenTextures(1, &this->colorBuffer);
+        glBindTexture(GL_TEXTURE_2D, this->colorBuffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        //デプスバッファ
+        glGenRenderbuffers(1, &this->depthBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, this->depthBuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+        //フレームバッファ
+        glGenFramebuffers(1, &this->frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->colorBuffer, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+    }
 
     /**
      * \brief 初期化
@@ -29,11 +60,16 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
-        glClearColor(1, 1, 1, 0);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
+        glViewport(0, 0, this->width, this->height);
+        constexpr GLfloat color[]{ 1.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
+        glClearBufferfv(GL_COLOR, 0, color);
+        glClearBufferfv(GL_DEPTH, 0, &depth);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         //オブジェクトそれぞれ描画
     }
+
 
     struct Vertex
     {
@@ -47,9 +83,9 @@ namespace yougine::managers
     void RenderManager::RenderOneGameObject(comoponents::RenderComponent render_component)
     {
         Vertex vertex[] = {
-            {-0.5, -0.5, 0.0, 1},
-            {0.5, -0.5, 0.0, 1},
-            {-0.5, 0.5, 0.0, 1},
+          {-0.5, -0.5, 0.0, 1},
+          {0.5, -0.5, 0.0, 1},
+          {-0.5, 0.5, 0.0, 1},
         };
 
         auto program = ShaderInit("", "");
@@ -83,6 +119,7 @@ namespace yougine::managers
 
         //シェーダコードをオブジェクトに渡す
         const char* vsShaderSource_char = vs_shader_source.c_str();
+        std::cout << "vertex \n" << vs_shader_source << std::endl;
         glShaderSource(vsShader, 1, &vsShaderSource_char, nullptr);
         const char* fsShaderSource_char = fs_shader_source.c_str();
         glShaderSource(fsShader, 1, &fsShaderSource_char, nullptr);
@@ -95,7 +132,6 @@ namespace yougine::managers
         PrintShaderInfoLog(vsShader, "vertex shader");
         PrintShaderInfoLog(fsShader, "fragment shader");
 
-
         //programにアタッチ
         glAttachShader(program, vsShader);
         glDeleteShader(vsShader);
@@ -107,17 +143,35 @@ namespace yougine::managers
         return program;
     }
 
+    GLuint RenderManager::ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath)
+    {
+        // return this->ShaderInit(this->ReadFile(vsFilePath), this->ReadFile(fsFilePath));
+        return 0;
+    }
+
+    GLuint RenderManager::GetColorBuffer()
+    {
+        return this->colorBuffer;
+    }
+
+    void RenderManager::SetWindowSize(ImVec2 vec2)
+    {
+        this->width = vec2.x;
+        this->height = vec2.y;
+    }
+
     void RenderManager::MeshBufferInit()
     {
     }
 
     GLboolean RenderManager::PrintShaderInfoLog(GLuint shader, const char* str)
     {
+        std::cout << "compile log " << std::endl;
         GLint status;
         glGetShaderiv(shader, GL_COMPILE_STATUS, &status);
         if (status == GL_FALSE)
         {
-            std::cerr << "Compile error in" << str << std::endl;
+            std::cerr << "Compile error in " << str << std::endl;
         }
 
         GLsizei bufferSize;
@@ -138,18 +192,27 @@ namespace yougine::managers
     {
         std::string content;
         std::ifstream reading_file(filepath, std::ios::in);
-        if (!reading_file.is_open())
+        std::cout << "file read .. " << std::endl;
+        if (!reading_file)
         {
             std::cerr << "Could not read file " << filepath << ". File does not exist." << std::endl;
             return "";
         }
         std::string line = "";
-        while (reading_file.eof())
+        std::string a;
+        while (std::getline(reading_file, a))
         {
+            std::cout << "file reading now" << std::endl;
+            content.append(a + "\n");
+        }
+        /*while (reading_file.eof())
+        {
+            std::cout << "file reading now" << std::endl;
             std::getline(reading_file, line);
             content.append(line + "\n");
-        }
+        }*/
         reading_file.close();
+        std::cout << "file contens is \n" << content << std::endl;
 
         return content;
     }

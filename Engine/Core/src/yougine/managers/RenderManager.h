@@ -4,18 +4,32 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../components/RenderComponent.h"
+
+#include "imgui/imgui.h"
 namespace yougine::managers
 {
     class RenderManager
     {
     public:
+        RenderManager(int width, int height);
+
         void Initialize();
 
         void RenderScene();
 
         GLuint ShaderInit(const std::string& vs_shader_source, const std::string& fs_shader_source);
+        GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+        GLuint GetColorBuffer();
+        void SetWindowSize(ImVec2 vec2);
 
     private:
+        int width, height;
+        GLuint frameBuffer;
+
+        GLuint colorBuffer;
+
+        GLuint depthBuffer;
+
         void RenderOneGameObject(comoponents::RenderComponent render_component);
 
         void MeshBufferInit();
