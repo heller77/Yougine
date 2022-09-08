@@ -38,10 +38,6 @@ namespace yougine::managers
         glGenRenderbuffers(1, &this->depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, this->depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
 
         //フレームバッファ
         glGenFramebuffers(1, &this->frameBuffer);
@@ -49,28 +45,16 @@ namespace yougine::managers
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
 
         Vertex vertex[] = {
             {-0.5, -0.5, 0.0, 1},
             {0.5, -0.5, 0.0, 1},
             {-0.5, 0.5, 0.0, 1},
         };
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
 
         this->program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
         glGenVertexArrays(1, &this->vao);
         glBindVertexArray(vao);
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
 
         //頂点バッファを作成
         GLuint vertexBuffer;
@@ -78,24 +62,10 @@ namespace yougine::managers
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
         glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), vertex, GL_STATIC_DRAW);
 
-
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
-
         //シェーダに値を渡す
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
 
         glEnableVertexAttribArray(vertexShader_PositionAttribute);
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある" << std::endl;
-        }
         glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
 
         while ((err = glGetError()) != GL_NO_ERROR)
