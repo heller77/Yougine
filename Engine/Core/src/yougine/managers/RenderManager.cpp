@@ -149,7 +149,6 @@ namespace yougine::managers
         {
             std::cout << err << " ‚Æ‚¢‚¤ƒGƒ‰[‚ª‚ ‚é in rendergameobject" << std::endl;
         }
-        std::cout << program << " : vao" << vao << std::endl;
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
 
