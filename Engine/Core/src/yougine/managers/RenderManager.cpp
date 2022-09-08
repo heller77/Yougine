@@ -16,8 +16,14 @@ namespace yougine
 }
 namespace yougine::managers
 {
+    struct Vertex
+    {
+        GLfloat position[4];
+    };
+
     RenderManager::RenderManager(int width, int height)
     {
+        GLenum err;
         this->width = width;
         this->height = height;
         //カラーバッファ
@@ -28,12 +34,14 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glBindTexture(GL_TEXTURE_2D, 0);
         //デプスバッファ
         glGenRenderbuffers(1, &this->depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, this->depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
 
         //フレームバッファ
         glGenFramebuffers(1, &this->frameBuffer);
@@ -41,7 +49,55 @@ namespace yougine::managers
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+
+        Vertex vertex[] = {
+            {-0.5, -0.5, 0.0, 1},
+            {0.5, -0.5, 0.0, 1},
+            {-0.5, 0.5, 0.0, 1},
+        };
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+
+        this->program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        glGenVertexArrays(1, &this->vao);
+        glBindVertexArray(vao);
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+
+        //頂点バッファを作成
+        GLuint vertexBuffer;
+        glGenBuffers(1, &vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), vertex, GL_STATIC_DRAW);
+
+
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+
+        //シェーダに値を渡す
+        auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+
+        glEnableVertexAttribArray(vertexShader_PositionAttribute);
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある" << std::endl;
+        }
+        glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
+
         while ((err = glGetError()) != GL_NO_ERROR)
         {
             std::cout << err << " というエラーがある" << std::endl;
@@ -62,54 +118,42 @@ namespace yougine::managers
     {
         glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
-        constexpr GLfloat color[]{ 1.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
+        constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
         //オブジェクトそれぞれ描画
+        auto rendercomopent = new comoponents::RenderComponent();
+        RenderOneGameObject(rendercomopent);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in renderscene" << std::endl;
+        }
     }
-
-
-    struct Vertex
-    {
-        GLfloat position[4];
-    };
 
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(comoponents::RenderComponent render_component)
+    void RenderManager::RenderOneGameObject(comoponents::RenderComponent* render_component)
     {
-        Vertex vertex[] = {
-          {-0.5, -0.5, 0.0, 1},
-          {0.5, -0.5, 0.0, 1},
-          {-0.5, 0.5, 0.0, 1},
-        };
-
-        auto program = ShaderInit("", "");
-        GLuint vao;
-        glGenVertexArrays(1, &vao);
+        // GameObject* gameobject = render_component->GetGameObject();
+        // components::TransformComponent* transform;
+        // transform = gameobject->GetComponent<components::TransformComponent>();
+        glUseProgram(program);
         glBindVertexArray(vao);
-
-        //頂点バッファを作成
-        GLuint vertexBuffer;
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), vertex, GL_STATIC_DRAW);
-
-        //シェーダに値を渡す
-        auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
-        glEnableVertexAttribArray(vertexShader_PositionAttribute);
-        glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLAT, GL_FALSE, 0, 0);
-
-        GameObject* gameobject = render_component.GetGameObject();
-        components::TransformComponent* transform;
-        transform = gameobject->GetComponent<components::TransformComponent>();
+        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in rendergameobject" << std::endl;
+        }
+        std::cout << program << " : vao" << vao << std::endl;
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     }
 
-    GLuint RenderManager::ShaderInit(const std::string& vs_shader_source, const std::string& fs_shader_source)
+    GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)
     {
         const auto program = glCreateProgram();
 
@@ -145,8 +189,8 @@ namespace yougine::managers
 
     GLuint RenderManager::ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath)
     {
-        // return this->ShaderInit(this->ReadFile(vsFilePath), this->ReadFile(fsFilePath));
-        return 0;
+        return this->ShaderInit(this->ReadFile(vsFilePath), this->ReadFile(fsFilePath));
+        // return 0;
     }
 
     GLuint RenderManager::GetColorBuffer()
