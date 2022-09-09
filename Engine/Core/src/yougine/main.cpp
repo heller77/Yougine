@@ -12,7 +12,6 @@
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
 #include <fstream>
-#include "InputManager.h"
 #include "managers/ComponentList.h"
 
 static void glfw_error_callback(int error, const char* description)
@@ -71,20 +70,22 @@ int main()
     yougine::managers::ComponentList* component_list = new yougine::managers::ComponentList();
 
     //Add Code
-    editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
-    editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     yougine::InputManager* input_manager = new yougine::InputManager();
+    editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
+    editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
+    editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
 
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
-        editor_windows_manager->CreateWindows(window);
-
         input_manager->UpdateInput();
+        /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {
             std::cout << "RightClick" << std::endl;
         }
+        */
+
+        editor_windows_manager->CreateWindows(window);
     }
 
     ImGui_ImplOpenGL3_Shutdown();
