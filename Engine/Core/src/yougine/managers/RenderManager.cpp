@@ -48,15 +48,23 @@ namespace yougine::managers
         GLuint frameBuffer;
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->renderComponent->GetColorBuffer(), 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->renderComponent->GetDepthBuffer());
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+            this->renderComponent->GetColorBuffer(), 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
+            this->renderComponent->GetDepthBuffer());
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->renderComponent->SetFrameBuferr(frameBuffer);
 
-        Vertex vertex[] = {
-            {-0.5, -0.5, 0.0, 1},
+        Vertex vertices[] = {
+            {0.5, 0.5, 0.0, 1},
             {0.5, -0.5, 0.0, 1},
+            {-0.5, -0.5, 0.0, 1},
             {-0.5, 0.5, 0.0, 1},
+        };
+        GLuint indices[] = {
+            // note that we start from 0!
+            0, 1, 3, // first triangle
+            1, 2, 3 // second triangle
         };
         GLuint program, vao;
         program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
@@ -69,7 +77,13 @@ namespace yougine::managers
         GLuint vertexBuffer;
         glGenBuffers(1, &vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), vertex, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+
+        // //インデックスバッファ
+        GLuint elementBuffer;
+        glGenBuffers(1, &elementBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         //シェーダに値を渡す
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
@@ -79,7 +93,7 @@ namespace yougine::managers
 
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " というエラーがある" << std::endl;
+            std::cout << err << " というエラーがある in constructer" << std::endl;
         }
     }
 
@@ -128,7 +142,9 @@ namespace yougine::managers
         {
             std::cout << err << " というエラーがある in rendergameobject" << std::endl;
         }
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 
     GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)
