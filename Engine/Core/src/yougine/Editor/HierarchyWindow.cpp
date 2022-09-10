@@ -97,7 +97,7 @@ namespace editor
             else if (!ImGui::IsAnyItemHovered() && flame_click_trigger && !s_selection_info.flame_selected)
             {
                 SetSelectionInfo(nullptr, true);
-                std::cout << "select ‰ðœ" << std::endl;
+                std::cout << "select - ‰ðœ -" << std::endl;
             }
 
             if (is_open_tree)
