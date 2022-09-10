@@ -10,20 +10,22 @@ namespace yougine::components
 namespace yougine
 {
     class GameObject;
+    class Scene;
 
     class GameObject
     {
     private:
-        std::vector<components::Component*> component_list;
+        Scene* scene;
+        std::vector<components::Component*> components;
         std::string name;
         GameObject* gameobject_parent;
         std::list<GameObject*> gameobject_childs;
 
     private:
-        void InitializeComponentList();
+        void InitializeComponents();
 
     public:
-        GameObject(std::string, GameObject*);
+        GameObject(Scene*, std::string, GameObject*);
         std::string GetName();
         void SetName(std::string);
         std::vector<components::Component*> GetComponents();
@@ -36,7 +38,7 @@ namespace yougine
         {
             T* component;
 
-            for (components::Component* c : component_list)
+            for (components::Component* c : components)
             {
                 component = dynamic_cast<T*>(c);
                 if (component != nullptr)
@@ -51,7 +53,7 @@ namespace yougine
         //component already exist on component_list, not add & return nullptr
         template <class T> T* AddComponent()
         {
-            for (components::Component* c : component_list)
+            for (components::Component* c : components)
             {
                 if (typeid(c) == typeid(T*))
                 {
@@ -60,7 +62,7 @@ namespace yougine
             }
 
             T* component = new T();
-            component_list.push_back(component);
+            components.push_back(component);
             return component;
         }
 
@@ -78,7 +80,7 @@ namespace yougine
                 }
             }
 
-            component_list = new_list;
+            components = new_list;
         }
     };
 }

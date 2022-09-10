@@ -3,14 +3,15 @@
 
 namespace yougine
 {
-    GameObject::GameObject(std::string name, GameObject* gameobject_parent)
+    GameObject::GameObject(Scene* scene, std::string name, GameObject* gameobject_parent)
     {
+        this->scene = scene;
         this->name = name;
         this->gameobject_parent = gameobject_parent;
-        InitializeComponentList();
+        InitializeComponents();
     }
 
-    void GameObject::InitializeComponentList()
+    void GameObject::InitializeComponents()
     {
 
     }
@@ -27,7 +28,7 @@ namespace yougine
 
     std::vector<components::Component*> GameObject::GetComponents()
     {
-        return component_list;
+        return components;
     }
 
     void GameObject::AddChild(GameObject* gameobject)

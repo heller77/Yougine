@@ -67,7 +67,6 @@ int main()
     int gVCBHeight = 300;
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
-    yougine::managers::ComponentList* component_list = new yougine::managers::ComponentList();
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
