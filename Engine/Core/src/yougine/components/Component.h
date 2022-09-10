@@ -1,4 +1,6 @@
 #pragma once
+#include "../Scene.h"
+#include "../managers/ComponentName.h"
 
 namespace yougine
 {
@@ -9,7 +11,7 @@ namespace yougine::components
     class Component
     {
     private:
-        GameObject* gameobject;
+        GameObject* parent_gameobject;
 
     private:
         void InitializeProperties();

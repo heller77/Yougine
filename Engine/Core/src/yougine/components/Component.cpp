@@ -5,7 +5,7 @@ namespace yougine::components
 {
     Component::Component()
     {
-        gameobject = nullptr;
+        this->parent_gameobject = nullptr;
     }
 
     Component::~Component()
@@ -37,6 +37,6 @@ namespace yougine::components
 
     GameObject* Component::GetGameObject()
     {
-        return gameobject;
+        return parent_gameobject;
     }
 }

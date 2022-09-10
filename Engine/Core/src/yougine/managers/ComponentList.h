@@ -9,11 +9,11 @@ namespace yougine::managers
     class ComponentList
     {
     private:
-        std::map<ComponentName, std::vector<GameObject>> gameobjects_dictionary;
+        std::map<ComponentName, std::vector<GameObject*>> gameobjects_dictionary;
 
     public:
-        std::map<ComponentName, std::vector<GameObject>> GetObjectsDictionary();
-        void AddObjectToDictionary(ComponentName, GameObject);
-        std::vector<GameObject> GetReferObjectList(ComponentName);
+        std::map<ComponentName, std::vector<GameObject*>> GetObjectsDictionary();
+        void AddObjectToDictionary(ComponentName, GameObject*);
+        std::vector<GameObject*> GetReferObjectList(ComponentName);
     };
 }

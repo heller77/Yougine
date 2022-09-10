@@ -9,7 +9,7 @@ namespace yougine
 
     void Scene::CreateGameObject(std::string name, GameObject* parent)
     {
-        GameObject* gameobject = new GameObject(name, parent);
+        GameObject* gameobject = new GameObject(this, name, parent);
 
         if (parent == nullptr)
         {
