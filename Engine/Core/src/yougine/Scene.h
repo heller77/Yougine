@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "managers/ComponentList.h"
 #include <list>
 
 namespace yougine
@@ -10,6 +11,7 @@ namespace yougine
     {
     private:
         std::list<GameObject*> gameobject_list;
+        managers::ComponentList* component_list;
         std::string name;
 
     private:
@@ -18,6 +20,7 @@ namespace yougine
 
     public:
         Scene(std::string);
+        managers::ComponentList* GetComponentList();
         std::list<GameObject*> GetGameObjects();
         std::string GetName();
         void SetName(std::string);

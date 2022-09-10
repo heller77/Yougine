@@ -5,6 +5,7 @@ namespace yougine
     Scene::Scene(std::string name)
     {
         this->name = name;
+        component_list = new managers::ComponentList();
     }
 
     void Scene::CreateGameObject(std::string name, GameObject* parent)
@@ -36,6 +37,12 @@ namespace yougine
 
         gameobject_list = new_list;
     }
+
+    managers::ComponentList* Scene::GetComponentList()
+    {
+        return component_list;
+    }
+
 
     std::string Scene::GetName()
     {
