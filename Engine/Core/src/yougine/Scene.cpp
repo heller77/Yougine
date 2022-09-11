@@ -5,6 +5,7 @@ namespace yougine
     Scene::Scene(std::string name)
     {
         editor::SelectionInfo::Create();
+        LayerManager::Create();
         this->name = name;
         component_list = new managers::ComponentList();
     }

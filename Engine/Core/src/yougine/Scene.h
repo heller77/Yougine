@@ -3,6 +3,7 @@
 #include "managers/ComponentList.h"
 #include <list>
 #include "Editor/SelectionInfo.h"
+#include "Layer.h"
 
 namespace yougine
 {

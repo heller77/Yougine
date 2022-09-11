@@ -8,7 +8,7 @@ namespace yougine
         this->scene = scene;
         this->name = name;
         this->gameobject_parent = gameobject_parent;
-        layer = new Layer();
+        layer = LayerManager::GetInstance()->GetLayerByName("Default");
         InitializeComponents();
     }
 
@@ -31,6 +31,12 @@ namespace yougine
     {
         return layer;
     }
+
+    void GameObject::SetLayer(Layer* layer)
+    {
+        this->layer = layer;
+    }
+
 
     std::vector<components::Component*> GameObject::GetComponents()
     {

@@ -166,6 +166,7 @@
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
+    <ClCompile Include="src\yougine\Layer.cpp" />
     <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
     <ClCompile Include="src\yougine\components\Component.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />

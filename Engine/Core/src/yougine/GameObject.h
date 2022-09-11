@@ -19,7 +19,7 @@ namespace yougine
         Scene* scene;
         std::vector<components::Component*> components;
         std::string name;
-        yougine::Layer* layer;
+        Layer* layer;
         GameObject* gameobject_parent;
         std::list<GameObject*> gameobject_childs;
 
@@ -31,6 +31,7 @@ namespace yougine
         std::string GetName();
         void SetName(std::string);
         Layer* GetLayer();
+        void SetLayer(Layer*);
         std::vector<components::Component*> GetComponents();
         void AddChild(GameObject*);
         GameObject* GetParentObject();
