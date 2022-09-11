@@ -11,7 +11,7 @@ namespace yougine::managers
     class RenderManager
     {
     public:
-        RenderManager(int width, int height);
+        RenderManager(int width, int height, ComponentList* component_list);
 
         void Initialize();
 
@@ -23,6 +23,7 @@ namespace yougine::managers
         void SetWindowSize(ImVec2 vec2);
 
     private:
+        ComponentList* component_list;
         int width, height;
         GLuint program;
         GLuint vao;

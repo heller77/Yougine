@@ -21,8 +21,10 @@ namespace yougine::managers
         GLfloat position[4];
     };
 
-    RenderManager::RenderManager(int width, int height)
+    RenderManager::RenderManager(int width, int height, managers::ComponentList* component_list)
     {
+        this->component_list = component_list;
+
         GLenum err;
         this->width = width;
         this->height = height;
@@ -72,6 +74,9 @@ namespace yougine::managers
         {
             std::cout << err << " というエラーがある" << std::endl;
         }
+        //componentを取得できるかのテスト用コード
+        auto render_component_List = component_list->GetReferObjectList(ComponentName::kRender);
+        std::cout << "renderComponent の数 : " << render_component_List.size() << std::endl;
     }
 
     /**
