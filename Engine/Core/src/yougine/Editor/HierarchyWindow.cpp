@@ -27,7 +27,8 @@ namespace editor
     {
         InitializeFlameProperties();
 
-        ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str(), nullptr, ImGuiWindowFlags_MenuBar);
+        ImGuiWindowFlags flags = (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar);
+        ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str(), nullptr, flags);
 
         if (ImGui::BeginMenuBar())
         {
@@ -80,7 +81,7 @@ namespace editor
                 selection_info->SetSelectionInfo(game_object, true);
                 std::cout << "select : " + selection_info->GetSelectObject()->GetName() << std::endl;
             }
-            else if (!ImGui::IsAnyItemHovered() && flame_click_trigger && !selection_info->GetSelectedFlag())
+            else if ((!ImGui::IsAnyItemHovered()) && flame_click_trigger && !selection_info->GetSelectedFlag())
             {
                 selection_info->SetSelectionInfo(nullptr, true);
                 std::cout << "select- 解除 -" << std::endl;
