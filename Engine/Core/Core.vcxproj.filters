@@ -126,6 +126,12 @@
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp">
       <Filter>ソース ファイル\src\yougine\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\yougine\components\Component.h">
@@ -205,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="src\yougine\Editor\SceneWindow.h">
       <Filter>ヘッダー ファイル\src\yougine\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\InspectorWindow.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Layer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\Editor\SelectionInfo.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

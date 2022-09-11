@@ -2,6 +2,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include "Layer.h"
 
 namespace yougine::components
 {
@@ -18,6 +19,7 @@ namespace yougine
         Scene* scene;
         std::vector<components::Component*> components;
         std::string name;
+        yougine::Layer* layer;
         GameObject* gameobject_parent;
         std::list<GameObject*> gameobject_childs;
 
@@ -28,6 +30,7 @@ namespace yougine
         GameObject(Scene*, std::string, GameObject*);
         std::string GetName();
         void SetName(std::string);
+        Layer* GetLayer();
         std::vector<components::Component*> GetComponents();
         void AddChild(GameObject*);
         GameObject* GetParentObject();
