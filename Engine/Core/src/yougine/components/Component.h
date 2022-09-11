@@ -12,12 +12,13 @@ namespace yougine::components
     {
     private:
         GameObject* parent_gameobject;
+        managers::ComponentName component_name;
 
     private:
         void InitializeProperties();
 
     public:
-        Component();
+        Component(managers::ComponentName componentname);
         ~Component();
         virtual void Excute();
         void InitializeOnPlayBack();

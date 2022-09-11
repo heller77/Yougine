@@ -3,9 +3,10 @@
 
 namespace yougine::components
 {
-    Component::Component()
+    Component::Component(managers::ComponentName componentname)
     {
         this->parent_gameobject = nullptr;
+        this->component_name = componentname;
     }
 
     Component::~Component()
@@ -52,9 +53,15 @@ namespace yougine::components
     {
         if (this->parent_gameobject == nullptr)
         {
+            //parent_gameobject‚ª
             throw "exception,this compoent does not have parentGameobject";
             return;
         }
-        scene->GetComponentList()->AddObjectToDictionary(managers::ComponentName::kCustom, this->parent_gameobject);
+        else if (this->component_name == managers::ComponentName::kNone)
+        {
+            throw "throw,this component can not register to ComponentList";
+            return;
+        }
+        scene->GetComponentList()->AddObjectToDictionary(this->component_name, this->parent_gameobject);
     }
 }
