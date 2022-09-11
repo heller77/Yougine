@@ -55,6 +55,6 @@ namespace yougine
     {
         // component
         component->SetParentGameObject(this);
-        component->SetThisComponentToComponentList(this->scene);
+        component->RegisterThisComponentToComponentList(this->scene);
     }
 }

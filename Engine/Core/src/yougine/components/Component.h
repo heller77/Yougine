@@ -6,6 +6,7 @@ namespace yougine
 {
     class GameObject;
 }
+
 namespace yougine::components
 {
     class Component
@@ -13,6 +14,11 @@ namespace yougine::components
     private:
         GameObject* parent_gameobject;
         managers::ComponentName component_name;
+        // bool isRegisterdToComponentList;
+        /**
+         * \brief “o˜^‚µ‚Ä‚¢‚éComponentList
+         */
+        managers::ComponentList* register_component_list;
 
     private:
         void InitializeProperties();
@@ -25,6 +31,7 @@ namespace yougine::components
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();
         void SetParentGameObject(GameObject* parent_gameobject);
-        void SetThisComponentToComponentList(Scene* scene);
+        void RegisterThisComponentToComponentList(Scene* scene);
+        void UnregisterThisComponentFromComponentList();
     };
 }

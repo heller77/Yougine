@@ -11,13 +11,11 @@ namespace yougine::components
 
     Component::~Component()
     {
-
     }
 
     //private
     void Component::InitializeProperties()
     {
-
     }
 
     //public
@@ -40,6 +38,7 @@ namespace yougine::components
     {
         return parent_gameobject;
     }
+
     void Component::SetParentGameObject(GameObject* parent_gameobject)
     {
         this->parent_gameobject = parent_gameobject;
@@ -49,8 +48,13 @@ namespace yougine::components
      * \brief parentgameobjectがnullの場合エラーを出す（SetParentGameObject関数を先に呼ばないとエラーになる）
      * \param scene parentGameobjectが所属するシーン
      */
-    void Component::SetThisComponentToComponentList(Scene* scene)
+    void Component::RegisterThisComponentToComponentList(Scene* scene)
     {
+        if (register_component_list != nullptr)
+        {
+            throw"this component is already registerd";
+            return;
+        }
         if (this->parent_gameobject == nullptr)
         {
             //parent_gameobjectがnullならエラー
@@ -64,5 +68,12 @@ namespace yougine::components
             return;
         }
         scene->GetComponentList()->AddObjectToDictionary(this->component_name, this->parent_gameobject);
+        this->register_component_list = scene->GetComponentList();
+    }
+
+    void Component::UnregisterThisComponentFromComponentList()
+    {
+        this->register_component_list->RemoveObjectFromDictionary(this->component_name, this);
+        this->register_component_list = nullptr;
     }
 }

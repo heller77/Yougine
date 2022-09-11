@@ -15,5 +15,6 @@ namespace yougine::managers
         std::map<ComponentName, std::vector<GameObject*>> GetObjectsDictionary();
         void AddObjectToDictionary(ComponentName, GameObject*);
         std::vector<GameObject*> GetReferObjectList(ComponentName);
+        void RemoveObjectFromDictionary(managers::ComponentName component_name, components::Component* component);
     };
 }
