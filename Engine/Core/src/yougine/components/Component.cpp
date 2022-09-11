@@ -53,12 +53,13 @@ namespace yougine::components
     {
         if (this->parent_gameobject == nullptr)
         {
-            //parent_gameobjectが
+            //parent_gameobjectがnullならエラー
             throw "exception,this compoent does not have parentGameobject";
             return;
         }
         else if (this->component_name == managers::ComponentName::kNone)
         {
+            //componentnameがkNoneなのにComponentListに追加しようとしているのでエラー
             throw "throw,this component can not register to ComponentList";
             return;
         }
