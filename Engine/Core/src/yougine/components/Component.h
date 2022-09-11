@@ -23,5 +23,7 @@ namespace yougine::components
         void InitializeOnPlayBack();
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();
+        void SetParentGameObject(GameObject* parent_gameobject);
+        void SetThisComponentToComponentList(Scene* scene);
     };
 }
