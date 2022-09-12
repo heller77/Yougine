@@ -30,4 +30,9 @@ namespace yougine::managers
     {
         return gameobjects_dictionary[component_name];
     }
+    //TODO À‘•‚·‚éIw’è‚µ‚½component‚ğíœ‚·‚é
+    void yougine::managers::ComponentList::RemoveObjectFromDictionary(managers::ComponentName component_name, components::Component* component)
+    {
+        //–¢À‘•
+    }
 }
