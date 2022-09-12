@@ -16,6 +16,6 @@ namespace yougine::managers
         std::map<ComponentName, std::vector<components::Component*>> GetObjectsDictionary();
         void AddObjectToDictionary(ComponentName component_name, components::Component* component);
         std::vector<components::Component*> GetReferObjectList(ComponentName);
-        void RemoveObjectFromDictionary(managers::ComponentName component_name, components::Component* component);
+        void RemoveComponentFromDictionary(managers::ComponentName component_name, components::Component* component);
     };
 }

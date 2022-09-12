@@ -36,10 +36,23 @@ namespace yougine::managers
         return components_dictionary[component_name];
     }
 
-    //TODO À‘•‚·‚éIw’è‚µ‚½component‚ğíœ‚·‚é
-    void yougine::managers::ComponentList::RemoveObjectFromDictionary(managers::ComponentName component_name,
+    /**
+     * \brief component‚Ì“o˜^‚ğÁ‚·
+     * \param component_name 
+     * \param component 
+     */
+    void yougine::managers::ComponentList::RemoveComponentFromDictionary(managers::ComponentName component_name,
                                                                       components::Component* component)
     {
-        //–¢À‘•
+        auto target_component_list = components_dictionary[component_name];
+        vector<components::Component*> new_component_list;
+        for (auto* c : target_component_list)
+        {
+            if (c != component)
+            {
+                new_component_list.push_back(c);
+            }
+        }
+        components_dictionary[component_name] = new_component_list;
     }
 }
