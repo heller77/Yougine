@@ -71,6 +71,11 @@ namespace yougine
         layers = new_layers;
     }
 
+    std::vector<Layer*> LayerManager::GetLayers()
+    {
+        return layers;
+    }
+
 
     Layer* LayerManager::GetLayerByName(std::string name)
     {

@@ -32,6 +32,7 @@ namespace yougine
         static LayerManager* GetInstance();
         void AddLayer(std::string name);
         void RemoveLayer(std::string name);
+        std::vector<Layer*> GetLayers();
         Layer* GetLayerByName(std::string);
     };
 

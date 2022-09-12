@@ -7,6 +7,7 @@ namespace editor
         this->scene = scene;
         this->input_manager = input_manager;
         selection_info = SelectionInfo::GetInstance();
+        layer_manager = yougine::LayerManager::GetInstance();
     }
 
     void InspectorWindow::Draw()
@@ -42,6 +43,11 @@ namespace editor
          * Layerî•ñ
          */
         ImGui::Text("Layer");
-        ImGui::Button(selection_info->GetSelectObject()->GetLayer()->GetName().c_str());
+
+        const char* items_layer[] = { "Layer", "AAA" };
+        static int* item_currect = 0;
+
+        ImGui::Combo("Layer", item_currect, items_layer, IM_ARRAYSIZE(items_layer));
+        ImGui::SameLine();
     }
 }

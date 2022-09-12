@@ -10,6 +10,7 @@ namespace editor
         yougine::Scene* scene;
         yougine::InputManager* input_manager;
         SelectionInfo* selection_info;
+        yougine::LayerManager* layer_manager;
         const int MAX_SIZE_OBJ_NAME = 38;
 
     private:
