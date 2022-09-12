@@ -38,6 +38,8 @@ namespace yougine
         std::list<GameObject*> GetChildObjects();
         bool operator==(const GameObject& rhs) const;
 
+        void AddComponent(components::Component* component);
+
         template <class T> T* GetComponent()
         {
             T* component;
@@ -52,22 +54,6 @@ namespace yougine
             }
 
             return nullptr;
-        }
-
-        //component already exist on component_list, not add & return nullptr
-        template <class T> T* AddComponent()
-        {
-            for (components::Component* c : components)
-            {
-                if (typeid(c) == typeid(T*))
-                {
-                    return nullptr;
-                }
-            }
-
-            T* component = new T();
-            components.push_back(component);
-            return component;
         }
 
         template <class T> void RemoveComponent()

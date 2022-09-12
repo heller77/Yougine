@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+#include "components/Component.h"
 
 namespace yougine
 {
@@ -58,10 +59,14 @@ namespace yougine
         return gameobject_childs;
     }
 
-
-
     bool GameObject::operator==(const GameObject& rhs) const
     {
         return *this == rhs;
+    }
+    void yougine::GameObject::AddComponent(components::Component* component)
+    {
+        // component
+        component->SetParentGameObject(this);
+        component->RegisterThisComponentToComponentList(this->scene);
     }
 }
