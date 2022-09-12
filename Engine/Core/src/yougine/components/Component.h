@@ -31,7 +31,7 @@ namespace yougine::components
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();
         void SetParentGameObject(GameObject* parent_gameobject);
-        void RegisterThisComponentToComponentList(Scene* scene);
+        bool RegisterThisComponentToComponentList(Scene* scene);
         void UnregisterThisComponentFromComponentList();
     };
 }
