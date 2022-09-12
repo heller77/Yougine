@@ -67,14 +67,14 @@ namespace yougine::components
             throw "throw,this component can not register to ComponentList";
             return false;
         }
-        scene->GetComponentList()->AddObjectToDictionary(this->component_name, this->parent_gameobject);
+        scene->GetComponentList()->AddObjectToDictionary(this->component_name, this);
         this->register_component_list = scene->GetComponentList();
         return true;
     }
 
     void Component::UnregisterThisComponentFromComponentList()
     {
-        this->register_component_list->RemoveObjectFromDictionary(this->component_name, this);
+        this->register_component_list->RemoveComponentFromDictionary(this->component_name, this);
         this->register_component_list = nullptr;
     }
 }
