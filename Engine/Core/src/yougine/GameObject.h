@@ -39,7 +39,7 @@ namespace yougine
         bool operator==(const GameObject& rhs) const;
 
         void AddComponent(components::Component* component);
-
+        void RemoveComponent(components::Component* component);
         template <class T> T* GetComponent()
         {
             T* component;
@@ -54,23 +54,6 @@ namespace yougine
             }
 
             return nullptr;
-        }
-
-        template <class T> void RemoveComponent()
-        {
-            T* component;
-            std::vector<components::Component*> new_list;
-
-            for (components::Component* c : GetComponents())
-            {
-                component = dynamic_cast<T*>(c);
-                if (component == nullptr)
-                {
-                    new_list.push_back(c);
-                }
-            }
-
-            components = new_list;
         }
     };
 }
