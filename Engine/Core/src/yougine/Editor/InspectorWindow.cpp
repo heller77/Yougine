@@ -43,11 +43,11 @@ namespace editor
          * Layerî•ñ
          */
         ImGui::Text("Layer");
+        const char* items[] = { "Default", "GameObject" };
+        //std::copy(layer_manager->GetLayersName().begin(), layer_manager->GetLayersName().end(), items);
 
-        const char* items_layer[] = { "Layer", "AAA" };
-        static int* item_currect = 0;
-
-        ImGui::Combo("Layer", item_currect, items_layer, IM_ARRAYSIZE(items_layer));
+        static int item_current = 0;
+        ImGui::Combo("Layer", &item_current, items, IM_ARRAYSIZE(items));
         ImGui::SameLine();
     }
 }
