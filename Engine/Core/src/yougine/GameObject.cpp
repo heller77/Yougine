@@ -65,4 +65,23 @@ namespace yougine
             this->components.push_back(component);
         }
     }
+
+    void GameObject::RemoveComponent(components::Component* component)
+    {
+        std::cout << "call RemoveComponent" << std::endl;
+        std::vector<components::Component*> new_components;
+        for (components::Component* c : GetComponents())
+        {
+            if (c != component)
+            {
+                new_components.push_back(c);
+            }else
+            {
+                component->UnregisterThisComponentFromComponentList();
+                std::cout << "componentをリムーブ！　" << std::endl;
+            }
+        }
+        this->components = new_components;
+    }
+
 }

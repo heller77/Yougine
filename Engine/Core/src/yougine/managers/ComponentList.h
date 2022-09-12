@@ -9,12 +9,13 @@ namespace yougine::managers
     class ComponentList
     {
     private:
-        std::map<ComponentName, std::vector<GameObject*>> gameobjects_dictionary;
+        std::map<ComponentName, std::vector<components::Component*>> components_dictionary;
 
     public:
-        std::map<ComponentName, std::vector<GameObject*>> GetObjectsDictionary();
-        void AddObjectToDictionary(ComponentName, GameObject*);
-        std::vector<GameObject*> GetReferObjectList(ComponentName);
-        void RemoveObjectFromDictionary(managers::ComponentName component_name, components::Component* component);
+        ComponentList();
+        std::map<ComponentName, std::vector<components::Component*>> GetObjectsDictionary();
+        void AddObjectToDictionary(ComponentName component_name, components::Component* component);
+        std::vector<components::Component*> GetReferObjectList(ComponentName);
+        void RemoveComponentFromDictionary(managers::ComponentName component_name, components::Component* component);
     };
 }

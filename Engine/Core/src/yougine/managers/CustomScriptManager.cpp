@@ -10,9 +10,9 @@ namespace yougine::managers
 
     void CustomScriptManager::InitializeMembers()
     {
-        for (GameObject* gameobject : componentlist->GetReferObjectList(ComponentName::kCustom))
+        for (components::Component* component : componentlist->GetReferObjectList(ComponentName::kCustom))
         {
-            for (components::Component* component : gameobject->GetComponents())
+            for (components::Component* component : component->GetGameObject()->GetComponents())
             {
                 component->InitializeOnPlayBack();
             }
@@ -21,9 +21,9 @@ namespace yougine::managers
 
     void CustomScriptManager::ExcuteCoponents()
     {
-        for (GameObject* gameObject : componentlist->GetObjectsDictionary()[ComponentName::kCustom])
+        for (components::Component* component : componentlist->GetObjectsDictionary()[ComponentName::kCustom])
         {
-            for (components::Component* component : gameObject->GetComponents())
+            for (components::Component* component : component->GetGameObject()->GetComponents())
             {
                 component->Excute();
             }

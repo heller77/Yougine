@@ -74,6 +74,8 @@ int main()
     auto gameobject = new yougine::GameObject(scene, "hello", nullptr);
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
+    gameobject->RemoveComponent(rendercomponent2);
+    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
