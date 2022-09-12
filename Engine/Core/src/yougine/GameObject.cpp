@@ -14,7 +14,6 @@ namespace yougine
 
     void GameObject::InitializeComponents()
     {
-
     }
 
     std::string GameObject::GetName()
@@ -51,10 +50,19 @@ namespace yougine
     {
         return *this == rhs;
     }
+
     void yougine::GameObject::AddComponent(components::Component* component)
     {
+        if(component==nullptr)
+        {
+            return;
+        }
         // component
         component->SetParentGameObject(this);
-        component->RegisterThisComponentToComponentList(this->scene);
+        bool is_register = component->RegisterThisComponentToComponentList(this->scene);
+        if (is_register) {
+            //“o˜^‚Å‚«‚½‚È‚ç
+            this->components.push_back(component);
+        }
     }
 }
