@@ -1,37 +1,44 @@
 #include <vector>
 #include "ComponentList.h"
 
+#include "../components/Component.h"
+
 namespace yougine::managers
 {
     using std::vector;
     using std::map;
 
-    map<managers::ComponentName, vector<GameObject*>> gameobjects_dictionary =
+    ComponentList::ComponentList()
     {
-        { managers::ComponentName::kCollider, vector<GameObject*>() },
-        { managers::ComponentName::kRigidBody, vector<GameObject*>() },
-        { managers::ComponentName::kRender, vector<GameObject*>() },
-        { managers::ComponentName::kUIRender , vector<GameObject*>() },
-        { managers::ComponentName::kUICollider, vector<GameObject*>() },
-        { managers::ComponentName::kCustom, vector<GameObject*>() },
-    };
-
-    map<managers::ComponentName, vector<GameObject*>> ComponentList::GetObjectsDictionary()
-    {
-        return gameobjects_dictionary;
+        components_dictionary =
+        {
+            {managers::ComponentName::kCollider, vector<components::Component*>()},
+            {managers::ComponentName::kRigidBody, vector<components::Component*>()},
+            {managers::ComponentName::kRender, vector<components::Component*>()},
+            {managers::ComponentName::kUIRender, vector<components::Component*>()},
+            {managers::ComponentName::kUICollider, vector<components::Component*>()},
+            {managers::ComponentName::kCustom, vector<components::Component*>()},
+        };
     }
 
-    void ComponentList::AddObjectToDictionary(managers::ComponentName component_name, GameObject* gameobject)
+    map<managers::ComponentName, vector<components::Component*>> ComponentList::GetObjectsDictionary()
     {
-        gameobjects_dictionary[component_name].push_back(gameobject);
+        return components_dictionary;
     }
 
-    vector<GameObject*> ComponentList::GetReferObjectList(managers::ComponentName component_name)
+    void ComponentList::AddObjectToDictionary(managers::ComponentName component_name, components::Component* component)
     {
-        return gameobjects_dictionary[component_name];
+        components_dictionary[component_name].push_back(component);
     }
+
+    vector<components::Component*> ComponentList::GetReferObjectList(managers::ComponentName component_name)
+    {
+        return components_dictionary[component_name];
+    }
+
     //TODO é¿ëïÇ∑ÇÈÅIéwíËÇµÇΩcomponentÇçÌèúÇ∑ÇÈ
-    void yougine::managers::ComponentList::RemoveObjectFromDictionary(managers::ComponentName component_name, components::Component* component)
+    void yougine::managers::ComponentList::RemoveObjectFromDictionary(managers::ComponentName component_name,
+                                                                      components::Component* component)
     {
         //ñ¢é¿ëï
     }
