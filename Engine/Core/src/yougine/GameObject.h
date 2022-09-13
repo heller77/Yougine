@@ -10,20 +10,22 @@ namespace yougine::components
 namespace yougine
 {
     class GameObject;
+    class Scene;
 
     class GameObject
     {
     private:
-        std::vector<components::Component*> component_list;
+        Scene* scene;
+        std::vector<components::Component*> components;
         std::string name;
         GameObject* gameobject_parent;
         std::list<GameObject*> gameobject_childs;
 
     private:
-        void InitializeComponentList();
+        void InitializeComponents();
 
     public:
-        GameObject(std::string, GameObject*);
+        GameObject(Scene*, std::string, GameObject*);
         std::string GetName();
         void SetName(std::string);
         std::vector<components::Component*> GetComponents();
@@ -32,11 +34,13 @@ namespace yougine
         std::list<GameObject*> GetChildObjects();
         bool operator==(const GameObject& rhs) const;
 
+        void AddComponent(components::Component* component);
+        void RemoveComponent(components::Component* component);
         template <class T> T* GetComponent()
         {
             T* component;
 
-            for (components::Component* c : component_list)
+            for (components::Component* c : components)
             {
                 component = dynamic_cast<T*>(c);
                 if (component != nullptr)
@@ -46,39 +50,6 @@ namespace yougine
             }
 
             return nullptr;
-        }
-
-        //component already exist on component_list, not add & return nullptr
-        template <class T> T* AddComponent()
-        {
-            for (components::Component* c : component_list)
-            {
-                if (typeid(c) == typeid(T*))
-                {
-                    return nullptr;
-                }
-            }
-
-            T* component = new T();
-            component_list.push_back(component);
-            return component;
-        }
-
-        template <class T> void RemoveComponent()
-        {
-            T* component;
-            std::vector<components::Component*> new_list;
-
-            for (components::Component* c : GetComponents())
-            {
-                component = dynamic_cast<T*>(c);
-                if (component == nullptr)
-                {
-                    new_list.push_back(c);
-                }
-            }
-
-            component_list = new_list;
         }
     };
 }

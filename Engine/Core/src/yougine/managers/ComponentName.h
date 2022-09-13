@@ -8,6 +8,7 @@ namespace yougine::managers
         kRender,
         kUIRender,
         kUICollider,
-        kCustom
+        kCustom,
+        kNone//ComponentList‚ÉŠ‘®‚µ‚È‚¢‚â‚Â
     };
 }

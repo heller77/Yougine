@@ -2,7 +2,7 @@
 
 namespace yougine::components
 {
-    TransformComponent::TransformComponent(float x, float y, float z)
+    TransformComponent::TransformComponent(float x, float y, float z) : Component(managers::ComponentName::kNone)
     {
         this->position = new Vector3(x, y, z);
     }

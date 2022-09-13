@@ -67,7 +67,15 @@ int main()
     int gVCBHeight = 300;
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
-    yougine::managers::ComponentList* component_list = new yougine::managers::ComponentList();
+
+    //レンダーコンポーネントをAdd出来るかのコード（後で消す）
+    auto rendercomponent = new yougine::comoponents::RenderComponent();
+    auto rendercomponent2 = new yougine::comoponents::RenderComponent();
+    auto gameobject = new yougine::GameObject(scene, "hello", nullptr);
+    gameobject->AddComponent(rendercomponent);
+    gameobject->AddComponent(rendercomponent2);
+    gameobject->RemoveComponent(rendercomponent2);
+    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();

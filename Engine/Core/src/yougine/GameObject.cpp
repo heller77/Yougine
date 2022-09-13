@@ -1,18 +1,19 @@
 #include "GameObject.h"
 
+#include "components/Component.h"
 
 namespace yougine
 {
-    GameObject::GameObject(std::string name, GameObject* gameobject_parent)
+    GameObject::GameObject(Scene* scene, std::string name, GameObject* gameobject_parent)
     {
+        this->scene = scene;
         this->name = name;
         this->gameobject_parent = gameobject_parent;
-        InitializeComponentList();
+        InitializeComponents();
     }
 
-    void GameObject::InitializeComponentList()
+    void GameObject::InitializeComponents()
     {
-
     }
 
     std::string GameObject::GetName()
@@ -27,7 +28,7 @@ namespace yougine
 
     std::vector<components::Component*> GameObject::GetComponents()
     {
-        return component_list;
+        return components;
     }
 
     void GameObject::AddChild(GameObject* gameobject)
@@ -45,10 +46,42 @@ namespace yougine
         return gameobject_childs;
     }
 
-
-
     bool GameObject::operator==(const GameObject& rhs) const
     {
         return *this == rhs;
     }
+
+    void yougine::GameObject::AddComponent(components::Component* component)
+    {
+        if(component==nullptr)
+        {
+            return;
+        }
+        // component
+        component->SetParentGameObject(this);
+        bool is_register = component->RegisterThisComponentToComponentList(this->scene);
+        if (is_register) {
+            //“o˜^‚Å‚«‚½‚È‚ç
+            this->components.push_back(component);
+        }
+    }
+
+    void GameObject::RemoveComponent(components::Component* component)
+    {
+        std::cout << "call RemoveComponent" << std::endl;
+        std::vector<components::Component*> new_components;
+        for (components::Component* c : GetComponents())
+        {
+            if (c != component)
+            {
+                new_components.push_back(c);
+            }else
+            {
+                component->UnregisterThisComponentFromComponentList();
+                std::cout << "component‚ðƒŠƒ€[ƒuI@" << std::endl;
+            }
+        }
+        this->components = new_components;
+    }
+
 }

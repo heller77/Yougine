@@ -21,7 +21,7 @@ namespace yougine::managers
         GLfloat position[4];
     };
 
-    RenderManager::RenderManager(int width, int height)
+    RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
         this->renderComponent = new comoponents::RenderComponent();
         GLenum err;

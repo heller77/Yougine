@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
 namespace yougine::comoponents
 {
-    RenderComponent::RenderComponent() : program(0), vao(0), colorBuffer(0), depthBuffer(0), frameBuferr(0)
+    RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0), colorBuffer(0), depthBuffer(0), frameBuferr(0)
     {
     }
 
