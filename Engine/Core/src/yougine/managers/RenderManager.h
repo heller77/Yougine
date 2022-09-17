@@ -25,13 +25,15 @@ namespace yougine::managers
     private:
         ComponentList* component_list;
         int width, height;
-        GLuint program;
-        GLuint vao;
-        GLuint frameBuffer;
+        // GLuint program;
+        // GLuint vao;
+        // GLuint frameBuffer;
 
-        GLuint colorBuffer;
+        comoponents::RenderComponent* renderComponent;
 
-        GLuint depthBuffer;
+        // GLuint colorBuffer;
+        //
+        // GLuint depthBuffer;
 
         void RenderOneGameObject(comoponents::RenderComponent* render_component);
 

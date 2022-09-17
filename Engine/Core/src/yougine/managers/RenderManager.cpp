@@ -21,48 +21,69 @@ namespace yougine::managers
         GLfloat position[4];
     };
 
-    RenderManager::RenderManager(int width, int height, managers::ComponentList* component_list)
+    RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
-        this->component_list = component_list;
-
+        this->renderComponent = new comoponents::RenderComponent();
         GLenum err;
         this->width = width;
         this->height = height;
         //カラーバッファ
-        glGenTextures(1, &this->colorBuffer);
-        glBindTexture(GL_TEXTURE_2D, this->colorBuffer);
+        GLuint colorBuffer;
+        glGenTextures(1, &colorBuffer);
+        glBindTexture(GL_TEXTURE_2D, colorBuffer);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        this->renderComponent->SetColorBuffer(colorBuffer);
         //デプスバッファ
-        glGenRenderbuffers(1, &this->depthBuffer);
-        glBindRenderbuffer(GL_RENDERBUFFER, this->depthBuffer);
+        GLuint depthBuffer;
+        glGenRenderbuffers(1, &depthBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+        this->renderComponent->SetDepthBuffer(depthBuffer);
 
         //フレームバッファ
-        glGenFramebuffers(1, &this->frameBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->colorBuffer, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, this->depthBuffer);
+        GLuint frameBuffer;
+        glGenFramebuffers(1, &frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+            this->renderComponent->GetColorBuffer(), 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
+            this->renderComponent->GetDepthBuffer());
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        this->renderComponent->SetFrameBuferr(frameBuffer);
 
-        Vertex vertex[] = {
-            {-0.5, -0.5, 0.0, 1},
+        Vertex vertices[] = {
+            {0.5, 0.5, 0.0, 1},
             {0.5, -0.5, 0.0, 1},
+            {-0.5, -0.5, 0.0, 1},
             {-0.5, 0.5, 0.0, 1},
         };
-
-        this->program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
-        glGenVertexArrays(1, &this->vao);
+        GLuint indices[] = {
+            // note that we start from 0!
+            0, 1, 3, // first triangle
+            1, 2, 3 // second triangle
+        };
+        GLuint program, vao;
+        program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
+        this->renderComponent->SetProgram(program);
+        this->renderComponent->SetVao(vao);
 
         //頂点バッファを作成
         GLuint vertexBuffer;
         glGenBuffers(1, &vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), vertex, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+
+        // //インデックスバッファ
+        GLuint elementBuffer;
+        glGenBuffers(1, &elementBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         //シェーダに値を渡す
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
@@ -72,11 +93,8 @@ namespace yougine::managers
 
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " というエラーがある" << std::endl;
+            std::cout << err << " というエラーがある in constructer" << std::endl;
         }
-        //componentを取得できるかのテスト用コード
-        auto render_component_List = component_list->GetReferObjectList(ComponentName::kRender);
-        std::cout << "renderComponent の数 : " << render_component_List.size() << std::endl;
     }
 
     /**
@@ -91,7 +109,7 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, this->renderComponent->GetFrameBuferr());
         glViewport(0, 0, this->width, this->height);
         constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
@@ -117,14 +135,16 @@ namespace yougine::managers
         // GameObject* gameobject = render_component->GetGameObject();
         // components::TransformComponent* transform;
         // transform = gameobject->GetComponent<components::TransformComponent>();
-        glUseProgram(program);
-        glBindVertexArray(vao);
+        glUseProgram(this->renderComponent->GetProgram());
+        glBindVertexArray(this->renderComponent->GetVao());
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
             std::cout << err << " というエラーがある in rendergameobject" << std::endl;
         }
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+        glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
     }
 
     GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)
@@ -169,7 +189,7 @@ namespace yougine::managers
 
     GLuint RenderManager::GetColorBuffer()
     {
-        return this->colorBuffer;
+        return this->renderComponent->GetColorBuffer();
     }
 
     void RenderManager::SetWindowSize(ImVec2 vec2)
