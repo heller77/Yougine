@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "managers/ComponentList.h"
 #include <list>
+#include "Editor/SelectionInfo.h"
+#include "Layer.h"
 
 namespace yougine
 {
@@ -24,7 +26,7 @@ namespace yougine
         std::list<GameObject*> GetGameObjects();
         std::string GetName();
         void SetName(std::string);
-        void CreateGameObject(std::string, GameObject*);
+        GameObject* CreateGameObject(std::string, GameObject*);
         GameObject* GetGameObjectByName(std::string);
     };
 
