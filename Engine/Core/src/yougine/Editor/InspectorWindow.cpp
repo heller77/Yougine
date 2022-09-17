@@ -40,7 +40,7 @@ namespace editor
         }
 
         /*
-         * Layerî•ñ
+         * Layerî•ñ –¢À‘•
          */
         ImGui::Text("Layer");
         const char* items[] = { "Default", "GameObject" };
