@@ -1,66 +1,99 @@
 #include "GameObject.h"
 
+#include "components/Component.h"
 
 namespace yougine
 {
-	GameObject::GameObject()
-	{
-		InitializeComponentList();
-	}
+    GameObject::GameObject(Scene* scene, std::string name, GameObject* gameobject_parent)
+    {
+        this->scene = scene;
+        this->name = name;
+        this->gameobject_parent = gameobject_parent;
+        layer = LayerManager::GetInstance()->GetLayerByName("Default");
+        InitializeComponents();
+    }
 
-	void GameObject::InitializeComponentList()
-	{
+    void GameObject::InitializeComponents()
+    {
+    }
 
-	}
+    std::string GameObject::GetName()
+    {
+        return name;
+    }
 
-	std::vector<components::Component*> GameObject::GetComponents()
-	{
-		return component_list;
-	}
+    void GameObject::SetName(std::string name)
+    {
+        this->name = name;
+    }
 
-	template <class T> T* GameObject::GetComponent()
-	{
-		T* component;
+    Layer* GameObject::GetLayer()
+    {
+        return layer;
+    }
 
-		for (components::Component* c : component_list)
-		{
-			component = dynamic_cast<T*>(c);
-			if (component != nullptr)
-			{
-				return component;
-			}
-		}
+    void GameObject::SetLayer(Layer* layer)
+    {
+        this->layer = layer;
+    }
 
-		return nullptr;
-	}
 
-	//forbit same component duplication
-	template <class T> T* GameObject::AddComponent()
-	{
-		T* component = new T();
-		component_list.push_back(component);
-		return component;
-	}
+    std::vector<components::Component*> GameObject::GetComponents()
+    {
+        return components;
+    }
 
-	template <class T> void GameObject::RemoveComponent()
-	{
-		T* component;
-		std::vector<components::Component*> new_list;
+    void GameObject::AddChild(GameObject* gameobject)
+    {
+        gameobject_childs.push_back(gameobject);
+    }
 
-		for (components::Component* c : GetComponents())
-		{
-			component = dynamic_cast<T*>(c);
-			if (component == nullptr)
-			{
-				new_list.push_back(c);
-			}
-		}
+    GameObject* GameObject::GetParentObject()
+    {
+        return gameobject_parent;
+    }
 
-		component_list = new_list;
-	}
+    std::list<GameObject*> GameObject::GetChildObjects()
+    {
+        return gameobject_childs;
+    }
 
-	bool GameObject::operator==(const GameObject& rhs) const
-	{
-		return *this == rhs;
-	}
+    bool GameObject::operator==(const GameObject& rhs) const
+    {
+        return *this == rhs;
+    }
+
+    void yougine::GameObject::AddComponent(components::Component* component)
+    {
+        if(component==nullptr)
+        {
+            return;
+        }
+        // component
+        component->SetParentGameObject(this);
+        bool is_register = component->RegisterThisComponentToComponentList(this->scene);
+        if (is_register) {
+            //“o˜^‚Å‚«‚½‚È‚ç
+            this->components.push_back(component);
+        }
+    }
+
+    void GameObject::RemoveComponent(components::Component* component)
+    {
+        std::cout << "call RemoveComponent" << std::endl;
+        std::vector<components::Component*> new_components;
+        for (components::Component* c : GetComponents())
+        {
+            if (c != component)
+            {
+                new_components.push_back(c);
+            }else
+            {
+                component->UnregisterThisComponentFromComponentList();
+                std::cout << "component‚ðƒŠƒ€[ƒuI@" << std::endl;
+            }
+        }
+        this->components = new_components;
+    }
+
 }

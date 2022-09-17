@@ -3,30 +3,19 @@
 #include <map>
 #include "ComponentName.h"
 #include "../GameObject.h"
-//vector already included at GameObject.h
-
-//SingletonInstance
 
 namespace yougine::managers
 {
-	class ComponentList
-	{
-	private:
-		//static ComponentList* m_instance;
-		std::map<ComponentName, std::vector<GameObject>> gameobjects_dictionary;
+    class ComponentList
+    {
+    private:
+        std::map<ComponentName, std::vector<components::Component*>> components_dictionary;
 
-	/*
-	private:
-		ComponentList();
-		~ComponentList();
-	*/
-
-	public:
-		//static void Create();
-		//static void Destroy();
-		//static ComponentList* GetInstance();
-		std::map<ComponentName, std::vector<GameObject>> GetObjectsDictionary();
-		void AddObjectToDictionary(ComponentName, GameObject);
-		std::vector<GameObject> GetReferObjectList(ComponentName);
-	};
+    public:
+        ComponentList();
+        std::map<ComponentName, std::vector<components::Component*>> GetObjectsDictionary();
+        void AddObjectToDictionary(ComponentName component_name, components::Component* component);
+        std::vector<components::Component*> GetReferObjectList(ComponentName);
+        void RemoveComponentFromDictionary(managers::ComponentName component_name, components::Component* component);
+    };
 }

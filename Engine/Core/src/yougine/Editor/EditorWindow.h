@@ -1,24 +1,23 @@
 #pragma once
 #include "EditorWindowsManager.h"
+#include "../Scene.h"
 
-namespace Editor
+namespace editor
 {
-	class EditorWindowsManager;
-	enum class EditorWindowName;
+    class EditorWindowsManager;
+    enum class EditorWindowName;
 
-	class EditorWindow
-	{
-	private:
-		EditorWindowsManager* editor_windows_manager;
-	protected:
-		EditorWindowName window_name;
+    class EditorWindow
+    {
+    protected:
+        EditorWindowsManager* editor_windows_manager;
+        EditorWindowName window_name;
 
-	public:
-		EditorWindow(EditorWindowsManager*, EditorWindowName);
-		~EditorWindow();
-		void Draw();
+    public:
+        EditorWindow(EditorWindowsManager*, EditorWindowName);
+        virtual void Draw();
 
-	protected:
-		void Setup();
-	};
+    protected:
+        void Setup();
+    };
 }
