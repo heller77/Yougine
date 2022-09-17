@@ -11,6 +11,7 @@
 #include "Editor/EditorWindowsManager.h"
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
+#include "Editor/InspectorWindow.h"
 #include <fstream>
 #include "managers/ComponentList.h"
 
@@ -82,6 +83,7 @@ int main()
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
     editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
+    editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
 
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {

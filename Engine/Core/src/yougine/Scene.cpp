@@ -4,11 +4,13 @@ namespace yougine
 {
     Scene::Scene(std::string name)
     {
+        editor::SelectionInfo::Create();
+        LayerManager::Create();
         this->name = name;
         component_list = new managers::ComponentList();
     }
 
-    void Scene::CreateGameObject(std::string name, GameObject* parent)
+    GameObject* Scene::CreateGameObject(std::string name, GameObject* parent)
     {
         GameObject* gameobject = new GameObject(this, name, parent);
 
@@ -20,6 +22,8 @@ namespace yougine
         {
             parent->AddChild(gameobject);
         }
+
+        return gameobject;
     }
 
     //ˆ—•Ï‚¦‚é
