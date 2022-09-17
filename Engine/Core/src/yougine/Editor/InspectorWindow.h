@@ -20,7 +20,6 @@ namespace editor
         InspectorWindow(EditorWindowsManager*, yougine::Scene*, yougine::InputManager*);
         ~InspectorWindow();
 
-        using EditorWindow::Draw;
-        virtual void Draw();
+        void Draw()override;
     };
 }

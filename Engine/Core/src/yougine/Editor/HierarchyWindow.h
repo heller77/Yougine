@@ -25,7 +25,6 @@ namespace editor
         HierarchyWindow(EditorWindowsManager*, yougine::Scene*, yougine::InputManager*);
         ~HierarchyWindow();
 
-        using EditorWindow::Draw;
-        virtual void Draw();
+        void Draw()override;
     };
 }
