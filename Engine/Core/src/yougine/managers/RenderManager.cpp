@@ -10,6 +10,7 @@
 #include "glm/glm.hpp"
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 namespace yougine
 {
     namespace components
@@ -17,6 +18,7 @@ namespace yougine
         class TransformComponent;
     }
 }
+
 namespace yougine::managers
 {
     struct Vertex
@@ -54,11 +56,11 @@ namespace yougine::managers
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-            this->colorBuffer, 0);
+                               this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-            this->depthBuffer);
+                                  this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        this->frameBuffer=frameBuffer;
+        this->frameBuffer = frameBuffer;
 
         while ((err = glGetError()) != GL_NO_ERROR)
         {
@@ -72,6 +74,7 @@ namespace yougine::managers
     void RenderManager::Initialize()
     {
     }
+
     /**
      * \brief レンダリング
      */
@@ -79,7 +82,7 @@ namespace yougine::managers
     {
         glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
-        constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
+        constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
 
@@ -91,7 +94,7 @@ namespace yougine::managers
             auto cast_rendercomponent = dynamic_cast<components::RenderComponent*>(render_component);
             RenderOneGameObject(cast_rendercomponent);
         }
-       
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
@@ -99,10 +102,15 @@ namespace yougine::managers
             std::cout << err << " というエラーがある in renderscene" << std::endl;
         }
     }
+
     float cValue = 0;
+
     float diff = 0.01f;
+
     float cameradiff = 0.01f;
+
     float camerax = 1;
+
     void SetFloatUniform(GLint program, const char* name, float value)
     {
         GLuint loc = glGetUniformLocation(program, name);
@@ -114,6 +122,7 @@ namespace yougine::managers
             std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
         }
     }
+
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -130,14 +139,14 @@ namespace yougine::managers
             cameradiff *= -1;
         }
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 10), 
+            glm::vec3(0, 0, 10),
             glm::vec3(0, 0, 0),
-            glm::vec3(0, 1, 0)  
+            glm::vec3(0, 1, 0)
         );
         auto gameobject = render_component->GetGameObject();
         auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
-        glm::mat4 Model = glm::translate(glm::vec3(position.x,position.y,position.z));
-        glm::mat4 MVP = Projection * View * Model; 
+        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z));
+        glm::mat4 MVP = Projection * View * Model;
         auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
         GLenum err;
@@ -149,7 +158,7 @@ namespace yougine::managers
         SetFloatUniform(renderComponent->GetProgram(), "c", cValue);
 
         cValue += diff;
-        if(cValue>1.0f&&diff>0)
+        if (cValue > 1.0f && diff > 0)
         {
             cValue *= -1;
         }
