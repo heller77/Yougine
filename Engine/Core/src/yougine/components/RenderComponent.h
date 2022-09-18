@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-namespace yougine::comoponents
+namespace yougine::components
 {
     struct Vertex
     {

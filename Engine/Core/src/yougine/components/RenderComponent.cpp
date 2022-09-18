@@ -1,7 +1,7 @@
 #include "RenderComponent.h"
 #include "./../managers/RenderManager.h"
 
-namespace yougine::comoponents
+namespace yougine::components
 {
     RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
     {

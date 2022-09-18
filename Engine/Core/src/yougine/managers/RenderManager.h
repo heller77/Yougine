@@ -33,13 +33,13 @@ namespace yougine::managers
 
         GLuint frameBuffer;
 
-        comoponents::RenderComponent* renderComponent;
+        components::RenderComponent* renderComponent;
 
         GLuint colorBuffer;
 
         GLuint depthBuffer;
 
-        void RenderOneGameObject(comoponents::RenderComponent* render_component);
+        void RenderOneGameObject(components::RenderComponent* render_component);
 
         void MeshBufferInit();
 

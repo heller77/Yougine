@@ -26,7 +26,8 @@ namespace yougine::managers
 
     RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
-        this->renderComponent = new comoponents::RenderComponent();
+        this->component_list = component_list;
+        this->renderComponent = new components::RenderComponent();
         GLenum err;
         this->width = width;
         this->height = height;
@@ -113,7 +114,7 @@ namespace yougine::managers
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(comoponents::RenderComponent* render_component)
+    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component)
     {
         // GameObject* gameobject = render_component->GetGameObject();
         // components::TransformComponent* transform;
