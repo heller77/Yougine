@@ -69,6 +69,7 @@ int main()
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
 
+    /*
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::comoponents::RenderComponent();
     auto rendercomponent2 = new yougine::comoponents::RenderComponent();
@@ -76,7 +77,8 @@ int main()
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
-    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
+    std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
+    */
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();

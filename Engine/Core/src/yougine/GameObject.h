@@ -15,7 +15,11 @@ namespace yougine
 
     class GameObject
     {
+        friend class Scene;
+        friend Scene;
+
     private:
+        GameObject(Scene*, std::string, GameObject*);
         Scene* scene;
         std::vector<components::Component*> components;
         std::string name;
@@ -27,7 +31,6 @@ namespace yougine
         void InitializeComponents();
 
     public:
-        GameObject(Scene*, std::string, GameObject*);
         std::string GetName();
         void SetName(std::string);
         Layer* GetLayer();
