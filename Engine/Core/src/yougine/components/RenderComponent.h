@@ -14,33 +14,15 @@ namespace yougine::comoponents
         void SetProgram(GLuint program);
 
         void SetVao(GLuint vao);
-
-        void SetColorBuffer(GLuint color_buffer);
-
-        void SetDepthBuffer(GLuint depth_buffer);
-
-        void SetFrameBuferr(GLuint frame_buferr);
-
         void SetIndexBuffer(GLuint index_buffer);
 
         [[nodiscard]] GLuint GetProgram() const;
 
         [[nodiscard]] GLuint GetVao() const;
-
-        [[nodiscard]] GLuint GetColorBuffer() const;
-
-        [[nodiscard]] GLuint GetDepthBuffer() const;
-
-        [[nodiscard]] GLuint GetFrameBuferr() const;
-
         [[nodiscard]] GLuint GetIndexBuffer() const;
-
     private:
         GLuint program;
         GLuint vao;
-        GLuint colorBuffer;
-        GLuint depthBuffer;
-        GLuint frameBuferr;
         GLuint index_buffer;
     };
 }

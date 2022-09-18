@@ -6,6 +6,7 @@
 #include "../components/RenderComponent.h"
 
 #include "imgui/imgui.h"
+
 namespace yougine::managers
 {
     class RenderManager
@@ -18,22 +19,25 @@ namespace yougine::managers
         void RenderScene();
 
         GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
+
         GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+
         GLuint GetColorBuffer();
+
         void SetWindowSize(ImVec2 vec2);
 
     private:
         ComponentList* component_list;
+
         int width, height;
-        // GLuint program;
-        // GLuint vao;
-        // GLuint frameBuffer;
+
+        GLuint frameBuffer;
 
         comoponents::RenderComponent* renderComponent;
 
-        // GLuint colorBuffer;
-        //
-        // GLuint depthBuffer;
+        GLuint colorBuffer;
+
+        GLuint depthBuffer;
 
         void RenderOneGameObject(comoponents::RenderComponent* render_component);
 

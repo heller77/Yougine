@@ -39,24 +39,27 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        this->renderComponent->SetColorBuffer(colorBuffer);
+        // this->renderComponent->SetColorBuffer(colorBuffer);
+        this->colorBuffer = colorBuffer;
+
         //デプスバッファ
         GLuint depthBuffer;
         glGenRenderbuffers(1, &depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-        this->renderComponent->SetDepthBuffer(depthBuffer);
+        // this->renderComponent->SetDepthBuffer(depthBuffer);
+        this->depthBuffer = depthBuffer;
 
         //フレームバッファ
         GLuint frameBuffer;
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-            this->renderComponent->GetColorBuffer(), 0);
+            this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-            this->renderComponent->GetDepthBuffer());
+            this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        this->renderComponent->SetFrameBuferr(frameBuffer);
+        this->frameBuffer=frameBuffer;
 
         Vertex vertices[] = {
             {0.5, 0.5, 0.0, 1},
@@ -112,7 +115,7 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, this->renderComponent->GetFrameBuferr());
+        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
         constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
@@ -233,7 +236,7 @@ namespace yougine::managers
 
     GLuint RenderManager::GetColorBuffer()
     {
-        return this->renderComponent->GetColorBuffer();
+        return this->colorBuffer;
     }
 
     void RenderManager::SetWindowSize(ImVec2 vec2)
