@@ -15,7 +15,6 @@ namespace yougine
 
     class GameObject
     {
-        friend class Scene;
         friend Scene;
 
     private:
