@@ -40,7 +40,6 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // this->renderComponent->SetColorBuffer(colorBuffer);
         this->colorBuffer = colorBuffer;
 
         //デプスバッファ
@@ -48,7 +47,6 @@ namespace yougine::managers
         glGenRenderbuffers(1, &depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-        // this->renderComponent->SetDepthBuffer(depthBuffer);
         this->depthBuffer = depthBuffer;
 
         //フレームバッファ
@@ -122,12 +120,8 @@ namespace yougine::managers
      */
     void RenderManager::RenderOneGameObject(components::RenderComponent* render_component)
     {
-        // GameObject* gameobject = render_component->GetGameObject();
-        // components::TransformComponent* transform;
-        // transform = gameobject->GetComponent<components::TransformComponent>();
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
-        // 射影行列：45&deg;の視界、アスペクト比4:3、表示範囲：0.1単位  100単位
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
         // カメラ行列
         camerax += cameradiff * 1.3;
@@ -136,16 +130,14 @@ namespace yougine::managers
             cameradiff *= -1;
         }
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 10), // ワールド空間でカメラは(4,3,3)にあります。
-            glm::vec3(0, 0, 0), // 原点を見ています。
-            glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
+            glm::vec3(0, 0, 10), 
+            glm::vec3(0, 0, 0),
+            glm::vec3(0, 1, 0)  
         );
         auto gameobject = render_component->GetGameObject();
         auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
-        // モデル行列：単位行列(モデルは原点にあります。)
-        glm::mat4 Model = glm::translate(glm::vec3(position.x,position.y,position.z));  // 各モデルを変える！
-        // Our ModelViewProjection : multiplication of our 3 matrices
-        glm::mat4 MVP = Projection * View * Model; // 行列の掛け算は逆になることを思い出してください。
+        glm::mat4 Model = glm::translate(glm::vec3(position.x,position.y,position.z));
+        glm::mat4 MVP = Projection * View * Model; 
         auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
         GLenum err;
@@ -161,7 +153,6 @@ namespace yougine::managers
         {
             cValue *= -1;
         }
-        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
@@ -262,12 +253,6 @@ namespace yougine::managers
             std::cout << "file reading now" << std::endl;
             content.append(a + "\n");
         }
-        /*while (reading_file.eof())
-        {
-            std::cout << "file reading now" << std::endl;
-            std::getline(reading_file, line);
-            content.append(line + "\n");
-        }*/
         reading_file.close();
         std::cout << "file contens is \n" << content << std::endl;
 
