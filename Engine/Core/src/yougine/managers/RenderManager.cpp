@@ -86,8 +86,7 @@ namespace yougine::managers
         glClearBufferfv(GL_DEPTH, 0, &depth);
 
         //オブジェクトそれぞれ描画
-        auto rendercomopent = new comoponents::RenderComponent();
-        RenderOneGameObject(rendercomopent);
+        RenderOneGameObject(renderComponent);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
