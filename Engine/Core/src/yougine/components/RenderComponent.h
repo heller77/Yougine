@@ -20,6 +20,7 @@ namespace yougine::comoponents
         void SetDepthBuffer(GLuint depth_buffer);
 
         void SetFrameBuferr(GLuint frame_buferr);
+
         void SetIndexBuffer(GLuint index_buffer);
 
         [[nodiscard]] GLuint GetProgram() const;
@@ -31,6 +32,7 @@ namespace yougine::comoponents
         [[nodiscard]] GLuint GetDepthBuffer() const;
 
         [[nodiscard]] GLuint GetFrameBuferr() const;
+
         [[nodiscard]] GLuint GetIndexBuffer() const;
 
     private:
