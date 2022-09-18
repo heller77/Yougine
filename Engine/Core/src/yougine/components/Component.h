@@ -33,5 +33,6 @@ namespace yougine::components
         void SetParentGameObject(GameObject* parent_gameobject);
         bool RegisterThisComponentToComponentList(Scene* scene);
         void UnregisterThisComponentFromComponentList();
+        bool isAlradyRegisterComponentList();
     };
 }

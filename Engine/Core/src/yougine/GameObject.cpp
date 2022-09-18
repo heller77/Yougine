@@ -68,10 +68,16 @@ namespace yougine
         {
             return;
         }
-        // component
+        //component‚ªŠù‚É“o˜^‚³‚ê‚Ä‚¢‚ê‚ÎAAddComponent‚µ‚È‚¢
+        if(component->isAlradyRegisterComponentList())
+        {
+            return;
+        }
+        //component‚Ìe‚Æ‚µ‚ÄŽ©•ª‚ðÝ’è
         component->SetParentGameObject(this);
-        bool is_register = component->RegisterThisComponentToComponentList(this->scene);
-
+        //componentlist‚Écomponent‚ð“o˜^
+        component->RegisterThisComponentToComponentList(this->scene);
+        //component‚ð‚±‚ÌGameObject‚É’Ç‰Á
         this->components.push_back(component);
     }
 
