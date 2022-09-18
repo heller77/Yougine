@@ -2,6 +2,7 @@
 #include "Component.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
 namespace yougine::comoponents
 {
     class RenderComponent : public components::Component
@@ -19,8 +20,9 @@ namespace yougine::comoponents
         void SetDepthBuffer(GLuint depth_buffer);
 
         void SetFrameBuferr(GLuint frame_buferr);
+        void SetIndexBuffer(GLuint index_buffer);
 
-        [[nodiscard]] GLuint GetProgram()const;
+        [[nodiscard]] GLuint GetProgram() const;
 
         [[nodiscard]] GLuint GetVao() const;
 
@@ -29,6 +31,7 @@ namespace yougine::comoponents
         [[nodiscard]] GLuint GetDepthBuffer() const;
 
         [[nodiscard]] GLuint GetFrameBuferr() const;
+        [[nodiscard]] GLuint GetIndexBuffer() const;
 
     private:
         GLuint program;
@@ -36,6 +39,6 @@ namespace yougine::comoponents
         GLuint colorBuffer;
         GLuint depthBuffer;
         GLuint frameBuferr;
+        GLuint index_buffer;
     };
-
 }
