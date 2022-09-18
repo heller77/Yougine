@@ -37,7 +37,6 @@ namespace yougine
         this->layer = layer;
     }
 
-
     std::vector<components::Component*> GameObject::GetComponents()
     {
         return components;
@@ -65,17 +64,15 @@ namespace yougine
 
     void yougine::GameObject::AddComponent(components::Component* component)
     {
-        if(component==nullptr)
+        if (component == nullptr)
         {
             return;
         }
         // component
         component->SetParentGameObject(this);
         bool is_register = component->RegisterThisComponentToComponentList(this->scene);
-        if (is_register) {
-            //“o˜^‚Å‚«‚½‚È‚ç
-            this->components.push_back(component);
-        }
+
+        this->components.push_back(component);
     }
 
     void GameObject::RemoveComponent(components::Component* component)
@@ -87,7 +84,8 @@ namespace yougine
             if (c != component)
             {
                 new_components.push_back(c);
-            }else
+            }
+            else
             {
                 component->UnregisterThisComponentFromComponentList();
                 std::cout << "component‚ðƒŠƒ€[ƒuI@" << std::endl;
@@ -95,5 +93,4 @@ namespace yougine
         }
         this->components = new_components;
     }
-
 }

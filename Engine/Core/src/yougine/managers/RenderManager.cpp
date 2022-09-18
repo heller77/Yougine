@@ -7,6 +7,10 @@
 
 #include "../components/TransformComponent.h"
 
+#include "glm/glm.hpp"
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 namespace yougine
 {
     namespace components
@@ -14,6 +18,7 @@ namespace yougine
         class TransformComponent;
     }
 }
+
 namespace yougine::managers
 {
     struct Vertex
@@ -23,7 +28,8 @@ namespace yougine::managers
 
     RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
-        this->renderComponent = new comoponents::RenderComponent();
+        this->component_list = component_list;
+        this->renderComponent = new components::RenderComponent();
         GLenum err;
         this->width = width;
         this->height = height;
@@ -36,60 +42,25 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        this->renderComponent->SetColorBuffer(colorBuffer);
+        this->colorBuffer = colorBuffer;
+
         //デプスバッファ
         GLuint depthBuffer;
         glGenRenderbuffers(1, &depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-        this->renderComponent->SetDepthBuffer(depthBuffer);
+        this->depthBuffer = depthBuffer;
 
         //フレームバッファ
         GLuint frameBuffer;
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-            this->renderComponent->GetColorBuffer(), 0);
+                               this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-            this->renderComponent->GetDepthBuffer());
+                                  this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        this->renderComponent->SetFrameBuferr(frameBuffer);
-
-        Vertex vertices[] = {
-            {0.5, 0.5, 0.0, 1},
-            {0.5, -0.5, 0.0, 1},
-            {-0.5, -0.5, 0.0, 1},
-            {-0.5, 0.5, 0.0, 1},
-        };
-        GLuint indices[] = {
-            // note that we start from 0!
-            0, 1, 3, // first triangle
-            1, 2, 3 // second triangle
-        };
-        GLuint program, vao;
-        program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-        this->renderComponent->SetProgram(program);
-        this->renderComponent->SetVao(vao);
-
-        //頂点バッファを作成
-        GLuint vertexBuffer;
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), vertices, GL_STATIC_DRAW);
-
-        // //インデックスバッファ
-        GLuint elementBuffer;
-        glGenBuffers(1, &elementBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-        //シェーダに値を渡す
-        auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
-
-        glEnableVertexAttribArray(vertexShader_PositionAttribute);
-        glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
+        this->frameBuffer = frameBuffer;
 
         while ((err = glGetError()) != GL_NO_ERROR)
         {
@@ -109,15 +80,21 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
-        glBindFramebuffer(GL_FRAMEBUFFER, this->renderComponent->GetFrameBuferr());
+        glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
-        constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
+        constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
 
+        int i = 0;
         //オブジェクトそれぞれ描画
-        auto rendercomopent = new comoponents::RenderComponent();
-        RenderOneGameObject(rendercomopent);
+        auto render_component_list = component_list->GetReferObjectList(ComponentName::kRender);
+        for (auto render_component : render_component_list)
+        {
+            auto cast_rendercomponent = dynamic_cast<components::RenderComponent*>(render_component);
+            RenderOneGameObject(cast_rendercomponent);
+        }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
@@ -126,23 +103,65 @@ namespace yougine::managers
         }
     }
 
+    float cValue = 0;
+
+    float diff = 0.01f;
+
+    float cameradiff = 0.01f;
+
+    float camerax = 1;
+
+    void SetFloatUniform(GLint program, const char* name, float value)
+    {
+        GLuint loc = glGetUniformLocation(program, name);
+        // Send the float data
+        glUniform1f(loc, value);
+        GLuint err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
+        }
+    }
+
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(comoponents::RenderComponent* render_component)
+    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component)
     {
-        // GameObject* gameobject = render_component->GetGameObject();
-        // components::TransformComponent* transform;
-        // transform = gameobject->GetComponent<components::TransformComponent>();
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
+        glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
+        // カメラ行列
+        camerax += cameradiff * 1.3;
+        if (camerax > 3 || camerax < -3)
+        {
+            cameradiff *= -1;
+        }
+        glm::mat4 View = glm::lookAt(
+            glm::vec3(0, 0, 10),
+            glm::vec3(0, 0, 0),
+            glm::vec3(0, 1, 0)
+        );
+        auto gameobject = render_component->GetGameObject();
+        auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
+        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z));
+        glm::mat4 MVP = Projection * View * Model;
+        auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
+        glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
             std::cout << err << " というエラーがある in rendergameobject" << std::endl;
         }
-        // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+        SetFloatUniform(renderComponent->GetProgram(), "c", cValue);
+
+        cValue += diff;
+        if (cValue > 1.0f && diff > 0)
+        {
+            cValue *= -1;
+        }
         glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
     }
@@ -183,13 +202,13 @@ namespace yougine::managers
 
     GLuint RenderManager::ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath)
     {
-        return this->ShaderInit(this->ReadFile(vsFilePath), this->ReadFile(fsFilePath));
+        return ShaderInit(ReadFile(vsFilePath), ReadFile(fsFilePath));
         // return 0;
     }
 
     GLuint RenderManager::GetColorBuffer()
     {
-        return this->renderComponent->GetColorBuffer();
+        return this->colorBuffer;
     }
 
     void RenderManager::SetWindowSize(ImVec2 vec2)
@@ -243,12 +262,6 @@ namespace yougine::managers
             std::cout << "file reading now" << std::endl;
             content.append(a + "\n");
         }
-        /*while (reading_file.eof())
-        {
-            std::cout << "file reading now" << std::endl;
-            std::getline(reading_file, line);
-            content.append(line + "\n");
-        }*/
         reading_file.close();
         std::cout << "file contens is \n" << content << std::endl;
 

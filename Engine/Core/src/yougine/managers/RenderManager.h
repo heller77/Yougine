@@ -6,6 +6,7 @@
 #include "../components/RenderComponent.h"
 
 #include "imgui/imgui.h"
+
 namespace yougine::managers
 {
     class RenderManager
@@ -17,30 +18,33 @@ namespace yougine::managers
 
         void RenderScene();
 
-        GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
-        GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+        static GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
+
+        static GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+
         GLuint GetColorBuffer();
+
         void SetWindowSize(ImVec2 vec2);
 
     private:
         ComponentList* component_list;
+
         int width, height;
-        // GLuint program;
-        // GLuint vao;
-        // GLuint frameBuffer;
 
-        comoponents::RenderComponent* renderComponent;
+        GLuint frameBuffer;
 
-        // GLuint colorBuffer;
-        //
-        // GLuint depthBuffer;
+        components::RenderComponent* renderComponent;
 
-        void RenderOneGameObject(comoponents::RenderComponent* render_component);
+        GLuint colorBuffer;
+
+        GLuint depthBuffer;
+
+        void RenderOneGameObject(components::RenderComponent* render_component);
 
         void MeshBufferInit();
 
-        GLboolean PrintShaderInfoLog(GLuint shader, const char* str);
+        static GLboolean PrintShaderInfoLog(GLuint shader, const char* str);
 
-        std::string ReadFile(std::string filepath);
+        static std::string ReadFile(std::string filepath);
     };
 }

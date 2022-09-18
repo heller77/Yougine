@@ -2,8 +2,14 @@
 #include "Component.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-namespace yougine::comoponents
+
+namespace yougine::components
 {
+    struct Vertex
+    {
+        GLfloat position[4];
+    };
+
     class RenderComponent : public components::Component
     {
         //マテリアル（シェーダー、シェーダに渡す値）、メッシュ。
@@ -14,28 +20,27 @@ namespace yougine::comoponents
 
         void SetVao(GLuint vao);
 
-        void SetColorBuffer(GLuint color_buffer);
+        void SetIndexBuffer(GLuint index_buffer);
 
-        void SetDepthBuffer(GLuint depth_buffer);
-
-        void SetFrameBuferr(GLuint frame_buferr);
-
-        [[nodiscard]] GLuint GetProgram()const;
+        [[nodiscard]] GLuint GetProgram() const;
 
         [[nodiscard]] GLuint GetVao() const;
 
-        [[nodiscard]] GLuint GetColorBuffer() const;
+        [[nodiscard]] std::vector<Vertex> GetVertexVector() const;
 
-        [[nodiscard]] GLuint GetDepthBuffer() const;
+        void SetVertexVector(const std::vector<Vertex>& vertex_vector);
 
-        [[nodiscard]] GLuint GetFrameBuferr() const;
+        [[nodiscard]] std::vector<GLuint> GetIndexVector() const;
+
+        void SetIndexVector(const std::vector<GLuint>& index_vector);
 
     private:
         GLuint program;
-        GLuint vao;
-        GLuint colorBuffer;
-        GLuint depthBuffer;
-        GLuint frameBuferr;
-    };
 
+        GLuint vao;
+
+        std::vector<Vertex> vertex_vector;
+
+        std::vector<GLuint> index_vector;
+    };
 }
