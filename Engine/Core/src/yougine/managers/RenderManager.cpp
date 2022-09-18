@@ -61,17 +61,6 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer=frameBuffer;
 
-        Vertex vertices[] = {
-            {0.5, 0.5, 0.0, 1},
-            {0.5, -0.5, 0.0, 1},
-            {-0.5, -0.5, 0.0, 1},
-            {-0.5, 0.5, 0.0, 1},
-        };
-        GLuint indices[] = {
-            // note that we start from 0!
-            0, 1, 3, // first triangle
-            1, 2, 3 // second triangle
-        };
         GLuint program, vao;
         program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
         glGenVertexArrays(1, &vao);
@@ -83,13 +72,14 @@ namespace yougine::managers
         GLuint vertexBuffer;
         glGenBuffers(1, &vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), vertices, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), renderComponent->GetVertexVector().data(), GL_STATIC_DRAW);
 
         // //インデックスバッファ
         GLuint elementBuffer;
         glGenBuffers(1, &elementBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+        auto indices = renderComponent->GetIndexVector();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices.data(), GL_STATIC_DRAW);
 
         //シェーダに値を渡す
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
