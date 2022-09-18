@@ -14,15 +14,16 @@ namespace yougine::comoponents
         void SetProgram(GLuint program);
 
         void SetVao(GLuint vao);
+
         void SetIndexBuffer(GLuint index_buffer);
 
         [[nodiscard]] GLuint GetProgram() const;
 
         [[nodiscard]] GLuint GetVao() const;
-        [[nodiscard]] GLuint GetIndexBuffer() const;
+
     private:
         GLuint program;
+
         GLuint vao;
-        GLuint index_buffer;
     };
 }

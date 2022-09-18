@@ -25,13 +25,4 @@ namespace yougine::comoponents
     {
         return vao;
     }
-    GLuint RenderComponent::GetIndexBuffer() const
-    {
-        return index_buffer;
-    }
-
-    void RenderComponent::SetIndexBuffer(GLuint index_buffer)
-    {
-        this->index_buffer = index_buffer;
-    }
 }
