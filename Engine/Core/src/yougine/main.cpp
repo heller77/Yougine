@@ -71,6 +71,7 @@ int main()
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
 
+    
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::components::RenderComponent();
     auto rendercomponent2 = new yougine::components::RenderComponent();
@@ -85,6 +86,7 @@ int main()
     auto gameobject2 = scene->CreateGameObject("renderObj_2",nullptr);
     gameobject2->AddComponent(new yougine::components::RenderComponent());
     gameobject2->AddComponent(new yougine::components::TransformComponent(1,1,1));
+
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
