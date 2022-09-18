@@ -61,32 +61,6 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer=frameBuffer;
 
-        GLuint program, vao;
-        program = ShaderInitFromFilePath("./Resource/shader/test.vert", "./Resource/shader/test.frag");
-        glGenVertexArrays(1, &vao);
-        glBindVertexArray(vao);
-        this->renderComponent->SetProgram(program);
-        this->renderComponent->SetVao(vao);
-
-        //頂点バッファを作成
-        GLuint vertexBuffer;
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex), renderComponent->GetVertexVector().data(), GL_STATIC_DRAW);
-
-        // //インデックスバッファ
-        GLuint elementBuffer;
-        glGenBuffers(1, &elementBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
-        auto indices = renderComponent->GetIndexVector();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices.data(), GL_STATIC_DRAW);
-
-        //シェーダに値を渡す
-        auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
-
-        glEnableVertexAttribArray(vertexShader_PositionAttribute);
-        glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
-
         while ((err = glGetError()) != GL_NO_ERROR)
         {
             std::cout << err << " というエラーがある in constructer" << std::endl;
@@ -220,7 +194,7 @@ namespace yougine::managers
 
     GLuint RenderManager::ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath)
     {
-        return this->ShaderInit(this->ReadFile(vsFilePath), this->ReadFile(fsFilePath));
+        return ShaderInit(ReadFile(vsFilePath), ReadFile(fsFilePath));
         // return 0;
     }
 

@@ -18,9 +18,9 @@ namespace yougine::managers
 
         void RenderScene();
 
-        GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
+        static GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
 
-        GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+        static GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
 
         GLuint GetColorBuffer();
 
@@ -43,8 +43,8 @@ namespace yougine::managers
 
         void MeshBufferInit();
 
-        GLboolean PrintShaderInfoLog(GLuint shader, const char* str);
+        static GLboolean PrintShaderInfoLog(GLuint shader, const char* str);
 
-        std::string ReadFile(std::string filepath);
+        static std::string ReadFile(std::string filepath);
     };
 }
