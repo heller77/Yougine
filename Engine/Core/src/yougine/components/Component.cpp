@@ -64,7 +64,7 @@ namespace yougine::components
         else if (this->component_name == managers::ComponentName::kNone)
         {
             //componentname‚ªkNone‚È‚Ì‚ÉComponentList‚É’Ç‰Á‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚é‚Ì‚ÅƒGƒ‰[
-            throw "throw,this component can not register to ComponentList";
+            // throw "throw,this component can not register to ComponentList";
             return false;
         }
         scene->GetComponentList()->AddObjectToDictionary(this->component_name, this);
