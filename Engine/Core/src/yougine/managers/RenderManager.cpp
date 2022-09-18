@@ -93,7 +93,6 @@ namespace yougine::managers
             auto cast_rendercomponent = dynamic_cast<components::RenderComponent*>(render_component);
             RenderOneGameObject(cast_rendercomponent);
         }
-        std::cout << std::endl;
        
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         GLenum err;
@@ -142,7 +141,6 @@ namespace yougine::managers
             glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
         );
         auto gameobject = render_component->GetGameObject();
-        std::cout << "gameobject name " << gameobject->GetName()<<std::endl;
         auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
         // モデル行列：単位行列(モデルは原点にあります。)
         glm::mat4 Model = glm::translate(glm::vec3(position.x,position.y,position.z));  // 各モデルを変える！
