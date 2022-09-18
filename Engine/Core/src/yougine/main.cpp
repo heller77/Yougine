@@ -13,6 +13,8 @@
 #include "Editor/SceneWindow.h"
 #include "Editor/InspectorWindow.h"
 #include <fstream>
+
+#include "components/TransformComponent.h"
 #include "managers/ComponentList.h"
 
 static void glfw_error_callback(int error, const char* description)
@@ -72,13 +74,17 @@ int main()
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::components::RenderComponent();
     auto rendercomponent2 = new yougine::components::RenderComponent();
-    auto gameobject = new yougine::GameObject(scene, "hello", nullptr);
+    auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
+    gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
+    
+
     std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = new yougine::GameObject(scene, "goodMorning", nullptr);
+    auto gameobject2 = scene->CreateGameObject("renderObj_2",nullptr);
     gameobject2->AddComponent(new yougine::components::RenderComponent());
+    gameobject2->AddComponent(new yougine::components::TransformComponent(1,1,1));
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();

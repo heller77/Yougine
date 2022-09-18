@@ -74,7 +74,6 @@ namespace yougine::managers
     void RenderManager::Initialize()
     {
     }
-
     /**
      * \brief レンダリング
      */
@@ -86,8 +85,16 @@ namespace yougine::managers
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
 
+        int i = 0;
         //オブジェクトそれぞれ描画
-        RenderOneGameObject(renderComponent);
+        auto render_component_list = component_list->GetReferObjectList(ComponentName::kRender);
+        for (auto render_component : render_component_list)
+        {
+            auto cast_rendercomponent = dynamic_cast<components::RenderComponent*>(render_component);
+            RenderOneGameObject(cast_rendercomponent);
+        }
+        std::cout << std::endl;
+       
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
@@ -130,12 +137,15 @@ namespace yougine::managers
             cameradiff *= -1;
         }
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 2), // ワールド空間でカメラは(4,3,3)にあります。
+            glm::vec3(0, 0, 10), // ワールド空間でカメラは(4,3,3)にあります。
             glm::vec3(0, 0, 0), // 原点を見ています。
             glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
         );
+        auto gameobject = render_component->GetGameObject();
+        std::cout << "gameobject name " << gameobject->GetName()<<std::endl;
+        auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
         // モデル行列：単位行列(モデルは原点にあります。)
-        glm::mat4 Model = glm::mat4(1.0f);  // 各モデルを変える！
+        glm::mat4 Model = glm::translate(glm::vec3(position.x,position.y,position.z));  // 各モデルを変える！
         // Our ModelViewProjection : multiplication of our 3 matrices
         glm::mat4 MVP = Projection * View * Model; // 行列の掛け算は逆になることを思い出してください。
         auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
