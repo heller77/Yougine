@@ -7,6 +7,9 @@
 
 #include "../components/TransformComponent.h"
 
+#include "glm/glm.hpp"
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 namespace yougine
 {
     namespace components
@@ -125,7 +128,21 @@ namespace yougine::managers
             std::cout << err << " というエラーがある in renderscene" << std::endl;
         }
     }
-
+    float cValue = 0;
+    float diff = 0.01f;
+    float cameradiff = 0.01f;
+    float camerax = 1;
+    void SetFloatUniform(GLint program, const char* name, float value)
+    {
+        GLuint loc = glGetUniformLocation(program, name);
+        // Send the float data
+        glUniform1f(loc, value);
+        GLuint err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
+        }
+    }
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -137,10 +154,37 @@ namespace yougine::managers
         // transform = gameobject->GetComponent<components::TransformComponent>();
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
+        // 射影行列：45&deg;の視界、アスペクト比4:3、表示範囲：0.1単位  100単位
+        glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
+        // カメラ行列
+        camerax += cameradiff * 1.3;
+        if (camerax > 3 || camerax < -3)
+        {
+            cameradiff *= -1;
+        }
+        glm::mat4 View = glm::lookAt(
+            glm::vec3(0, 0, 2), // ワールド空間でカメラは(4,3,3)にあります。
+            glm::vec3(0, 0, 0), // 原点を見ています。
+            glm::vec3(0, 1, 0)  // 頭が上方向(0,-1,0にセットすると上下逆転します。)
+        );
+        // モデル行列：単位行列(モデルは原点にあります。)
+        glm::mat4 Model = glm::mat4(1.0f);  // 各モデルを変える！
+        // Our ModelViewProjection : multiplication of our 3 matrices
+        glm::mat4 MVP = Projection * View * Model; // 行列の掛け算は逆になることを思い出してください。
+        auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
+        glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
             std::cout << err << " というエラーがある in rendergameobject" << std::endl;
+        }
+
+        SetFloatUniform(renderComponent->GetProgram(), "c", cValue);
+
+        cValue += diff;
+        if(cValue>1.0f&&diff>0)
+        {
+            cValue *= -1;
         }
         // glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
         glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
