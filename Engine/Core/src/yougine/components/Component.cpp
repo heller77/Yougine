@@ -50,21 +50,9 @@ namespace yougine::components
      */
     bool Component::RegisterThisComponentToComponentList(Scene* scene)
     {
-        if (register_component_list != nullptr)
-        {
-            throw"this component is already registerd";
-            return false;
-        }
-        if (this->parent_gameobject == nullptr)
-        {
-            //parent_gameobject‚ªnull‚È‚çƒGƒ‰[
-            throw "exception,this compoent does not have parentGameobject";
-            return false;
-        }
-        else if (this->component_name == managers::ComponentName::kNone)
+        if (this->component_name == managers::ComponentName::kNone)
         {
             //componentname‚ªkNone‚È‚Ì‚ÅComponentList‚É’Ç‰Á‚µ‚È‚¢
-            // throw "throw,this component can not register to ComponentList";
             return false;
         }
         scene->GetComponentList()->AddObjectToDictionary(this->component_name, this);
@@ -76,5 +64,11 @@ namespace yougine::components
     {
         this->register_component_list->RemoveComponentFromDictionary(this->component_name, this);
         this->register_component_list = nullptr;
+    }
+
+    //“o˜^‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    bool Component::isAlradyRegisterComponentList()
+    {
+        return !(register_component_list == nullptr);
     }
 }
