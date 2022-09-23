@@ -1,4 +1,4 @@
-#include "InspectorWindow.h"
+ï»¿#include "InspectorWindow.h"
 
 namespace editor
 {
@@ -26,7 +26,7 @@ namespace editor
     void InspectorWindow::ShowGameObjectData()
     {
         /*
-         * GameObject‚Ì–¼‘O‚ÌInputTextBox‚ÌÀ‘•
+         * GameObjectã®åå‰ã®InputTextBoxã®å®Ÿè£…
          */
         const int size_str = sizeof(selection_info->GetSelectObject()->GetName());
         char temp_s[size_str];
@@ -40,7 +40,7 @@ namespace editor
         }
 
         /*
-         * Layerî•ñ –¢À‘•
+         * Layeræƒ…å ± æœªå®Ÿè£…
          */
         ImGui::Text("Layer");
         const char* items[] = { "Default", "GameObject" };
