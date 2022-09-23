@@ -1,4 +1,4 @@
-#include "GameObject.h"
+ï»¿#include "GameObject.h"
 
 #include "components/Component.h"
 
@@ -68,16 +68,16 @@ namespace yougine
         {
             return;
         }
-        //component‚ªŠù‚É“o˜^‚³‚ê‚Ä‚¢‚ê‚ÎAAddComponent‚µ‚È‚¢
+        //componentãŒæ—¢ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚Œã°ã€AddComponentã—ãªã„
         if(component->isAlradyRegisterComponentList())
         {
             return;
         }
-        //component‚Ìe‚Æ‚µ‚ÄŽ©•ª‚ðÝ’è
+        //componentã®è¦ªã¨ã—ã¦è‡ªåˆ†ã‚’è¨­å®š
         component->SetParentGameObject(this);
-        //componentlist‚Écomponent‚ð“o˜^
+        //componentlistã«componentã‚’ç™»éŒ²
         component->RegisterThisComponentToComponentList(this->scene);
-        //component‚ð‚±‚ÌGameObject‚É’Ç‰Á
+        //componentã‚’ã“ã®GameObjectã«è¿½åŠ 
         this->components.push_back(component);
     }
 
@@ -94,7 +94,7 @@ namespace yougine
             else
             {
                 component->UnregisterThisComponentFromComponentList();
-                std::cout << "component‚ðƒŠƒ€[ƒuI@" << std::endl;
+                std::cout << "componentã‚’ãƒªãƒ ãƒ¼ãƒ–ï¼ã€€" << std::endl;
             }
         }
         this->components = new_components;

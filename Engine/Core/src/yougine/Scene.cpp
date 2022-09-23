@@ -1,4 +1,4 @@
-#include "Scene.h"
+ï»¿#include "Scene.h"
 
 namespace yougine
 {
@@ -26,7 +26,7 @@ namespace yougine
         return gameobject;
     }
 
-    //ˆ—•Ï‚¦‚é
+    //å‡¦ç†å¤‰ãˆã‚‹
     void Scene::RemoveGameObject(GameObject* gameobject)
     {
         std::list<GameObject*> new_list;

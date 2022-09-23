@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 namespace yougine
 {
     struct Vector3
@@ -14,9 +14,9 @@ namespace yougine
         }
 
         /**
-         * \brief ‘ã“ü‰‰Zq
-         * \param v ‘ã“ü‚·‚é’l‚ 
-         * \return ‘ã“ü‚³‚ê‚½QÆ
+         * \brief ä»£å…¥æ¼”ç®—å­
+         * \param v ä»£å…¥ã™ã‚‹å€¤ã‚
+         * \return ä»£å…¥ã•ã‚ŒãŸå‚ç…§
          */
         Vector3& operator=(const Vector3& v)
         {
