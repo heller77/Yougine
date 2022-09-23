@@ -1,4 +1,4 @@
-#include <vector>
+ï»¿#include <vector>
 #include "ComponentList.h"
 
 #include "../components/Component.h"
@@ -37,7 +37,7 @@ namespace yougine::managers
     }
 
     /**
-     * \brief component‚Ì“o˜^‚ğÁ‚·
+     * \brief componentã®ç™»éŒ²ã‚’æ¶ˆã™
      * \param component_name 
      * \param component 
      */

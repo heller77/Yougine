@@ -1,4 +1,4 @@
-#include "Component.h"
+ï»¿#include "Component.h"
 #include <iostream>
 
 namespace yougine::components
@@ -45,14 +45,14 @@ namespace yougine::components
     }
 
     /**
-     * \brief parentgameobject‚ªnull‚Ìê‡ƒGƒ‰[‚ğo‚·iSetParentGameObjectŠÖ”‚ğæ‚ÉŒÄ‚Î‚È‚¢‚ÆƒGƒ‰[‚É‚È‚éj
-     * \param scene parentGameobject‚ªŠ‘®‚·‚éƒV[ƒ“
+     * \brief parentgameobjectãŒnullã®å ´åˆã‚¨ãƒ©ãƒ¼ã‚’å‡ºã™ï¼ˆSetParentGameObjecté–¢æ•°ã‚’å…ˆã«å‘¼ã°ãªã„ã¨ã‚¨ãƒ©ãƒ¼ã«ãªã‚‹ï¼‰
+     * \param scene parentGameobjectãŒæ‰€å±ã™ã‚‹ã‚·ãƒ¼ãƒ³
      */
     bool Component::RegisterThisComponentToComponentList(Scene* scene)
     {
         if (this->component_name == managers::ComponentName::kNone)
         {
-            //componentname‚ªkNone‚È‚Ì‚ÅComponentList‚É’Ç‰Á‚µ‚È‚¢
+            //componentnameãŒkNoneãªã®ã§ComponentListã«è¿½åŠ ã—ãªã„
             return false;
         }
         scene->GetComponentList()->AddObjectToDictionary(this->component_name, this);
@@ -66,7 +66,7 @@ namespace yougine::components
         this->register_component_list = nullptr;
     }
 
-    //“o˜^‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    //ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹
     bool Component::isAlradyRegisterComponentList()
     {
         return !(register_component_list == nullptr);

@@ -1,4 +1,4 @@
-#include "SelectionInfo.h"
+﻿#include "SelectionInfo.h"
 
 namespace editor
 {

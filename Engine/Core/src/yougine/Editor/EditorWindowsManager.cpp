@@ -1,4 +1,4 @@
-#include "EditorWindowsManager.h"
+﻿#include "EditorWindowsManager.h"
 
 namespace editor
 {
