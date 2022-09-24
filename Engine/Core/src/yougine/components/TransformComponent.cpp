@@ -1,4 +1,4 @@
-#include "TransformComponent.h"
+ï»¿#include "TransformComponent.h"
 
 namespace yougine::components
 {
@@ -8,8 +8,8 @@ namespace yougine::components
     }
 
     /**
-     * \brief position‚ÌÀ‘Ì‚ğ•Ô‚·iQÆ‚Å‚Í‚È‚¢‚Ì‚Å•ÏX‚µ‚Ä‚àAtransform.position‚»‚Ì‚à‚Ì‚ğ•ÏX‚Å‚«‚é–ó‚Å‚Í‚È‚¢j
-     * \return position‚ÌÀ‘Ì
+     * \brief positionã®å®Ÿä½“ã‚’è¿”ã™ï¼ˆå‚ç…§ã§ã¯ãªã„ã®ã§å¤‰æ›´ã—ã¦ã‚‚ã€transform.positionãã®ã‚‚ã®ã‚’å¤‰æ›´ã§ãã‚‹è¨³ã§ã¯ãªã„ï¼‰
+     * \return positionã®å®Ÿä½“
      */
     Vector3 TransformComponent::GetPosition()
     {
@@ -17,8 +17,8 @@ namespace yougine::components
     }
 
     /**
-     * \brief position‚ÌƒZƒbƒ^[
-     * \param position ƒZƒbƒg‚·‚é’l
+     * \brief positionã®ã‚»ãƒƒã‚¿ãƒ¼
+     * \param position ã‚»ãƒƒãƒˆã™ã‚‹å€¤
      */
     void TransformComponent::SetPosition(Vector3 position)
     {

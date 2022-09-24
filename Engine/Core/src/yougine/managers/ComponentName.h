@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 namespace yougine::managers
 {
     enum class ComponentName
@@ -9,6 +9,6 @@ namespace yougine::managers
         kUIRender,
         kUICollider,
         kCustom,
-        kNone//ComponentList‚ÉŠ‘®‚µ‚È‚¢‚â‚Â
+        kNone//ComponentListã«æ‰€å±ã—ãªã„ã‚„ã¤
     };
 }

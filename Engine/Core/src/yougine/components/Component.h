@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../Scene.h"
 #include "../managers/ComponentName.h"
 
@@ -16,7 +16,7 @@ namespace yougine::components
         managers::ComponentName component_name;
         // bool isRegisterdToComponentList;
         /**
-         * \brief “o˜^‚µ‚Ä‚¢‚éComponentList
+         * \brief ç™»éŒ²ã—ã¦ã„ã‚‹ComponentList
          */
         managers::ComponentList* register_component_list;
 

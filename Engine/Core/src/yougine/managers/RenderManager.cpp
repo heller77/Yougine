@@ -1,4 +1,4 @@
-#include "RenderManager.h"
+ï»¿#include "RenderManager.h"
 
 #include <fstream>
 #include <iostream>
@@ -33,7 +33,7 @@ namespace yougine::managers
         GLenum err;
         this->width = width;
         this->height = height;
-        //ƒJƒ‰[ƒoƒbƒtƒ@
+        //ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡
         GLuint colorBuffer;
         glGenTextures(1, &colorBuffer);
         glBindTexture(GL_TEXTURE_2D, colorBuffer);
@@ -44,14 +44,14 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
 
-        //ƒfƒvƒXƒoƒbƒtƒ@
+        //ãƒ‡ãƒ—ã‚¹ãƒãƒƒãƒ•ã‚¡
         GLuint depthBuffer;
         glGenRenderbuffers(1, &depthBuffer);
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
 
-        //ƒtƒŒ[ƒ€ƒoƒbƒtƒ@
+        //ãƒ•ãƒ¬ãƒ¼ãƒ ãƒãƒƒãƒ•ã‚¡
         GLuint frameBuffer;
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
@@ -64,19 +64,19 @@ namespace yougine::managers
 
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " ‚Æ‚¢‚¤ƒGƒ‰[‚ª‚ ‚é in constructer" << std::endl;
+            std::cout << err << " ã¨ã„ã†ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ in constructer" << std::endl;
         }
     }
 
     /**
-     * \brief ‰Šú‰»
+     * \brief åˆæœŸåŒ–
      */
     void RenderManager::Initialize()
     {
     }
 
     /**
-     * \brief ƒŒƒ“ƒ_ƒŠƒ“ƒO
+     * \brief ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°
      */
     void RenderManager::RenderScene()
     {
@@ -87,7 +87,7 @@ namespace yougine::managers
         glClearBufferfv(GL_DEPTH, 0, &depth);
 
         int i = 0;
-        //ƒIƒuƒWƒFƒNƒg‚»‚ê‚¼‚ê•`‰æ
+        //ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãã‚Œãã‚Œæç”»
         auto render_component_list = component_list->GetReferObjectList(ComponentName::kRender);
         for (auto render_component : render_component_list)
         {
@@ -99,7 +99,7 @@ namespace yougine::managers
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " ‚Æ‚¢‚¤ƒGƒ‰[‚ª‚ ‚é in renderscene" << std::endl;
+            std::cout << err << " ã¨ã„ã†ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ in renderscene" << std::endl;
         }
     }
 
@@ -119,20 +119,20 @@ namespace yougine::managers
         GLuint err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " ‚Æ‚¢‚¤ƒGƒ‰[‚ª‚ ‚é in setfloatuniform" << std::endl;
+            std::cout << err << " ã¨ã„ã†ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ in setfloatuniform" << std::endl;
         }
     }
 
     /**
-     * \brief ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ‚·‚é
-     * \param render_component •`‰æ‘ÎÛ‚ÌƒŒƒ“ƒ_[ƒRƒ“ƒ|[ƒlƒ“ƒg
+     * \brief ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ã™ã‚‹
+     * \param render_component æç”»å¯¾è±¡ã®ãƒ¬ãƒ³ãƒ€ãƒ¼ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
      */
     void RenderManager::RenderOneGameObject(components::RenderComponent* render_component)
     {
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
-        // ƒJƒƒ‰s—ñ
+        // ã‚«ãƒ¡ãƒ©è¡Œåˆ—
         camerax += cameradiff * 1.3;
         if (camerax > 3 || camerax < -3)
         {
@@ -152,7 +152,7 @@ namespace yougine::managers
         GLenum err;
         while ((err = glGetError()) != GL_NO_ERROR)
         {
-            std::cout << err << " ‚Æ‚¢‚¤ƒGƒ‰[‚ª‚ ‚é in rendergameobject" << std::endl;
+            std::cout << err << " ã¨ã„ã†ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹ in rendergameobject" << std::endl;
         }
 
         SetFloatUniform(renderComponent->GetProgram(), "c", cValue);
@@ -170,26 +170,26 @@ namespace yougine::managers
     {
         const auto program = glCreateProgram();
 
-        //ƒVƒF[ƒ_ƒIƒuƒWƒFƒNƒg¶¬
+        //ã‚·ã‚§ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç”Ÿæˆ
         const auto vsShader = glCreateShader(GL_VERTEX_SHADER);
         const auto fsShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        //ƒVƒF[ƒ_ƒR[ƒh‚ğƒIƒuƒWƒFƒNƒg‚É“n‚·
+        //ã‚·ã‚§ãƒ¼ãƒ€ã‚³ãƒ¼ãƒ‰ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«æ¸¡ã™
         const char* vsShaderSource_char = vs_shader_source.c_str();
         std::cout << "vertex \n" << vs_shader_source << std::endl;
         glShaderSource(vsShader, 1, &vsShaderSource_char, nullptr);
         const char* fsShaderSource_char = fs_shader_source.c_str();
         glShaderSource(fsShader, 1, &fsShaderSource_char, nullptr);
 
-        //ƒRƒ“ƒpƒCƒ‹
+        //ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«
         glCompileShader(vsShader);
         glCompileShader(fsShader);
 
-        //ƒGƒ‰[
+        //ã‚¨ãƒ©ãƒ¼
         PrintShaderInfoLog(vsShader, "vertex shader");
         PrintShaderInfoLog(fsShader, "fragment shader");
 
-        //program‚ÉƒAƒ^ƒbƒ`
+        //programã«ã‚¢ã‚¿ãƒƒãƒ
         glAttachShader(program, vsShader);
         glDeleteShader(vsShader);
         glAttachShader(program, fsShader);

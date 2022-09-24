@@ -1,4 +1,4 @@
-#include "CustomScriptManager.h"
+﻿#include "CustomScriptManager.h"
 
 namespace yougine::managers
 {
