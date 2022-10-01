@@ -43,11 +43,35 @@ namespace editor
          * Layer情報 未実装
          */
         ImGui::Text("Layer");
-        const char* items[] = { "Default", "GameObject" };
-        //std::copy(layer_manager->GetLayersName().begin(), layer_manager->GetLayersName().end(), items);
-
+        const char* items[2] = { "Default", "GameObject" };
         static int item_current = 0;
         ImGui::Combo("Layer", &item_current, items, IM_ARRAYSIZE(items));
         ImGui::SameLine();
+
+        /*
+         * Componentのビュー表示
+         *
+         * (koko
+         * ComponentName1
+         *  (componentviewer::drawviews
+         *  - Prop1s
+         *  - Prop2
+         *
+         * ComponentName2
+         *  - Prop1
+         *  - Prop2
+         *  - Prop3
+         */
+         /*
+         for (ComponentViewer* c_viewer : selection_info->GetComponentViewers())
+         {
+             bool c_tree = ImGui::TreeNode(c_viewer->GetComponentName().c_str());
+             if (c_tree)
+             {
+                 c_viewer->DrawViews();
+                 ImGui::TreePop();
+             }
+         }
+         */
     }
 }
