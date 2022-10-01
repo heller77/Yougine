@@ -41,8 +41,13 @@ namespace editor
 
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
-        this->game_object = game_object;
-        this->flame_selected = flame_selected;
+        if (this->game_object != game_object)
+        {
+            this->game_object = game_object;
+            this->flame_selected = flame_selected;
+
+            //InitializeComponentViewersOnChangeObject(this->game_object);
+        }
     }
 
     yougine::GameObject* SelectionInfo::GetSelectObject()
@@ -59,6 +64,32 @@ namespace editor
     {
         this->flame_selected = flame_selected;
     }
+
+    /*
+    void SelectionInfo::InitializeComponentViewersOnChangeObject(yougine::GameObject* game_object)
+    {
+        for (ComponentViewer* c_viewer : component_viewers)
+        {
+            delete c_viewer;
+            c_viewer = nullptr;
+        }
+
+        //vectorのサイズと容量を0にする
+        component_viewers.clear();
+        component_viewers.shrink_to_fit();
+
+        for (yougine::components::Component* c : game_object->GetComponents())
+        {
+            component_viewers.push_back(new ComponentViewer(c));
+        }
+    }
+
+    std::vector<ComponentViewer*> SelectionInfo::GetComponentViewers()
+    {
+        return component_viewers;
+    }
+    */
+
 
 
 }
