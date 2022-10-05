@@ -24,7 +24,7 @@ namespace yougine::components
         tinygltf::Model model;
         tinygltf::TinyGLTF loader;
         std::string err, warn;
-        bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "./Resource/Mesh/sikakukei/testmodel.gltf");
+        bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "./Resource/Mesh/test_model/testmodel.gltf");
         std::cout << "scene length" << model.scenes.size() << std::endl;
         auto scene = model.scenes[0];
         auto nodeindex = scene.nodes[0]; //シーンの参照しているのノード（本当は複数あるパターンにも対応すべき）
