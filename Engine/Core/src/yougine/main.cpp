@@ -82,10 +82,7 @@ int main()
     gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
     
 
-    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = scene->CreateGameObject("renderObj_2",nullptr);
-    gameobject2->AddComponent(new yougine::components::RenderComponent());
-    gameobject2->AddComponent(new yougine::components::TransformComponent(1,1,1));
+
 
 
     //Add Code
