@@ -162,7 +162,8 @@ namespace yougine::managers
         {
             cValue *= -1;
         }
-        glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLE_STRIP, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
+        // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
     }
 

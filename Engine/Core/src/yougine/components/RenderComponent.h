@@ -34,6 +34,11 @@ namespace yougine::components
 
         void SetIndexVector(const std::vector<GLuint>& index_vector);
 
+        /**
+         * \brief ドローコール時に頂点を何個あると伝えるか。頂点座標の数というよりインデックスの数が入ると思われる
+         */
+        int draw_point_count;
+
     private:
         GLuint program;
 
