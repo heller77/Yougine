@@ -83,7 +83,7 @@ namespace utility
     {
     public:
         bool x, y, z;
-        Bool3(float x, float y, float z, float w)
+        Bool3(bool x, bool y, bool z)
             : x(x),
             y(y),
             z(z)
