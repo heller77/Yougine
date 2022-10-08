@@ -5,11 +5,14 @@
 
 namespace yougine::components
 {
-    struct Vertex
+    struct ShaderVector4
     {
         GLfloat position[4];
     };
-
+    struct ShaderVector3
+    {
+        GLfloat position[3];
+    };
     class RenderComponent : public components::Component
     {
         //マテリアル（シェーダー、シェーダに渡す値）、メッシュ。
@@ -26,9 +29,9 @@ namespace yougine::components
 
         [[nodiscard]] GLuint GetVao() const;
 
-        [[nodiscard]] std::vector<Vertex> GetVertexVector() const;
+        [[nodiscard]] std::vector<ShaderVector4> GetVertexVector() const;
 
-        void SetVertexVector(const std::vector<Vertex>& vertex_vector);
+        void SetVertexVector(const std::vector<ShaderVector4>& vertex_vector);
 
         [[nodiscard]] std::vector<GLuint> GetIndexVector() const;
 
@@ -44,7 +47,7 @@ namespace yougine::components
 
         GLuint vao;
 
-        std::vector<Vertex> vertex_vector;
+        std::vector<ShaderVector4> vertex_vector;
 
         std::vector<GLuint> index_vector;
     };

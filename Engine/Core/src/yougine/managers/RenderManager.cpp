@@ -85,7 +85,8 @@ namespace yougine::managers
         constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
-
+        glEnable(GL_DEPTH_TEST);
+        // glEnable(GL_CULL_FACE);
         int i = 0;
         //オブジェクトそれぞれ描画
         auto render_component_list = component_list->GetReferObjectList(ComponentName::kRender);
@@ -170,7 +171,7 @@ namespace yougine::managers
         {
             cValue *= -1;
         }
-        glDrawElements(GL_TRIANGLE_STRIP, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
     }
