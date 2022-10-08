@@ -79,7 +79,7 @@ int main()
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
-    gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
+    gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
     
 
 

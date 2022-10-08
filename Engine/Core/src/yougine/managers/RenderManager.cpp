@@ -108,6 +108,7 @@ namespace yougine::managers
     float diff = 0.01f;
 
     float cameradiff = 0.01f;
+    float cameraWorldRotate = 0.0f;
 
     float camerax = 1;
 
@@ -134,12 +135,19 @@ namespace yougine::managers
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
         // カメラ行列
         camerax += cameradiff * 1.3;
-        if (camerax > 3 || camerax < -3)
+        if (camerax > 15 || camerax < -15)
         {
             cameradiff *= -1;
         }
+
+        cameraWorldRotate += 0.01;
+        if(cameraWorldRotate>=360)
+        {
+            cameraWorldRotate = 0;
+        }
+        float radius = 10;
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 10),
+            glm::vec3(10*glm::cos(cameraWorldRotate), 7, radius*sin(cameraWorldRotate)),
             glm::vec3(0, 0, 0),
             glm::vec3(0, 1, 0)
         );
