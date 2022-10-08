@@ -1,4 +1,4 @@
-#include "InspectorWindow.h"
+ï»¿#include "InspectorWindow.h"
 
 namespace editor
 {
@@ -26,7 +26,7 @@ namespace editor
     void InspectorWindow::ShowGameObjectData()
     {
         /*
-         * GameObject‚Ì–¼‘O‚ÌInputTextBox‚ÌŽÀ‘•
+         * GameObjectã®åå‰ã®InputTextBoxã®å®Ÿè£…
          */
         const int size_str = sizeof(selection_info->GetSelectObject()->GetName());
         char temp_s[size_str];
@@ -40,14 +40,38 @@ namespace editor
         }
 
         /*
-         * Layerî•ñ –¢ŽÀ‘•
+         * Layeræƒ…å ± æœªå®Ÿè£…
          */
         ImGui::Text("Layer");
-        const char* items[] = { "Default", "GameObject" };
-        //std::copy(layer_manager->GetLayersName().begin(), layer_manager->GetLayersName().end(), items);
-
+        const char* items[2] = { "Default", "GameObject" };
         static int item_current = 0;
         ImGui::Combo("Layer", &item_current, items, IM_ARRAYSIZE(items));
         ImGui::SameLine();
+
+        /*
+         * Componentã®ãƒ“ãƒ¥ãƒ¼è¡¨ç¤º
+         *
+         * (koko
+         * ComponentName1
+         *  (componentviewer::drawviews
+         *  - Prop1s
+         *  - Prop2
+         *
+         * ComponentName2
+         *  - Prop1
+         *  - Prop2
+         *  - Prop3
+         */
+         /*
+         for (ComponentViewer* c_viewer : selection_info->GetComponentViewers())
+         {
+             bool c_tree = ImGui::TreeNode(c_viewer->GetComponentName().c_str());
+             if (c_tree)
+             {
+                 c_viewer->DrawViews();
+                 ImGui::TreePop();
+             }
+         }
+         */
     }
 }

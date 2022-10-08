@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Component.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -12,7 +12,7 @@ namespace yougine::components
 
     class RenderComponent : public components::Component
     {
-        //ƒ}ƒeƒŠƒAƒ‹iƒVƒF[ƒ_[AƒVƒF[ƒ_‚É“n‚·’ljAƒƒbƒVƒ…B
+        //ãƒãƒ†ãƒªã‚¢ãƒ«ï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã€ã‚·ã‚§ãƒ¼ãƒ€ã«æ¸¡ã™å€¤ï¼‰ã€ãƒ¡ãƒƒã‚·ãƒ¥ã€‚
     public:
         RenderComponent();
 

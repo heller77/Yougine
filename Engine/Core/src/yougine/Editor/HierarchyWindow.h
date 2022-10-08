@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "EditorWindow.h"
 #include "../Scene.h"
 #include <algorithm>

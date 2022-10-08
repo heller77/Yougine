@@ -1,4 +1,4 @@
-#include "RenderComponent.h"
+ï»¿#include "RenderComponent.h"
 #include "./../managers/RenderManager.h"
 
 namespace yougine::components
@@ -23,20 +23,20 @@ namespace yougine::components
         this->SetProgram(program);
         this->SetVao(vao);
 
-        //’¸“_ƒoƒbƒtƒ@‚ğì¬
+        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
         GLuint vertexBuffer;
         glGenBuffers(1, &vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
         glBufferData(GL_ARRAY_BUFFER, 4 * sizeof(Vertex),GetVertexVector().data(), GL_STATIC_DRAW);
 
-        // //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
+        // //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡
         GLuint elementBuffer;
         glGenBuffers(1, &elementBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
         auto indices = GetIndexVector();
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices.data(), GL_STATIC_DRAW);
 
-        //ƒVƒF[ƒ_‚É’l‚ğ“n‚·
+        //ã‚·ã‚§ãƒ¼ãƒ€ã«å€¤ã‚’æ¸¡ã™
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
 
         glEnableVertexAttribArray(vertexShader_PositionAttribute);

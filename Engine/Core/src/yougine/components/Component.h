@@ -1,4 +1,4 @@
-#pragma once
+Ôªø#pragma once
 #include "../Scene.h"
 #include "../managers/ComponentName.h"
 
@@ -16,7 +16,7 @@ namespace yougine::components
         managers::ComponentName component_name;
         // bool isRegisterdToComponentList;
         /**
-         * \brief ìoò^ÇµÇƒÇ¢ÇÈComponentList
+         * \brief ÁôªÈå≤„Åó„Å¶„ÅÑ„ÇãComponentList
          */
         managers::ComponentList* register_component_list;
 
@@ -27,6 +27,7 @@ namespace yougine::components
         Component(managers::ComponentName componentname);
         ~Component();
         virtual void Excute();
+        managers::ComponentName GetComponentName();
         void InitializeOnPlayBack();
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();
