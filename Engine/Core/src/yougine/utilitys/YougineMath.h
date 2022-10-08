@@ -75,4 +75,19 @@ namespace utility
             this->w = v.w;
         }
     };
+
+    /**
+     * \brief bool‚ð3‚Â
+     */
+    struct Bool3
+    {
+    public:
+        bool x, y, z;
+        Bool3(float x, float y, float z, float w)
+            : x(x),
+            y(y),
+            z(z)
+        {
+        }
+    };
 }
