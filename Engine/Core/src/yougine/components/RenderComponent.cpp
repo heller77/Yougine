@@ -47,8 +47,8 @@ namespace yougine::components
         this->vertex_vector = {};
         for (size_t i = 0; i < position_accessor.count; ++i)
         {
-            std::cout << i << "番目 : " << "[" << positions[i * 3 + 0] << "," << positions[i * 3 + 1] << "," << positions[
-                i * 3 + 2] << "]" << std::endl;
+            // std::cout << i << "番目 : " << "[" << positions[i * 3 + 0] << "," << positions[i * 3 + 1] << "," << positions[
+            //     i * 3 + 2] << "]" << std::endl;
             ShaderVector4 v = {positions[i * 3 + 0], positions[i * 3 + 1], positions[i * 3 + 2], 1};
             this->vertex_vector.push_back(v);
         }
@@ -62,7 +62,7 @@ namespace yougine::components
         this->index_vector = {};
         for (size_t i = 0; i < indices_accessor.count; ++i)
         {
-            std::cout << i << "番目 : " << "[" << indices_data_fromgltf[i] << "]" << std::endl;
+            // std::cout << i << "番目 : " << "[" << indices_data_fromgltf[i] << "]" << std::endl;
             this->index_vector.push_back(indices_data_fromgltf[i]);
         }
 
