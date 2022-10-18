@@ -138,6 +138,9 @@
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\yougine\managers\GameManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\yougine\components\Component.h">
@@ -203,9 +206,6 @@
     <ClInclude Include="src\yougine\components\TransformComponent.h">
       <Filter>ヘッダー ファイル\src\yougine\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\yougine\Vector3.h">
-      <Filter>ヘッダー ファイル\src\yougine</Filter>
-    </ClInclude>
     <ClInclude Include="src\yougine\components\RenderComponent.h">
       <Filter>ヘッダー ファイル\src\yougine\components</Filter>
     </ClInclude>
@@ -231,6 +231,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\yougine\utilitys\YougineMath.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\managers\GameManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\managers\IManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,6 +16,7 @@
 
 #include "components/TransformComponent.h"
 #include "managers/ComponentList.h"
+#include "managers/GameManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -92,6 +93,10 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
 
+    //GameManagerで回すマネージャのvector
+    std::vector<IManager> managerlist;
+    //GameManagerを生成
+    GameManager* game_manager = new GameManager(managerlist);
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
@@ -101,6 +106,9 @@ int main()
             std::cout << "RightClick" << std::endl;
         }
         */
+
+        //毎フレーム、マネージャ群のUpdate関数を呼び出す
+        game_manager->Update();
 
         editor_windows_manager->CreateWindows(window);
     }
