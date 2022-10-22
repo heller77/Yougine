@@ -168,6 +168,7 @@
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
     <ClCompile Include="src\yougine\Layer.cpp" />
+    <ClCompile Include="src\yougine\managers\GameManager.cpp" />
     <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
     <ClCompile Include="src\yougine\components\Component.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
@@ -198,6 +199,8 @@
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
     <ClInclude Include="src\yougine\Layer.h" />
+    <ClInclude Include="src\yougine\managers\GameManager.h" />
+    <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
     <ClInclude Include="src\yougine\components\Component.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
