@@ -51,7 +51,6 @@ namespace editor
         return component_name;
     }
 
-
     void ComponentViewer::IntView(int* value)
     {
         ImGui::InputInt(GETVALUENAME(value), value);

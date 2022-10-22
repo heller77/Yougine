@@ -18,6 +18,8 @@ namespace yougine
 
     private:
         void RemoveGameObject(GameObject*);
+
+
         GameObject* RecursiveGameObjects(std::list<GameObject*>, std::string);
 
     public:

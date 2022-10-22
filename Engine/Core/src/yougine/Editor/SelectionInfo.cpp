@@ -1,4 +1,5 @@
 ﻿#include "SelectionInfo.h"
+#include "ComponentViewerTest.h"
 
 namespace editor
 {
@@ -65,7 +66,6 @@ namespace editor
         this->flame_selected = flame_selected;
     }
 
-    /*
     void SelectionInfo::InitializeComponentViewersOnChangeObject(yougine::GameObject* game_object)
     {
         for (ComponentViewer* c_viewer : component_viewers)
@@ -88,8 +88,5 @@ namespace editor
     {
         return component_viewers;
     }
-    */
-
-
 
 }

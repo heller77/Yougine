@@ -163,6 +163,7 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
+    <ClCompile Include="src\yougine\Editor\ComponentViewerTest.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
     <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
+    <ClInclude Include="src\yougine\Editor\ComponentViewerTest.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
