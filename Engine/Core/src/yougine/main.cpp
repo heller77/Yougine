@@ -18,6 +18,7 @@
 #include "Editor/ProjectWindow/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "managers/GameManager.h"
+#include "Project/Project.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -26,6 +27,8 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
+    auto project = Projects::Project::GetInstance();
+    project->projectFolderPath = "D:/Yougin/YouginProject/TestProject/script/";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
