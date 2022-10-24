@@ -36,13 +36,12 @@ namespace editor
 
     ComponentViewer::~ComponentViewer()
     {
-        std::cout << "ComponentViewerがリセットされました" << std::endl;
+        std::cout << component_name + "のComponentViewerがリセットされました" << std::endl;
     }
 
 
     void ComponentViewer::DrawViews()
     {
-
     }
 
 

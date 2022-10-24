@@ -1,5 +1,4 @@
 ﻿#include "SelectionInfo.h"
-#include "ComponentViewerTest.h"
 
 namespace editor
 {
@@ -42,12 +41,12 @@ namespace editor
 
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
-        if (this->game_object != game_object)
+        if (this->game_object != game_object && game_object != nullptr)
         {
             this->game_object = game_object;
             this->flame_selected = flame_selected;
 
-            //InitializeComponentViewersOnChangeObject(this->game_object);
+            InitializeComponentViewersOnChangeObject(this->game_object);
         }
     }
 
@@ -76,7 +75,6 @@ namespace editor
 
         //vectorのサイズと容量を0にする
         component_viewers.clear();
-        component_viewers.shrink_to_fit();
 
         for (yougine::components::Component* c : game_object->GetComponents())
         {

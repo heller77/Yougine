@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../GameObject.h"
+#include "ComponentViewer.h"
 
 namespace editor
 {
