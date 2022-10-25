@@ -36,7 +36,7 @@ namespace editor
 
     ComponentViewer::~ComponentViewer()
     {
-        std::cout << component_name + "‚ÌComponentViewer‚ªƒŠƒZƒbƒg‚³‚ê‚Ü‚µ‚½" << std::endl;
+        std::cout << component_name + "ã®ComponentViewerãŒãƒªã‚»ãƒƒãƒˆã•ã‚Œã¾ã—ãŸ" << std::endl;
     }
 
 
