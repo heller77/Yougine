@@ -49,7 +49,6 @@ namespace editor
         /*
          * Componentのビュー表示
          *
-         * (koko
          * ComponentName1
          *  (componentviewer::drawviews
          *  - Prop1s

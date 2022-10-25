@@ -41,12 +41,15 @@ namespace editor
 
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
-        if (this->game_object != game_object && game_object != nullptr)
+        this->flame_selected = flame_selected;
+        if (this->game_object != game_object)
         {
             this->game_object = game_object;
-            this->flame_selected = flame_selected;
 
-            InitializeComponentViewersOnChangeObject(this->game_object);
+            if (game_object != nullptr)
+            {
+                InitializeComponentViewersOnChangeObject(this->game_object);
+            }
         }
     }
 
