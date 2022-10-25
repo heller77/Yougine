@@ -53,7 +53,6 @@ namespace editor
             if (ImGui::MenuItem(item.c_str()))
             {
                 std::string o_name = selection_info->GetSelectObject() != nullptr ? selection_info->GetSelectObject()->GetName() + "_c" + std::to_string((selection_info->GetSelectObject()->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
-                std::cout << "create : " + o_name << std::endl;
                 CreateGameObject(o_name, selection_info->GetSelectObject());
             };
         }
@@ -79,12 +78,13 @@ namespace editor
             if (ImGui::IsItemClicked())
             {
                 selection_info->SetSelectionInfo(game_object, true);
-                std::cout << "select : " + selection_info->GetSelectObject()->GetName() << std::endl;
             }
-            else if ((!ImGui::IsAnyItemHovered()) && flame_click_trigger && !selection_info->GetSelectedFlag())
+            else if (flame_click_trigger && !selection_info->GetSelectedFlag())
             {
-                selection_info->SetSelectionInfo(nullptr, true);
-                std::cout << "select- 解除 -" << std::endl;
+                if (ImGui::IsWindowHovered())
+                {
+                    selection_info->SetSelectionInfo(nullptr, true);
+                }
             }
 
             if (is_open_tree)
@@ -102,7 +102,7 @@ namespace editor
 
     void HierarchyWindow::InitializeFlameProperties()
     {
-        flame_click_trigger = input_manager->IsPushKey(yougine::KeyBind::LeftClick);
+        flame_click_trigger = ImGui::IsMouseClicked(0);
         selection_info->SetSelectedFlag(false);
     }
 

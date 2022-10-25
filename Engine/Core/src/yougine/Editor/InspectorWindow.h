@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "EditorWindow.h"
 #include "../InputManager.h"
+#include "ComponentViewer.h"
 
 namespace editor
 {
