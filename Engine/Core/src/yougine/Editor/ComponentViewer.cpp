@@ -1,4 +1,5 @@
 #include "ComponentViewer.h"
+#include <typeinfo>
 
 namespace editor
 {
@@ -42,6 +43,29 @@ namespace editor
 
     void ComponentViewer::DrawViews()
     {
+        for (std::any propertie : accessable_properties)
+        {
+            if (typeid(propertie).name() == "int") //int
+            {
+                IntView(std::any_cast<int*>(propertie));
+            }
+            if (typeid(propertie).name() == "float")
+            {
+                FloatView(std::any_cast<float*>(propertie));
+            }
+            if (typeid(propertie).name() == "Vector3")
+            {
+                Vector3View(std::any_cast<utility::Vector3*>(propertie));
+            }
+            if (typeid(propertie).name() == "string")
+            {
+                StringView(std::any_cast<std::string*>(propertie));
+            }
+            if (typeid(propertie).name() == "bool")
+            {
+                BoolView(std::any_cast<bool*>(propertie));
+            }
+        }
     }
 
 

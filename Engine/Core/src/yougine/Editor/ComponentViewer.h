@@ -6,6 +6,7 @@
 #include "imgui/imgui_impl_opengl3.h"
 #include "ComponentsIncluder.h"
 #include <string>
+#include <any>
 #include "../utilitys/YougineMath.h"
 
 namespace editor
@@ -17,6 +18,7 @@ namespace editor
     private:
         yougine::components::Component* component;
         std::string component_name;
+        std::vector<std::any> accessable_properties;
 
     public:
         ComponentViewer(yougine::components::Component* component);
