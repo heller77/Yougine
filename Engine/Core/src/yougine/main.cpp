@@ -16,6 +16,7 @@
 
 #include "components/TransformComponent.h"
 #include "managers/ComponentList.h"
+#include "components/DebugComponent.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -71,7 +72,7 @@ int main()
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
 
-    
+
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::components::RenderComponent();
     auto rendercomponent2 = new yougine::components::RenderComponent();
@@ -80,12 +81,14 @@ int main()
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
     gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
-    
 
-    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = scene->CreateGameObject("renderObj_2",nullptr);
+    gameobject->AddComponent(new yougine::components::DebugComponent());
+
+
+    std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
+    auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
     gameobject2->AddComponent(new yougine::components::RenderComponent());
-    gameobject2->AddComponent(new yougine::components::TransformComponent(1,1,1));
+    gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
 
 
     //Add Code

@@ -8,17 +8,16 @@
 #include <string>
 #include <any>
 #include "../utilitys/YougineMath.h"
+#include "../utilitys/Split.cpp"
 
 namespace editor
 {
     class ComponentViewer
     {
-#define GETVALUENAME(name) (#name)
-
     private:
         yougine::components::Component* component;
         std::string component_name;
-        std::vector<std::any> accessable_properties;
+        std::vector<std::vector<std::any>> accessable_properties;
 
     public:
         ComponentViewer(yougine::components::Component* component);
@@ -27,10 +26,10 @@ namespace editor
         std::string GetComponentName();
 
     private:
-        void Vector3View(utility::Vector3* value);
-        void IntView(int* value);
-        void FloatView(float* value);
-        void StringView(std::string* value);
-        void BoolView(bool* value);
+        void Vector3View(utility::Vector3* value, const char* name);
+        void IntView(int* value, const char* name);
+        void FloatView(float* value, const char* name);
+        void StringView(std::string* value, const char* name);
+        void BoolView(bool* value, const char* name);
     };
 }

@@ -77,4 +77,10 @@ namespace yougine::components
     {
         return !(register_component_list == nullptr);
     }
+
+    std::vector<std::vector<std::any>> Component::GetAccessablePropertiesList()
+    {
+        return accessable_properties_list;
+    }
+
 }
