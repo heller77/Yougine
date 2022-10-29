@@ -7,11 +7,11 @@ namespace Projects
     {
     private:
         static Project* instance;
-    public:
-        std::string projectFolderPath;
-        static int g();
-        static Project* GetInstance();
 
+    public:
+        //プロジェクトフォルダのパスを格納（main.cppで指定しているが、実行時引数とかで貰うようにするのがよさそう）
+        std::string projectFolderPath;
+
+        static Project* GetInstance();
     };
-    
 }
