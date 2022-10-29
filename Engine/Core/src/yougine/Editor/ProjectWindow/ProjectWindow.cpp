@@ -49,12 +49,12 @@ void ProjectWindow::Draw()
             ImGui::Button(filename.c_str(), button_size);
         }
         //ウィンドサイズに合わせて改行したりしなかったり
-        float window_visible_x2 = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
+        float window_visible_width_worldspace = ImGui::GetWindowPos().x + ImGui::GetWindowContentRegionMax().x;
         float lastbutton_x = ImGui::GetItemRectMax().x;
 
         float next_button_x = lastbutton_x + style.ItemSpacing.x + button_size.x;
-
-        if (next_button_x < window_visible_x2)
+        //次のボタンがウィンドーの表示領域をこえているか
+        if (next_button_x < window_visible_width_worldspace)
         {
             ImGui::SameLine();
         }
