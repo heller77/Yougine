@@ -30,6 +30,7 @@ void ProjectWindow::Draw()
         auto is_directory = file.is_directory();
         std::string filename = file.path().filename().string();
         float hue = 0.1;
+        //フォルダなら
         if (is_directory)
         {
             ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(hue, 0.6f, 0.6f));
@@ -44,6 +45,7 @@ void ProjectWindow::Draw()
         }
         else
         {
+            //フォルダ以外
             ImGui::Button(filename.c_str(), button_size);
         }
         //ウィンドサイズに合わせて改行したりしなかったり
