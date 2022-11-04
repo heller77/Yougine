@@ -4,6 +4,8 @@
 
 namespace editor
 {
+    class ComponentViewer;
+
     class SelectionInfo
     {
 
@@ -11,7 +13,8 @@ namespace editor
         static SelectionInfo* m_selection_info;
         yougine::GameObject* game_object = nullptr;
         bool flame_selected = false;
-        //std::vector<ComponentViewer*> component_viewers;
+        bool is_selected_hierarchy_window = false;
+        std::vector<ComponentViewer*> component_viewers;
 
     private:
         SelectionInfo();
@@ -24,8 +27,9 @@ namespace editor
         void SetSelectionInfo(yougine::GameObject*, bool flame_selected = false);
         yougine::GameObject* GetSelectObject();
         bool GetSelectedFlag();
+        bool GetIsSelectedHierarchyWindow();
         void SetSelectedFlag(bool);
-        //void InitializeComponentViewersOnChangeObject(yougine::GameObject* game_object);
-        //std::vector<ComponentViewer*> GetComponentViewers();
+        void InitializeComponentViewersOnChangeObject(yougine::GameObject* game_object);
+        std::vector<ComponentViewer*> GetComponentViewers();
     };
 }

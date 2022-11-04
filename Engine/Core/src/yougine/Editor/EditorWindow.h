@@ -12,6 +12,7 @@ namespace editor
     protected:
         EditorWindowsManager* editor_windows_manager;
         EditorWindowName window_name;
+        bool is_selected = false;
 
     public:
         EditorWindow(EditorWindowsManager*, EditorWindowName);
