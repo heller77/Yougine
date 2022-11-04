@@ -5,6 +5,9 @@
 class ProjectWindow : public editor::EditorWindow
 {
 private:
+    /**
+     * \brief 今ProjectWindowで表示している絶対パス
+     */
     std::string now_display_folderpath;
 public:
     void Draw() override;
