@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "../EditorWindow.h"
-#include "../../Project/Project.h"
+#include "../../Projects/Project.h"
 
 namespace editor::projectwindows
 {

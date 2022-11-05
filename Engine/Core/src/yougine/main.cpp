@@ -18,7 +18,7 @@
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "managers/GameManager.h"
-#include "Project/Project.h"
+#include "Projects/Project.h"
 
 static void glfw_error_callback(int error, const char* description)
 {

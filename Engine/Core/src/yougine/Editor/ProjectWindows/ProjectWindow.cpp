@@ -1,7 +1,7 @@
 ﻿#include "ProjectWindow.h"
 #include <filesystem>
 
-#include "../../Project/Project.h"
+#include "../../Projects/Project.h"
 
 void editor::projectwindows::ProjectWindow::Draw()
 {
