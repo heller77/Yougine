@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <string>
 
-namespace Projects
+namespace projects
 {
     class Project
     {

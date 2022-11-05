@@ -165,7 +165,7 @@
     <ClCompile Include="src\yougine\Project\Project.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
-    <ClCompile Include="src\yougine\Editor\ProjectWindow\ProjectWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\ProjectWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
@@ -198,7 +198,7 @@
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
     <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindow\ProjectWindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\ProjectWindow.h" />
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />

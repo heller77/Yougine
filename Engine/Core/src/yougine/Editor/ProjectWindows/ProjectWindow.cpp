@@ -3,7 +3,7 @@
 
 #include "../../Project/Project.h"
 
-void ProjectWindow::Draw()
+void editor::projectwindows::ProjectWindow::Draw()
 {
     auto style = ImGui::GetStyle();
     // style.ScaleAllSizes(2);

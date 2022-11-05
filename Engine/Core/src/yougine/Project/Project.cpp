@@ -1,6 +1,6 @@
 ﻿#include "Project.h"
 
-Projects::Project* Projects::Project::GetInstance()
+projects::Project* projects::Project::GetInstance()
 {
     if (instance == nullptr)
     {
@@ -9,4 +9,4 @@ Projects::Project* Projects::Project::GetInstance()
     return instance;
 }
 
-Projects::Project* Projects::Project::instance;
+projects::Project* projects::Project::instance;
