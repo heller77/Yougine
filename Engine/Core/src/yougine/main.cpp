@@ -15,7 +15,10 @@
 #include <fstream>
 
 #include "components/TransformComponent.h"
+#include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
+#include "managers/GameManager.h"
+#include "Projects/Project.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -24,6 +27,8 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
+    auto project = projects::Project::GetInstance();
+    project->projectFolderPath = "D:/Yougin/YouginProject/TestProject/script/";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -79,13 +84,10 @@ int main()
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
-    gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
+    gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
     
 
-    std::cout << "gameobject has componet num "<<gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = scene->CreateGameObject("renderObj_2",nullptr);
-    gameobject2->AddComponent(new yougine::components::RenderComponent());
-    gameobject2->AddComponent(new yougine::components::TransformComponent(1,1,1));
+
 
 
     //Add Code
@@ -94,7 +96,12 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
+    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager,scene));
 
+    //GameManagerで回すマネージャのvector
+    std::vector<IManager> managerlist;
+    //GameManagerを生成
+    GameManager* game_manager = new GameManager(managerlist);
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
@@ -104,6 +111,9 @@ int main()
             std::cout << "RightClick" << std::endl;
         }
         */
+
+        //毎フレーム、マネージャ群のUpdate関数を呼び出す
+        game_manager->Update();
 
         editor_windows_manager->CreateWindows(window);
     }

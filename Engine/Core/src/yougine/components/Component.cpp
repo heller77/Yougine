@@ -24,6 +24,12 @@ namespace yougine::components
         std::cout << "excute" << std::endl;
     }
 
+    managers::ComponentName Component::GetComponentName()
+    {
+        return component_name;
+    }
+
+
     void Component::InitializeOnPlayBack()
     {
         std::cout << "initialize component" << std::endl;
