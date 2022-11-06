@@ -28,7 +28,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:/Yougin/YouginProject/TestProject/script/";
+    project->projectFolderPath = "F:/GameEngineProject/Yougine";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
