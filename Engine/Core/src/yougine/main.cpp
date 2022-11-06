@@ -71,7 +71,7 @@ int main()
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
 
-    
+
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::components::RenderComponent();
     auto rendercomponent2 = new yougine::components::RenderComponent();
