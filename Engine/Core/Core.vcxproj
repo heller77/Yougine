@@ -162,8 +162,10 @@
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\yougine\Projects\Project.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\ProjectWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
@@ -192,9 +194,11 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\yougine\Projects\Project.h" />
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
     <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\ProjectWindow.h" />
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />

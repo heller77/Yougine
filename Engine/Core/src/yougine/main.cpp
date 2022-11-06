@@ -15,8 +15,10 @@
 #include <fstream>
 
 #include "components/TransformComponent.h"
+#include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "managers/GameManager.h"
+#include "Projects/Project.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -25,6 +27,8 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
+    auto project = projects::Project::GetInstance();
+    project->projectFolderPath = "D:/Yougin/YouginProject/TestProject/script/";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -92,6 +96,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
+    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager,scene));
 
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
