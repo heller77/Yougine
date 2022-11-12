@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\tinygltf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -163,12 +163,15 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
+    <ClCompile Include="src\yougine\Projects\Project.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\ProjectWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
     <ClCompile Include="src\yougine\Layer.cpp" />
+    <ClCompile Include="src\yougine\managers\GameManager.cpp" />
     <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
     <ClCompile Include="src\yougine\components\Component.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
@@ -194,13 +197,17 @@
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="src\yougine\components\DebugComponent.h" />
+    <ClInclude Include="src\yougine\Projects\Project.h" />
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
     <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\ProjectWindow.h" />
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
     <ClInclude Include="src\yougine\Layer.h" />
+    <ClInclude Include="src\yougine\managers\GameManager.h" />
+    <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
     <ClInclude Include="src\yougine\components\Component.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />

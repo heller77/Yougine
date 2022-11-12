@@ -85,7 +85,8 @@ namespace yougine::managers
         constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
-
+        glEnable(GL_DEPTH_TEST);
+        // glEnable(GL_CULL_FACE);
         int i = 0;
         //オブジェクトそれぞれ描画
         auto render_component_list = component_list->GetReferObjectList(ComponentName::kRender);
@@ -108,6 +109,7 @@ namespace yougine::managers
     float diff = 0.01f;
 
     float cameradiff = 0.01f;
+    float cameraWorldRotate = 0.0f;
 
     float camerax = 1;
 
@@ -134,12 +136,19 @@ namespace yougine::managers
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
         // カメラ行列
         camerax += cameradiff * 1.3;
-        if (camerax > 3 || camerax < -3)
+        if (camerax > 15 || camerax < -15)
         {
             cameradiff *= -1;
         }
+
+        cameraWorldRotate += 0.01;
+        if(cameraWorldRotate>=360)
+        {
+            cameraWorldRotate = 0;
+        }
+        float radius = 10;
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 10),
+            glm::vec3(10*glm::cos(cameraWorldRotate), 7, radius*sin(cameraWorldRotate)),
             glm::vec3(0, 0, 0),
             glm::vec3(0, 1, 0)
         );
@@ -162,7 +171,8 @@ namespace yougine::managers
         {
             cValue *= -1;
         }
-        glDrawElements(GL_TRIANGLE_STRIP, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
+        // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
     }
 
