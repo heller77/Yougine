@@ -39,6 +39,8 @@ namespace editor
             selection_info->GetSelectObject()->SetName(temp_c);
         }
 
+        //ImGui::SameLine();
+
         /*
          * Layer情報 未実装
          */
@@ -62,7 +64,7 @@ namespace editor
         for (ComponentViewer* c_viewer : selection_info->GetComponentViewers())
         {
             bool c_tree = ImGui::CollapsingHeader(c_viewer->GetComponentName().c_str());
-            if (!c_tree)
+            if (c_tree)
             {
                 c_viewer->DrawViews();
             }
