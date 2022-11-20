@@ -149,6 +149,7 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\yougine\Projects\Project.cpp">
+    <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,6 +255,7 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\yougine\Projects\Project.h">
+    <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
