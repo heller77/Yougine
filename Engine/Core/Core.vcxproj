@@ -184,11 +184,9 @@
     <ClCompile Include="src\yougine\GameObject.cpp" />
     <ClCompile Include="src\yougine\Scene.cpp" />
     <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
-
     <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
-
+    <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
-
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
