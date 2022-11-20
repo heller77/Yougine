@@ -138,6 +138,10 @@
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\yougine\utilitys\Split.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\components\DebugComponent.cpp">
     <ClCompile Include="src\yougine\managers\GameManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -240,6 +244,7 @@
     <ClInclude Include="src\yougine\utilitys\YougineMath.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\yougine\components\DebugComponent.h">
     <ClInclude Include="src\yougine\managers\GameManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

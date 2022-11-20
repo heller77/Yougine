@@ -17,6 +17,7 @@
 #include "components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
+#include "components/DebugComponent.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 
@@ -76,7 +77,7 @@ int main()
 
     yougine::Scene* scene = new yougine::Scene("Scene1");
 
-    
+
     //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     auto rendercomponent = new yougine::components::RenderComponent();
     auto rendercomponent2 = new yougine::components::RenderComponent();
@@ -84,9 +85,17 @@ int main()
     gameobject->AddComponent(rendercomponent);
     gameobject->AddComponent(rendercomponent2);
     gameobject->RemoveComponent(rendercomponent2);
+    gameobject->AddComponent(new yougine::components::TransformComponent(-1, 0, 0));
+
+    gameobject->AddComponent(new yougine::components::DebugComponent());
+
+
+    std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
+    auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
+    gameobject2->AddComponent(new yougine::components::RenderComponent());
+    gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
     gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
     
-
 
 
 
