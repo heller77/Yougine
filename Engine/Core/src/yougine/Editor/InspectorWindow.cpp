@@ -1,5 +1,7 @@
 ﻿#include "InspectorWindow.h"
 
+#include "../component_factory/ComponentFactory.h"
+
 namespace editor
 {
     InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene, yougine::InputManager* input_manager) :EditorWindow(editor_windows_manager, EditorWindowName::InspectorWindow)
@@ -8,6 +10,7 @@ namespace editor
         this->input_manager = input_manager;
         selection_info = SelectionInfo::GetInstance();
         layer_manager = yougine::LayerManager::GetInstance();
+        this->componentfactory = new yougine::componentfactorys::ComponentFacotory();
     }
 
     void InspectorWindow::Draw()
@@ -18,9 +21,10 @@ namespace editor
         if (selection_info->GetSelectObject() != nullptr)
         {
             ShowGameObjectData();
+            ShowAddComponentMenu();
         }
-
         ImGui::End();
+
     }
 
     void InspectorWindow::ShowGameObjectData()
@@ -68,6 +72,25 @@ namespace editor
             {
                 c_viewer->DrawViews();
             }
+        }
+    }
+
+    void InspectorWindow::ShowAddComponentMenu()
+    {
+        int selected = -1;
+        const char* componentNames[] = { "yougine::components::DebugComponent", "yougine::components::TransformComponent", "yougine::components::RenderComponent" };
+        ImGui::Spacing();
+        if (ImGui::Button("Add Component"))
+            ImGui::OpenPopup("add_component_popup");
+        if (ImGui::BeginPopup("add_component_popup"))
+        {
+            ImGui::Text("Component List");
+            for (int i = 0; i < IM_ARRAYSIZE(componentNames); i++)
+                if (ImGui::Selectable(componentNames[i])) {
+                    selected = i;
+                    selection_info->GetInstance()->GetSelectObject()->AddComponent(componentfactory->CreateComponent(componentNames[selected]));
+                }
+            ImGui::EndPopup();
         }
     }
 }
