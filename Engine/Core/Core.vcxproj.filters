@@ -34,6 +34,8 @@
     <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
     <ClCompile Include="src\yougine\component_factory\ComponentFactory.cpp" />
+    <ClCompile Include="src\yougine\build\main_forBuild.cpp" />
+    <ClCompile Include="src\yougine\build\Builder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -72,6 +74,7 @@
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\component_factory\ComponentFactory.h" />
+    <ClInclude Include="src\yougine\build\Builder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
