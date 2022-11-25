@@ -184,6 +184,7 @@
     <ClCompile Include="src\yougine\GameObject.cpp" />
     <ClCompile Include="src\yougine\Scene.cpp" />
     <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
+    <ClCompile Include="src\yougine\SceneLoader.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +221,7 @@
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
   </ItemGroup>
   <ItemGroup>
