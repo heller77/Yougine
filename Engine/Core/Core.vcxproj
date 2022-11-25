@@ -162,6 +162,7 @@
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\yougine\component_factory\ComponentFactory.cpp" />
     <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
     <ClCompile Include="src\yougine\Projects\Project.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
@@ -184,6 +185,8 @@
     <ClCompile Include="src\yougine\GameObject.cpp" />
     <ClCompile Include="src\yougine\Scene.cpp" />
     <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
+    <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
+    <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\SceneLoader.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
   </ItemGroup>
@@ -197,6 +200,7 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\yougine\component_factory\ComponentFactory.h" />
     <ClInclude Include="src\yougine\components\DebugComponent.h" />
     <ClInclude Include="src\yougine\Projects\Project.h" />
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
@@ -221,6 +225,7 @@
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 #include "EditorWindow.h"
 #include "../InputManager.h"
 #include "ComponentViewer.h"
+#include "../component_factory/ComponentFactory.h"
 
 namespace editor
 {
@@ -13,9 +14,11 @@ namespace editor
         SelectionInfo* selection_info;
         yougine::LayerManager* layer_manager;
         const int MAX_SIZE_OBJ_NAME = 38;
+        yougine::componentfactorys::ComponentFacotory* componentfactory;
 
     private:
         void ShowGameObjectData();
+        void ShowAddComponentMenu();
 
     public:
         InspectorWindow(EditorWindowsManager*, yougine::Scene*, yougine::InputManager*);
