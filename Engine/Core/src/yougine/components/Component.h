@@ -42,5 +42,6 @@ namespace yougine::components
         void UnregisterThisComponentFromComponentList();
         bool isAlradyRegisterComponentList();
         std::vector<std::vector<std::any>> GetAccessablePropertiesList();
+        std::vector<std::vector<std::any>>* GetPtrAccessablePropertiesList();
     };
 }

@@ -29,7 +29,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:/Yougin/YouginProject/TestProject/script/";
+    project->projectFolderPath = "F:/GameEngineProject/Yougine";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -92,7 +92,7 @@ int main()
     // gameobject2->AddComponent(new yougine::components::RenderComponent());
     gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
     // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
-    
+
 
 
 
@@ -102,7 +102,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
-    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager,scene));
+    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
 
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
