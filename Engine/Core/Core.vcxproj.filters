@@ -147,6 +147,12 @@
     <ClCompile Include="src\yougine\Projects\Project.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp">
+      <Filter>ソース ファイル\src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp">
+      <Filter>ソース ファイル\src\yougine\managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\yougine\components\Component.h">
@@ -250,6 +256,12 @@
     </ClInclude>
     <ClInclude Include="src\yougine\Projects\Project.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\components\RigidBodyComponent.h">
+      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\managers\RigidBodyManager.h">
+      <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
