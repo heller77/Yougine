@@ -1,13 +1,13 @@
-///*
-// * main.cppƒRƒƒ“ƒgƒAƒEƒg‚µ‚Ä‚±‚ê‚ÌƒRƒƒ“ƒgƒAƒEƒgŠO‚·‚Æ“®‚­
+ï»¿///*
+// * main.cppã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã—ã¦ã“ã‚Œã®ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆå¤–ã™ã¨å‹•ã
 // *
-// * 1. JSONƒtƒ@ƒCƒ‹‚ð“Ç‚Ýž‚Þ
-// * 2. ƒV[ƒ“‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ðì¬
-// * 3. ƒQ[ƒ€ƒIƒuƒWƒFƒNƒgƒCƒ“ƒXƒ^ƒ“ƒX‚ðì¬
-// *      3.1. ŠeƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ªŽ‚Á‚Ä‚¢‚éƒRƒ“ƒ|[ƒlƒ“ƒgƒCƒ“ƒXƒ^ƒ“ƒX‚ðì¬
-// *          3.1.1. ŠeƒRƒ“ƒ|[ƒlƒ“ƒg‚ªŽ‚Á‚Ä‚¢‚éƒvƒƒpƒeƒB‚Ì’l‚ðƒZƒbƒg
+// * 1. JSONãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
+// * 2. ã‚·ãƒ¼ãƒ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
+// * 3. ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
+// *      3.1. å„ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæŒã£ã¦ã„ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ä½œæˆ
+// *          3.1.1. å„ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆãŒæŒã£ã¦ã„ã‚‹ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å€¤ã‚’ã‚»ãƒƒãƒˆ
 // *
-// *  ¡‰ñ‚ÌƒeƒXƒgƒR[ƒh‚Å‚Í–¼‘O‚ª"testgameobject"‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ªŽ‚ÂDebugComponent‚ÌƒvƒƒpƒeƒB‚ðo—Í‚µ‚Ä‚¢‚é
+// *  ä»Šå›žã®ãƒ†ã‚¹ãƒˆã‚³ãƒ¼ãƒ‰ã§ã¯åå‰ãŒ"testgameobject"ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒæŒã¤DebugComponentã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚’å‡ºåŠ›ã—ã¦ã„ã‚‹
 // */
 //
 //#include "SceneFiles/SceneLoader.h"
