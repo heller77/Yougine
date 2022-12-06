@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -179,7 +179,6 @@
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
     <ClCompile Include="src\yougine\InputManager.cpp" />
-    <ClCompile Include="src\yougine\main.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\GameObject.cpp" />
