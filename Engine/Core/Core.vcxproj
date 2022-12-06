@@ -234,6 +234,9 @@
     <None Include="src\yougine\test.frag" />
     <None Include="src\yougine\test.vert" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
 </Project>
