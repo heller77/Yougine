@@ -33,7 +33,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:/Yougin/";
+    project->projectFolderPath = "D:\\Yougin\\";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -101,7 +101,7 @@ int main()
     //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
     auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
     auto projectpath = projects::Project::GetInstance()->projectFolderPath;
-    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build/scene.json");
+    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\scene.json");
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();

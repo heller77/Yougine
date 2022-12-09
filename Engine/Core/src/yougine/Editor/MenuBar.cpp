@@ -9,7 +9,7 @@ editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager): EditorWi
     auto buildpath = projects::Project::GetInstance()->projectFolderPath + "build";
     strcpy_s(buildexportpath, buildpath.c_str());
     //シーンファイルの参照（本来はプロジェクトのフォルダーにあるのを、ビルド時に選択、エクスポートが正しいが、今回は既にビルドさきにあるものとする）
-    auto scenefilepath = projects::Project::GetInstance()->projectFolderPath + "build/scene.json";
+    auto scenefilepath = projects::Project::GetInstance()->projectFolderPath + "build\scene.json";
     strcpy_s(sceenfilepath, scenefilepath.c_str());
 }
 
