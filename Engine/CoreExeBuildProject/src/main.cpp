@@ -23,6 +23,7 @@
 #include "Editor/MenuBar.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
+#include "SceneFiles/SceneFileExporter.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -32,7 +33,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:";
+    project->projectFolderPath = "D:/Yougin/";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -96,8 +97,11 @@ int main()
     gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
     // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
 
-
-
+    //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
+    //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
+    auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
+    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
+    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build/scene.json");
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();

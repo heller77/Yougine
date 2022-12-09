@@ -101,10 +101,10 @@ int main()
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
-    editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
+    // editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
-    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
+    // editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
+    // editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
 
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;

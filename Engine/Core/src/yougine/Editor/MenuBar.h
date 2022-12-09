@@ -9,6 +9,8 @@ namespace editor
 
         void Draw() override;
     private:
+        char buildexportpath[256];
+        char sceenfilepath[256];
         void Build();
     };
 }
