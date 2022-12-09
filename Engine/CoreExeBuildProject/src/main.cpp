@@ -20,6 +20,7 @@
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "components/DebugComponent.h"
+#include "Editor/MenuBar.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 
@@ -105,7 +106,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
-
+    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager));
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
     //GameManagerを生成

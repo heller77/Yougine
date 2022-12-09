@@ -56,7 +56,6 @@
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
     <ClCompile Include="src\yougine\InputManager.cpp" />
-    <ClCompile Include="src\yougine\main.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\GameObject.cpp" />
@@ -65,6 +64,8 @@
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneLoader.cpp" />
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
+    <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
+    <ClCompile Include="src\yougine\Editor\MenuBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -138,6 +139,8 @@
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
+    <ClInclude Include="src\yougine\BuildScript\Builder.h" />
+    <ClInclude Include="src\yougine\Editor\MenuBar.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

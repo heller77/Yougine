@@ -22,6 +22,7 @@ namespace editor
         GameWindow,
         ProjectWindow,
         InspectorWindow,
+        MenuBar
     };
 
     class EditorWindowsManager
