@@ -22,6 +22,7 @@
 #include "components/DebugComponent.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
+#include "SceneFiles/SceneLoader.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -47,7 +48,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on Mac
 
     //�E�B���h�E���쐬
-    GLFWwindow* const window = glfwCreateWindow(1280, 720, "Game Engine", NULL, NULL);
+    GLFWwindow* const window = glfwCreateWindow(1280, 720, "Oreno Game", NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
     if (window == NULL)
@@ -56,17 +57,6 @@ int main()
         return 1;
     }
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
-
-    // Setup Dear ImGui style
-    //ImGui::StyleColorsDark();
-
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
@@ -74,35 +64,41 @@ int main()
         return 1;
     }
 
+    GLint windowframebuffer;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &windowframebuffer);
+
     int gVCBWidth = 300;
     int gVCBHeight = 300;
 
-    yougine::Scene* scene = new yougine::Scene("Scene1");
-
-    int gVCBHeig3ht = 300;
-    //レンダーコンポーネントをAdd出来るかのコード（後で消す）
-    auto rendercomponent = new yougine::components::RenderComponent();
-    auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
-    gameobject->AddComponent(rendercomponent);
-    gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
-
-    gameobject->AddComponent(new yougine::components::DebugComponent());
-
-
-    std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
-    // gameobject2->AddComponent(new yougine::components::RenderComponent());
-    gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
+    // yougine::Scene* scene = new yougine::Scene("Scene1");
+    auto sceneloader = yougine::SceneFiles::SceneLoader();
+    sceneloader.UpdateJsonObj("./scene.json");
+    sceneloader.CreateScene() ;
+    yougine::Scene* scene = sceneloader.jb_scene;
+    // int gVCBHeig3ht = 300;
+    // //レンダーコンポーネントをAdd出来るかのコード（後で消す）
+    // auto rendercomponent = new yougine::components::RenderComponent();
+    // auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
+    // gameobject->AddComponent(rendercomponent);
     // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
+    //
+    // gameobject->AddComponent(new yougine::components::DebugComponent());
+    //
+    //
+    // std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
+    // auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
+    // // gameobject2->AddComponent(new yougine::components::RenderComponent());
+    // gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
+    // // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
 
 
 
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
-    editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
+    // editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
     // editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
-    editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
+    // editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     // editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     // editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
 
@@ -111,9 +107,15 @@ int main()
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
     std::cout << "this is game build" << std::endl;
+
+    //render
+    auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer,scene->GetComponentList());
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
+        rendermanager.RenderScene();
+        glfwSwapBuffers(window);
+        glfwPollEvents();
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {
@@ -122,14 +124,14 @@ int main()
         */
 
         //毎フレーム、マネージャ群のUpdate関数を呼び出す
-        game_manager->Update();
+        // game_manager->Update();
 
-        editor_windows_manager->CreateWindows(window);
+        // editor_windows_manager->CreateWindows(window);
     }
-
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    //
+    // ImGui_ImplOpenGL3_Shutdown();
+    // ImGui_ImplGlfw_Shutdown();
+    // ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     glfwTerminate();
