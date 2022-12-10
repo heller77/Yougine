@@ -72,7 +72,7 @@ int main()
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj("./scene.json");
+    sceneloader.UpdateJsonObj("D:\\Yougin\\build\\scene.json");
     sceneloader.CreateScene() ;
     yougine::Scene* scene = sceneloader.jb_scene;
     // int gVCBHeig3ht = 300;
