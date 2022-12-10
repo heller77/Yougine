@@ -26,6 +26,7 @@
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
+#include "SceneFiles/SceneLoader.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -80,24 +81,27 @@ int main()
 
     int gVCBWidth = 300;
     int gVCBHeight = 300;
-
-    yougine::Scene* scene = new yougine::Scene("Scene1");
-
-    int gVCBHeig3ht = 300;
-    //レンダーコンポーネントをAdd出来るかのコード（後で消す）
-    auto rendercomponent = new yougine::components::RenderComponent();
-    auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
-    gameobject->AddComponent(rendercomponent);
-    gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
-
-    gameobject->AddComponent(new yougine::components::DebugComponent());
-
-
-    std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
-    auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
-    // gameobject2->AddComponent(new yougine::components::RenderComponent());
-    gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
+    auto sceneloader = yougine::SceneFiles::SceneLoader();
+    sceneloader.UpdateJsonObj("D:\\Yougin\\build\\scene.json");
+    sceneloader.CreateScene();
+    yougine::Scene* scene = sceneloader.jb_scene;
+    // yougine::Scene* scene = new yougine::Scene("Scene1");
+    //
+    // int gVCBHeig3ht = 300;
+    // //レンダーコンポーネントをAdd出来るかのコード（後で消す）
+    // auto rendercomponent = new yougine::components::RenderComponent();
+    // auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
+    // gameobject->AddComponent(rendercomponent);
     // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
+    //
+    // gameobject->AddComponent(new yougine::components::DebugComponent());
+    //
+    //
+    // std::cout << "gameobject has componet num " << gameobject->GetComponents().size() << std::endl;
+    // auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
+    // // gameobject2->AddComponent(new yougine::components::RenderComponent());
+    // gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
+    // // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
 
     //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
     //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
@@ -108,7 +112,7 @@ int main()
         std::cout << "buildフォルダ作成" << std::endl;
     }
 
-    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
+    // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
