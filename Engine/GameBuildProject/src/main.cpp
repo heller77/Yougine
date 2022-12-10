@@ -22,6 +22,7 @@
 #include "components/DebugComponent.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
+#include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
 
 static void glfw_error_callback(int error, const char* description)
@@ -32,7 +33,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:";
+    project->projectFolderPath = "D:\\Yougin\\";
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -72,7 +73,7 @@ int main()
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj("D:\\Yougin\\build\\scene.json");
+    sceneloader.UpdateJsonObj(project->projectFolderPath+"\\build\\scene.json");
     sceneloader.CreateScene() ;
     yougine::Scene* scene = sceneloader.jb_scene;
     // int gVCBHeig3ht = 300;
@@ -90,8 +91,6 @@ int main()
     // // gameobject2->AddComponent(new yougine::components::RenderComponent());
     // gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
     // // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
-
-
 
 
     //Add Code
