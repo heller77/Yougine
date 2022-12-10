@@ -9,6 +9,8 @@
 #include "imgui/imgui_impl_opengl3.h"
 */
 
+#include <direct.h>
+
 #include "Editor/EditorWindowsManager.h"
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
@@ -101,7 +103,12 @@ int main()
     //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
     auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
     auto projectpath = projects::Project::GetInstance()->projectFolderPath;
-    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\scene.json");
+    auto buildfolder= projectpath + "build\\";
+    if (_mkdir(buildfolder.c_str())) {
+        std::cout << "buildフォルダ作成" << std::endl;
+    }
+
+    sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
