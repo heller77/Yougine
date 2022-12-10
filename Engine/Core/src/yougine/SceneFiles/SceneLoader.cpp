@@ -1,4 +1,6 @@
-#include "SceneLoader.h"
+ï»¿#include "SceneLoader.h"
+
+#include "../component_factory/ComponentFactory.h"
 
 namespace yougine::SceneFiles
 {
@@ -10,17 +12,22 @@ namespace yougine::SceneFiles
             GameObject* new_object = scene->CreateGameObject(e["name"], parent_gameobject);
             for (nlohmann::basic_json<nlohmann::ordered_map> c : e["componentlist"])
             {
-                if (c["ComponentType"] == "yougine::components::DebugComponent")
-                {
-                    new_object->AddComponent(new yougine::components::DebugComponent());
-                    components::Component* component = new_object->GetComponent<yougine::components::DebugComponent>();
+                // if (c["ComponentType"] == "yougine::components::DebugComponent")
+                // {
+                //     new_object->AddComponent(new yougine::components::DebugComponent());
+                //     components::Component* component = new_object->GetComponent<yougine::components::DebugComponent>();
+                //
+                //     SetPropertiesToComponent(component, c);
+                // }
+                // if (c["ComponentType"] == "yougine::components::TransformComponent")
+                // {
+                //     //ã“ã‚“ãªæ„Ÿã˜ã§ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆå…¨åˆ—æŒ™ï¼ˆã‚³ãƒ¼ãƒ‰ã‚¸ã‚§ãƒãƒ¬ãƒ¼ãƒˆä½¿ã†ã¨æ€ã†ï¼‰
+                // }
+                auto componentfactory = new componentfactorys::ComponentFacotory();
+                auto componennt=componentfactory->CreateComponent(c["ComponentType"]);
+                new_object->AddComponent(componennt);
+                SetPropertiesToComponent(componennt, c);
 
-                    SetPropertiesToComponent(component, c);
-                }
-                if (c["ComponentType"] == "yougine::components::TransformComponent")
-                {
-                    //‚±‚ñ‚ÈŠ´‚¶‚ÅƒRƒ“ƒ|[ƒlƒ“ƒg‘S—ñ‹“iƒR[ƒhƒWƒFƒlƒŒ[ƒgg‚¤‚Æv‚¤j
-                }
             }
         }
     }
