@@ -27,6 +27,9 @@ namespace yougine::SceneFiles
                 auto componennt=componentfactory->CreateComponent(c["ComponentType"]);
                 new_object->AddComponent(componennt);
                 SetPropertiesToComponent(componennt, c);
+                // std::cout <<"create component : " << c["ComponentType"] << std::endl;
+                // std::vector<std::vector<std::any>>* accessable_properties_list = componennt->GetPtrAccessablePropertiesList();
+                // std::cout<< std::any_cast<int*>( accessable_properties_list[0])<<std::endl;
 
             }
         }
@@ -61,24 +64,39 @@ namespace yougine::SceneFiles
         {
             if (p["type"] == "int")
             {
-                (*accessable_properties_list)[apl_indesx][0] = p["values"]["value"].get<int>();
+                int value = p["values"]["value"].get<int>();
+                // int* pa = &value;
+                // (*accessable_properties_list)[apl_indesx][0] = pa;
+                (*std::any_cast<int*>((*accessable_properties_list)[apl_indesx][0]))=value;
+                // std::cout << (*std::any_cast<int*>((*accessable_properties_list)[apl_indesx][0])) << std::endl;
+                // std::cout << (*std::any_cast<int*>((*component->GetPtrAccessablePropertiesList())[apl_indesx][0])) << std::endl;
+
             }
             if (p["type"] == "float")
             {
-                (*accessable_properties_list)[apl_indesx][0] = p["values"]["value"].get<float>();
+                float value = p["values"]["value"].get<float>();
+                // (*accessable_properties_list)[apl_indesx][0] = &value;
+                (*std::any_cast<float*>((*accessable_properties_list)[apl_indesx][0])) = value;
             }
             if (p["type"] == "utility::Vector3")
             {
                 utility::Vector3 vec3 = utility::Vector3(p["values"]["x"].get<float>(), p["values"]["y"].get<float>(), p["values"]["z"].get<float>());
-                (*accessable_properties_list)[apl_indesx][0] = vec3;
+                // (*accessable_properties_list)[apl_indesx][0] = vec3;
+                (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).x = vec3.x;
+                (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).y = vec3.y;
+                (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).z = vec3.z;
             }
             if (p["type"] == "string")
             {
-                (*accessable_properties_list)[apl_indesx][0] = p["values"]["value"].get<std::string>();
+                std::string value = p["values"]["value"].get<std::string>();
+                // (*accessable_properties_list)[apl_indesx][0] = &value;
+                (*std::any_cast<std::string*>((*accessable_properties_list)[apl_indesx][0])) = value;
             }
             if (p["type"] == "bool")
             {
-                (*accessable_properties_list)[apl_indesx][0] = p["values"]["value"].get<bool>();
+                bool value = p["values"]["value"].get<bool>();
+                // (*accessable_properties_list)[apl_indesx][0] = &value;
+                (*std::any_cast<bool*>((*accessable_properties_list)[apl_indesx][0])) = value;
             }
             apl_indesx++;
         }
