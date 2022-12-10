@@ -82,7 +82,7 @@ int main()
     int gVCBWidth = 300;
     int gVCBHeight = 300;
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj("D:\\Yougin\\build\\scene.json");
+    sceneloader.UpdateJsonObj(project->projectFolderPath+"\\build\\scene.json");
     sceneloader.CreateScene();
     yougine::Scene* scene = sceneloader.jb_scene;
     // yougine::Scene* scene = new yougine::Scene("Scene1");
