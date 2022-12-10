@@ -3,7 +3,7 @@
 #include "../BuildScript/Builder.h"
 #include "../Projects/Project.h"
 
-editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager): EditorWindow(editor_windows_manager,editor::EditorWindowName::MenuBar)
+editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene): EditorWindow(editor_windows_manager,editor::EditorWindowName::MenuBar)
 {
     //ビルド先のぱす（初期値だが、とりあえず）
     auto buildpath = projects::Project::GetInstance()->projectFolderPath + "build";
@@ -11,6 +11,7 @@ editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager): EditorWi
     //シーンファイルの参照（本来はプロジェクトのフォルダーにあるのを、ビルド時に選択、エクスポートが正しいが、今回は既にビルドさきにあるものとする）
     auto scenefilepath = projects::Project::GetInstance()->projectFolderPath + "build\scene.json";
     strcpy_s(sceenfilepath, scenefilepath.c_str());
+    this->scene=scene;
 }
 
 void editor::MenuBar::Draw()
@@ -23,7 +24,7 @@ void editor::MenuBar::Draw()
         // std::cout << buildexportpath << std::endl;
         //buildexportpathのパスにexeをエクスポートする
         auto builder = new builders::Builder();
-        builder->Build(sceenfilepath, buildexportpath);
+        builder->Build(buildexportpath,scene);
     }
  
     ImGui::InputText("exportpath", buildexportpath, 256);

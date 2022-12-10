@@ -1,5 +1,8 @@
 ﻿#pragma once
 #include <string>
+
+#include "../Scene.h"
+
 namespace builders
 {
     class Builder
@@ -8,6 +11,6 @@ namespace builders
         /**
          * \brief
          */
-        void Build(std::string scenfilepath, std::string exportpath);
+        void Build(std::string exportpath,yougine::Scene* scene);
     };
 }
