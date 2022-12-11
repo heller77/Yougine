@@ -9,8 +9,6 @@
 #include "imgui/imgui_impl_opengl3.h"
 */
 
-#include <direct.h>
-
 #include "Editor/EditorWindowsManager.h"
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
@@ -22,7 +20,6 @@
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "components/DebugComponent.h"
-#include "Editor/MenuBar.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
@@ -52,7 +49,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Required on Mac
 
     //�E�B���h�E���쐬
-    GLFWwindow* const window = glfwCreateWindow(1280, 720, "Game Engine", NULL, NULL);
+    GLFWwindow* const window = glfwCreateWindow(1280, 720, "Oreno Game", NULL, NULL);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
     if (window == NULL)
@@ -61,17 +58,6 @@ int main()
         return 1;
     }
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
-
-    // Setup Dear ImGui style
-    //ImGui::StyleColorsDark();
-
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
 
     glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK)
@@ -79,14 +65,17 @@ int main()
         return 1;
     }
 
+    GLint windowframebuffer;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &windowframebuffer);
+
     int gVCBWidth = 300;
     int gVCBHeight = 300;
+
+    // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto sceneloader = yougine::SceneFiles::SceneLoader();
     sceneloader.UpdateJsonObj(project->projectFolderPath+"\\build\\scene.json");
-    sceneloader.CreateScene();
+    sceneloader.CreateScene() ;
     yougine::Scene* scene = sceneloader.jb_scene;
-    // yougine::Scene* scene = new yougine::Scene("Scene1");
-    //
     // int gVCBHeig3ht = 300;
     // //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     // auto rendercomponent = new yougine::components::RenderComponent();
@@ -104,33 +93,28 @@ int main()
     // // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
 
 
-    //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
-    //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
-    auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
-    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
-    auto buildfolder= projectpath + "build\\";
-    if (_mkdir(buildfolder.c_str())) {
-        std::cout << "buildフォルダ作成" << std::endl;
-    }
-
-    // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
-
-
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
-    editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
-    editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
-    editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
-    editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager,scene));
+    // editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
+    // editor_windows_manager->AddRenderWindow(new editor::HierarchyWindow(editor_windows_manager, scene, input_manager));
+    // editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
+    // editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
+    // editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
+
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
+    std::cout << "this is game build" << std::endl;
+
+    //render
+    auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer,scene->GetComponentList());
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
+        rendermanager.RenderScene();
+        glfwSwapBuffers(window);
+        glfwPollEvents();
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {
@@ -139,14 +123,14 @@ int main()
         */
 
         //毎フレーム、マネージャ群のUpdate関数を呼び出す
-        game_manager->Update();
+        // game_manager->Update();
 
-        editor_windows_manager->CreateWindows(window);
+        // editor_windows_manager->CreateWindows(window);
     }
-
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    //
+    // ImGui_ImplOpenGL3_Shutdown();
+    // ImGui_ImplGlfw_Shutdown();
+    // ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     glfwTerminate();

@@ -14,6 +14,8 @@ namespace yougine::managers
     public:
         RenderManager(int width, int height, ComponentList* component_list);
 
+        RenderManager(int width, int height,GLint input_framebuffer, ComponentList* component_list);
+
         void Initialize();
 
         void RenderScene();

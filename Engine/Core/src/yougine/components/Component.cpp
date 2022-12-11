@@ -7,7 +7,8 @@ namespace yougine::components
     {
         this->parent_gameobject = nullptr;
         this->component_name = componentname;
-        register_component_list = nullptr;
+
+        this->register_component_list = nullptr;
     }
 
     Component::~Component()

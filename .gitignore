@@ -399,3 +399,5 @@ FodyWeavers.xsd
 
 #imgui
 imgui.ini
+
+Engine/CoreExeBuildProject/tmpbuild
