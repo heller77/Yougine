@@ -35,8 +35,11 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
+
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:\\Yougin\\";
+    //projectのパスを設定
+    project->Initialize("./Resource/Project.json");
+
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -82,9 +85,46 @@ int main()
     int gVCBWidth = 300;
     int gVCBHeight = 300;
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj(project->projectFolderPath+"\\build\\scene.json");
-    sceneloader.CreateScene();
-    yougine::Scene* scene = sceneloader.jb_scene;
+
+    //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
+    //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
+    auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
+    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
+    auto buildfolder = projectpath + "build\\";
+    if (_mkdir(buildfolder.c_str())) {
+        std::cout << "buildフォルダ作成" << std::endl;
+    }
+    //シーンファイルのパス
+    std::string scenefilepath = project->projectFolderPath + "\\build\\scene.json";
+    yougine::Scene* scene;
+    FILE* fp;
+    errno_t error;
+    error = fopen_s(&fp, scenefilepath.c_str(), "r");
+    if (error == 0)
+    {
+        //シーンファイルがあれば
+        auto sceneloader = yougine::SceneFiles::SceneLoader();
+        sceneloader.UpdateJsonObj(scenefilepath);
+        sceneloader.CreateScene();
+        scene = sceneloader.jb_scene;
+    }
+    else
+    {
+        //シーンファイルが無ければ
+        scene = new yougine::Scene("Scene1");
+
+        int gVCBHeig3ht = 300;
+        auto rendercomponent = new yougine::components::RenderComponent();
+        auto gameobject = scene->CreateGameObject("renderObj_1", nullptr);
+        gameobject->AddComponent(rendercomponent);
+        gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
+        gameobject->AddComponent(new yougine::components::DebugComponent());
+        auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
+        gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
+        yougine::SceneFiles::SceneFileExporter* exporter = new yougine::SceneFiles::SceneFileExporter();
+        exporter->ScenefileExportFromScene(scene, scenefilepath);
+    }
+
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     //
     // int gVCBHeig3ht = 300;
@@ -104,14 +144,7 @@ int main()
     // // gameobject->AddComponent(new yougine::components::TransformComponent(0, 0, 0));
 
 
-    //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
-    //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
-    auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
-    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
-    auto buildfolder= projectpath + "build\\";
-    if (_mkdir(buildfolder.c_str())) {
-        std::cout << "buildフォルダ作成" << std::endl;
-    }
+
 
     // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
@@ -123,7 +156,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager,scene));
+    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
     //GameManagerを生成
