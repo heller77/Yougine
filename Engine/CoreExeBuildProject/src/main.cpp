@@ -27,6 +27,8 @@
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
+#include "ShaderGraph/ShaderfileOverwriter.h"
+#include "ShaderGraph/ShaderType.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -148,6 +150,8 @@ int main()
 
     // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
+    yougine::shadergraph::ShaderfileOverwriter* shaderfileOverwriter = new yougine::shadergraph::ShaderfileOverwriter(project->projectFolderPath + "/Shaders/", "test.frag");
+    shaderfileOverwriter->UpdateFile();
 
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
@@ -183,4 +187,5 @@ int main()
 
     glfwDestroyWindow(window);
     glfwTerminate();
+
 }
