@@ -66,6 +66,7 @@
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
     <ClCompile Include="src\yougine\Editor\MenuBar.cpp" />
+    <ClCompile Include="lib\imnodes\imnodes.cpp" />
     <ClCompile Include="src\yougine\ShaderGraph\ShaderfileOverwrite.cpp" />
     <ClCompile Include="src\yougine\ShaderGraph\ShaderGraphNode.cpp" />
   </ItemGroup>
@@ -147,6 +148,8 @@
     <ClInclude Include="src\yougine\ShaderGraph\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\ShaderGraph\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\ShaderGraph\ShaderType.h" />
+    <ClInclude Include="lib\imnodes\imnodes.h" />
+    <ClInclude Include="lib\imnodes\imnodes_internal.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
