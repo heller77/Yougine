@@ -27,8 +27,8 @@
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
-#include "ShaderGraph/ShaderfileOverwriter.h"
-#include "ShaderGraph/ShaderType.h"
+#include "Editor/ShaderGraph/ShaderfileOverwriter.h"
+#include "Editor/ShaderGraph/ShaderType.h"
 
 static void glfw_error_callback(int error, const char* description)
 {

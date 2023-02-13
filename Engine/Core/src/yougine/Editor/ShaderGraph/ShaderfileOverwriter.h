@@ -3,7 +3,6 @@
 #include "MainShaderGraphNode.h"
 #include <iostream>
 #include <fstream>
-#include "../utilitys/Split.cpp"
 
 namespace yougine::shadergraph
 {
