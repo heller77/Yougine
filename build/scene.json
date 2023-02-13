@@ -1,0 +1,98 @@
+{
+  "Scene": {
+    "Name": "testScene",
+    "Hierarchy": [
+      {
+        "name": "renderObj_1",
+        "componentlist": [
+          {
+            "ComponentType": "yougine::components::RenderComponent",
+            "property": null
+          },
+          {
+            "ComponentType": "yougine::components::TransformComponent",
+            "property": [
+              {
+                "type": "utility::Vector3",
+                "name": "position",
+                "values": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+                }
+              }
+            ]
+          },
+          {
+            "ComponentType": "yougine::components::DebugComponent",
+            "property": [
+              {
+                "type": "int",
+                "name": "intval",
+                "values": {
+                  "value": 1
+                }
+              },
+              {
+                "type": "int",
+                "name": "intval2",
+                "values": {
+                  "value": 2
+                }
+              },
+              {
+                "type": "float",
+                "name": "floatval",
+                "values": {
+                  "value": 1.0
+                }
+              },
+              {
+                "type": "utility::Vector3",
+                "name": "vec3val",
+                "values": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+                }
+              },
+              {
+                "type": "string",
+                "name": "strval",
+                "values": {
+                  "value": "aaa"
+                }
+              },
+              {
+                "type": "bool",
+                "name": "boolval",
+                "values": {
+                  "value": false
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "renderObj_2",
+        "componentlist": [
+          {
+            "ComponentType": "yougine::components::TransformComponent",
+            "property": [
+              {
+                "type": "utility::Vector3",
+                "name": "position",
+                "values": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
