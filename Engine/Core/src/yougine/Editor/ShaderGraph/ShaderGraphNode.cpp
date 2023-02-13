@@ -1,6 +1,6 @@
 #include "ShaderGraphNode.h"
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     std::string ShaderGraphNode::GetPropertyType(ShaderPropertyType shaderPropertyType)
     {

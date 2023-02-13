@@ -1,7 +1,7 @@
 #pragma once
 #include "ShaderGraphNode.h"
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     class MainShaderGraphNode : public ShaderGraphNode
     {

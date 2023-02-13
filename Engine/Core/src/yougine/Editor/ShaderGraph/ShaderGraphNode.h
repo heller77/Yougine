@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     class ShaderGraphNode
     {

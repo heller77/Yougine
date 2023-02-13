@@ -15,6 +15,7 @@
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
 #include "Editor/InspectorWindow.h"
+#include "Editor/ShaderGraph/ShaderGraphWindow.h"
 
 #include <fstream>
 
@@ -27,8 +28,6 @@
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
-#include "Editor/ShaderGraph/ShaderfileOverwriter.h"
-#include "Editor/ShaderGraph/ShaderType.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -71,6 +70,8 @@ int main()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
+
+    ImNodes::CreateContext();
 
     // Setup Dear ImGui style
     //ImGui::StyleColorsDark();
@@ -150,9 +151,6 @@ int main()
 
     // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
-    yougine::shadergraph::ShaderfileOverwriter* shaderfileOverwriter = new yougine::shadergraph::ShaderfileOverwriter(project->projectFolderPath + "/Shaders/", "test.frag");
-    shaderfileOverwriter->UpdateFile();
-
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
@@ -161,6 +159,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
+    editor_windows_manager->AddRenderWindow(new editor::shadergraph::ShaderGraphWindow(editor_windows_manager));
     //GameManagerで回すマネージャのvector
     std::vector<IManager> managerlist;
     //GameManagerを生成
@@ -183,6 +182,8 @@ int main()
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
+
+    ImNodes::DestroyContext();
     ImGui::DestroyContext();
 
     glfwDestroyWindow(window);

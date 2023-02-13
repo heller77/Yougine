@@ -3,7 +3,7 @@
 
 #include "ShaderfileOverwriter.h"
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     ShaderfileOverwriter::ShaderfileOverwriter(std::string targetFilePath, std::string filename)
     {

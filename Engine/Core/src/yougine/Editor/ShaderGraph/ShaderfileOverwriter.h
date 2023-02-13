@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     class ShaderfileOverwriter
     {

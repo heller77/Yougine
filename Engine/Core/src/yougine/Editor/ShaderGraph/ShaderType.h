@@ -1,6 +1,6 @@
 #pragma once
 
-namespace yougine::shadergraph
+namespace editor::shadergraph
 {
     enum class ShaderPropertyType
     {

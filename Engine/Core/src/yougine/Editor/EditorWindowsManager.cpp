@@ -13,7 +13,8 @@ namespace editor
             { EditorWindowName::HierarchyWindow, "Hierarchy" },
             { EditorWindowName::GameWindow, "Game" },
             { EditorWindowName::ProjectWindow, "Project" },
-            { EditorWindowName::InspectorWindow, "Inspector" }
+            { EditorWindowName::InspectorWindow, "Inspector" },
+            { EditorWindowName::ShaderGraphWindow, "ShaderGraph" }
         };
     }
 
