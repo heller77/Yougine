@@ -1,0 +1,27 @@
+
+namespace yougine{
+GameObject o-- components.Component
+
+class GameObject{}
+class Scene{}
+class Layer{}
+namespace components{
+    Component <|-- TransformComponent
+    Component <|-- RenderComponet
+    class Component{}
+    class TransformComponent{}
+    class RenderComponet{}
+}
+
+
+
+}
+
+namespace editor{
+    class EditorWindow{}
+    class SceneWindow{}
+    class HierarchyWindow{}
+    class ComponentViewer{}
+    class MenuBar{}
+    class SelectionInfo{}
+}
