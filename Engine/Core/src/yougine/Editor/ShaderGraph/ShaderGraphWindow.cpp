@@ -58,11 +58,15 @@ namespace editor::shadergraph
         ImNodes::EndNodeEditor();
 
         PhaseAddLink();
-        //PhaseDisLink();
+        PhaseDisLink();
 
         ImGui::End();
     }
 
+    /*
+     * Node同士をリンクする
+     * linksリストに格納されているリンク構造体全てをリンク状態として描画する
+     */
     void ShaderGraphWindow::PhaseLink()
     {
         for (Link& link : links)
@@ -71,6 +75,10 @@ namespace editor::shadergraph
         }
     }
 
+    /*
+     * リンク構造体を追加する
+     * ノード1からノード2のピンにリンクを合わせたらそれらをリンクしているとみなし、リンク構造体を生成してlinksリストに追加する
+     */
     void ShaderGraphWindow::PhaseAddLink()
     {
         Link link;
@@ -82,22 +90,29 @@ namespace editor::shadergraph
         }
     }
 
+    /*
+     * リンクを解除する
+     * リンクしているノードのピンをドラッグアンドドロップしたらそのリンクを解除する
+     */
     void ShaderGraphWindow::PhaseDisLink()
     {
-        int* linkID = 0;
-        ImNodes::GetSelectedLinks(linkID);
-        if (ImNodes::IsLinkSelected(*linkID))
+        int pin;
+        //ノードのピンにマウスホバーされている状態で左クリック
+        if (ImNodes::IsPinHovered(&pin) && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
         {
-            std::cout << "LinkSelected" << std::endl;
-            if (ImNodes::IsLinkDestroyed(linkID))
+            std::cout << "PinClicked!" << std::endl;
+            //選択されているリンクを解除
+            int l_id;
+            if (ImNodes::IsLinkHovered(&l_id))
             {
                 std::cout << "LinkDestroyed" << std::endl;
-                ImNodes::ClearLinkSelection(*linkID);
+                //ImNodes::ClearLinkSelection();
 
+                //解除されたリンクを除いたlinksリストに更新
                 std::vector<Link> newLinks;
                 for (Link ll : links)
                 {
-                    if (ll.id != *linkID) newLinks.push_back(ll);
+                    if (ll.id != l_id) newLinks.push_back(ll);
                 }
                 links = newLinks;
             }
