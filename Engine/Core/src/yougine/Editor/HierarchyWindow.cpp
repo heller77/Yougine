@@ -14,13 +14,6 @@ namespace editor
             "GameObject",
         };
 
-        CreateGameObject("Obj1", nullptr);
-        CreateGameObject("Obj1_c1", scene->GetGameObjectByName("Obj1"));
-        CreateGameObject("Obj2", nullptr);
-        CreateGameObject("Obj2_c1", scene->GetGameObjectByName("Obj2"));
-        CreateGameObject("Obj2_c2", scene->GetGameObjectByName("Obj2"));
-        CreateGameObject("Obj3", nullptr);
-        CreateGameObject("Obj3_c1", scene->GetGameObjectByName("Obj3"));
     }
 
     void HierarchyWindow::Draw()
