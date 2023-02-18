@@ -162,16 +162,13 @@
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
-<<<<<<<<< Temporary merge branch 1
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
-=========
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
     <ClCompile Include="src\yougine\component_factory\ComponentFactory.cpp" />
     <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\MenuBar.cpp" />
->>>>>>>>> Temporary merge branch 2
     <ClCompile Include="src\yougine\Projects\Project.cpp" />
     <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
@@ -208,17 +205,14 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
-<<<<<<<<< Temporary merge branch 1
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h" />
-=========
     <ClInclude Include="lib\imnodes\imnodes.h" />
     <ClInclude Include="lib\imnodes\imnodes_internal.h" />
     <ClInclude Include="src\yougine\BuildScript\Builder.h" />
     <ClInclude Include="src\yougine\component_factory\ComponentFactory.h" />
     <ClInclude Include="src\yougine\components\DebugComponent.h" />
     <ClInclude Include="src\yougine\Editor\MenuBar.h" />
->>>>>>>>> Temporary merge branch 2
     <ClInclude Include="src\yougine\Projects\Project.h" />
     <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
     <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
