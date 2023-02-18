@@ -8,6 +8,11 @@ namespace yougine::managers
         InitializeMembers();
     }
 
+    void CustomScriptManager::Update()
+    {
+        // std::cout << "customscript update" << std::endl;
+    }
+
     void CustomScriptManager::InitializeMembers()
     {
         for (components::Component* component : componentlist->GetReferObjectList(ComponentName::kCustom))
