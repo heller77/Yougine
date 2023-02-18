@@ -68,6 +68,48 @@ namespace yougine::managers
         }
     }
 
+    RenderManager::RenderManager(int width, int height, GLint input_framebuffer, ComponentList* component_list)
+    {
+        this->component_list = component_list;
+        this->renderComponent = new components::RenderComponent();
+        GLenum err;
+        this->width = width;
+        this->height = height;
+        //カラーバッファ
+        GLuint colorBuffer;
+        glGenTextures(1, &colorBuffer);
+        glBindTexture(GL_TEXTURE_2D, colorBuffer);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        this->colorBuffer = colorBuffer;
+
+        //デプスバッファ
+        GLuint depthBuffer;
+        glGenRenderbuffers(1, &depthBuffer);
+        glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+        this->depthBuffer = depthBuffer;
+
+        //フレームバッファ
+        GLuint frameBuffer=input_framebuffer;
+        // glGenFramebuffers(1, &frameBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+            this->colorBuffer, 0);
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
+            this->depthBuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        this->frameBuffer = frameBuffer;
+
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in constructer" << std::endl;
+        }
+    }
+
     /**
      * \brief 初期化
      */

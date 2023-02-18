@@ -5,6 +5,7 @@ namespace yougine::components
     TransformComponent::TransformComponent(float x, float y, float z) : Component(managers::ComponentName::kNone)
     {
         this->position = new utility::Vector3(x, y, z);
+        accessable_properties_list.push_back(std::vector<std::any>{position, GETVALUENAME(position)});
     }
 
     /**

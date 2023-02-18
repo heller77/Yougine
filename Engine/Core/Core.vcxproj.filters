@@ -1,63 +1,72 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="ソース ファイル\src">
-      <UniqueIdentifier>{9c1d8546-ee18-424b-be4b-44fb686f2d82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\src\yougine">
-      <UniqueIdentifier>{ade511c9-9351-4502-9dbd-55161d6f5e2c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\src\yougine\managers">
-      <UniqueIdentifier>{96d65af6-f1d5-4c1b-bac5-41456c5f182b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\src\yougine\components">
-      <UniqueIdentifier>{ba8de779-d618-47d8-a5f3-dd0b77a42644}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\src">
-      <UniqueIdentifier>{0427126b-edad-4597-829f-ae3810d16deb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\src\yougine">
-      <UniqueIdentifier>{9e991381-6aae-47bb-a999-a50f7c25c99c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\src\yougine\managers">
-      <UniqueIdentifier>{8b64f2c7-4dde-4d74-89c4-e4d1b55f726e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\src\yougine\components">
-      <UniqueIdentifier>{a163f0a1-01a7-45a0-9904-8b7561121029}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib">
-      <UniqueIdentifier>{47f4e323-2f9e-40c9-865d-1169e44cb5b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\lib\imgui">
-      <UniqueIdentifier>{c418e2fa-d800-4a90-afda-b72d409dad1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib">
-      <UniqueIdentifier>{02dfde65-5056-452a-9e45-c0bad21f30d5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\lib\imgui">
-      <UniqueIdentifier>{5436608f-4450-4dfa-b76f-a63677686474}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\src\yougine\Editor">
-      <UniqueIdentifier>{5be7705f-0899-4ef8-8ea9-ebfa7dc3d7b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\src\yougine\Editor">
-      <UniqueIdentifier>{fd235166-7506-4d20-9ef9-8bbf2efdd355}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="リソース ファイル\shader">
-      <UniqueIdentifier>{50683727-4de2-417a-8fb0-e7847fbf1e54}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="lib\imgui\imgui.cpp" />
+    <ClCompile Include="lib\imgui\imgui_demo.cpp" />
+    <ClCompile Include="lib\imgui\imgui_draw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\imgui\imgui_tables.cpp" />
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
+    <ClCompile Include="src\yougine\Projects\Project.cpp" />
+    <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
+    <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\ProjectWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
+    <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
+    <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
+    <ClCompile Include="src\yougine\Layer.cpp" />
+    <ClCompile Include="src\yougine\managers\GameManager.cpp" />
+    <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
+    <ClCompile Include="src\yougine\components\Component.cpp" />
+    <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
+    <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
+    <ClCompile Include="src\yougine\InputManager.cpp" />
+    <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
+    <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
+    <ClCompile Include="src\yougine\GameObject.cpp" />
+    <ClCompile Include="src\yougine\Scene.cpp" />
+    <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
+    <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
+    <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
+    <ClCompile Include="src\yougine\utilitys\Split.cpp" />
+    <ClCompile Include="src\yougine\component_factory\ComponentFactory.cpp" />
+    <ClCompile Include="lib\imgui\imgui.cpp" />
+    <ClCompile Include="lib\imgui\imgui_demo.cpp" />
+    <ClCompile Include="lib\imgui\imgui_draw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="lib\imgui\imgui_tables.cpp" />
+    <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
+    <ClCompile Include="src\yougine\Projects\Project.cpp" />
+    <ClCompile Include="src\yougine\Editor\ComponentViewer.cpp" />
+    <ClCompile Include="src\yougine\Editor\InspectorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\ProjectWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
+    <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
+    <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
+    <ClCompile Include="src\yougine\Layer.cpp" />
+    <ClCompile Include="src\yougine\managers\GameManager.cpp" />
+    <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
+    <ClCompile Include="src\yougine\components\Component.cpp" />
+    <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
+    <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
+    <ClCompile Include="src\yougine\InputManager.cpp" />
+    <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
+    <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
+    <ClCompile Include="src\yougine\GameObject.cpp" />
+    <ClCompile Include="src\yougine\Scene.cpp" />
+    <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
+    <ClCompile Include="src\yougine\utilitys\Split.cpp" />
+    <ClCompile Include="src\yougine\SceneFiles\SceneLoader.cpp" />
+    <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
+    <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
+    <ClCompile Include="src\yougine\Editor\MenuBar.cpp" />
+    <ClCompile Include="lib\imnodes\imnodes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -146,12 +155,6 @@
     </ClCompile>
     <ClCompile Include="src\yougine\Projects\Project.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp">
-      <Filter>ソース ファイル\src\yougine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp">
-      <Filter>ソース ファイル\src\yougine\managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,19 +260,8 @@
     <ClInclude Include="src\yougine\Projects\Project.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\yougine\components\RigidBodyComponent.h">
-      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\yougine\managers\RigidBodyManager.h">
-      <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\yougine\test.vert">
-      <Filter>リソース ファイル\shader</Filter>
-    </None>
-    <None Include="src\yougine\test.frag">
-      <Filter>リソース ファイル\shader</Filter>
-    </None>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>

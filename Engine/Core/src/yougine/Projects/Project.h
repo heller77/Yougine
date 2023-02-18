@@ -13,5 +13,6 @@ namespace projects
         std::string projectFolderPath;
 
         static Project* GetInstance();
+        void Initialize(std::string project_file_path);
     };
 }

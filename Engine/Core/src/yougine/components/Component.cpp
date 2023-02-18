@@ -7,6 +7,8 @@ namespace yougine::components
     {
         this->parent_gameobject = nullptr;
         this->component_name = componentname;
+
+        this->register_component_list = nullptr;
     }
 
     Component::~Component()
@@ -77,4 +79,17 @@ namespace yougine::components
     {
         return !(register_component_list == nullptr);
     }
+
+    std::vector<std::vector<std::any>> Component::GetAccessablePropertiesList()
+    {
+        return accessable_properties_list;
+    }
+
+    std::vector<std::vector<std::any>>* Component::GetPtrAccessablePropertiesList()
+    {
+        return &accessable_properties_list;
+    }
+
+
+
 }
