@@ -69,6 +69,7 @@
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<<<< Temporary merge branch 1
     <ClCompile Include="src\yougine\components\Component.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
     </ClCompile>
@@ -155,6 +156,12 @@
     </ClCompile>
     <ClCompile Include="src\yougine\Projects\Project.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp">
+      <Filter>ソース ファイル\src\yougine\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp">
+      <Filter>ソース ファイル\src\yougine\managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +267,93 @@
     <ClInclude Include="src\yougine\Projects\Project.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="src\yougine\components\RigidBodyComponent.h">
+      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\yougine\managers\RigidBodyManager.h">
+      <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
+    </ClInclude>
+=========
+    <ClInclude Include="lib\imgui\imconfig.h" />
+    <ClInclude Include="lib\imgui\imgui.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="lib\imgui\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\yougine\components\DebugComponent.h" />
+    <ClInclude Include="src\yougine\Projects\Project.h" />
+    <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
+    <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
+    <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\ProjectWindow.h" />
+    <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
+    <ClInclude Include="src\yougine\components\RenderComponent.h" />
+    <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
+    <ClInclude Include="src\yougine\Layer.h" />
+    <ClInclude Include="src\yougine\managers\GameManager.h" />
+    <ClInclude Include="src\yougine\managers\IManager.h" />
+    <ClInclude Include="src\yougine\managers\RenderManager.h" />
+    <ClInclude Include="src\yougine\components\Component.h" />
+    <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
+    <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
+    <ClInclude Include="src\yougine\InputManager.h" />
+    <ClInclude Include="src\yougine\managers\ComponentList.h" />
+    <ClInclude Include="src\yougine\managers\ComponentName.h" />
+    <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
+    <ClInclude Include="src\yougine\GameObject.h" />
+    <ClInclude Include="src\yougine\Scene.h" />
+    <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
+    <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
+    <ClInclude Include="src\yougine\component_factory\ComponentFactory.h" />
+    <ClInclude Include="lib\imgui\imconfig.h" />
+    <ClInclude Include="lib\imgui\imgui.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="lib\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="lib\imgui\imgui_internal.h" />
+    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
+    <ClInclude Include="lib\imgui\imstb_textedit.h" />
+    <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\yougine\components\DebugComponent.h" />
+    <ClInclude Include="src\yougine\Projects\Project.h" />
+    <ClInclude Include="src\yougine\Editor\ComponentsIncluder.h" />
+    <ClInclude Include="src\yougine\Editor\ComponentViewer.h" />
+    <ClInclude Include="src\yougine\Editor\InspectorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\ProjectWindow.h" />
+    <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
+    <ClInclude Include="src\yougine\components\RenderComponent.h" />
+    <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
+    <ClInclude Include="src\yougine\Layer.h" />
+    <ClInclude Include="src\yougine\managers\GameManager.h" />
+    <ClInclude Include="src\yougine\managers\IManager.h" />
+    <ClInclude Include="src\yougine\managers\RenderManager.h" />
+    <ClInclude Include="src\yougine\components\Component.h" />
+    <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
+    <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
+    <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
+    <ClInclude Include="src\yougine\InputManager.h" />
+    <ClInclude Include="src\yougine\managers\ComponentList.h" />
+    <ClInclude Include="src\yougine\managers\ComponentName.h" />
+    <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
+    <ClInclude Include="src\yougine\GameObject.h" />
+    <ClInclude Include="src\yougine\Scene.h" />
+    <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
+    <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
+    <ClInclude Include="src\yougine\BuildScript\Builder.h" />
+    <ClInclude Include="src\yougine\Editor\MenuBar.h" />
+    <ClInclude Include="lib\imnodes\imnodes.h" />
+    <ClInclude Include="lib\imnodes\imnodes_internal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\yougine\test.frag" />
+    <None Include="src\yougine\test.vert" />
+>>>>>>>>> Temporary merge branch 2
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
