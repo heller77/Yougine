@@ -24,6 +24,7 @@
 #include "components/DebugComponent.h"
 #include "Editor/MenuBar.h"
 #include "managers/CustomScriptManager.h"
+#include "managers/RigidBodyManager.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
@@ -162,7 +163,9 @@ int main()
     std::vector<IManager*> managerlist;
     auto componentlist = new yougine::managers::ComponentList();
     auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
+    auto rigidbodymanager = new yougine::managers::RigidBodyManager(componentlist);
     managerlist.push_back(custommanager);
+    managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
     while (glfwWindowShouldClose(window) == GL_FALSE)
