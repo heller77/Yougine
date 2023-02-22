@@ -26,6 +26,7 @@ namespace editor::shadergraph
         ImGuiWindowFlags flags = (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar);
         ImGui::Begin("simple node editor", nullptr, flags);
 
+        //メニューバー
         EditorWindow::RenderMenuBar();
 
         ImNodes::BeginNodeEditor();
@@ -48,7 +49,7 @@ namespace editor::shadergraph
     {
         if (ImGui::MenuItem(item.c_str()))
         {
-            int id = nodes.empty() ? 1 : nodes.back().output_attrs.back() + 1;
+            int id = nodes.empty() ? 1 : nodes.back()->output_attrs.back() + 1;
             AddNode(id, 1, 1, item);
         }
     }
@@ -56,7 +57,7 @@ namespace editor::shadergraph
 
     void ShaderGraphWindow::PhaseNode()
     {
-        for (Node node : nodes)
+        for (ShaderGraphNode* node : nodes)
         {
             DrawNode(node);
         }
@@ -71,43 +72,43 @@ namespace editor::shadergraph
      */
     void ShaderGraphWindow::AddNode(int id, int num_inputs, int num_outputs, std::string name)
     {
-        Node node;
-        node.id = id;
+        ShaderGraphNode* node = new ShaderGraphNode();
+        node->id = id;
 
-        for (int inputID = node.id + 1; inputID < num_inputs + node.id + 1; inputID++)
+        for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
-            node.input_attrs.push_back(inputID);
+            node->input_attrs.push_back(inputID);
         }
 
-        for (int outputID = node.input_attrs.back() + 1; outputID < num_outputs + node.input_attrs.back() + 1; outputID++)
+        for (int outputID = node->input_attrs.back() + 1; outputID < num_outputs + node->input_attrs.back() + 1; outputID++)
         {
-            node.output_attrs.push_back(outputID);
+            node->output_attrs.push_back(outputID);
         }
-        node.name = name;
+        node->name = name;
 
         nodes.push_back(node);
-        std::cout << node.id << std::endl;
+        std::cout << node->id << std::endl;
     }
 
     /*
      * nodes配列に格納されているNode構造体をNodeとして描画する
      */
-    void ShaderGraphWindow::DrawNode(Node node)
+    void ShaderGraphWindow::DrawNode(ShaderGraphNode* node)
     {
-        ImNodes::BeginNode(node.id);
+        ImNodes::BeginNode(node->id);
 
         ImNodes::BeginNodeTitleBar();
-        ImGui::TextUnformatted(node.name.c_str());
+        ImGui::TextUnformatted(node->name.c_str());
         ImNodes::EndNodeTitleBar();
 
-        for (int inputID : node.input_attrs)
+        for (int inputID : node->input_attrs)
         {
             ImNodes::BeginInputAttribute(inputID);
             ImGui::Text("input");
             ImNodes::EndInputAttribute();
         }
 
-        for (int outputID : node.output_attrs)
+        for (int outputID : node->output_attrs)
         {
             ImNodes::BeginOutputAttribute(outputID);
             ImGui::Indent(40);
@@ -140,7 +141,7 @@ namespace editor::shadergraph
         Link link;
         if (ImNodes::IsLinkCreated(&link.start_attr, &link.end_attr))
         {
-            std::cout << "LinkCreated" << std::endl;
+            std::cout << "LinkCreated:" + std::to_string(link.start_attr) + "to" + std::to_string(link.end_attr) << std::endl;
             link.id = ++currentLinks;
             links.push_back(link);
         }
@@ -156,7 +157,7 @@ namespace editor::shadergraph
         //ノードのピンにマウスホバーされている状態で左クリック
         if (ImNodes::IsPinHovered(&pin) && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
         {
-            std::cout << "PinClicked!" << std::endl;
+            std::cout << "PinClicked:" + std::to_string(pin) << std::endl;
             //選択されているリンクを解除
             int l_id;
             if (ImNodes::IsLinkHovered(&l_id))
@@ -174,4 +175,42 @@ namespace editor::shadergraph
             }
         }
     }
+
+    void ShaderGraphWindow::SendOutputValToInput(int value, int input_attr, int output_attr)
+    {
+        ShaderGraphNode* sub_nodes[2]; //0がinput, 1がoutput
+
+        bool is_detected_input_node = false, is_detected_output_node = false;
+        //int first_attr_id = input_attr < output_attr ? 0 : 1;
+        for (ShaderGraphNode* node : nodes)
+        {
+            if (!is_detected_input_node)
+            {
+                for (int i_attr : node->input_attrs)
+                {
+                    is_detected_input_node = (i_attr == input_attr);
+                    if (is_detected_input_node)
+                    {
+                        sub_nodes[0] = node;
+                        break;
+                    }
+                }
+            }
+            if (!is_detected_output_node)
+            {
+                for (int o_attr : node->output_attrs)
+                {
+                    is_detected_output_node = (o_attr == output_attr);
+                    if (is_detected_output_node)
+                    {
+                        sub_nodes[1] = node;
+                        break;
+                    }
+                }
+            }
+        }
+
+        sub_nodes[0]->SetInputVal(sub_nodes[1]->GetOutputVal(output_attr), input_attr);
+    }
+
 }

@@ -71,11 +71,19 @@ namespace editor::shadergraph
             {ShaderQualifier::kBuffer, "buffer"},
             {ShaderQualifier::kShared, "shared"},
         };
-        std::vector<std::vector<std::string>> properties; //[Cüq, Œ^, •Ï”–¼, ’l]
+
+    private:
+        std::vector<std::string> input_vals;
+        std::vector<std::string> output_vals;
 
     public:
-        std::string GetPropertyType(ShaderPropertyType shaderPropertyType);
-        std::vector<std::vector < std::string >> GetProperties();
-        void AddValToProperty(std::vector<std::string> val);
+        int id;
+        std::vector<int> input_attrs;
+        std::vector<int> output_attrs;
+        std::string name;
+
+    public:
+        void SetInputVal(std::string value, int attr);
+        std::string GetOutputVal(int attr);
     };
 }

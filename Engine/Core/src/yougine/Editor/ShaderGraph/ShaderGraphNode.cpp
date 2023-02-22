@@ -2,19 +2,15 @@
 
 namespace editor::shadergraph
 {
-    std::string ShaderGraphNode::GetPropertyType(ShaderPropertyType shaderPropertyType)
+    void ShaderGraphNode::SetInputVal(std::string value, int attr)
     {
-        return type_dictionary[shaderPropertyType];
+        input_vals[attr - id - 1] = value;
     }
 
-    std::vector<std::vector<std::string>> ShaderGraphNode::GetProperties()
+    std::string ShaderGraphNode::GetOutputVal(int attr)
     {
-        return properties;
+        return output_vals[attr - id - input_vals.size() - 1];
     }
 
-    void ShaderGraphNode::AddValToProperty(std::vector<std::string> val)
-    {
-        properties.push_back(val);
-    }
 
 }

@@ -2,6 +2,7 @@
 #include "imnodes/imnodes.h"
 #include "imgui/imgui.h"
 #include "../EditorWindow.h"
+#include "ShaderGraphNode.h"
 
 namespace editor::shadergraph
 {
@@ -14,18 +15,10 @@ namespace editor::shadergraph
         int start_attr, end_attr; //始点ID, 終点ID 
     };
 
-    struct Node
-    {
-        int id;
-        std::vector<int> input_attrs;
-        std::vector<int> output_attrs;
-        std::string name;
-    };
-
     class ShaderGraphWindow : public EditorWindow
     {
     private:
-        std::vector<Node> nodes;
+        std::vector<ShaderGraphNode*> nodes;
         std::vector<Link> links; //このリストに格納されているリンク構造体のリンクを描画
         int currentLinks = 0; //Link.idの指標
 
@@ -36,7 +29,8 @@ namespace editor::shadergraph
         void PhaseDisLink();
         void PhaseNode();
         void AddNode(int id, int num_inputs, int num_outputs, std::string name);
-        void DrawNode(Node node);
+        void DrawNode(ShaderGraphNode* node);
+        void SendOutputValToInput(int value, int input_attr, int output_attr);
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
