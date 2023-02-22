@@ -5,9 +5,9 @@
 
 class GameManager
 {
-    std::vector<IManager>* manager_list;
+    std::vector<IManager*> manager_list;
     
 public:
-    GameManager(std::vector<IManager> manager_list);
+    GameManager(std::vector<IManager*> manager_list);
     void Update();
 };
