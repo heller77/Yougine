@@ -4,55 +4,20 @@ namespace editor::shadergraph
 {
     ShaderGraphWindow::ShaderGraphWindow(EditorWindowsManager* editor_windows_manager) : EditorWindow(editor_windows_manager, editor::EditorWindowName::ShaderGraphWindow)
     {
-
+        AddNode(1, 2, 3);
+        AddNode(nodes.back().output_attrs.back() + 1, 2, 2);
     }
 
     void ShaderGraphWindow::Draw()
     {
         ImGui::Begin("simple node editor");
 
-        int nodeID1 = 1;
         ImNodes::BeginNodeEditor();
-        ImNodes::BeginNode(nodeID1);
 
-        ImNodes::BeginNodeTitleBar();
-        ImGui::TextUnformatted("simple node :)");
-        ImNodes::EndNodeTitleBar();
+        //ƒm[ƒh‚ğ•`‰æ
+        PhaseNode();
 
-        int inputID1 = 2;
-        int outputID1 = 3;
-        ImNodes::BeginInputAttribute(inputID1);
-        ImGui::Text("input");
-        ImNodes::EndInputAttribute();
-
-        ImNodes::BeginOutputAttribute(outputID1);
-        ImGui::Indent(40);
-        ImGui::Text("output");
-        ImNodes::EndOutputAttribute();
-
-        ImNodes::EndNode();
-
-
-        int nodeID2 = 4;
-        ImNodes::BeginNode(nodeID2);
-
-        ImNodes::BeginNodeTitleBar();
-        ImGui::TextUnformatted("simple node :)");
-        ImNodes::EndNodeTitleBar();
-
-        int inputID2 = 5;
-        int outputID2 = 6;
-        ImNodes::BeginInputAttribute(inputID2);
-        ImGui::Text("input");
-        ImNodes::EndInputAttribute();
-
-        ImNodes::BeginOutputAttribute(outputID2);
-        ImGui::Indent(40);
-        ImGui::Text("output");
-        ImNodes::EndOutputAttribute();
-
-        ImNodes::EndNode();
-
+        //ƒm[ƒh“¯m‚ğŒq‚°‚éƒŠƒ“ƒNü‚ğ•`‰æ
         PhaseLink();
 
         ImNodes::EndNodeEditor();
@@ -62,6 +27,70 @@ namespace editor::shadergraph
 
         ImGui::End();
     }
+
+    void ShaderGraphWindow::PhaseNode()
+    {
+        for (Node node : nodes)
+        {
+            DrawNode(node.id, node.input_attrs, node.output_attrs);
+        }
+    }
+
+    /*
+     * •`‰æ‚·‚éƒm[ƒh‚ğ‘‚â‚µ‚½‚¢‚Æ‚«‚ÉŒÄ‚Ño‚·
+     *
+     * id ... ‘Oƒm[ƒh‚Ìoutput_attr.back()+1‚Ì’l‚ğ“n‚·
+     * num_inputs ... input_attr‚Ì”
+     * num_outputs ... ouput_attr‚Ì”
+     */
+    void ShaderGraphWindow::AddNode(int id, int num_inputs, int num_outputs)
+    {
+        Node node;
+        node.id = id;
+
+        for (int inputID = node.id + 1; inputID < num_inputs + node.id + 1; inputID++)
+        {
+            node.input_attrs.push_back(inputID);
+        }
+
+        for (int outputID = node.input_attrs.back() + 1; outputID < num_outputs + node.input_attrs.back() + 1; outputID++)
+        {
+            node.output_attrs.push_back(outputID);
+        }
+
+        nodes.push_back(node);
+        std::cout << node.id << std::endl;
+    }
+
+    /*
+     * nodes”z—ñ‚ÉŠi”[‚³‚ê‚Ä‚¢‚éNode\‘¢‘Ì‚ğNode‚Æ‚µ‚Ä•`‰æ‚·‚é
+     */
+    void ShaderGraphWindow::DrawNode(int id, std::vector<int> input_attrs, std::vector<int> output_attrs)
+    {
+        ImNodes::BeginNode(id);
+
+        ImNodes::BeginNodeTitleBar();
+        ImGui::TextUnformatted("simple node :)");
+        ImNodes::EndNodeTitleBar();
+
+        for (int inputID : input_attrs)
+        {
+            ImNodes::BeginInputAttribute(inputID);
+            ImGui::Text("input");
+            ImNodes::EndInputAttribute();
+        }
+
+        for (int outputID : output_attrs)
+        {
+            ImNodes::BeginOutputAttribute(outputID);
+            ImGui::Indent(40);
+            ImGui::Text("output");
+            ImNodes::EndOutputAttribute();
+        }
+
+        ImNodes::EndNode();
+    }
+
 
     /*
      * Node“¯m‚ğƒŠƒ“ƒN‚·‚é

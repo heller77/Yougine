@@ -14,9 +14,17 @@ namespace editor::shadergraph
         int start_attr, end_attr; //始点ID, 終点ID 
     };
 
+    struct Node
+    {
+        int id;
+        std::vector<int> input_attrs;
+        std::vector<int> output_attrs;
+    };
+
     class ShaderGraphWindow : public EditorWindow
     {
     private:
+        std::vector<Node> nodes;
         std::vector<Link> links; //このリストに格納されているリンク構造体のリンクを描画
         int currentLinks = 0; //Link.idの指標
 
@@ -25,6 +33,9 @@ namespace editor::shadergraph
         void PhaseLink();
         void PhaseAddLink();
         void PhaseDisLink();
+        void PhaseNode();
+        void AddNode(int id, int num_inputs, int num_outputs);
+        void DrawNode(int id, std::vector<int> input_attrs, std::vector<int> output_attrs);
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
