@@ -10,12 +10,10 @@ namespace editor
     private:
         yougine::Scene* scene;
         yougine::InputManager* input_manager;
-        std::vector<std::string> MENU_ITEMS_LIST;
         SelectionInfo* selection_info = nullptr;
         bool flame_click_trigger = false;
 
     private:
-        void RenderMenuItems();
         void RenderObjectsTree();
         void RecursiveTree(std::list<yougine::GameObject*>);
         yougine::GameObject* CreateGameObject(std::string, yougine::GameObject*);
@@ -26,5 +24,7 @@ namespace editor
         ~HierarchyWindow();
 
         void Draw()override;
+        void SelectedItemProcess(std::string item) override;
+        void InitializeMenuLists() override;
     };
 }

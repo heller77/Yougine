@@ -13,10 +13,16 @@ namespace editor
         EditorWindowsManager* editor_windows_manager;
         EditorWindowName window_name;
         bool is_selected = false;
+        std::vector<std::string> menu_bar_list;
+        std::vector<std::string> menu_item_list;
 
     public:
         EditorWindow(EditorWindowsManager*, EditorWindowName);
         virtual void Draw();
+        void RenderMenuBar();
+        void RenderMenuItems();
+        virtual void SelectedItemProcess(std::string item);
+        virtual void InitializeMenuLists();
 
     protected:
         void Setup();
