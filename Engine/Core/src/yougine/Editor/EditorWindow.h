@@ -19,12 +19,12 @@ namespace editor
     public:
         EditorWindow(EditorWindowsManager*, EditorWindowName);
         virtual void Draw();
+
+    protected:
+        void Setup();
         void RenderMenuBar();
         void RenderMenuItems();
         virtual void SelectedItemProcess(std::string item);
         virtual void InitializeMenuLists();
-
-    protected:
-        void Setup();
     };
 }

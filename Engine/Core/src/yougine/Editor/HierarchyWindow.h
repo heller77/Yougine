@@ -24,6 +24,8 @@ namespace editor
         ~HierarchyWindow();
 
         void Draw()override;
+
+    protected:
         void SelectedItemProcess(std::string item) override;
         void InitializeMenuLists() override;
     };
