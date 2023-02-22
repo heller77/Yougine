@@ -4,13 +4,29 @@ namespace editor::shadergraph
 {
     ShaderGraphWindow::ShaderGraphWindow(EditorWindowsManager* editor_windows_manager) : EditorWindow(editor_windows_manager, editor::EditorWindowName::ShaderGraphWindow)
     {
-        AddNode(1, 2, 3);
-        AddNode(nodes.back().output_attrs.back() + 1, 2, 2);
+        InitializeMenuLists();
     }
+
+    void ShaderGraphWindow::InitializeMenuLists()
+    {
+        menu_bar_list =
+        {
+            "Add Node",
+        };
+
+        menu_item_list =
+        {
+            "Sample Node",
+        };
+    }
+
 
     void ShaderGraphWindow::Draw()
     {
-        ImGui::Begin("simple node editor");
+        ImGuiWindowFlags flags = (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar);
+        ImGui::Begin("simple node editor", nullptr, flags);
+
+        EditorWindow::RenderMenuBar();
 
         ImNodes::BeginNodeEditor();
 
@@ -28,11 +44,21 @@ namespace editor::shadergraph
         ImGui::End();
     }
 
+    void ShaderGraphWindow::SelectedItemProcess(std::string item)
+    {
+        if (ImGui::MenuItem(item.c_str()))
+        {
+            int id = nodes.empty() ? 1 : nodes.back().output_attrs.back() + 1;
+            AddNode(id, 1, 1, item);
+        }
+    }
+
+
     void ShaderGraphWindow::PhaseNode()
     {
         for (Node node : nodes)
         {
-            DrawNode(node.id, node.input_attrs, node.output_attrs);
+            DrawNode(node);
         }
     }
 
@@ -43,7 +69,7 @@ namespace editor::shadergraph
      * num_inputs ... input_attrÇÃêî
      * num_outputs ... ouput_attrÇÃêî
      */
-    void ShaderGraphWindow::AddNode(int id, int num_inputs, int num_outputs)
+    void ShaderGraphWindow::AddNode(int id, int num_inputs, int num_outputs, std::string name)
     {
         Node node;
         node.id = id;
@@ -57,6 +83,7 @@ namespace editor::shadergraph
         {
             node.output_attrs.push_back(outputID);
         }
+        node.name = name;
 
         nodes.push_back(node);
         std::cout << node.id << std::endl;
@@ -65,22 +92,22 @@ namespace editor::shadergraph
     /*
      * nodesîzóÒÇ…äiî[Ç≥ÇÍÇƒÇ¢ÇÈNodeç\ë¢ëÃÇNodeÇ∆ÇµÇƒï`âÊÇ∑ÇÈ
      */
-    void ShaderGraphWindow::DrawNode(int id, std::vector<int> input_attrs, std::vector<int> output_attrs)
+    void ShaderGraphWindow::DrawNode(Node node)
     {
-        ImNodes::BeginNode(id);
+        ImNodes::BeginNode(node.id);
 
         ImNodes::BeginNodeTitleBar();
-        ImGui::TextUnformatted("simple node :)");
+        ImGui::TextUnformatted(node.name.c_str());
         ImNodes::EndNodeTitleBar();
 
-        for (int inputID : input_attrs)
+        for (int inputID : node.input_attrs)
         {
             ImNodes::BeginInputAttribute(inputID);
             ImGui::Text("input");
             ImNodes::EndInputAttribute();
         }
 
-        for (int outputID : output_attrs)
+        for (int outputID : node.output_attrs)
         {
             ImNodes::BeginOutputAttribute(outputID);
             ImGui::Indent(40);

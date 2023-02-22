@@ -19,6 +19,7 @@ namespace editor::shadergraph
         int id;
         std::vector<int> input_attrs;
         std::vector<int> output_attrs;
+        std::string name;
     };
 
     class ShaderGraphWindow : public EditorWindow
@@ -34,11 +35,15 @@ namespace editor::shadergraph
         void PhaseAddLink();
         void PhaseDisLink();
         void PhaseNode();
-        void AddNode(int id, int num_inputs, int num_outputs);
-        void DrawNode(int id, std::vector<int> input_attrs, std::vector<int> output_attrs);
+        void AddNode(int id, int num_inputs, int num_outputs, std::string name);
+        void DrawNode(Node node);
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
         void Draw() override;
+
+    protected:
+        void SelectedItemProcess(std::string item) override;
+        void InitializeMenuLists() override;
     };
 }
