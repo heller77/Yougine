@@ -72,6 +72,9 @@ namespace editor
                 if (str_type == "Vector3")
                 {
                     Vector3View(std::any_cast<utility::Vector3*>(propertie[0]), v_name);
+                }else if(str_type=="Bool3")
+                {
+                    Bool3View(std::any_cast<utility::Bool3*>(propertie[0]), v_name);
                 }
             }
         }
@@ -81,6 +84,26 @@ namespace editor
     std::string ComponentViewer::GetComponentName()
     {
         return component_name;
+    }
+
+    void ComponentViewer::Bool3View(utility::Bool3* value, const char* name)
+    {
+        if (ImGui::TreeNode(name)) {
+            ImGui::Checkbox("x ", &value->x);
+            ImGui::SameLine();
+            // ImGui::Spacing();
+
+            ImGui::Checkbox("y ", &value->y);
+            ImGui::SameLine();
+            // ImGui::Spacing();
+
+            ImGui::Checkbox("z ", &value->z);
+
+
+            ImGui::TreePop();
+        }
+        // ImGui::TreePop();
+
     }
 
     void ComponentViewer::IntView(int* value, const char* name)

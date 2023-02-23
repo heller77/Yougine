@@ -13,7 +13,7 @@ namespace yougine::components
         std::string strval = "aaa";
         bool boolval = false;
         int intval2 = 2;
-
+        utility::Bool3* bool3_value;
         DebugComponent();
     };
 }
