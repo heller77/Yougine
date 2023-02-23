@@ -3,6 +3,7 @@
 #include "../components/DebugComponent.h"
 #include "../components/RenderComponent.h"
 #include "../components/TransformComponent.h"
+#include "../components/RigidBodyComponent.h"
 
 yougine::components::Component* yougine::componentfactorys::ComponentFacotory::CreateComponent(
     std::string component_class_name)
@@ -14,6 +15,10 @@ yougine::components::Component* yougine::componentfactorys::ComponentFacotory::C
     else if (component_class_name == "yougine::components::TransformComponent")
     {
         return new components::TransformComponent(0, 0, 0);
+    }
+    else if (component_class_name == "yougine::components::RigidBodyComponent")
+    {
+        return new components::RigidBodyComponent();
     }
     else if (component_class_name == "yougine::components::RenderComponent")
     {

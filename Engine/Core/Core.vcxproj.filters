@@ -69,7 +69,6 @@
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<<<< Temporary merge branch 1
     <ClCompile Include="src\yougine\components\Component.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
     </ClCompile>
@@ -273,7 +272,6 @@
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h">
       <Filter>ヘッダー ファイル\src\yougine\managers</Filter>
     </ClInclude>
-=========
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
@@ -353,7 +351,6 @@
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
     <None Include="src\yougine\test.vert" />
->>>>>>>>> Temporary merge branch 2
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />

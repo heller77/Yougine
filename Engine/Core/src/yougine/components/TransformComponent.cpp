@@ -23,7 +23,10 @@ namespace yougine::components
      */
     void TransformComponent::SetPosition(utility::Vector3 position)
     {
-        this->position = &position;
+        //this->position = &position;
+        (*this->position).x = position.x;
+        (*this->position).y = position.y;
+        (*this->position).z = position.z;
     }
 
 }
