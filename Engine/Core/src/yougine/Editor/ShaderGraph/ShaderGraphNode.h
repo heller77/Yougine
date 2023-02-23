@@ -73,8 +73,8 @@ namespace editor::shadergraph
         };
 
     private:
-        std::vector<std::vector<std::string>> input_vals;//first...初期値, second...現在値
-        std::vector<std::vector<std::string>> output_vals;//first...初期値, second...現在値
+        std::vector<std::pair<std::string, std::string>> input_vals;//first...初期値, second...現在値
+        std::vector<std::pair<std::string, std::string>> output_vals;//first...初期値, second...現在値
 
     public:
         int id;
@@ -84,9 +84,11 @@ namespace editor::shadergraph
 
     public:
         ShaderGraphNode();
-        void SetInputVal(std::string value, int attr);
-        std::string GetOutputVal(int attr);
+        void UpdateVal(ShaderGraphNode* linked_node, int input_attr, int output_attr);
+        void SetInputVal(std::string value, int input_attr);
+        std::string GetOutputVal(int output_attr);
         void ResetVal(int attr);
         void DisplayValues();
+        void UpdateOutputVal();
     };
 }

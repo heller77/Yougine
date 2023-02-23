@@ -174,11 +174,10 @@ namespace editor::shadergraph
                     }
                 }
             }
-            linked_nodes_pair.push_back(sub_nodes);
+            std::pair < std::pair<ShaderGraphNode*, ShaderGraphNode*>, std::pair<int, int>> linked_pair = { sub_nodes, std::pair<int, int>{input_attr, output_attr} };
+            linked_nodes_pair.push_back(linked_pair);
 
-            SendOutputValToInput(sub_nodes, input_attr, output_attr);
-            sub_nodes.first->DisplayValues();
-            sub_nodes.second->DisplayValues();
+            UpdateLinkedNodesValue();
 
             std::cout << "LinkCreated:" + std::to_string(link.start_attr) + "to" + std::to_string(link.end_attr) << std::endl;
             link.id = ++currentLinks;
@@ -217,7 +216,19 @@ namespace editor::shadergraph
 
     void ShaderGraphWindow::SendOutputValToInput(std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes, int input_attr, int output_attr)
     {
-        sub_nodes.first->SetInputVal(sub_nodes.second->GetOutputVal(output_attr), input_attr);
+        sub_nodes.first->UpdateVal(sub_nodes.second, input_attr, output_attr);
+        //sub_nodes.first->SetInputVal(sub_nodes.second->GetOutputVal(output_attr), input_attr);
     }
+
+    void ShaderGraphWindow::UpdateLinkedNodesValue()
+    {
+        for (std::pair<std::pair<ShaderGraphNode*, ShaderGraphNode*>, std::pair<int, int>> p_nodes : linked_nodes_pair)
+        {
+            SendOutputValToInput(p_nodes.first, p_nodes.second.first, p_nodes.second.second);
+            p_nodes.first.first->DisplayValues();
+            p_nodes.first.second->DisplayValues();
+        }
+    }
+
 
 }

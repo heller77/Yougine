@@ -21,7 +21,7 @@ namespace editor::shadergraph
         std::vector<ShaderGraphNode*> nodes;
         std::vector<Link> links; //このリストに格納されているリンク構造体のリンクを描画
         int currentLinks = 0; //Link.idの指標
-        std::vector<std::pair<ShaderGraphNode*, ShaderGraphNode*>> linked_nodes_pair;
+        std::vector<std::pair<std::pair<ShaderGraphNode*, ShaderGraphNode*>, std::pair<int, int>>> linked_nodes_pair;
 
     private:
         void SearchSelectingNodeID();
@@ -32,6 +32,7 @@ namespace editor::shadergraph
         void AddNode(int id, int num_inputs, int num_outputs, std::string name);
         void DrawNode(ShaderGraphNode* node);
         void SendOutputValToInput(std::pair<ShaderGraphNode*, ShaderGraphNode*>, int input_attr, int output_attr);
+        void UpdateLinkedNodesValue();
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
