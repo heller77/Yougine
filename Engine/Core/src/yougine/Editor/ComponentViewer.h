@@ -26,6 +26,7 @@ namespace editor
         std::string GetComponentName();
 
     private:
+        void Bool3View(utility::Bool3* value, const char* name);
         void Vector3View(utility::Vector3* value, const char* name);
         void IntView(int* value, const char* name);
         void FloatView(float* value, const char* name);
