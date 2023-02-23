@@ -141,6 +141,45 @@ namespace editor::shadergraph
         Link link;
         if (ImNodes::IsLinkCreated(&link.start_attr, &link.end_attr))
         {
+            //ƒŠƒ“ƒN‚·‚éƒm[ƒh‚ğ’Tõ
+            std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes; //0‚ªinput, 1‚ªoutput
+            int input_attr = link.end_attr, output_attr = link.start_attr;
+
+            bool is_detected_input_node = false, is_detected_output_node = false;
+            //int first_attr_id = input_attr < output_attr ? 0 : 1;
+            for (ShaderGraphNode* node : nodes)
+            {
+                if (!is_detected_input_node)
+                {
+                    for (int i_attr : node->input_attrs)
+                    {
+                        is_detected_input_node = (i_attr == input_attr);
+                        if (is_detected_input_node)
+                        {
+                            sub_nodes.first = node;
+                            break;
+                        }
+                    }
+                }
+                if (!is_detected_output_node)
+                {
+                    for (int o_attr : node->output_attrs)
+                    {
+                        is_detected_output_node = (o_attr == output_attr);
+                        if (is_detected_output_node)
+                        {
+                            sub_nodes.second = node;
+                            break;
+                        }
+                    }
+                }
+            }
+            linked_nodes_pair.push_back(sub_nodes);
+
+            SendOutputValToInput(sub_nodes, input_attr, output_attr);
+            sub_nodes.first->DisplayValues();
+            sub_nodes.second->DisplayValues();
+
             std::cout << "LinkCreated:" + std::to_string(link.start_attr) + "to" + std::to_string(link.end_attr) << std::endl;
             link.id = ++currentLinks;
             links.push_back(link);
@@ -176,41 +215,9 @@ namespace editor::shadergraph
         }
     }
 
-    void ShaderGraphWindow::SendOutputValToInput(int value, int input_attr, int output_attr)
+    void ShaderGraphWindow::SendOutputValToInput(std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes, int input_attr, int output_attr)
     {
-        ShaderGraphNode* sub_nodes[2]; //0‚ªinput, 1‚ªoutput
-
-        bool is_detected_input_node = false, is_detected_output_node = false;
-        //int first_attr_id = input_attr < output_attr ? 0 : 1;
-        for (ShaderGraphNode* node : nodes)
-        {
-            if (!is_detected_input_node)
-            {
-                for (int i_attr : node->input_attrs)
-                {
-                    is_detected_input_node = (i_attr == input_attr);
-                    if (is_detected_input_node)
-                    {
-                        sub_nodes[0] = node;
-                        break;
-                    }
-                }
-            }
-            if (!is_detected_output_node)
-            {
-                for (int o_attr : node->output_attrs)
-                {
-                    is_detected_output_node = (o_attr == output_attr);
-                    if (is_detected_output_node)
-                    {
-                        sub_nodes[1] = node;
-                        break;
-                    }
-                }
-            }
-        }
-
-        sub_nodes[0]->SetInputVal(sub_nodes[1]->GetOutputVal(output_attr), input_attr);
+        sub_nodes.first->SetInputVal(sub_nodes.second->GetOutputVal(output_attr), input_attr);
     }
 
 }

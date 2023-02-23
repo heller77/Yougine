@@ -73,8 +73,8 @@ namespace editor::shadergraph
         };
 
     private:
-        std::vector<std::string> input_vals;
-        std::vector<std::string> output_vals;
+        std::vector<std::vector<std::string>> input_vals;//first...初期値, second...現在値
+        std::vector<std::vector<std::string>> output_vals;//first...初期値, second...現在値
 
     public:
         int id;
@@ -83,7 +83,10 @@ namespace editor::shadergraph
         std::string name;
 
     public:
+        ShaderGraphNode();
         void SetInputVal(std::string value, int attr);
         std::string GetOutputVal(int attr);
+        void ResetVal(int attr);
+        void DisplayValues();
     };
 }
