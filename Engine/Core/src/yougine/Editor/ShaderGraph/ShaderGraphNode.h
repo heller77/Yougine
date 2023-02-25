@@ -73,22 +73,29 @@ namespace editor::shadergraph
         };
 
     private:
-        std::vector<std::pair<std::string, std::string>> input_vals;//first...初期値, second...現在値
-        std::vector<std::pair<std::string, std::string>> output_vals;//first...初期値, second...現在値
+        std::pair<std::string, std::string> init_input_val;
+        std::pair<std::string, std::string> init_output_val;
+        ShaderGraphNode* parent_node;
 
     public:
         int id;
-        std::vector<int> input_attrs;
-        std::vector<int> output_attrs;
+        std::vector<std::pair<int, std::pair<std::string, std::string>>> input_info;//first...attr, second...{ first...初期値, second...現在値 }
+        std::vector<std::pair<int, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...初期値, second...現在値 }
         std::string name;
 
     public:
         ShaderGraphNode();
-        void UpdateVal(ShaderGraphNode* linked_node, int input_attr, int output_attr);
-        void SetInputVal(std::string value, int input_attr);
-        std::string GetOutputVal(int output_attr);
-        void ResetVal(int attr);
+        void SetInputVal(std::string value, int input_index);
+        std::string GetOutputVal(int output_index);
+        void ResetVal(int index);
         void DisplayValues();
+        void SetParentNode(ShaderGraphNode* parent_node);
+        bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         void UpdateOutputVal();
+        int FindLinkedInputIndex(int input_attr);
+        int FindLinkedOutputIndex(int output_attr);
+        ShaderGraphNode* GetParentNode();
+        std::pair<std::string, std::string> GetInitInputVal();
+        std::pair<std::string, std::string> GetInitOutputVal();
     };
 }

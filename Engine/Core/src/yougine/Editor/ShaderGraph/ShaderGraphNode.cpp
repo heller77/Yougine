@@ -6,60 +6,39 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        input_vals =
-        {
-            {std::make_pair("1", "1")},
-        };
-
-        output_vals =
-        {
-            {std::make_pair("1", "1")},
-        };
+        init_input_val = std::make_pair("1", "1");
+        init_output_val = std::make_pair("2", "2");
     }
 
-    void ShaderGraphNode::UpdateVal(ShaderGraphNode* linked_node, int input_attr, int output_attr)
+    void ShaderGraphNode::SetInputVal(std::string value, int index)
     {
-        //前連結は同期できている
-        //後ろ連結は同期できていないが、前連結したら同期する
-        SetInputVal(linked_node->GetOutputVal(output_attr), input_attr);
-
-        UpdateOutputVal();
-        linked_node->UpdateOutputVal();
+        input_info[index].second.second = value;
     }
 
-    void ShaderGraphNode::SetInputVal(std::string value, int attr)
+    std::string ShaderGraphNode::GetOutputVal(int index)
     {
-        const uint8_t index = attr - id - 1;
-        input_vals[index].second = value;
+        return output_info[index].second.second;
     }
 
-    std::string ShaderGraphNode::GetOutputVal(int attr)
+    void ShaderGraphNode::ResetVal(int index)
     {
-        const uint8_t size = (uint8_t)input_vals.size();
-        const uint8_t index = attr - id - size - 1;
-        return output_vals[index].second;
-    }
-
-    void ShaderGraphNode::ResetVal(int attr)
-    {
-        const uint8_t c_index = attr - id - 1;
-        input_vals[c_index].second = input_vals[c_index].first;
+        input_info[index].second.second = input_info[index].second.first;
     }
 
     void ShaderGraphNode::DisplayValues()
     {
         std::cout << "Node ID : " + std::to_string(id) + "'s ";
         std::cout << "Input Values ";
-        for (int i = 0; i < input_vals.size(); i++)
+        for (int i = 0; i < input_info.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + input_vals[i].second + ", ";
+            std::cout << std::to_string(i) + " : " + input_info[i].second.second + ", ";
         }
         std::cout << "" << std::endl;
 
         std::cout << "Output Values ";
-        for (int i = 0; i < output_vals.size(); i++)
+        for (int i = 0; i < output_info.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + output_vals[i].second + ", ";
+            std::cout << std::to_string(i) + " : " + output_info[i].second.second + ", ";
         }
         std::cout << "" << std::endl;
     }
@@ -67,12 +46,69 @@ namespace editor::shadergraph
     void ShaderGraphNode::UpdateOutputVal()
     {
         int c = 0;
-        for (std::pair<std::string, std::string> input : input_vals)
+        for (std::pair<int, std::pair<std::string, std::string>> input : input_info)
         {
-            c += stoi(input.second);
+            c += stoi(input.second.second);
         }
-        //この実装だとノードは一つのアウトプットしか出せない
-        output_vals[0].second = std::to_string((c * 2));
+        for (int i = 0; i < output_info.size(); i++)
+        {
+            output_info[i].second.second = std::to_string((c * 2));
+        }
     }
 
+    void ShaderGraphNode::SetParentNode(ShaderGraphNode* parent_node)
+    {
+        this->parent_node = parent_node;
+    }
+
+    bool ShaderGraphNode::UpdateParentNodeValue(std::pair<int, int> attr_pair)
+    {
+        if (this->parent_node == nullptr) return false;
+
+        int input_index = parent_node->FindLinkedInputIndex(attr_pair.first), output_index = FindLinkedOutputIndex(attr_pair.second);
+
+        this->parent_node->SetInputVal(this->GetOutputVal(output_index), input_index);
+        this->parent_node->UpdateOutputVal();
+        this->parent_node->DisplayValues();
+
+        return true;
+    }
+
+    int ShaderGraphNode::FindLinkedInputIndex(int input_attr)
+    {
+        for (int i = 0; i < input_info.size(); i++)
+        {
+            std::cout << input_attr << std::endl;
+            std::cout << input_info[i].first << std::endl;
+            if (input_info[i].first == input_attr) return i;
+        }
+
+        return -1;
+    }
+
+    int ShaderGraphNode::FindLinkedOutputIndex(int output_attr)
+    {
+        for (int i = 0; i < output_info.size(); i++)
+        {
+            if (output_info[i].first == output_attr) return i;
+
+        }
+
+        return -1;
+    }
+
+    ShaderGraphNode* ShaderGraphNode::GetParentNode()
+    {
+        return parent_node;
+    }
+
+    std::pair<std::string, std::string> ShaderGraphNode::GetInitInputVal()
+    {
+        return init_input_val;
+    }
+
+    std::pair<std::string, std::string> ShaderGraphNode::GetInitOutputVal()
+    {
+        return init_output_val;
+    }
 }
