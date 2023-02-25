@@ -161,7 +161,8 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
     //GameManagerで回すマネージャのvector
     std::vector<IManager*> managerlist;
-    auto componentlist = new yougine::managers::ComponentList();
+    //auto componentlist = new yougine::managers::ComponentList();
+    auto componentlist = scene->GetComponentList();
     auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
     auto rigidbodymanager = new yougine::managers::RigidBodyManager(componentlist);
     managerlist.push_back(custommanager);
