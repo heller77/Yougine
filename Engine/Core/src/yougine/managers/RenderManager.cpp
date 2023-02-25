@@ -11,6 +11,8 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../utilitys/Quaternion.h"
+
 namespace yougine
 {
     namespace components
@@ -149,9 +151,7 @@ namespace yougine::managers
     float cValue = 0;
 
     float diff = 0.01f;
-
-    float cameradiff = 0.01f;
-    float cameraWorldRotate = 0.0f;
+    
 
     float camerax = 1;
 
@@ -166,7 +166,6 @@ namespace yougine::managers
             std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
         }
     }
-
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -176,27 +175,24 @@ namespace yougine::managers
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
-        // カメラ行列
-        camerax += cameradiff * 1.3;
-        if (camerax > 15 || camerax < -15)
-        {
-            cameradiff *= -1;
-        }
 
-        cameraWorldRotate += 0.01;
-        if(cameraWorldRotate>=360)
-        {
-            cameraWorldRotate = 0;
-        }
-        float radius = 10;
+
         glm::mat4 View = glm::lookAt(
-            glm::vec3(10*glm::cos(cameraWorldRotate), 7, radius*sin(cameraWorldRotate)),
+            glm::vec3(0, 0, 10),
             glm::vec3(0, 0, 0),
             glm::vec3(0, 1, 0)
         );
+
         auto gameobject = render_component->GetGameObject();
-        auto position = gameobject->GetComponent<components::TransformComponent>()->GetPosition();
-        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z));
+        //transformComponent取得
+        auto transform = gameobject->GetComponent<components::TransformComponent>();
+        //位置を取得
+        auto position = transform->GetPosition();
+        //回転を取得
+        auto rotation = transform->GetRotation();
+
+        //Model行列を定義
+        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z))* rotation->ConvertToGlmMat4();
         glm::mat4 MVP = Projection * View * Model;
         auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
