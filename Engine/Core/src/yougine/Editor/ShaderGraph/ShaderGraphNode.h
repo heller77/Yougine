@@ -83,17 +83,19 @@ namespace editor::shadergraph
         std::vector<std::pair<int, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...èâä˙íl, second...åªç›íl }
         std::string name;
 
-    public:
-        ShaderGraphNode();
+    private:
         void SetInputVal(std::string value, int input_index);
         std::string GetOutputVal(int output_index);
-        void ResetVal(int index);
         void DisplayValues();
-        void SetParentNode(ShaderGraphNode* parent_node);
-        bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         void UpdateOutputVal();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
+
+    public:
+        ShaderGraphNode();
+        void ResetVal(int index);
+        void SetParentNode(ShaderGraphNode* parent_node);
+        bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         ShaderGraphNode* GetParentNode();
         std::pair<std::string, std::string> GetInitInputVal();
         std::pair<std::string, std::string> GetInitOutputVal();

@@ -142,42 +142,12 @@ namespace editor::shadergraph
         Link link;
         if (ImNodes::IsLinkCreated(&link.start_attr, &link.end_attr))
         {
-            //リンクするノードを探索
             std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes; //0がinput(親), 1がoutput(子)
             int input_attr = link.end_attr, output_attr = link.start_attr;
             std::cout << "input_attr : " + std::to_string(input_attr) + ", output_attr : " + std::to_string(output_attr) << std::endl;
 
-            bool is_detected_input_node = false, is_detected_output_node = false;
-            //int first_attr_id = input_attr < output_attr ? 0 : 1;
-            for (ShaderGraphNode* node : nodes)
-            {
-                if (!is_detected_input_node)
-                {
-                    for (std::pair<int, std::pair<std::string, std::string>> input : node->input_info)
-                    {
-                        int i_attr = input.first;
-                        is_detected_input_node = (i_attr == input_attr);
-                        if (is_detected_input_node)
-                        {
-                            sub_nodes.first = node;
-                            break;
-                        }
-                    }
-                }
-                if (!is_detected_output_node)
-                {
-                    for (std::pair<int, std::pair<std::string, std::string>> output : node->output_info)
-                    {
-                        int o_attr = output.first;
-                        is_detected_output_node = (o_attr == output_attr);
-                        if (is_detected_output_node)
-                        {
-                            sub_nodes.second = node;
-                            break;
-                        }
-                    }
-                }
-            }
+            //リンクするノードを探索
+            sub_nodes = FindSubNodesByLinkAttr(input_attr, output_attr);
 
             std::cout << "LinkCreated:" + std::to_string(link.start_attr) + "to" + std::to_string(link.end_attr) << std::endl;
             link.id = ++currentLinks;
@@ -202,7 +172,7 @@ namespace editor::shadergraph
             int l_id;
             if (ImNodes::IsLinkHovered(&l_id))
             {
-                std::cout << "LinkDestroyed" << std::endl;
+                std::cout << "LinkDestroyed : " + std::to_string(l_id) << std::endl;
                 //ImNodes::ClearLinkSelection();
 
                 //解除されたリンクを除いたlinksリストに更新
@@ -210,10 +180,59 @@ namespace editor::shadergraph
                 for (Link ll : links)
                 {
                     if (ll.id != l_id) newLinks.push_back(ll);
+                    else
+                    {
+                        DisLinkNodes(std::make_pair(ll.start_attr, ll.end_attr));
+                    }
                 }
                 links = newLinks;
             }
         }
+    }
+
+    std::pair<ShaderGraphNode*, ShaderGraphNode*> ShaderGraphWindow::FindSubNodesByLinkAttr(int input_attr, int output_attr)
+    {
+        std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes;
+
+        bool is_detected_input_node = false, is_detected_output_node = false;
+        //int first_attr_id = input_attr < output_attr ? 0 : 1;
+        for (ShaderGraphNode* node : nodes)
+        {
+            if (!is_detected_input_node)
+            {
+                for (std::pair<int, std::pair<std::string, std::string>> input : node->input_info)
+                {
+                    int i_attr = input.first;
+                    is_detected_input_node = (i_attr == input_attr);
+                    if (is_detected_input_node)
+                    {
+                        sub_nodes.first = node;
+                        break;
+                    }
+                }
+            }
+            if (!is_detected_output_node)
+            {
+                for (std::pair<int, std::pair<std::string, std::string>> output : node->output_info)
+                {
+                    int o_attr = output.first;
+                    is_detected_output_node = (o_attr == output_attr);
+                    if (is_detected_output_node)
+                    {
+                        sub_nodes.second = node;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return sub_nodes;
+    }
+
+
+    void ShaderGraphWindow::DisLinkNodes(std::pair<int, int> link_pair)
+    {
+        std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes;
     }
 
     /*
@@ -226,13 +245,22 @@ namespace editor::shadergraph
         UpdateNodeValue(child_node, attr_pair);
     }
 
+    /*
+     * child_nodeの親ノードの子孫関係を検索し, 子孫全ての値を更新する
+     */
     void ShaderGraphWindow::UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair)
     {
+        /*
+         *親ノードが存在すれば親ノードの値を更新する
+         */
         if ((child_node->UpdateParentNodeValue(attr_pair)))
         {
+            /*
+             * リンクしているペアから子孫関係を探索しattrを見つける
+             */
             for (Link link : links)
             {
-                std::cout << "links : " + std::to_string(link.start_attr) + ", " + std::to_string(link.end_attr) << std::endl;
+                //子ノードのoutput_attrがリンクペアのinput_attrに存在するとき, 親ノードを子とした親子関係が存在する
                 if (link.start_attr == child_node->GetParentNode()->output_info[0].first)
                 {
                     int input_attr = link.end_attr;

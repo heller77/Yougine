@@ -6,7 +6,7 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        init_input_val = std::make_pair("1", "1");
+        init_input_val = std::make_pair("0", "0");
         init_output_val = std::make_pair("2", "2");
     }
 
