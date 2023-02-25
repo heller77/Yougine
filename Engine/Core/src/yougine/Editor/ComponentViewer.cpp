@@ -1,4 +1,5 @@
 #include "ComponentViewer.h"
+#include "../utilitys/Quaternion.h"
 
 namespace editor
 {
@@ -41,7 +42,6 @@ namespace editor
         std::cout << component_name + "のComponentViewerがリセットされました" << std::endl;
     }
 
-
     void ComponentViewer::DrawViews()
     {
         for (std::vector<std::any> propertie : accessable_properties)
@@ -67,16 +67,32 @@ namespace editor
             }
             if (typeid(var) == typeid(std::any))
             {
-                std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(var.type().name(), ' ')[1], '::').back();
+                std::string typename_ = var.type().name();
+                std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(var.type().name(), ' ')[1],
+                                                                '::').back();
 
                 if (str_type == "Vector3")
                 {
                     Vector3View(std::any_cast<utility::Vector3*>(propertie[0]), v_name);
                 }
+                //sharedptrかどうか
+                auto sharedptrIndex = typename_.find("shared_ptr");
+                int typename_len = typename_.length();
+                if (typename_.find("shared_ptr") != std::string::npos)
+                {
+                    sharedptrIndex += 10;
+                    sharedptrIndex += 1;
+                    std::string contentOfsharedptr = typename_.
+                        substr(sharedptrIndex, typename_len - sharedptrIndex - 1);
+                    // std::cout << contentOfsharedptr << std::endl;
+                    if (contentOfsharedptr == "class utility::Quaternion")
+                    {
+                        QuaternionView(std::any_cast<std::shared_ptr<utility::Quaternion>>(propertie[0]), v_name);
+                    }
+                }
             }
         }
     }
-
 
     std::string ComponentViewer::GetComponentName()
     {
@@ -95,12 +111,45 @@ namespace editor
 
     void ComponentViewer::Vector3View(utility::Vector3* value, const char* name)
     {
-        float values[3] = { value->x, value->y, value->z };
+        float values[3] = {value->x, value->y, value->z};
         if (ImGui::InputFloat3(name, values, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
         {
             value->x = values[0];
             value->y = values[1];
             value->z = values[2];
+        }
+    }
+
+    void ComponentViewer::QuaternionView(std::shared_ptr<utility::Quaternion> value, const char* name)
+    {
+        // float qvalue[4] = {value->x, value->y, value->z, value->w};
+        // if (ImGui::InputFloat4("quaternion", qvalue, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
+        // {
+        //     value->x = qvalue[0];
+        //     value->y = qvalue[1];
+        //     value->z = qvalue[2];
+        //     value->w = qvalue[3];
+        // }
+
+        auto radian = value->CalculateEuler();
+        float values[3] = {radian.x, radian.y, radian.z};
+        // float values[4] = {value->x,value->y,value->z,value->w};
+        if (ImGui::InputFloat3(name, values, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
+        {
+            // std::cout << "euler " << values[0] << " " << values[1] << " " << values[2] << std::endl;
+            auto q = utility::Quaternion::GenerateQuartanionFromEuler(values[0], values[1], values[2]);
+            auto qeuler = q->CalculateEuler();
+            // std::cout << qeuler.x<<" " << qeuler.y<<" "<<qeuler.z << std::endl;
+            // value->x = values[0];
+            // value->y = values[1];
+            // value->z = values[2];
+            // value->w = values[3];
+
+            *value = q;
+            // value->x = q->x;
+            // value->y = q->y;
+            // value->z = q->z;
+            // value->w = q->w;
         }
     }
 

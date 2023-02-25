@@ -9,7 +9,7 @@
 #include <any>
 #include "../utilitys/YougineMath.h"
 #include "../utilitys/Split.cpp"
-
+#include "../utilitys/Quaternion.h"
 namespace editor
 {
     class ComponentViewer
@@ -31,5 +31,6 @@ namespace editor
         void FloatView(float* value, const char* name);
         void StringView(std::string* value, const char* name);
         void BoolView(bool* value, const char* name);
+        void QuaternionView(std::shared_ptr<utility::Quaternion> value, const char* name);
     };
 }
