@@ -145,19 +145,41 @@ utility::Vector3 utility::Quaternion::CalculateEuler()
 {
     float pi = M_PI;
 
-    float euler_y = std::asin(-(2.0f * (x * z - y * w))) * 180 / pi;
+    float euler_y = std::asin(-(2.0f * (x * z - y * w))) ;
     float euler_x = 0;
     float euler_z = 0;
-    if (std::cos(euler_y) < 0.01 && std::cos(euler_y) > -0.01)
+
+    float cos_y = std::cos(euler_y);
+    
+    if (cos_y < 0.01 && cos_y > -0.01)//cos(y)==0の近似
     {
         euler_x = 0;
-        euler_z = std::atan(-((2*x*y -2*z*w)/(2*w*w+2*y*y-1)));
+        euler_z = std::atan(-((2*x*y -2*z*w)/(2*w*w+2*y*y-1))) * 180 / pi;
     }
     else
     {
         euler_x = std::atan2((2.0f * (y * z + x * w)), (2 * w * w + 2 * z * z - 1)) * 180 / pi;
         euler_z = std::atan2(2.0f * (x * y + z * w), 2 * w * w + 2 * x * x - 1) * 180 / pi;
     }
+    euler_y *= 180 / pi;
+
+
+    // auto matrix = this->ConvertToGlmMat4();
+    // float euler_y = std::asin(-matrix[2][0]) * 180 / pi;
+    // float cosy = std::cos(euler_y);
+    // float euler_x = 0;
+    // float euler_z = 0;
+    // if (cosy < 0.01 && cosy > -0.01)
+    // {
+    //     euler_x = std::atan(matrix[2][1] / matrix[2][2]) * 180 / pi;
+    //     euler_z = std::atan(matrix[1][0] / matrix[0][0]) * 180 / pi;
+    // }
+    // else
+    // {
+    //     euler_x = 0;
+    //     euler_z= std::atan(-1*(matrix[0][1] / matrix[1][1])) * 180 / pi;
+    // }
+
     // float euler_x = std::atan2((2.0f * (y * x + y * z)), (w * w - x * x - y * y + z * z)) * 180 / pi;
     // float euler_y = std::asin(2.0f * (w * y - x * z)) * 180 / pi;
     // float euler_z = std::atan((2.0f * (w * z - x * y) / (w * w + x * x - y * y - z * z))) * 180 / pi;
