@@ -1,25 +1,32 @@
-#include "RigidBodyComponent.h"
+﻿#include "RigidBodyComponent.h"
 
 namespace yougine::components
 {
-    RigidBodyComponent::RigidBodyComponent() : Component(managers::ComponentName::kNone)
+    RigidBodyComponent::RigidBodyComponent() : Component(managers::ComponentName::kRigidBody)
     {
-        this->velocity = new utility::Vector3(0, 0, 0);
-        *this->mass = 1.00f;
-        *this->drag = 1.00f;
-        *this->angular_drag = 1.00f;
-        *this->attraction = false;
-        this->freeze_position = new utility::Bool3(false, false, false);
-        this->freeze_rotation = new utility::Bool3(false, false, false);
+        this->velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
+        this->mass = 1.00f; // オブジェクトの質量
+        this->drag = 1.00f; // オブジェクトの抵抗
+        this->angular_drag = 1.00f; // オブジェクトの回転に関する抵抗
+        this->attraction = false; // 引力を受けるかどうか
+        this->freeze_position = new utility::Bool3(false, false, false); // x, y, z方向に関して動きを無効化するかどうか
+        this->freeze_rotation = new utility::Bool3(false, false, false); // 回転に関して動きを無効化するかどうか
+        accessable_properties_list.push_back(std::vector<std::any>{velocity, GETVALUENAME(velocity)});
+        accessable_properties_list.push_back(std::vector<std::any>{&mass, GETVALUENAME(mass)});
+        accessable_properties_list.push_back(std::vector<std::any>{&drag, GETVALUENAME(drag)});
+        accessable_properties_list.push_back(std::vector<std::any>{&angular_drag, GETVALUENAME(angular_drag)});
+        accessable_properties_list.push_back(std::vector<std::any>{&attraction, GETVALUENAME(attraction)});
+        accessable_properties_list.push_back(std::vector<std::any>{freeze_position, GETVALUENAME(freeze_position)});
+        accessable_properties_list.push_back(std::vector<std::any>{freeze_rotation, GETVALUENAME(freeze_rotation)});
     }
 
-    RigidBodyComponent::RigidBodyComponent(utility::Vector3 velocity, float mass, float drag, float angular_drag, bool attraction, utility::Bool3 freeze_position, utility::Bool3 freeze_rotation) : Component(managers::ComponentName::kNone)
+    RigidBodyComponent::RigidBodyComponent(utility::Vector3 velocity, float mass, float drag, float angular_drag, bool attraction, utility::Bool3 freeze_position, utility::Bool3 freeze_rotation) : Component(managers::ComponentName::kRigidBody)
     {
         this->velocity = &velocity;
-        this->mass = &mass;
-        this->drag = &drag;
-        this->angular_drag = &angular_drag;
-        this->attraction = &attraction;
+        this->mass = mass;
+        this->drag = drag;
+        this->angular_drag = angular_drag;
+        this->attraction = attraction;
         this->freeze_position = &freeze_position;
         this->freeze_rotation = &freeze_rotation;
     }
@@ -48,7 +55,7 @@ namespace yougine::components
      */
     float RigidBodyComponent::GetMass()
     {
-        return *this->mass;
+        return this->mass;
     }
 
     /**
@@ -57,7 +64,7 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetMass(float mass)
     {
-        this->mass = &mass;
+        this->mass = mass;
     }
 
     /**
@@ -66,7 +73,7 @@ namespace yougine::components
      */
     float RigidBodyComponent::GetDrag()
     {
-        return *this->drag;
+        return this->drag;
     }
 
     /**
@@ -75,7 +82,7 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetDrag(float drag)
     {
-        this->drag = &drag;
+        this->drag = drag;
     }
 
     /**
@@ -84,7 +91,7 @@ namespace yougine::components
      */
     float RigidBodyComponent::GetAngularDrag()
     {
-        return *this->angular_drag;
+        return this->angular_drag;
     }
 
     /**
@@ -93,7 +100,7 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetAngularDrag(float angular_drag)
     {
-        this->angular_drag = &angular_drag;
+        this->angular_drag = angular_drag;
     }
 
     /**
@@ -102,7 +109,7 @@ namespace yougine::components
      */
     bool RigidBodyComponent::GetAttraction()
     {
-        return *this->attraction;
+        return this->attraction;
     }
 
     /**
@@ -111,7 +118,7 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetAttraction(bool attraction)
     {
-        this->attraction = &attraction;
+        this->attraction = attraction;
     }
 
     /**
