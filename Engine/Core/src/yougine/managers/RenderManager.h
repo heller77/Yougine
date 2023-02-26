@@ -4,8 +4,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../components/RenderComponent.h"
+#include "../components/Camera/CameraComponent.h"
 
 #include "imgui/imgui.h"
+
+
 
 namespace yougine::managers
 {
@@ -41,7 +44,7 @@ namespace yougine::managers
 
         GLuint depthBuffer;
 
-        void RenderOneGameObject(components::RenderComponent* render_component);
+        void RenderOneGameObject(components::RenderComponent* render_component,std::shared_ptr<components::camera::CameraComponent> camera);
 
         void MeshBufferInit();
 
