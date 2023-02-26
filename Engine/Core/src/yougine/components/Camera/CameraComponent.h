@@ -2,15 +2,18 @@
 #include <memory>
 
 #include "../Component.h"
+#include "../TransformComponent.h"
 
 namespace yougine::components::camera
 {
     class CameraComponent : public yougine::components::Component
     {
     private:
-         std::unique_ptr<CameraComponent> main;
+         static std::shared_ptr<CameraComponent> main_camera;
 
     public:
         CameraComponent();
+        TransformComponent* GetTransform();
+        static std::shared_ptr<CameraComponent> GetMainCamera();
     };
 }
