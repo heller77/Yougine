@@ -28,7 +28,7 @@ namespace editor
             component_name = "CustomComponent";
             break;
         case yougine::managers::ComponentName::kNone:
-            component_name = "TransformComponent";
+            component_name = typeid(*component).name();
             break;
         default:
             break;
