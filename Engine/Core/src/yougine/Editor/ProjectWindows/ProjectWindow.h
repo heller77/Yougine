@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "../EditorWindow.h"
 #include "../../Projects/Project.h"
+#include "Assets/element/IElementOfProjectView.h"
 
 namespace editor::projectwindows
 {
@@ -11,13 +12,22 @@ namespace editor::projectwindows
          * \brief 今ProjectWindowで表示している絶対パス
          */
         std::string now_display_folderpath;
+        std::vector<std::shared_ptr<Assets::elements::IElementOfProjectView>> assetvies_vector;
+
+        /**
+         * \brief パスを変える
+         */
+        void ChangeDisplayPath(std::string path);
+
+        /**
+         * \brief ビューを作る
+         * \param now_display_path
+         */
+        void CreateView(std::string now_display_path);
     public:
         void Draw() override;
 
-        ProjectWindow(editor::EditorWindowsManager* editor_windows_manager, yougine::Scene* scene)
-            : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
-        {
-            now_display_folderpath = projects::Project::GetInstance()->projectFolderPath;
-        }
+
+        ProjectWindow(editor::EditorWindowsManager* editor_windows_manager, yougine::Scene* scene);
     };
 }
