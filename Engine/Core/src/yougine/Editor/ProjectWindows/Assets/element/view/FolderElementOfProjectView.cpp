@@ -7,6 +7,13 @@ editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::Fold
     button_size(button_size)
 {
 }
+
+void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::SetSelctEvent(
+    std::function<void()> selectEvent)
+{
+    this->selectEvent = selectEvent;
+}
+
 void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::Select()
 {
     if (selectEvent) {
@@ -35,4 +42,9 @@ void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView:
 
     buttons::ButtonInProjectwindow::DrawButton(default_color, hover_color, buttonactive_color, this->folder_name, button_size,
         [&]() {Select(); });
+}
+
+std::string editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::GetFolderName()
+{
+    return this->folder_name;
 }

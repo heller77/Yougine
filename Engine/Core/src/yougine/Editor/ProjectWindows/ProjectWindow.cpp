@@ -45,6 +45,15 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             auto folderelement
                 = std::shared_ptr<Assets::elements::view::FolderElementOfProjectView>(
                     new Assets::elements::view::FolderElementOfProjectView(filename, button_size));
+            folderelement->SetSelctEvent(
+                [=]()
+                {
+                    //フォルダーを一個下に移動
+                    this->now_display_folderpath += folderelement->GetFolderName() + "/";
+                    //ビューを更新
+                    this->CreateView(this->now_display_folderpath);
+                }
+            );
             assetvies_vector.emplace_back(folderelement);
         }
         else
