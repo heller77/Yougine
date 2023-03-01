@@ -10,6 +10,10 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
 {
     now_display_folderpath = projects::Project::GetInstance()->projectFolderPath;
+    auto lastchar = now_display_folderpath[now_display_folderpath.size() - 1];
+    if (lastchar == '/') {
+        now_display_folderpath.pop_back();
+    }
     CreateView(now_display_folderpath);
 }
 
@@ -49,7 +53,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                 [=]()
                 {
                     //フォルダーを一個下に移動
-                    this->now_display_folderpath += folderelement->GetFolderName() + "/";
+                    this->now_display_folderpath += "/" + folderelement->GetFolderName();
                     //ビューを更新
                     this->UpdateNextFrame();
                 }
@@ -103,6 +107,7 @@ void editor::projectwindows::ProjectWindow::Draw()
         auto parent = std::filesystem::path(path).parent_path();
         std::cout << "parent path : " << parent << std::endl;
         this->now_display_folderpath = parent.string();
+        UpdateNextFrame();
     }
     ImGui::SameLine();
     ImGui::Text(path.c_str());
