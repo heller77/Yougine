@@ -1,7 +1,9 @@
 ﻿#pragma once
 #include "IElementOfProjectView.h"
-#include "../../../EditorWindowsManager.h"
-namespace editor::projectwindows::Assets::elements {
+#include "../../../../EditorWindowsManager.h"
+#include "imgui/imgui.h"
+
+namespace editor::projectwindows::Assets::elements::view {
     class FolderElementOfProjectView : public IElementOfProjectView
     {
     private:

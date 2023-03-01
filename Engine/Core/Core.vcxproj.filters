@@ -71,9 +71,9 @@
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
-    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\FolderElementOfProjectView.cpp" />
-    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\DefaultFileElementOfProjectView.cpp" />
-    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Button\ButtonInProjectwindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -275,10 +275,10 @@
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\IElementOfProjectView.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\FolderElementOfProjectView.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\DefaultFileElementOfProjectView.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Button\ButtonInProjectwindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\IElementOfProjectView.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

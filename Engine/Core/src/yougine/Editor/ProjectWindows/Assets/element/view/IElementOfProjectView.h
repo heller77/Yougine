@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <functional>
 
-namespace editor::projectwindows::Assets::elements {
+namespace editor::projectwindows::Assets::elements::view {
     /**
      * \brief プロジェクトビューで表示される一要素を表すインターフェイス
      */
@@ -10,7 +10,6 @@ namespace editor::projectwindows::Assets::elements {
 
     public:
         virtual void DrawElement() = 0;
-
     };
 
 }

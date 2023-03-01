@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "../EditorWindow.h"
 #include "../../Projects/Project.h"
-#include "Assets/element/IElementOfProjectView.h"
+#include "Assets/element/view/IElementOfProjectView.h"
 
 namespace editor::projectwindows
 {
@@ -12,7 +12,7 @@ namespace editor::projectwindows
          * \brief 今ProjectWindowで表示している絶対パス
          */
         std::string now_display_folderpath;
-        std::vector<std::shared_ptr<Assets::elements::IElementOfProjectView>> assetvies_vector;
+        std::vector<std::shared_ptr<Assets::elements::view::IElementOfProjectView>> assetvies_vector;
 
         /**
          * \brief パスを変える
