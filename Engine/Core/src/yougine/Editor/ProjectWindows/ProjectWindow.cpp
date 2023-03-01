@@ -51,7 +51,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                     //フォルダーを一個下に移動
                     this->now_display_folderpath += folderelement->GetFolderName() + "/";
                     //ビューを更新
-                    this->CreateView(this->now_display_folderpath);
+                    this->UpdateNextFrame();
                 }
             );
             assetvies_vector.emplace_back(folderelement);
@@ -75,8 +75,20 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
     }
 }
 
+void editor::projectwindows::ProjectWindow::UpdateNextFrame()
+{
+    is_updateelements_flag = true;
+}
+
 void editor::projectwindows::ProjectWindow::Draw()
 {
+    if (is_updateelements_flag)
+    {
+        this->CreateView(this->now_display_folderpath);
+        is_updateelements_flag = false;
+    }
+
+
     auto style = ImGui::GetStyle();
     // style.ScaleAllSizes(2);
     //表示するファイルパス

@@ -24,6 +24,16 @@ namespace editor::projectwindows
          * \param now_display_path
          */
         void CreateView(std::string now_display_path);
+
+        /**
+         * \brief 次のフレームに描画更新を行うようにする
+         */
+        void UpdateNextFrame();
+
+        /**
+         * \brief 次のフレームで描画を更新するかを判断するためのフラグ
+         */
+        bool is_updateelements_flag;
     public:
         void Draw() override;
 
