@@ -3,7 +3,7 @@
 #include "../../../../EditorWindowsManager.h"
 #include "imgui/imgui.h"
 
-namespace editor::projectwindows::Assets::elements::view {
+namespace editor::projectwindows::assets::elements::view {
     class FolderElementOfProjectView : public IElementOfProjectView
     {
     private:

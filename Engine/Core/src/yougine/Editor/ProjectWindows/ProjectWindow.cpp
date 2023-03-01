@@ -43,8 +43,8 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
         if (is_directory)
         {
             auto folderelement
-                = std::shared_ptr<Assets::elements::view::FolderElementOfProjectView>(
-                    new Assets::elements::view::FolderElementOfProjectView(filename, button_size));
+                = std::shared_ptr<assets::elements::view::FolderElementOfProjectView>(
+                    new assets::elements::view::FolderElementOfProjectView(filename, button_size));
             folderelement->SetSelctEvent(
                 [=]()
                 {
@@ -67,8 +67,8 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else
             {
-                std::shared_ptr<Assets::elements::view::DefaultFileElementOfProjectView> defaultfile
-                    = std::shared_ptr<Assets::elements::view::DefaultFileElementOfProjectView>(new Assets::elements::view::DefaultFileElementOfProjectView(filename, button_size));
+                std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView> defaultfile
+                    = std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView>(new assets::elements::view::DefaultFileElementOfProjectView(filename, button_size));
                 assetvies_vector.emplace_back(defaultfile);
             }
         }

@@ -12,7 +12,7 @@ namespace editor::projectwindows
          * \brief 今ProjectWindowで表示している絶対パス
          */
         std::string now_display_folderpath;
-        std::vector<std::shared_ptr<Assets::elements::view::IElementOfProjectView>> assetvies_vector;
+        std::vector<std::shared_ptr<assets::elements::view::IElementOfProjectView>> assetvies_vector;
 
         /**
          * \brief パスを変える

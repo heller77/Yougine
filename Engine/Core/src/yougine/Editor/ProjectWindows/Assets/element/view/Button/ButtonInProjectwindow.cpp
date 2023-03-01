@@ -5,7 +5,7 @@
 
 #include "imgui/imgui.h"
 
-void editor::projectwindows::Assets::elements::buttons::ButtonInProjectwindow::DrawButton(ImColor default_color, ImColor hover_color, ImColor active_color, std::string display_name, ImVec2 button_size, std::function<void()> clickEvent)
+void editor::projectwindows::assets::elements::buttons::ButtonInProjectwindow::DrawButton(ImColor default_color, ImColor hover_color, ImColor active_color, std::string display_name, ImVec2 button_size, std::function<void()> clickEvent)
 {
     float hue = 0.1;
 

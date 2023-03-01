@@ -4,7 +4,7 @@
 
 #include "imgui/imgui.h"
 
-namespace editor::projectwindows::Assets::elements::buttons {
+namespace editor::projectwindows::assets::elements::buttons {
     class ButtonInProjectwindow
     {
     public:

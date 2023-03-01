@@ -3,12 +3,12 @@
 #include "Button/ButtonInProjectwindow.h"
 #include "imgui/imgui.h"
 
-void editor::projectwindows::Assets::elements::view::DefaultFileElementOfProjectView::Select()
+void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::Select()
 {
 
 }
 
-void editor::projectwindows::Assets::elements::view::DefaultFileElementOfProjectView::DrawElement()
+void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::DrawElement()
 {
     float hue = 0.5;
 
@@ -17,11 +17,11 @@ void editor::projectwindows::Assets::elements::view::DefaultFileElementOfProject
     auto buttonactive_color = ImColor::HSV(hue, 0.8f, 0.8f);
     // std::function<void()> selectfunc = [&]() {return Select(); };
 
-    editor::projectwindows::Assets::elements::buttons::ButtonInProjectwindow::DrawButton(default_color, hover_color, buttonactive_color, this->filename, size,
+    editor::projectwindows::assets::elements::buttons::ButtonInProjectwindow::DrawButton(default_color, hover_color, buttonactive_color, this->filename, size,
         [&]() {Select(); });
 }
 
-editor::projectwindows::Assets::elements::view::DefaultFileElementOfProjectView::DefaultFileElementOfProjectView(
+editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::DefaultFileElementOfProjectView(
     std::string filename, ImVec2 size)
 {
     this->filename = filename;

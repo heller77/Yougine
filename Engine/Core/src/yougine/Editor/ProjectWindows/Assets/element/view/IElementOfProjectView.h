@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <functional>
 
-namespace editor::projectwindows::Assets::elements::view {
+namespace editor::projectwindows::assets::elements::view {
     /**
      * \brief プロジェクトビューで表示される一要素を表すインターフェイス
      */

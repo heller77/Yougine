@@ -4,7 +4,7 @@
 #include "IElementOfProjectView.h"
 #include "imgui/imgui.h"
 
-namespace editor::projectwindows::Assets::elements::view {
+namespace editor::projectwindows::assets::elements::view {
     /**
      * \brief プロジェクトビューで特に扱えないファイル
      */

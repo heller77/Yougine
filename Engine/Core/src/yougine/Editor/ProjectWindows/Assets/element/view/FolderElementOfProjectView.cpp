@@ -2,26 +2,26 @@
 
 #include "Button/ButtonInProjectwindow.h"
 
-editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::FolderElementOfProjectView(const std::string& folder_name, const ImVec2& button_size)
+editor::projectwindows::assets::elements::view::FolderElementOfProjectView::FolderElementOfProjectView(const std::string& folder_name, const ImVec2& button_size)
     : folder_name(folder_name),
     button_size(button_size)
 {
 }
 
-void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::SetSelctEvent(
+void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::SetSelctEvent(
     std::function<void()> selectEvent)
 {
     this->selectEvent = selectEvent;
 }
 
-void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::Select()
+void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::Select()
 {
     if (selectEvent) {
         this->selectEvent();
     }
 }
 
-void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::DrawElement()
+void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::DrawElement()
 {
     float hue = 0.1;
     //
@@ -44,7 +44,7 @@ void editor::projectwindows::Assets::elements::view::FolderElementOfProjectView:
         [&]() {Select(); });
 }
 
-std::string editor::projectwindows::Assets::elements::view::FolderElementOfProjectView::GetFolderName()
+std::string editor::projectwindows::assets::elements::view::FolderElementOfProjectView::GetFolderName()
 {
     return this->folder_name;
 }
