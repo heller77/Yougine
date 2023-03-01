@@ -2,8 +2,8 @@
 #include <filesystem>
 
 #include "../../Projects/Project.h"
-#include "Assets/element/DefaultFileElementOfProjectView.h"
-#include "Assets/element/FolderElementOfProjectView.h"
+#include "Assets/element/view/DefaultFileElementOfProjectView.h"
+#include "Assets/element/view/FolderElementOfProjectView.h"
 
 editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManager* editor_windows_manager,
     yougine::Scene* scene)
@@ -43,8 +43,8 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
         if (is_directory)
         {
             auto folderelement
-                = std::shared_ptr<Assets::elements::FolderElementOfProjectView>(
-                    new Assets::elements::FolderElementOfProjectView(filename, button_size));
+                = std::shared_ptr<Assets::elements::view::FolderElementOfProjectView>(
+                    new Assets::elements::view::FolderElementOfProjectView(filename, button_size));
             assetvies_vector.emplace_back(folderelement);
         }
         else
@@ -58,8 +58,8 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else
             {
-                std::shared_ptr<Assets::elements::DefaultFileElementOfProjectView> defaultfile
-                    = std::shared_ptr<Assets::elements::DefaultFileElementOfProjectView>(new Assets::elements::DefaultFileElementOfProjectView(filename, button_size));
+                std::shared_ptr<Assets::elements::view::DefaultFileElementOfProjectView> defaultfile
+                    = std::shared_ptr<Assets::elements::view::DefaultFileElementOfProjectView>(new Assets::elements::view::DefaultFileElementOfProjectView(filename, button_size));
                 assetvies_vector.emplace_back(defaultfile);
             }
         }
