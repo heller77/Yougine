@@ -33,7 +33,7 @@ namespace editor::shadergraph
         void UpdateLinkedNode(ShaderGraphNode* parent_node, ShaderGraphNode* child_node, std::pair<int, int> attr_pair);
         void UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair);
         void DisLinkNodes(std::pair<int, int> link_pair);
-        std::pair<ShaderGraphNode*, ShaderGraphNode*> FindSubNodesByLinkAttr(int input_attr, int output_attr);
+        std::pair<ShaderGraphNode*, ShaderGraphNode*> FindSubNodesByLinkAttr(std::pair<int, int> attr_pair);
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);

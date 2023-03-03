@@ -75,12 +75,12 @@ namespace editor::shadergraph
     private:
         std::pair<std::string, std::string> init_input_val;
         std::pair<std::string, std::string> init_output_val;
-        ShaderGraphNode* parent_node;
+        ShaderGraphNode* parent_nodes = nullptr; //単体でええんか？
 
     public:
         int id;
-        std::vector<std::pair<int, std::pair<std::string, std::string>>> input_info;//first...attr, second...{ first...初期値, second...現在値 }
-        std::vector<std::pair<int, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...初期値, second...現在値 }
+        std::vector<std::pair<std::pair<int, bool>, std::pair<std::string, std::string>>> input_info;//first...attr, second...{ first...初期値, second...現在値 }
+        std::vector<std::pair<std::pair<int, bool>, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...初期値, second...現在値 }
         std::string name;
 
     private:
@@ -90,14 +90,16 @@ namespace editor::shadergraph
         void UpdateOutputVal();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
+        void ResetInputVal(int input_index);
+        void ResetOutputVal(int output_index);
 
     public:
         ShaderGraphNode();
-        void ResetVal(int index);
-        void SetParentNode(ShaderGraphNode* parent_node);
+        void SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair);
         bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         ShaderGraphNode* GetParentNode();
         std::pair<std::string, std::string> GetInitInputVal();
         std::pair<std::string, std::string> GetInitOutputVal();
+        void DisLinkNode(std::pair<int, int> attr_pair);
     };
 }
