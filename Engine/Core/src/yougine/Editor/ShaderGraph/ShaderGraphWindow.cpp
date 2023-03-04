@@ -16,7 +16,8 @@ namespace editor::shadergraph
 
         menu_item_list =
         {
-            "Sample Node",
+            "Debug/Sample Node",
+            "Input/Vector3",
         };
     }
 
@@ -50,7 +51,21 @@ namespace editor::shadergraph
         if (ImGui::MenuItem(item.c_str()))
         {
             int id = nodes.empty() ? 1 : nodes.back()->output_info.back().first.first + 1;
-            AddNode(id, 1, 1, item);
+
+            std::string category = utility::Split::SplitStr(item, '/')[0];
+            std::string node_name = utility::Split::SplitStr(item, '/')[1];
+
+            ShaderGraphNode* node = new ShaderGraphNode();
+
+            if (category == "Input")
+            {
+                if (node_name == "Vector3")
+                {
+                    //node = new ShaderGraphVector3Node();
+                }
+            }
+
+            AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
         }
     }
 
@@ -70,21 +85,22 @@ namespace editor::shadergraph
      * num_inputs ... input_attr‚Ì”
      * num_outputs ... ouput_attr‚Ì”
      */
-    void ShaderGraphWindow::AddNode(int id, int num_inputs, int num_outputs, std::string name)
+    void ShaderGraphWindow::AddNode(ShaderGraphNode* node, int id, int num_inputs, int num_outputs, std::string name)
     {
-        ShaderGraphNode* node = new ShaderGraphNode();
         node->id = id;
 
+        int index = 0;
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
-            std::pair<std::string, std::string> p = std::make_pair(node->GetInitInputVal().first, node->GetInitInputVal().second);
-            node->input_info.emplace_back(std::make_pair(std::make_pair(inputID, false), std::make_pair("1", "1")));
+            std::pair<std::string, std::string> p = node->GetInitInputVals()[index++];
+            node->input_info.emplace_back(std::make_pair(std::make_pair(inputID, false), p));
         }
 
+        index = 0;
         for (int outputID = node->input_info.back().first.first + 1; outputID < num_outputs + node->input_info.back().first.first + 1; outputID++)
         {
-            std::pair<std::string, std::string> p = (node->GetInitOutputVal());
-            node->output_info.emplace_back(std::make_pair(std::make_pair(outputID, false), std::make_pair("2", "2")));
+            std::pair<std::string, std::string> p = node->GetInitOutputVals()[index++];
+            node->output_info.emplace_back(std::make_pair(std::make_pair(outputID, false), p));
         }
         node->name = name;
 

@@ -68,13 +68,13 @@ namespace editor
             if (typeid(var) == typeid(std::any))
             {
                 std::string typename_ = var.type().name();
-                std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(var.type().name(), ' ')[1],
-                                                                '::').back();
+                std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(var.type().name(), ' ')[1], '::').back();
 
                 if (str_type == "Vector3")
                 {
                     Vector3View(std::any_cast<utility::Vector3*>(propertie[0]), v_name);
-                }else if(str_type=="Bool3")
+                }
+                else if (str_type == "Bool3")
                 {
                     Bool3View(std::any_cast<utility::Bool3*>(propertie[0]), v_name);
                 }
@@ -134,7 +134,7 @@ namespace editor
 
     void ComponentViewer::Vector3View(utility::Vector3* value, const char* name)
     {
-        float values[3] = {value->x, value->y, value->z};
+        float values[3] = { value->x, value->y, value->z };
         if (ImGui::InputFloat3(name, values, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
         {
             value->x = values[0];
@@ -155,7 +155,7 @@ namespace editor
         // }
 
         auto radian = value->CalculateEuler();
-        float values[3] = {radian.x, radian.y, radian.z};
+        float values[3] = { radian.x, radian.y, radian.z };
         // float values[4] = {value->x,value->y,value->z,value->w};
         if (ImGui::InputFloat3(name, values, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
         {

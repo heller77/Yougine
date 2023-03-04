@@ -2,7 +2,9 @@
 #include "imnodes/imnodes.h"
 #include "imgui/imgui.h"
 #include "../EditorWindow.h"
-#include "ShaderGraphNode.h"
+#include "Nodes/ShaderGraphNode.h"
+#include "Nodes/ShaderGraphInputNodes.h"
+#include "../../utilitys/Split.cpp"
 
 namespace editor::shadergraph
 {
@@ -28,7 +30,7 @@ namespace editor::shadergraph
         void PhaseAddLink();
         void PhaseDisLink();
         void PhaseNode();
-        void AddNode(int id, int num_inputs, int num_outputs, std::string name);
+        void AddNode(ShaderGraphNode* node, int id, int num_inputs, int num_outputs, std::string name);
         void DrawNode(ShaderGraphNode* node);
         void UpdateLinkedNode(ShaderGraphNode* parent_node, ShaderGraphNode* child_node, std::pair<int, int> attr_pair);
         void UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair);

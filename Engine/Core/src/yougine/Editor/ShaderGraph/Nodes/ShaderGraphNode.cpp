@@ -6,8 +6,9 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        init_input_val = std::make_pair("1", "1");
-        init_output_val = std::make_pair("2", "2");
+        init_input_vals.emplace_back(std::make_pair("1", "1"));
+        init_input_vals.emplace_back(std::make_pair("1", "1"));
+        init_output_vals.emplace_back(std::make_pair("2", "2"));
     }
 
     void ShaderGraphNode::SetInputVal(std::string value, int index)
@@ -111,14 +112,14 @@ namespace editor::shadergraph
         return this->parent_nodes;
     }
 
-    std::pair<std::string, std::string> ShaderGraphNode::GetInitInputVal()
+    std::vector<std::pair<std::string, std::string>> ShaderGraphNode::GetInitInputVals()
     {
-        return init_input_val;
+        return init_input_vals;
     }
 
-    std::pair<std::string, std::string> ShaderGraphNode::GetInitOutputVal()
+    std::vector<std::pair<std::string, std::string>> ShaderGraphNode::GetInitOutputVals()
     {
-        return init_output_val;
+        return init_output_vals;
     }
 
     void ShaderGraphNode::DisLinkNode(std::pair<int, int> attr_pair)

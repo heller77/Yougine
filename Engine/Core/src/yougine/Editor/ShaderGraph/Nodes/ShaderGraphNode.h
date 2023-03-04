@@ -1,5 +1,5 @@
 #pragma once
-#include "ShaderType.h"
+#include "../ShaderType.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -8,7 +8,7 @@ namespace editor::shadergraph
 {
     class ShaderGraphNode
     {
-    private:
+    protected:
         std::map<ShaderPropertyType, std::string> type_dictionary = {
             {ShaderPropertyType::kBool, "bool"},
             {ShaderPropertyType::kInt, "int"},
@@ -72,9 +72,8 @@ namespace editor::shadergraph
             {ShaderQualifier::kShared, "shared"},
         };
 
-    private:
-        std::pair<std::string, std::string> init_input_val;
-        std::pair<std::string, std::string> init_output_val;
+        std::vector < std::pair<std::string, std::string>> init_input_vals;
+        std::vector < std::pair<std::string, std::string>> init_output_vals;
         ShaderGraphNode* parent_nodes = nullptr; //単体でええんか？
 
     public:
@@ -83,7 +82,7 @@ namespace editor::shadergraph
         std::vector<std::pair<std::pair<int, bool>, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...初期値, second...現在値 }
         std::string name;
 
-    private:
+    protected:
         void SetInputVal(std::string value, int input_index);
         std::string GetOutputVal(int output_index);
         void DisplayValues();
@@ -98,8 +97,8 @@ namespace editor::shadergraph
         void SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair);
         bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         ShaderGraphNode* GetParentNode();
-        std::pair<std::string, std::string> GetInitInputVal();
-        std::pair<std::string, std::string> GetInitOutputVal();
+        std::vector<std::pair<std::string, std::string>> GetInitInputVals();
+        std::vector<std::pair<std::string, std::string>> GetInitOutputVals();
         void DisLinkNode(std::pair<int, int> attr_pair);
     };
 }

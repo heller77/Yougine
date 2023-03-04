@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "MainShaderGraphNode.h"
+#include "Nodes/MainShaderGraphNode.h"
 #include <iostream>
 #include <fstream>
 
