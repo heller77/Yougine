@@ -49,7 +49,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             auto folderelement
                 = std::shared_ptr<assets::elements::view::FolderElementOfProjectView>(
                     new assets::elements::view::FolderElementOfProjectView(filename, button_size));
-            folderelement->SetSelctEvent(
+            folderelement->SetSelectEvent(
                 [=]()
                 {
                     //フォルダーを一個下に移動
@@ -74,6 +74,10 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                 std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView> defaultfile
                     = std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView>(new assets::elements::view::DefaultFileElementOfProjectView(filename, button_size));
                 assetvies_vector.emplace_back(defaultfile);
+                defaultfile->SetSelectEvent([=]()
+                    {
+                        std::cout << filename << std::endl;
+                    });
             }
         }
     }

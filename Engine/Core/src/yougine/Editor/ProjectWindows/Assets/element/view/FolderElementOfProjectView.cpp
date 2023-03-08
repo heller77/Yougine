@@ -8,11 +8,6 @@ editor::projectwindows::assets::elements::view::FolderElementOfProjectView::Fold
 {
 }
 
-void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::SetSelctEvent(
-    std::function<void()> selectEvent)
-{
-    this->selectEvent = selectEvent;
-}
 
 void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::Select()
 {
@@ -47,4 +42,10 @@ void editor::projectwindows::assets::elements::view::FolderElementOfProjectView:
 std::string editor::projectwindows::assets::elements::view::FolderElementOfProjectView::GetFolderName()
 {
     return this->folder_name;
+}
+
+void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::SetSelectEvent(
+    std::function<void()> select_event)
+{
+    this->selectEvent = select_event;
 }

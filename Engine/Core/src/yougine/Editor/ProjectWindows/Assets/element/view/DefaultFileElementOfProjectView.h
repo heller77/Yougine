@@ -19,5 +19,7 @@ namespace editor::projectwindows::assets::elements::view {
         void DrawElement() override;
 
         DefaultFileElementOfProjectView(std::string filename, ImVec2 size);
+
+        void SetSelectEvent(std::function<void()> select_event) override;
     };
 }

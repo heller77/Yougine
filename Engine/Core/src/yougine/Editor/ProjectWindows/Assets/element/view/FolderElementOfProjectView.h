@@ -14,8 +14,9 @@ namespace editor::projectwindows::assets::elements::view {
 
     public:
         FolderElementOfProjectView(const std::string& folder_name, const ImVec2& button_size);
-        void SetSelctEvent(std::function<void()> selectEvent);
         void DrawElement() override;
         std::string GetFolderName();
+
+        void SetSelectEvent(std::function<void()> select_event) override;
     };
 }

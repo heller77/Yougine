@@ -10,6 +10,7 @@ namespace editor::projectwindows::assets::elements::view {
 
     public:
         virtual void DrawElement() = 0;
+        virtual void SetSelectEvent(std::function<void()> select_event) = 0;
     };
 
 }

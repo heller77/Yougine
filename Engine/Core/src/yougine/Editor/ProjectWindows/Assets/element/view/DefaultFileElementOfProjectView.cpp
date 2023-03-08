@@ -5,7 +5,10 @@
 
 void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::Select()
 {
-
+    if (selectEvent)
+    {
+        selectEvent();
+    }
 }
 
 void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::DrawElement()
@@ -26,4 +29,10 @@ editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView:
 {
     this->filename = filename;
     this->size = size;
+}
+
+void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::SetSelectEvent(
+    std::function<void()> select_event)
+{
+    this->selectEvent = select_event;
 }
