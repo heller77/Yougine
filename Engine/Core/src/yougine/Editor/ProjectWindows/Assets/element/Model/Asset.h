@@ -10,8 +10,9 @@ namespace editor::projectwindows::assets::elements::model
      */
     class Asset
     {
-    private:
+    protected:
         std::map<std::string, std::any> parameter;
+    private:
         std::string filepath;
     public:
         Asset();
