@@ -6,6 +6,9 @@
 namespace editor::projectwindows::assets::elements::view {
     class FolderElementOfProjectView : public IElementOfProjectView
     {
+    public:
+        std::shared_ptr<model::Asset> GetAsset() override;
+
     private:
         void Select();
         std::string folder_name;

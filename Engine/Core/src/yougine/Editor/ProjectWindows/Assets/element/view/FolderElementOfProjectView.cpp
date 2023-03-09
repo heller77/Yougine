@@ -8,6 +8,11 @@ editor::projectwindows::assets::elements::view::FolderElementOfProjectView::Fold
 {
 }
 
+std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::projectwindows::assets::elements::view::
+FolderElementOfProjectView::GetAsset()
+{
+    return nullptr;
+}
 
 void editor::projectwindows::assets::elements::view::FolderElementOfProjectView::Select()
 {

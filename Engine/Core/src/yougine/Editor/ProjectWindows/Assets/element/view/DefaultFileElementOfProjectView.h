@@ -23,7 +23,7 @@ namespace editor::projectwindows::assets::elements::view {
         DefaultFileElementOfProjectView(std::string filename, ImVec2 size, std::shared_ptr<model::Asset> asset);
 
         void SetSelectEvent(std::function<void()> select_event) override;
-        std::shared_ptr<model::Asset> GetAsset();
+        std::shared_ptr<model::Asset> GetAsset() override;
 
     };
 }
