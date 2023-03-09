@@ -14,6 +14,10 @@ namespace editor
 
     }
 
+    SelectTarget SelectionInfo::GetRecentClickTarget()
+    {
+        return this->most_recent_select_target;
+    }
 
     void SelectionInfo::Create()
     {
@@ -41,6 +45,9 @@ namespace editor
 
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
+        //今選択されたのはヒエラルキーですよ
+        this->most_recent_select_target = SelectTarget::Hierarchy;
+
         this->flame_selected = flame_selected;
         if (this->game_object != game_object)
         {
@@ -53,9 +60,24 @@ namespace editor
         }
     }
 
+    void SelectionInfo::SetSelctionInfo(
+        std::shared_ptr<projectwindows::assets::elements::view::IElementOfProjectView> select_projectwindow_element)
+    {
+        //今選択されたのはプロジェクトウィンドー
+        this->most_recent_select_target = SelectTarget::Projectwindow;
+
+        this->select_projectwindow_element = select_projectwindow_element;
+    }
+
     yougine::GameObject* SelectionInfo::GetSelectObject()
     {
         return game_object;
+    }
+
+    std::shared_ptr<projectwindows::assets::elements::view::IElementOfProjectView> SelectionInfo::
+        GetSelectElementInProjectWindow()
+    {
+        return this->select_projectwindow_element;
     }
 
     bool SelectionInfo::GetSelectedFlag()

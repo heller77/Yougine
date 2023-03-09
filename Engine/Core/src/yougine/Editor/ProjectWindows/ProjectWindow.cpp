@@ -76,9 +76,10 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                 auto defaultfile
                     = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size);
                 assetvies_vector.emplace_back(defaultfile);
+                //クリックされたらSelectionInfoにボタンの参照をセットする
                 defaultfile->SetSelectEvent([=]()
                     {
-                        std::cout << filename << std::endl;
+                        SelectionInfo::GetInstance()->SetSelctionInfo(defaultfile);
                     });
                 //presenter生成
                 auto presenter

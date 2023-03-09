@@ -18,11 +18,28 @@ namespace editor
         ImGuiWindowFlags_ flag = (ImGuiWindowFlags_NoCollapse);
         ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str(), nullptr, flag);
 
-        if (selection_info->GetSelectObject() != nullptr)
+        //最も最近選択されたtargetを取得
+        auto recentSelectTarget = SelectionInfo::GetInstance()->GetRecentClickTarget();
+        switch (recentSelectTarget)
         {
-            ShowGameObjectData();
-            ShowAddComponentMenu();
+            //Hierarchyのものが選択されていたら
+        case SelectTarget::HierarchyWindow:
+            if (selection_info->GetSelectObject() != nullptr)
+            {
+                ShowGameObjectData();
+                ShowAddComponentMenu();
+            }
+            break;
+        case SelectTarget::Projectwindow:
+            if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
+            {
+
+            }
+            break;
+        default:
+            break;
         }
+
         ImGui::End();
 
     }
@@ -79,7 +96,7 @@ namespace editor
     {
         int selected = -1;
         const char* componentNames[] = {
-            "yougine::components::DebugComponent", "yougine::components::TransformComponent", 
+            "yougine::components::DebugComponent", "yougine::components::TransformComponent",
             "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent",
             "yougine::components::camera::CameraComponent"
 
