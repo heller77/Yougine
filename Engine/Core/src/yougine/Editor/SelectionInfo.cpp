@@ -46,7 +46,7 @@ namespace editor
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
         //今選択されたのはヒエラルキーですよ
-        this->most_recent_select_target = SelectTarget::Hierarchy;
+        this->most_recent_select_target = SelectTarget::HierarchyWindow;
 
         this->flame_selected = flame_selected;
         if (this->game_object != game_object)
