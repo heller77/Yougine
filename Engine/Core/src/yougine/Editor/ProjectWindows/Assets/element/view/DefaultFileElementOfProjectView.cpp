@@ -25,10 +25,11 @@ void editor::projectwindows::assets::elements::view::DefaultFileElementOfProject
 }
 
 editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::DefaultFileElementOfProjectView(
-    std::string filename, ImVec2 size)
+    std::string filename, ImVec2 size, std::shared_ptr<model::Asset> asset)
 {
     this->filename = filename;
     this->size = size;
+    this->asset = asset;
 }
 
 void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::SetSelectEvent(
@@ -37,8 +38,10 @@ void editor::projectwindows::assets::elements::view::DefaultFileElementOfProject
     this->selectEvent = select_event;
 }
 
-void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::SetPresenter(
-    std::shared_ptr<editor::projectwindows::assets::elements::presenter::ElementOfProjectWindowPresenter> presenter)
+std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::projectwindows::assets::elements::view::
+DefaultFileElementOfProjectView::GetAsset()
 {
-    this->presenter = presenter;
+    return this->asset;
 }
+
+

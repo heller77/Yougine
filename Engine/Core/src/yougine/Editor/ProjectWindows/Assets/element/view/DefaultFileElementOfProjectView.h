@@ -2,7 +2,7 @@
 #include <string>
 
 #include "IElementOfProjectView.h"
-#include "../Presenter/ElementOfProjectWindowPresenter.h"
+#include "../Model/Asset.h"
 #include "imgui/imgui.h"
 
 namespace editor::projectwindows::assets::elements::view {
@@ -15,15 +15,15 @@ namespace editor::projectwindows::assets::elements::view {
         std::string filename;
         ImVec2 size;
         std::function<void()> selectEvent;
-        std::shared_ptr<presenter::ElementOfProjectWindowPresenter> presenter;
+        std::shared_ptr<model::Asset> asset;
 
     public:
         void DrawElement() override;
 
-        DefaultFileElementOfProjectView(std::string filename, ImVec2 size);
+        DefaultFileElementOfProjectView(std::string filename, ImVec2 size, std::shared_ptr<model::Asset> asset);
 
         void SetSelectEvent(std::function<void()> select_event) override;
-        void SetPresenter(std::shared_ptr<presenter::ElementOfProjectWindowPresenter> presenter);
+        std::shared_ptr<model::Asset> GetAsset();
 
     };
 }

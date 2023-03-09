@@ -6,10 +6,8 @@ namespace editor::projectwindows::assets::elements::model
 {
     class TextAsset :public Asset
     {
-    private:
-        std::shared_ptr<presenter::ElementOfProjectWindowPresenter> presenter;
+
     public:
         TextAsset();
-        void SetPresenter(std::shared_ptr<presenter::ElementOfProjectWindowPresenter> presenter);
     };
 }

@@ -73,30 +73,17 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else
             {
+                //アセット生成
+                auto asset = std::make_shared<assets::elements::model::TextAsset>();
+
                 auto defaultfile
-                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size);
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, asset);
                 assetvies_vector.emplace_back(defaultfile);
                 //クリックされたらSelectionInfoにボタンの参照をセットする
                 defaultfile->SetSelectEvent([=]()
                     {
                         SelectionInfo::GetInstance()->SetSelctionInfo(defaultfile);
                     });
-                //presenter生成
-                auto presenter
-                    = std::make_shared<assets::elements::presenter::ElementOfProjectWindowPresenter>();
-
-                //アセット生成
-                auto asset = std::make_shared<assets::elements::model::TextAsset>();
-
-                //presenterにviewとmodelセット
-                presenter->SetView(defaultfile);
-                presenter->SetModel(asset);
-
-                //アセットにpresenterセット
-                asset->SetPresenter(presenter);
-
-                //viewにpresenterセット
-                defaultfile->SetPresenter(presenter);
 
             }
         }
