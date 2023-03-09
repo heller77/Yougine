@@ -1,7 +1,9 @@
 ﻿#include "ProjectWindow.h"
 #include <filesystem>
+#include <memory>
 
 #include "../../Projects/Project.h"
+#include "Assets/element/Model/TextAsset.h"
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
 
@@ -71,13 +73,30 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else
             {
-                std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView> defaultfile
-                    = std::shared_ptr<assets::elements::view::DefaultFileElementOfProjectView>(new assets::elements::view::DefaultFileElementOfProjectView(filename, button_size));
+                auto defaultfile
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size);
                 assetvies_vector.emplace_back(defaultfile);
                 defaultfile->SetSelectEvent([=]()
                     {
                         std::cout << filename << std::endl;
                     });
+                //presenter生成
+                auto presenter
+                    = std::make_shared<assets::elements::presenter::ElementOfProjectWindowPresenter>();
+
+                //アセット生成
+                auto asset = std::make_shared<assets::elements::model::TextAsset>();
+
+                //presenterにviewとmodelセット
+                presenter->SetView(defaultfile);
+                presenter->SetModel(asset);
+
+                //アセットにpresenterセット
+                asset->SetPresenter(presenter);
+
+                //viewにpresenterセット
+                defaultfile->SetPresenter(presenter);
+
             }
         }
     }

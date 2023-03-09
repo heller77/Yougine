@@ -36,3 +36,9 @@ void editor::projectwindows::assets::elements::view::DefaultFileElementOfProject
 {
     this->selectEvent = select_event;
 }
+
+void editor::projectwindows::assets::elements::view::DefaultFileElementOfProjectView::SetPresenter(
+    std::shared_ptr<editor::projectwindows::assets::elements::presenter::ElementOfProjectWindowPresenter> presenter)
+{
+    this->presenter = presenter;
+}

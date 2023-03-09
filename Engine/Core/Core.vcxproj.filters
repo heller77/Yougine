@@ -74,6 +74,9 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Presenter\ElementOfProjectWindowPresenter.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -279,6 +282,9 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Presenter\ElementOfProjectWindowPresenter.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
