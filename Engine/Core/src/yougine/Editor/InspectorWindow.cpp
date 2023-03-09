@@ -4,7 +4,9 @@
 
 namespace editor
 {
-    InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene, yougine::InputManager* input_manager) :EditorWindow(editor_windows_manager, EditorWindowName::InspectorWindow)
+    InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene,
+        yougine::InputManager* input_manager) : EditorWindow(
+            editor_windows_manager, EditorWindowName::InspectorWindow)
     {
         this->scene = scene;
         this->input_manager = input_manager;
@@ -33,7 +35,9 @@ namespace editor
         case SelectTarget::Projectwindow:
             if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
             {
-
+                auto select = SelectionInfo::GetInstance()->GetSelectElementInProjectWindow();
+                auto asset = select->GetAsset();
+                ShowAssetParameter(asset);
             }
             break;
         default:
@@ -41,7 +45,6 @@ namespace editor
         }
 
         ImGui::End();
-
     }
 
     void InspectorWindow::ShowGameObjectData()
@@ -108,11 +111,32 @@ namespace editor
         {
             ImGui::Text("Component List");
             for (int i = 0; i < IM_ARRAYSIZE(componentNames); i++)
-                if (ImGui::Selectable(componentNames[i])) {
+                if (ImGui::Selectable(componentNames[i]))
+                {
                     selected = i;
-                    selection_info->GetInstance()->GetSelectObject()->AddComponent(componentfactory->CreateComponent(componentNames[selected]));
+                    selection_info->GetInstance()->GetSelectObject()->AddComponent(
+                        componentfactory->CreateComponent(componentNames[selected]));
                 }
             ImGui::EndPopup();
         }
+    }
+
+    void InspectorWindow::ShowAssetParameter(std::shared_ptr<projectwindows::assets::elements::model::Asset> asset)
+    {
+        auto parametermap = asset->GetParameter();
+        for (auto pair : parametermap)
+        {
+            auto key = pair.first;
+            auto value = pair.second;
+
+            auto type = value.type().name();
+            if (value.type() == typeid(std::string))
+            {
+                ImGui::Text(key.c_str());
+                ImGui::SameLine();
+                ImGui::Text(std::any_cast<std::string>(value).c_str());
+            }
+        }
+        ImGui::Button("save");
     }
 }
