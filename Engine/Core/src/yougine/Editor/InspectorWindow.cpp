@@ -1,7 +1,7 @@
 ﻿#include "InspectorWindow.h"
 
 #include "../component_factory/ComponentFactory.h"
-
+#include "imgui/stblib/imgui_stdlib.h"
 namespace editor
 {
     InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene,
@@ -133,30 +133,7 @@ namespace editor
             if (value.type() == typeid(std::string*))
             {
                 std::string* value_str = std::any_cast<std::string*>(value);
-                int size = value_str->size() + 1;
-
-                char* char_array = new char[value_str->size() + 1];
-                strcpy_s(char_array, size, value_str->c_str());
-                ImGui::Text(key.c_str());
-                ImGui::SameLine();
-                // ImGui::InputText(key.c_str(), char_array, value_str->size() + 1);
-
-                ImGui::Text(value_str->c_str());
-                // static float tmpvalue = 0.0f;
-                // ImGui::InputFloat(key.c_str(), &tmpvalue);
-                // const bool isActive = ImGui::IsItemActive();
-                // if (isActive) {
-                //     std::cout << "active true" << std::endl;
-                // }
-                // else
-                // {
-                //     std::cout << "active false" << std::endl;
-                // }
-                // static float tmpvalue2 = 0.0f;
-                // ImGui::Text("hoge");
-                // ImGui::Spacing();
-                // ImGui::InputFloat("hoge", &tmpvalue2);
-
+                ImGui::InputText(key.c_str(), value_str);
             }
         }
         ImGui::Button("save");
