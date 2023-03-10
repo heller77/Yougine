@@ -162,6 +162,7 @@
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.h" />
