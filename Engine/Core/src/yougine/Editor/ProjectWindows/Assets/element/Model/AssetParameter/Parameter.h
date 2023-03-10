@@ -13,11 +13,7 @@ namespace editor::projectwindows::assets::elements::model::assetparameters
         std::any value;
         std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option;
     public:
-        Parameter(std::any value, std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option)
-        {
-            this->value = value;
-            this->option = option;
-        }
+        Parameter(std::any value, std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option);
         std::any GetValue();
         std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> GetOption();
     };
