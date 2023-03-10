@@ -7,7 +7,7 @@
 #pragma once
 
 #include <string>
-
+#include "imgui/imgui.h"
 namespace ImGui
 {
     // ImGui::InputText() with std::string
