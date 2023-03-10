@@ -71,6 +71,7 @@
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
+    <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -272,6 +273,7 @@
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
