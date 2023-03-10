@@ -164,7 +164,9 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
+    <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
@@ -214,7 +216,9 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
+    <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.h" />

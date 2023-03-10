@@ -76,6 +76,8 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.cpp" />
+    <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -283,6 +285,8 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.h" />
+    <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
