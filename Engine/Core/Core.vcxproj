@@ -168,6 +168,7 @@
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.cpp" />
@@ -223,6 +224,7 @@
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Asset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.h" />

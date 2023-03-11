@@ -81,6 +81,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -293,6 +294,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

@@ -1,7 +1,10 @@
 ﻿#include "ShaderFileAsset.h"
 
 #include <fstream>
+#include <memory>
 #include <tinygltf/json.hpp>
+
+#include "../AssetInfoExporter/AssetInfoFileExporter.h"
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
     const std::filesystem::path& path) : Asset(path)
@@ -16,10 +19,6 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
     nlohmann::json json;
     json[GETVALUENAME(shader_kind)] = shader_kind;
 
-    std::ofstream writing_file;
-    auto assetfilename = path.filename().string() + ".assetinfo";
-    std::string assetinfo_filepath = this->path.remove_filename().string() + assetfilename;
-    writing_file.open(assetinfo_filepath, std::ios::out);
-    writing_file << json.dump(2) << std::endl;
-    writing_file.close();
+    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    exporter->ExportAssetInfoFile(this->path, json);
 }
