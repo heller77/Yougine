@@ -1,9 +1,11 @@
 ﻿#include "ProjectWindow.h"
 #include <filesystem>
 #include <memory>
+#include <memory>
 
 #include "../../Projects/Project.h"
 #include "Assets/element/Model/TextAsset.h"
+#include "Assets/element/Model/shader/ShaderFileAsset.h"
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
 
@@ -71,6 +73,16 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             std::cout << "extension " << extension << std::endl;
             if (extension == "cpp")
             {
+            }
+            else if (extension == "shader" || extension == "frag" || extension == "vert") {
+                auto shaderasset = std::make_shared<assets::elements::model::shader::ShaderFileAsset>(path);
+                auto button
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, shaderasset);
+                assetvies_vector.emplace_back(button);
+                button->SetSelectEvent([=]()
+                    {
+                        SelectionInfo::GetInstance()->SetSelctionInfo(button);
+                    });
             }
             else
             {
