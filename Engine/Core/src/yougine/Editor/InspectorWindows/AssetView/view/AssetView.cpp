@@ -45,6 +45,11 @@ void AssetView::AssetView::DrawAssetParameter()
         {
             std::cout << "enum!" << std::endl;
         }
+
+        if (ImGui::Button("save"))
+        {
+            this->asset->Export();
+        }
     }
 }
 

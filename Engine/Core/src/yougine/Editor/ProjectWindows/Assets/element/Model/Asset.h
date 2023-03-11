@@ -19,7 +19,6 @@ namespace editor::projectwindows::assets::elements::model
     {
     protected:
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> parameter;
-    private:
         std::filesystem::path path;
     public:
         Asset(std::filesystem::path path);
