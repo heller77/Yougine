@@ -1,5 +1,7 @@
 ﻿#include "InspectorWindow.h"
 
+#include <memory>
+
 #include "../component_factory/ComponentFactory.h"
 #include "imgui/stblib/imgui_stdlib.h"
 #include <string>
@@ -14,6 +16,36 @@ namespace editor
         selection_info = SelectionInfo::GetInstance();
         layer_manager = yougine::LayerManager::GetInstance();
         this->componentfactory = new yougine::componentfactorys::ComponentFacotory();
+
+        SelectionInfo::GetInstance()->AddSelectChangeEvent([=]()
+            {
+                this->ViewReGenerate();
+            });
+    }
+
+    void InspectorWindow::ViewReGenerate()
+    {
+        auto recentSelectTarget = SelectionInfo::GetInstance()->GetRecentClickTarget();
+        switch (recentSelectTarget)
+        {
+            //Hierarchyのものが選択されていたら
+        case SelectTarget::HierarchyWindow:
+            if (selection_info->GetSelectObject() != nullptr)
+            {
+                //HierarchyWindowで選択したものを表示するクラスが実装されたらここでフィールドに入れるとかするとよいかも
+            }
+            break;
+        case SelectTarget::Projectwindow:
+            if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
+            {
+                auto select = SelectionInfo::GetInstance()->GetSelectElementInProjectWindow();
+                auto asset = select->GetAsset();
+                this->asset_view = std::make_shared<AssetView::AssetView>(asset);
+            }
+            break;
+        default:
+            break;
+        }
     }
 
     void InspectorWindow::Draw()
@@ -36,9 +68,10 @@ namespace editor
         case SelectTarget::Projectwindow:
             if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
             {
-                auto select = SelectionInfo::GetInstance()->GetSelectElementInProjectWindow();
-                auto asset = select->GetAsset();
-                ShowAssetParameter(asset);
+                if (this->asset_view != nullptr)
+                {
+                    asset_view->DrawAssetParameter();
+                }
             }
             break;
         default:
@@ -129,6 +162,7 @@ namespace editor
         {
             auto key = pair.first;
             auto value = pair.second->GetValue();
+            auto options = pair.second->GetOption();
 
             std::string type_name = value.type().name();
 
