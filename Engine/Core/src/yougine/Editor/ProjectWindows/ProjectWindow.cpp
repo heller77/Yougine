@@ -44,6 +44,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
     {
         auto is_directory = file.is_directory();
         std::string filename = file.path().filename().string();
+        std::filesystem::path path = file.path();
 
         //フォルダなら
         if (is_directory)
@@ -74,7 +75,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             else
             {
                 //アセット生成
-                auto asset = std::make_shared<assets::elements::model::TextAsset>();
+                auto asset = std::make_shared<assets::elements::model::TextAsset>(path);
 
                 auto defaultfile
                     = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, asset);

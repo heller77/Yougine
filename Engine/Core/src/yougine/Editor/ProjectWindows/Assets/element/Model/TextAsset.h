@@ -10,6 +10,8 @@ namespace editor::projectwindows::assets::elements::model
 
 
     public:
-        TextAsset();
+        TextAsset(std::filesystem::path path);
+
+        void Export() override;
     };
 }
