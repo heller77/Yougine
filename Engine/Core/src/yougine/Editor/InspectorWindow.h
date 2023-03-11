@@ -23,12 +23,6 @@ namespace editor
         void ShowGameObjectData();
         void ShowAddComponentMenu();
 
-        /**
-         * \brief assetのパラメータを表示
-         * \param asset
-         */
-        void ShowAssetParameter(std::shared_ptr<projectwindows::assets::elements::model::Asset> asset);
-
     public:
         InspectorWindow(EditorWindowsManager*, yougine::Scene*, yougine::InputManager*);
         ~InspectorWindow();
