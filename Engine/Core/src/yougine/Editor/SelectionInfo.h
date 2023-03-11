@@ -20,6 +20,7 @@ namespace editor
         yougine::GameObject* game_object = nullptr;
         std::shared_ptr<projectwindows::assets::elements::view::IElementOfProjectView> select_projectwindow_element;
 
+        std::vector<std::function<void()>> select_change_event_vector;
         bool flame_selected = false;
         bool is_selected_hierarchy_window = false;
         std::vector<ComponentViewer*> component_viewers;
@@ -27,6 +28,11 @@ namespace editor
     private:
         SelectionInfo();
         ~SelectionInfo();
+
+        /**
+         * \brief selectイベント発火
+         */
+        void FireSelectEvent();
 
     public:
         SelectTarget GetRecentClickTarget();
@@ -50,5 +56,8 @@ namespace editor
         void SetSelectedFlag(bool);
         void InitializeComponentViewersOnChangeObject(yougine::GameObject* game_object);
         std::vector<ComponentViewer*> GetComponentViewers();
+
+        //選択した時に発火するイベントを登録
+        void AddSelectChangeEvent(std::function<void()> func);
     };
 }

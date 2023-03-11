@@ -14,6 +14,19 @@ namespace editor
 
     }
 
+    void SelectionInfo::AddSelectChangeEvent(std::function<void()> func)
+    {
+        this->select_change_event_vector.emplace_back(func);
+    }
+
+    void SelectionInfo::FireSelectEvent()
+    {
+        for (auto select_change_event : this->select_change_event_vector)
+        {
+            select_change_event();
+        }
+    }
+
     SelectTarget SelectionInfo::GetRecentClickTarget()
     {
         return this->most_recent_select_target;
@@ -58,6 +71,10 @@ namespace editor
                 InitializeComponentViewersOnChangeObject(this->game_object);
             }
         }
+
+
+        //セレクトされたのでイベント発火
+        this->FireSelectEvent();
     }
 
     void SelectionInfo::SetSelctionInfo(
@@ -67,6 +84,9 @@ namespace editor
         this->most_recent_select_target = SelectTarget::Projectwindow;
 
         this->select_projectwindow_element = select_projectwindow_element;
+
+        //セレクトされたのでイベント発火
+        this->FireSelectEvent();
     }
 
     yougine::GameObject* SelectionInfo::GetSelectObject()
