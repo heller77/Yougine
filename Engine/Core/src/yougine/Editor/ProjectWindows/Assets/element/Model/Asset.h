@@ -20,9 +20,11 @@ namespace editor::projectwindows::assets::elements::model
     protected:
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> parameter;
         std::filesystem::path path;
+        unsigned int asset_id;
     public:
-        Asset(std::filesystem::path path);
+        Asset(std::filesystem::path path, int asset_id);
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> GetParameter();
         virtual void Export() = 0;
+
     };
 }
