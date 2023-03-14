@@ -207,6 +207,7 @@
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
     <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
+    <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -266,6 +267,7 @@
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
+    <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

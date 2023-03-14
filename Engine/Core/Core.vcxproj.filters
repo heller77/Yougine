@@ -72,6 +72,7 @@
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
+    <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
+    <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\IElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.h" />
