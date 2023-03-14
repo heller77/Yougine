@@ -83,10 +83,11 @@ namespace editor::shadergraph
         std::string name;
 
     protected:
+        void Initialize(std::vector<std::pair<std::string, std::string>> init_input_vals, std::vector<std::pair<std::string, std::string>> init_output_vals);
         void SetInputVal(std::string value, int input_index);
         std::string GetOutputVal(int output_index);
         void DisplayValues();
-        void UpdateOutputVal();
+        virtual void UpdateOutputVal();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);

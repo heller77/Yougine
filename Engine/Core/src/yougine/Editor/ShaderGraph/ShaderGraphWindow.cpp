@@ -61,7 +61,7 @@ namespace editor::shadergraph
             {
                 if (node_name == "Vector3")
                 {
-                    //node = new ShaderGraphVector3Node();
+                    node = new ShaderGraphVector3Node();
                 }
             }
 

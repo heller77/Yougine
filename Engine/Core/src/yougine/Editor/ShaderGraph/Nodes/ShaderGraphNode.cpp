@@ -6,10 +6,21 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        init_input_vals.emplace_back(std::make_pair("1", "1"));
-        init_input_vals.emplace_back(std::make_pair("1", "1"));
-        init_output_vals.emplace_back(std::make_pair("2", "2"));
+        std::vector<std::pair<std::string, std::string>> input_vals;
+        input_vals.emplace_back(std::make_pair("1", "1"));
+
+        std::vector<std::pair<std::string, std::string>> output_vals;
+        output_vals.emplace_back(std::make_pair("2", "2"));
+
+        Initialize(input_vals, output_vals);
     }
+
+    void ShaderGraphNode::Initialize(std::vector<std::pair<std::string, std::string>> init_input_vals, std::vector<std::pair<std::string, std::string>> init_output_vals)
+    {
+        this->init_input_vals = init_input_vals;
+        this->init_output_vals = init_output_vals;
+    }
+
 
     void ShaderGraphNode::SetInputVal(std::string value, int index)
     {
