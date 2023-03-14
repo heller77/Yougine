@@ -10,7 +10,7 @@ namespace editor::projectwindows::assets::elements::model
 
 
     public:
-        TextAsset(std::filesystem::path path, int asset_id);
+        TextAsset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
 
         void Export() override;
     };

@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 
+#include "../../../../../utilitys/uuid/YougineUuid.h"
 #include "AssetParameter/Parameter.h"
 
 
@@ -20,11 +21,12 @@ namespace editor::projectwindows::assets::elements::model
     protected:
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> parameter;
         std::filesystem::path path;
-        unsigned int asset_id;
+        std::shared_ptr<utility::youginuuid::YougineUuid> uuid;
     public:
-        Asset(std::filesystem::path path, int asset_id);
+        Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> GetParameter();
         virtual void Export() = 0;
+        std::shared_ptr<utility::youginuuid::YougineUuid> GetAssetId();
 
     };
 }

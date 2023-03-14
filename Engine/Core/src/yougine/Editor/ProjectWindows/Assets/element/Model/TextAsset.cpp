@@ -9,7 +9,7 @@
 
 #include "AssetInfoExporter/AssetInfoFileExporter.h"
 
-editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path path, int asset_id) : Asset(path, asset_id)
+editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
     std::ifstream ifs(path.string());
     if (ifs.fail()) {

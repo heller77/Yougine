@@ -9,7 +9,7 @@ namespace editor::projectwindows::assets::elements::model::shader
         //fragment or vertex (enumが本当は使いたいがviewでenumが表示出来ないのでstring)
         std::string shader_kind;
     public:
-        ShaderFileAsset(const std::filesystem::path path, int asset_id);
+        ShaderFileAsset(const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> asset_id);
 
         void Export() override;
     };

@@ -7,7 +7,7 @@
 #include "../AssetInfoExporter/AssetInfoFileExporter.h"
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
-    const std::filesystem::path path, int asset_id) : Asset(path, asset_id)
+    const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
     this->shader_kind = "fragment or vertex";
     auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
