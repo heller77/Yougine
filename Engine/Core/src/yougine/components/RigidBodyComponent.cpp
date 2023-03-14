@@ -5,30 +5,23 @@ namespace yougine::components
     RigidBodyComponent::RigidBodyComponent() : Component(managers::ComponentName::kRigidBody)
     {
         this->velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
+        this->acceleration = new utility::Vector3(0, 0, 0); // x, y, z方向に関する加速度
+        this->force = new utility::Vector3(0, 0, 0); // x, y, z方向に関する運動エネルギー
         this->mass = 1.00f; // オブジェクトの質量
-        this->drag = 1.00f; // オブジェクトの抵抗
-        this->angular_drag = 1.00f; // オブジェクトの回転に関する抵抗
+        this->drag = 0.10f; // オブジェクトの抵抗
+        this->angular_drag = 0.10f; // オブジェクトの回転に関する抵抗
         this->attraction = false; // 引力を受けるかどうか
         this->freeze_position = new utility::Bool3(false, false, false); // x, y, z方向に関して動きを無効化するかどうか
         this->freeze_rotation = new utility::Bool3(false, false, false); // 回転に関して動きを無効化するかどうか
         accessable_properties_list.push_back(std::vector<std::any>{velocity, GETVALUENAME(velocity)});
+        accessable_properties_list.push_back(std::vector<std::any>{acceleration, GETVALUENAME(acceleration)});
+        accessable_properties_list.push_back(std::vector<std::any>{force, GETVALUENAME(force)});
         accessable_properties_list.push_back(std::vector<std::any>{&mass, GETVALUENAME(mass)});
         accessable_properties_list.push_back(std::vector<std::any>{&drag, GETVALUENAME(drag)});
         accessable_properties_list.push_back(std::vector<std::any>{&angular_drag, GETVALUENAME(angular_drag)});
         accessable_properties_list.push_back(std::vector<std::any>{&attraction, GETVALUENAME(attraction)});
         accessable_properties_list.push_back(std::vector<std::any>{freeze_position, GETVALUENAME(freeze_position)});
         accessable_properties_list.push_back(std::vector<std::any>{freeze_rotation, GETVALUENAME(freeze_rotation)});
-    }
-
-    RigidBodyComponent::RigidBodyComponent(utility::Vector3 velocity, float mass, float drag, float angular_drag, bool attraction, utility::Bool3 freeze_position, utility::Bool3 freeze_rotation) : Component(managers::ComponentName::kRigidBody)
-    {
-        this->velocity = &velocity;
-        this->mass = mass;
-        this->drag = drag;
-        this->angular_drag = angular_drag;
-        this->attraction = attraction;
-        this->freeze_position = &freeze_position;
-        this->freeze_rotation = &freeze_rotation;
     }
 
     /**
@@ -46,7 +39,49 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetVelocity(utility::Vector3 velocity)
     {
-        this->velocity = &velocity;
+        (*this->velocity).x = velocity.x;
+        (*this->velocity).y = velocity.y;
+        (*this->velocity).z = velocity.z;
+    }
+
+    /**
+     * \brief accelerationの実体を返す（参照ではないので変更しても、rigidbody.accelerationそのものを変更できる訳ではない）
+     * \return accelerationの実体
+     */
+    utility::Vector3 RigidBodyComponent::GetAcceleration()
+    {
+        return *this->acceleration;
+    }
+
+    /**
+     * \brief accelerationのセッター
+     * \param acceleration セットする値
+     */
+    void RigidBodyComponent::SetAcceleration(utility::Vector3 acceleration)
+    {
+        (*this->acceleration).x = acceleration.x;
+        (*this->acceleration).y = acceleration.y;
+        (*this->acceleration).z = acceleration.z;
+    }
+
+    /**
+     * \brief forceの実体を返す（参照ではないので変更しても、rigidbody.forceそのものを変更できる訳ではない）
+     * \return forceの実体
+     */
+    utility::Vector3 RigidBodyComponent::GetForce()
+    {
+        return *this->force;
+    }
+
+    /**
+     * \brief velocityのセッター
+     * \param velocity セットする値
+     */
+    void RigidBodyComponent::SetForce(utility::Vector3 force)
+    {
+        (*this->force).x = force.x;
+        (*this->force).y = force.y;
+        (*this->force).z = force.z;
     }
 
     /**
@@ -136,7 +171,9 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetFreezePosition(utility::Bool3 freeze_position)
     {
-        this->freeze_position = &freeze_position;
+        (*this->freeze_position).x = freeze_position.x;
+        (*this->freeze_position).y = freeze_position.y;
+        (*this->freeze_position).z = freeze_position.z;
     }
 
     /**
@@ -154,7 +191,9 @@ namespace yougine::components
      */
     void RigidBodyComponent::SetFreezeRotation(utility::Bool3 freeze_rotation)
     {
-        this->freeze_rotation = &freeze_rotation;
+        (*this->freeze_rotation).x = freeze_rotation.x;
+        (*this->freeze_rotation).y = freeze_rotation.y;
+        (*this->freeze_rotation).z = freeze_rotation.z;
     }
 
 }

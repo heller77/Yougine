@@ -9,6 +9,10 @@ namespace yougine::components
     private:
         utility::Vector3* velocity; // 速度
         // Vector3* angularVelocity; // 回転速度
+        utility::Vector3* acceleration; // 加速度
+        // utility::Vector3* angularAcceleration; // 回転加速度
+        utility::Vector3* force; // 運動エネルギー
+        // utility::Vector3* angularForce; // 回転運動エネルギー
         float mass; // 質量
         float drag; // 抵抗
         float angular_drag; // トルク抵抗
@@ -19,10 +23,15 @@ namespace yougine::components
 
     public:
         RigidBodyComponent();
-        RigidBodyComponent(utility::Vector3 velocity, float mass, float drag, float angular_drag, bool attraction, utility::Bool3 freeze_position, utility::Bool3 freeze_rotation);
 
         utility::Vector3 GetVelocity();
         void SetVelocity(utility::Vector3 velocity);
+
+        utility::Vector3 GetAcceleration();
+        void SetAcceleration(utility::Vector3 acceleration);
+
+        utility::Vector3 GetForce();
+        void SetForce(utility::Vector3 force);
 
         float GetMass();
         void SetMass(float mass);
