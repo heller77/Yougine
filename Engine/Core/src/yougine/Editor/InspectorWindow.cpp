@@ -78,7 +78,12 @@ namespace editor
     void InspectorWindow::ShowAddComponentMenu()
     {
         int selected = -1;
-        const char* componentNames[] = { "yougine::components::DebugComponent", "yougine::components::TransformComponent", "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent" };
+        const char* componentNames[] = {
+            "yougine::components::DebugComponent", "yougine::components::TransformComponent", 
+            "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent",
+            "yougine::components::camera::CameraComponent"
+
+        };
         ImGui::Spacing();
         if (ImGui::Button("Add Component"))
             ImGui::OpenPopup("add_component_popup");

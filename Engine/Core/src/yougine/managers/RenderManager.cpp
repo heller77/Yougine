@@ -124,6 +124,8 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
+        auto camera=components::camera::CameraComponent::GetMainCamera();
+        
         glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
         constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
@@ -137,7 +139,9 @@ namespace yougine::managers
         for (auto render_component : render_component_list)
         {
             auto cast_rendercomponent = dynamic_cast<components::RenderComponent*>(render_component);
-            RenderOneGameObject(cast_rendercomponent);
+            if (camera != nullptr) {
+                RenderOneGameObject(cast_rendercomponent, camera);
+            }
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -170,15 +174,16 @@ namespace yougine::managers
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component)
+    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component,std::shared_ptr<components::camera::CameraComponent> camera)
     {
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
 
-
+        auto cameraposition = camera->GetTransform()->GetPosition(); 
+        auto cameraposition_glmvec3 = glm::vec3(cameraposition.x, cameraposition.y, cameraposition.z);
         glm::mat4 View = glm::lookAt(
-            glm::vec3(0, 0, 10),
+            cameraposition_glmvec3,
             glm::vec3(0, 0, 0),
             glm::vec3(0, 1, 0)
         );

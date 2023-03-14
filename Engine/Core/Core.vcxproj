@@ -162,6 +162,8 @@
     <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
+    <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
@@ -195,6 +197,7 @@
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
     <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
+    <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -206,6 +209,8 @@
     <ClInclude Include="lib\imgui\imstb_rectpack.h" />
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
+    <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
+    <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h" />
     <ClInclude Include="lib\imnodes\imnodes.h" />
@@ -241,6 +246,7 @@
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
+    <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
