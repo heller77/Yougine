@@ -18,6 +18,12 @@ void editor::projectwindows::assets::elements::model::assetdatabases::AssetDatab
     this->asset_map[uuid->convertstring()] = asset;
 }
 
+std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::projectwindows::assets::elements::model
+::assetdatabases::AssetDatabase::GetAsset(std::string assetid)
+{
+    return this->asset_map[assetid];
+}
+
 // void editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase::AddAsset(int asset_id,
 //                                                                                               std::shared_ptr<Asset> asset)
 // {

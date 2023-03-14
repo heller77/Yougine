@@ -21,9 +21,9 @@ namespace utility::youginuuid
     struct Hash
     {
     public:
-        inline size_t operator()(const std::shared_ptr<YougineUuid> uuid)const
+        inline size_t operator()(const std::string uuid_string)const
         {
-            return std::hash<std::string>()(uuid->convertstring());
+            return std::hash<std::string>()(uuid_string);
         }
 
     };
