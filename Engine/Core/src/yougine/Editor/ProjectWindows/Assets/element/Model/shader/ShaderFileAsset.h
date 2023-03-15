@@ -10,7 +10,7 @@ namespace editor::projectwindows::assets::elements::model::shader
         std::string shader_kind;
     public:
         ShaderFileAsset(const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> asset_id);
-
+        ShaderFileAsset(const std::filesystem::path assetinfo_file_path);
         void Export() override;
     };
 }

@@ -24,6 +24,7 @@ namespace editor::projectwindows::assets::elements::model
         std::shared_ptr<utility::youginuuid::YougineUuid> uuid;
     public:
         Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
+        Asset(const std::filesystem::path assetinfo_file_path);
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> GetParameter();
         virtual void Export() = 0;
         std::shared_ptr<utility::youginuuid::YougineUuid> GetAssetId();

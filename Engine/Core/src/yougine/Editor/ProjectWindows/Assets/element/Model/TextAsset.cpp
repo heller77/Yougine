@@ -26,6 +26,11 @@ editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::files
     this->parameter["text"] = std::make_shared<assetparameters::Parameter>(&text, assetoption);
 }
 
+editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path assetinfofile_path) :Asset(assetinfofile_path)
+{
+
+}
+
 void editor::projectwindows::assets::elements::model::TextAsset::Export()
 {
 
