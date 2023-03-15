@@ -6,9 +6,10 @@ namespace utility::youginuuid
     class YougineUuid
     {
     private:
-        uuids::uuid uuid;
+        std::shared_ptr<uuids::uuid> uuid;
     public:
         YougineUuid();
+        YougineUuid(std::string uuid_string);
         std::string convertstring()const;
 
 
