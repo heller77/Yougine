@@ -1,16 +1,51 @@
 ﻿#include "InspectorWindow.h"
 
-#include "../component_factory/ComponentFactory.h"
+#include <memory>
 
+#include "../component_factory/ComponentFactory.h"
+#include "imgui/stblib/imgui_stdlib.h"
+#include <string>
 namespace editor
 {
-    InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene, yougine::InputManager* input_manager) :EditorWindow(editor_windows_manager, EditorWindowName::InspectorWindow)
+    InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene,
+        yougine::InputManager* input_manager) : EditorWindow(
+            editor_windows_manager, EditorWindowName::InspectorWindow)
     {
         this->scene = scene;
         this->input_manager = input_manager;
         selection_info = SelectionInfo::GetInstance();
         layer_manager = yougine::LayerManager::GetInstance();
         this->componentfactory = new yougine::componentfactorys::ComponentFacotory();
+
+        SelectionInfo::GetInstance()->AddSelectChangeEvent([=]()
+            {
+                this->ViewReGenerate();
+            });
+    }
+
+    void InspectorWindow::ViewReGenerate()
+    {
+        auto recentSelectTarget = SelectionInfo::GetInstance()->GetRecentClickTarget();
+        switch (recentSelectTarget)
+        {
+            //Hierarchyのものが選択されていたら
+        case SelectTarget::HierarchyWindow:
+            if (selection_info->GetSelectObject() != nullptr)
+            {
+                //HierarchyWindowで選択したものを表示するクラスが実装されたらここでフィールドに入れるとかするとよいかも
+            }
+            break;
+        case SelectTarget::Projectwindow:
+            if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
+            {
+                auto select = SelectionInfo::GetInstance()->GetSelectElementInProjectWindow();
+                auto asset = select->GetAsset();
+                this->asset_view = std::make_shared<AssetView::AssetView>(asset);
+            }
+            break;
+        default:
+            break;
+        }
     }
 
     void InspectorWindow::Draw()
@@ -18,13 +53,32 @@ namespace editor
         ImGuiWindowFlags_ flag = (ImGuiWindowFlags_NoCollapse);
         ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str(), nullptr, flag);
 
-        if (selection_info->GetSelectObject() != nullptr)
+        //最も最近選択されたtargetを取得
+        auto recentSelectTarget = SelectionInfo::GetInstance()->GetRecentClickTarget();
+        switch (recentSelectTarget)
         {
-            ShowGameObjectData();
-            ShowAddComponentMenu();
+            //Hierarchyのものが選択されていたら
+        case SelectTarget::HierarchyWindow:
+            if (selection_info->GetSelectObject() != nullptr)
+            {
+                ShowGameObjectData();
+                ShowAddComponentMenu();
+            }
+            break;
+        case SelectTarget::Projectwindow:
+            if (SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr)
+            {
+                if (this->asset_view != nullptr)
+                {
+                    asset_view->DrawAssetParameter();
+                }
+            }
+            break;
+        default:
+            break;
         }
-        ImGui::End();
 
+        ImGui::End();
     }
 
     void InspectorWindow::ShowGameObjectData()
@@ -79,7 +133,7 @@ namespace editor
     {
         int selected = -1;
         const char* componentNames[] = {
-            "yougine::components::DebugComponent", "yougine::components::TransformComponent", 
+            "yougine::components::DebugComponent", "yougine::components::TransformComponent",
             "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent",
             "yougine::components::camera::CameraComponent"
 
@@ -91,11 +145,15 @@ namespace editor
         {
             ImGui::Text("Component List");
             for (int i = 0; i < IM_ARRAYSIZE(componentNames); i++)
-                if (ImGui::Selectable(componentNames[i])) {
+                if (ImGui::Selectable(componentNames[i]))
+                {
                     selected = i;
-                    selection_info->GetInstance()->GetSelectObject()->AddComponent(componentfactory->CreateComponent(componentNames[selected]));
+                    selection_info->GetInstance()->GetSelectObject()->AddComponent(
+                        componentfactory->CreateComponent(componentNames[selected]));
                 }
             ImGui::EndPopup();
         }
     }
+
+
 }
