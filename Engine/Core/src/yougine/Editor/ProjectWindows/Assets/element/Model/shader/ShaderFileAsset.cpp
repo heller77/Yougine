@@ -25,6 +25,7 @@ editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::Shader
 void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::Export()
 {
     nlohmann::json json;
+    json[GETVALUENAME(uuid)] = uuid->convertstring();
     json[GETVALUENAME(shader_kind)] = shader_kind;
 
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
