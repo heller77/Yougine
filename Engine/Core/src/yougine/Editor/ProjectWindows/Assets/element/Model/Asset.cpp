@@ -14,7 +14,7 @@ editor::projectwindows::assets::elements::model::Asset::Asset(std::filesystem::p
 editor::projectwindows::assets::elements::model::Asset::Asset(const std::filesystem::path assetinfo_file_path)
 {
 
-    this->path = assetinfo_file_path.stem().string();
+    this->path = assetinfo_file_path.parent_path().string() + "\\" + assetinfo_file_path.stem().string();
     using json = nlohmann::ordered_json;
 
     std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
