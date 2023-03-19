@@ -28,7 +28,7 @@ void AssetView::AssetView::DrawAssetParameter()
             {
                 std::string display_text = key + " : " + *value_str;
                 ImGui::Text(display_text.c_str());
-                break;
+                continue;
             }
 
             ImGui::InputText(key.c_str(), value_str);
@@ -40,7 +40,7 @@ void AssetView::AssetView::DrawAssetParameter()
                 std::string value_str = std::any_cast<std::string>(value);
                 std::string display_text = key + " : " + value_str;
                 ImGui::Text(display_text.c_str());
-                break;
+                continue;
             }
         }
         else if (value.type() == typeid(int*))
@@ -64,10 +64,10 @@ void AssetView::AssetView::DrawAssetParameter()
             std::cout << "enum!" << std::endl;
         }
 
-        if (ImGui::Button("save"))
-        {
-            this->asset->Export();
-        }
+    }
+    if (ImGui::Button("save"))
+    {
+        this->asset->Export();
     }
 }
 
