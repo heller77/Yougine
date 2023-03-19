@@ -11,6 +11,7 @@ void AssetView::AssetView::DrawAssetParameter()
     {
         auto key = pair.first;
         auto value = pair.second->GetValue();
+        auto option = pair.second->GetOption();
 
 
         std::string type_name = value.type().name();
@@ -23,7 +24,24 @@ void AssetView::AssetView::DrawAssetParameter()
         if (value.type() == typeid(std::string*))
         {
             std::string* value_str = std::any_cast<std::string*>(value);
+            if (option->GetOnlyDisplayNotWrite())
+            {
+                std::string display_text = key + " : " + *value_str;
+                ImGui::Text(display_text.c_str());
+                break;
+            }
+
             ImGui::InputText(key.c_str(), value_str);
+        }
+        else if (value.type() == typeid(std::string))
+        {
+            if (option->GetOnlyDisplayNotWrite())
+            {
+                std::string value_str = std::any_cast<std::string>(value);
+                std::string display_text = key + " : " + value_str;
+                ImGui::Text(display_text.c_str());
+                break;
+            }
         }
         else if (value.type() == typeid(int*))
         {
