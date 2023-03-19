@@ -84,6 +84,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -299,6 +300,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
