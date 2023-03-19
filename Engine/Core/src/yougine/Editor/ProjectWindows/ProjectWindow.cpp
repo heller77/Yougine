@@ -6,8 +6,11 @@
 #include <memory>
 #include <tinygltf/json.hpp>
 #include <fstream>
+#include <memory>
+
 #include "../../Projects/Project.h"
 #include "Assets/element/Model/TextAsset.h"
+#include "Assets/element/Model/Material/Material.h"
 #include "Assets/element/Model/shader/ShaderFileAsset.h"
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
@@ -143,6 +146,18 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                         SelectionInfo::GetInstance()->SetSelctionInfo(button);
                     });
             }
+            else if (extension == "mat")
+            {
+                auto shaderasset = this->asset_database->GetAsset(uuid->convertstring());
+                auto button
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, shaderasset);
+                assetvies_vector.emplace_back(button);
+                button->SetSelectEvent([=]()
+                    {
+                        SelectionInfo::GetInstance()->SetSelctionInfo(button);
+                    });
+
+            }
             else
             {
                 //アセット生成
@@ -214,6 +229,18 @@ editor::projectwindows::ProjectWindow::GenerateAssetFromFile(std::filesystem::pa
         auto asset = std::make_shared<assets::elements::model::TextAsset>(path, uuid);
         asset->Export();
         return asset;
+
+    }
+    else if (extension == "mat")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assets::elements::model::materials::Material>(assetinfo_path);
+        }
+        auto material_asset = std::make_shared<assets::elements::model::materials::Material>(path, uuid);
+        material_asset->Export();
+        return material_asset;
 
     }
     else
