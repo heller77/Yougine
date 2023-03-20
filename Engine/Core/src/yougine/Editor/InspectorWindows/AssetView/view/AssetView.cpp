@@ -84,6 +84,5 @@ void AssetView::AssetView::DrawAssetParameter()
 
 AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset) : asset(asset)
 {
-    this->asset = asset;
-
 }
+
