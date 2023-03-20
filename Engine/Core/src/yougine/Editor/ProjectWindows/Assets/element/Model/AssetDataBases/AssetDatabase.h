@@ -15,5 +15,6 @@ namespace editor::projectwindows::assets::elements::model::assetdatabases
         AssetDatabase();
         void AddAsset(std::shared_ptr<utility::youginuuid::YougineUuid> uuid, std::shared_ptr<Asset> asset);
         std::shared_ptr<Asset> GetAsset(std::string assetid);
+        std::unordered_map<std::string, std::shared_ptr<Asset>, utility::youginuuid::Hash> GetAssetList();
     };
 }
