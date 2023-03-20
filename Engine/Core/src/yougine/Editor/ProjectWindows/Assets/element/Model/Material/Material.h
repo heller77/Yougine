@@ -15,5 +15,7 @@ namespace editor::projectwindows::assets::elements::model::materials
         Material(const std::filesystem::path& assetinfo_file_path);
 
         void Export() override;
+
+        std::string ToString() override;
     };
 }

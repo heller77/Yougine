@@ -44,3 +44,8 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
     exporter->ExportAssetInfoFile(this->path, json);
 
 }
+
+std::string editor::projectwindows::assets::elements::model::materials::Material::ToString()
+{
+    return this->path.filename().string() + "(Material)";
+}

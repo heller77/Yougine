@@ -43,3 +43,8 @@ void editor::projectwindows::assets::elements::model::TextAsset::Export()
 
 }
 
+std::string editor::projectwindows::assets::elements::model::TextAsset::ToString()
+{
+    return this->path.filename().string() + "(TextAssset)";
+}
+

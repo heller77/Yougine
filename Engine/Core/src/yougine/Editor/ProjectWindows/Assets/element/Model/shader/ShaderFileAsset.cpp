@@ -31,3 +31,8 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 }
+
+std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ToString()
+{
+    return this->path.filename().string() + "(ShaderAsset)";
+}
