@@ -27,6 +27,7 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
 
     //アセットデータベース作成
     this->asset_database = std::make_shared<assets::elements::model::assetdatabases::AssetDatabase>();
+    projects::Project::GetInstance()->SetDataBase(asset_database);
 
     auto projectpath = projects::Project::GetInstance()->projectFolderPath;
 
