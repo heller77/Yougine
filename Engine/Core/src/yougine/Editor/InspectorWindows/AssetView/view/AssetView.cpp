@@ -3,6 +3,7 @@
 #include <iostream>
 #include <valarray>
 
+#include "../../../../Projects/Project.h"
 #include "../../../ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 #include "imgui/stblib/imgui_stdlib.h"
 
@@ -67,6 +68,31 @@ void AssetView::AssetView::DrawAssetParameter()
             //アセット一覧を表示
             //選んだらvalueなりにセットする
             // option->FireInputAction(utility::youginuuid::YougineUuid("fd"));
+            auto assetdatabase = projects::Project::GetInstance()->GetDataBase();
+            auto asset_map = assetdatabase->GetAssetList();
+            std::vector<std::string> item_vec;
+            for (auto pair : asset_map)
+            {
+                auto asset = pair.second;
+                item_vec.emplace_back(asset->ToString());
+            }
+            static int item_current_idx = 0;
+            std::string combo_preview_value = item_vec[item_current_idx];
+            if (ImGui::BeginCombo(key.c_str(), combo_preview_value.c_str()))
+            {
+                for (int n = 0; n < item_vec.size(); n++)
+                {
+                    const bool is_selected = (item_current_idx == n);
+                    if (ImGui::Selectable(item_vec[n].c_str(), is_selected)) {
+                        std::cout << "select!" << std::endl;
+                        item_current_idx = n;
+                    }
+                    if (is_selected) {
+                        ImGui::SetItemDefaultFocus();
+                    }
+                }
+                ImGui::EndCombo();
+            }
         }
 
 
