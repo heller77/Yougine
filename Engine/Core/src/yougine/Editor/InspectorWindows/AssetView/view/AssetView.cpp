@@ -86,5 +86,4 @@ AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::
 {
     this->asset = asset;
 
-    // this->class_func_vec.emplace("editor::projectwindows::assets::elements::model::shader::ShaderFileAsset")
 }
