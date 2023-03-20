@@ -69,27 +69,6 @@ void AssetView::AssetView::DrawAssetParameter()
             // option->FireInputAction(utility::youginuuid::YougineUuid("fd"));
         }
 
-        // bool is_badanycast = false;
-        // try
-        // {
-        //     auto id = std::any_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>>(value);
-        // }
-        // catch (...)
-        // {
-        //     is_badanycast = true;
-        // }
-        //
-        // if (!is_badanycast)
-        // {
-        //     std::cout << "asset !!" << std::endl;
-        // }
-        // // if (std::shared_ptr<BaseClass> basePtr = std::dynamic_pointer_cast<BaseClass>(std::any_cast<std::shared_ptr<DerivedClass>>(anyVar))) {
-        // //     std::cout << "DerivedClass is derived from BaseClass." << std::endl;
-        // // }
-        // // std::any_cast<editor::projectwindows::assets::elements::model::Asset>(value)==nullptr;
-        // // if (std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> derivedPtr2 == std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::Asset>(std::any_cast<editor::projectwindows::assets::elements::model::Asset>(value))) {
-        // //     std::cout << "DerivedClass is derived from AbstractClass." << std::endl;
-        // // }
 
         if (enumtext == "enum")
         {
