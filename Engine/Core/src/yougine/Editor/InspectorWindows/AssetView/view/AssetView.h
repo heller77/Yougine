@@ -3,11 +3,11 @@
 
 namespace AssetView
 {
+
     class AssetView
     {
     private:
         std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset;
-
     public:
         void DrawAssetParameter();
 
