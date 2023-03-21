@@ -23,7 +23,7 @@ namespace editor
     protected:
         void Setup();
         void RenderMenuBar();
-        void RenderMenuItems();
+        virtual void RenderMenuItems();
         virtual void SelectedItemProcess(std::string item);
         virtual void InitializeMenuLists();
     };
