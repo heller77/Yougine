@@ -3,7 +3,9 @@
 #include <iostream>
 #include <memory>
 #include <tinygltf/json.hpp>
+#include <fstream>
 
+#include "../../../../../../Projects/Project.h"
 #include "../AssetInfoExporter/AssetInfoFileExporter.h"
 
 void editor::projectwindows::assets::elements::model::materials::Material::Initialize()
@@ -27,7 +29,6 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
                 this->SwapParameter(GETVALUENAME(frag_asset_uuid), std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption));
             }
         });
-    frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
     this->parameter[GETVALUENAME(frag_asset_uuid)] = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption);
 
     auto vertex_assetoption = std::make_shared<option_type>(false, false, true);
@@ -43,7 +44,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
                 this->SwapParameter(GETVALUENAME(vert_asset_uuid), std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption));
             }
         });
-    vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
+
     this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
 }
 
@@ -51,8 +52,8 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
 editor::projectwindows::assets::elements::model::materials::Material::Material(const std::filesystem::path& path,
     const std::shared_ptr<utility::youginuuid::YougineUuid>& uuid) :Asset(path, uuid)
 {
-    // this->frag_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
-    // this->vert_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
+    frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
+    vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
     Initialize();
 }
 editor::projectwindows::assets::elements::model::materials::Material::Material(
@@ -60,6 +61,24 @@ editor::projectwindows::assets::elements::model::materials::Material::Material(
 {
     // this->frag_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
     // this->vert_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
+    using json = nlohmann::ordered_json;
+
+    std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
+
+    json o_json;
+    reading >> o_json;
+
+    std::string vertname = GETVALUENAME(vert_asset_uuid);
+    if (o_json.contains(vertname)) {
+        std::string asset_id = o_json[vertname];
+        this->vert_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+    }
+
+    std::string fragname = GETVALUENAME(frag_asset_uuid);
+    if (o_json.contains(fragname)) {
+        std::string asset_id = o_json[fragname];
+        this->frag_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+    }
     Initialize();
 }
 
