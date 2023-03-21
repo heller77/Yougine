@@ -14,6 +14,23 @@ namespace editor
 
     }
 
+    void SelectionInfo::AddSelectChangeEvent(std::function<void()> func)
+    {
+        this->select_change_event_vector.emplace_back(func);
+    }
+
+    void SelectionInfo::FireSelectEvent()
+    {
+        for (auto select_change_event : this->select_change_event_vector)
+        {
+            select_change_event();
+        }
+    }
+
+    SelectTarget SelectionInfo::GetRecentClickTarget()
+    {
+        return this->most_recent_select_target;
+    }
 
     void SelectionInfo::Create()
     {
@@ -41,6 +58,9 @@ namespace editor
 
     void SelectionInfo::SetSelectionInfo(yougine::GameObject* game_object, bool flame_selected)
     {
+        //今選択されたのはヒエラルキーですよ
+        this->most_recent_select_target = SelectTarget::HierarchyWindow;
+
         this->flame_selected = flame_selected;
         if (this->game_object != game_object)
         {
@@ -51,11 +71,33 @@ namespace editor
                 InitializeComponentViewersOnChangeObject(this->game_object);
             }
         }
+
+
+        //セレクトされたのでイベント発火
+        this->FireSelectEvent();
+    }
+
+    void SelectionInfo::SetSelctionInfo(
+        std::shared_ptr<projectwindows::assets::elements::view::IElementOfProjectView> select_projectwindow_element)
+    {
+        //今選択されたのはプロジェクトウィンドー
+        this->most_recent_select_target = SelectTarget::Projectwindow;
+
+        this->select_projectwindow_element = select_projectwindow_element;
+
+        //セレクトされたのでイベント発火
+        this->FireSelectEvent();
     }
 
     yougine::GameObject* SelectionInfo::GetSelectObject()
     {
         return game_object;
+    }
+
+    std::shared_ptr<projectwindows::assets::elements::view::IElementOfProjectView> SelectionInfo::
+        GetSelectElementInProjectWindow()
+    {
+        return this->select_projectwindow_element;
     }
 
     bool SelectionInfo::GetSelectedFlag()
