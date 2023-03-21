@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "../EditorWindow.h"
 #include "../../Projects/Project.h"
+#include "Assets/element/Model/AssetDataBases/AssetDatabase.h"
+#include "Assets/element/view/IElementOfProjectView.h"
 
 namespace editor::projectwindows
 {
@@ -11,13 +13,35 @@ namespace editor::projectwindows
          * \brief 今ProjectWindowで表示している絶対パス
          */
         std::string now_display_folderpath;
+        std::vector<std::shared_ptr<assets::elements::view::IElementOfProjectView>> assetvies_vector;
+        std::shared_ptr<assets::elements::model::assetdatabases::AssetDatabase> asset_database;
+
+        /**
+         * \brief パスを変える
+         */
+        void ChangeDisplayPath(std::string path);
+
+        /**
+         * \brief ビューを作る
+         * \param now_display_path
+         */
+        void CreateView(std::string now_display_path);
+
+        /**
+         * \brief 次のフレームに描画更新を行うようにする
+         */
+        void UpdateNextFrame();
+
+        /**
+         * \brief 次のフレームで描画を更新するかを判断するためのフラグ
+         */
+        bool is_updateelements_flag;
+
+        std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
     public:
         void Draw() override;
 
-        ProjectWindow(editor::EditorWindowsManager* editor_windows_manager, yougine::Scene* scene)
-            : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
-        {
-            now_display_folderpath = projects::Project::GetInstance()->projectFolderPath;
-        }
+
+        ProjectWindow(editor::EditorWindowsManager* editor_windows_manager, yougine::Scene* scene);
     };
 }

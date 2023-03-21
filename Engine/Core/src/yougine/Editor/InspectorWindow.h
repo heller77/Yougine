@@ -3,6 +3,7 @@
 #include "../InputManager.h"
 #include "ComponentViewer.h"
 #include "../component_factory/ComponentFactory.h"
+#include "InspectorWindows/AssetView/view/AssetView.h"
 
 namespace editor
 {
@@ -16,6 +17,8 @@ namespace editor
         const int MAX_SIZE_OBJ_NAME = 38;
         yougine::componentfactorys::ComponentFacotory* componentfactory;
 
+        std::shared_ptr<AssetView::AssetView> asset_view;
+
     private:
         void ShowGameObjectData();
         void ShowAddComponentMenu();
@@ -23,6 +26,9 @@ namespace editor
     public:
         InspectorWindow(EditorWindowsManager*, yougine::Scene*, yougine::InputManager*);
         ~InspectorWindow();
+
+        //viewの再生成
+        void ViewReGenerate();
 
         void Draw()override;
     };

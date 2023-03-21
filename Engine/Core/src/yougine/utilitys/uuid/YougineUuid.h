@@ -6,10 +6,15 @@ namespace utility::youginuuid
     class YougineUuid
     {
     private:
-        uuids::uuid uuid;
+        std::shared_ptr<uuids::uuid> uuid;
+        // uuids::uuid* uuid_default_ptr;
+        // std::string uuid_text;
     public:
         YougineUuid();
+        YougineUuid(std::string uuid_string);
         std::string convertstring()const;
+        // std::string GetUUidfromptr();
+
 
 
         bool operator==(const YougineUuid& rhs)const
@@ -21,9 +26,9 @@ namespace utility::youginuuid
     struct Hash
     {
     public:
-        inline size_t operator()(const std::shared_ptr<YougineUuid> uuid)const
+        inline size_t operator()(const YougineUuid uuid_string)const
         {
-            return std::hash<std::string>()(uuid->convertstring());
+            return std::hash<std::string>()(uuid_string.convertstring());
         }
 
     };
