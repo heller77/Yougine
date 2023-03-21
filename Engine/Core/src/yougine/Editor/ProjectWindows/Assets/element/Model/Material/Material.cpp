@@ -13,21 +13,38 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     auto onlydisplay_option = std::make_shared<option_type>(false, true);
     this->parameter["path"] = std::make_shared<assetparameters::Parameter>(this->path.string(), onlydisplay_option);
 
-    auto assetoption = std::make_shared<option_type>(false, false, true);
-    assetoption->SetInputAction([&, assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+    auto fragment_assetoption = std::make_shared<option_type>(false, false, true);
+    fragment_assetoption->SetInputAction([&, fragment_assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
         {
             std::cout << "input tostring " << input->ToString() << std::endl;
             std::shared_ptr<shader::ShaderFileAsset> input_asset;
             input_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(input);
 
             if (input_asset) {
-                this->frag_asset_uuid = input_asset;
-                auto parameter = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), assetoption);
-                this->SwapParameter(GETVALUENAME(frag_asset_uuid), std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), assetoption));
+                // this->frag_asset_uuid = input_asset;
+                InputInject(this->frag_asset_uuid, input_asset);
+                auto parameter = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption);
+                this->SwapParameter(GETVALUENAME(frag_asset_uuid), std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption));
             }
         });
     frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
-    this->parameter[GETVALUENAME(frag_asset_uuid)] = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), assetoption);
+    this->parameter[GETVALUENAME(frag_asset_uuid)] = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption);
+
+    auto vertex_assetoption = std::make_shared<option_type>(false, false, true);
+    vertex_assetoption->SetInputAction([&, vertex_assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+        {
+            std::cout << "input tostring " << input->ToString() << std::endl;
+            std::shared_ptr<shader::ShaderFileAsset> input_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(input);
+
+            if (input_asset) {
+                // this->vert_asset_uuid = input_asset;
+                InputInject(this->vert_asset_uuid, input_asset);
+                auto parameter = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), fragment_assetoption);
+                this->SwapParameter(GETVALUENAME(vert_asset_uuid), std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), fragment_assetoption));
+            }
+        });
+    vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
+    this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
 }
 
 
@@ -68,6 +85,12 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 
+}
+
+void editor::projectwindows::assets::elements::model::materials::Material::InputInject(
+    std::shared_ptr<shader::ShaderFileAsset>& inputed, std::shared_ptr<shader::ShaderFileAsset>& new_value)
+{
+    inputed = new_value;
 }
 
 std::string editor::projectwindows::assets::elements::model::materials::Material::ToString()

@@ -16,7 +16,7 @@ namespace editor::projectwindows::assets::elements::model::materials
 
         void SwapParameter(std::string parameter_name, std::shared_ptr<assetparameters::Parameter> parameter);
         void Export() override;
-
+        void InputInject(std::shared_ptr<shader::ShaderFileAsset>& inputed, std::shared_ptr<shader::ShaderFileAsset>& new_value);
         std::string ToString() override;
     };
 }
