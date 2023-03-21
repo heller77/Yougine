@@ -4,7 +4,9 @@
 #include "../EditorWindow.h"
 #include "Nodes/ShaderGraphNode.h"
 #include "Nodes/ShaderGraphInputNodes.h"
+#include "Nodes/UnlitShaderGraphNode.h"
 #include "../../utilitys/Split.cpp"
+#include "ShaderfileOverwriter.h"
 
 namespace editor::shadergraph
 {
@@ -23,6 +25,7 @@ namespace editor::shadergraph
         std::vector<ShaderGraphNode*> nodes;
         std::vector<Link> links; //このリストに格納されているリンク構造体のリンクを描画
         int currentLinks = 0; //Link.idの指標
+        ShaderfileOverwriter* shaderfile_overwriter;
 
     private:
         void SearchSelectingNodeID();

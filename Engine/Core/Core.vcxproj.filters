@@ -53,6 +53,8 @@
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -141,9 +143,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\yougine\components\TransformComponent.h">
-      <Filter>ヘッダー ファイル\src\yougine\components</Filter>
-    </ClInclude>
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
@@ -184,7 +183,6 @@
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
-    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwriter.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderType.h" />
@@ -277,6 +275,9 @@
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
     <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
+    <ClInclude Include="src\yougine\components\TransformComponent.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

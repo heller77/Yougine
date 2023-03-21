@@ -21,11 +21,13 @@ namespace editor
         if (ImGui::BeginMenuBar())
         {
             for (std::string bar_label : menu_bar_list)
+            {
                 if (ImGui::BeginMenu(bar_label.c_str()))
                 {
                     RenderMenuItems();
                     ImGui::EndMenu();
                 }
+            }
 
             ImGui::EndMenuBar();
         }

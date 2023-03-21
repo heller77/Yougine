@@ -165,7 +165,9 @@
     <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
@@ -216,7 +218,9 @@
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h" />
     <ClInclude Include="lib\imnodes\imnodes.h" />
     <ClInclude Include="lib\imnodes\imnodes_internal.h" />
@@ -250,7 +254,6 @@
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
-    <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwriter.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.h" />

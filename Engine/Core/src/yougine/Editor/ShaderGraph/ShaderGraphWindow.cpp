@@ -12,11 +12,13 @@ namespace editor::shadergraph
         menu_bar_list =
         {
             "Add Node",
+            "Write ShaderFile",
         };
 
         menu_item_list =
         {
             "Debug/Sample Node",
+            "Main/Unlit",
             "Input/Vector3",
         };
     }
@@ -57,6 +59,13 @@ namespace editor::shadergraph
 
             ShaderGraphNode* node = new ShaderGraphNode();
 
+            if (category == "Main")
+            {
+                if (node_name == "Unlit")
+                {
+                    node = new UnlitShaderGraphNode();
+                }
+            }
             if (category == "Input")
             {
                 if (node_name == "Vector3")

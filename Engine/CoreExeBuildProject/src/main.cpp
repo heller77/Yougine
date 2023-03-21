@@ -127,11 +127,11 @@ int main()
         auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
         gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
         yougine::SceneFiles::SceneFileExporter* exporter = new yougine::SceneFiles::SceneFileExporter();
-        
+
 
         //カメラオブジェクトの生成
         auto camera = scene->CreateGameObject("Camera", nullptr);
-        camera->AddComponent(new yougine::components::TransformComponent(10,0,0));
+        camera->AddComponent(new yougine::components::TransformComponent(10, 0, 0));
         camera->AddComponent(new yougine::components::camera::CameraComponent());
 
         //シーンファイルをエクスポート

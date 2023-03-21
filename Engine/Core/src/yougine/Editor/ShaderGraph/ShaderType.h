@@ -69,4 +69,15 @@ namespace editor::shadergraph
         kBuffer,
         kShared,
     };
+
+    enum class ShaderVersion
+    {
+        k430,
+    };
+
+    enum class ShaderStage
+    {
+        kFragment,
+        kVertex,
+    };
 }
