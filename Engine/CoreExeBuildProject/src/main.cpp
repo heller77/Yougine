@@ -15,6 +15,7 @@
 #include "Editor/HierarchyWindow.h"
 #include "Editor/SceneWindow.h"
 #include "Editor/InspectorWindow.h"
+#include "Editor/ShaderGraph/ShaderGraphWindow.h"
 
 #include <fstream>
 
@@ -72,6 +73,8 @@ int main()
     ImGuiIO& io = ImGui::GetIO();
     (void)io;
 
+    ImNodes::CreateContext();
+
     // Setup Dear ImGui style
     //ImGui::StyleColorsDark();
 
@@ -124,11 +127,11 @@ int main()
         auto gameobject2 = scene->CreateGameObject("renderObj_2", nullptr);
         gameobject2->AddComponent(new yougine::components::TransformComponent(1, 1, 1));
         yougine::SceneFiles::SceneFileExporter* exporter = new yougine::SceneFiles::SceneFileExporter();
-        
+
 
         //カメラオブジェクトの生成
         auto camera = scene->CreateGameObject("Camera", nullptr);
-        camera->AddComponent(new yougine::components::TransformComponent(10,0,0));
+        camera->AddComponent(new yougine::components::TransformComponent(10, 0, 0));
         camera->AddComponent(new yougine::components::camera::CameraComponent());
 
         //シーンファイルをエクスポート
@@ -158,7 +161,6 @@ int main()
 
     // sceneexporter->ScenefileExportFromScene(scene, projectpath +"build\\scene.json");
 
-
     //Add Code
     yougine::InputManager* input_manager = new yougine::InputManager();
     editor::EditorWindowsManager* editor_windows_manager = new editor::EditorWindowsManager();
@@ -167,6 +169,7 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
+    editor_windows_manager->AddRenderWindow(new editor::shadergraph::ShaderGraphWindow(editor_windows_manager));
     //GameManagerで回すマネージャのvector
     std::vector<IManager*> managerlist;
     //auto componentlist = new yougine::managers::ComponentList();
@@ -195,8 +198,11 @@ int main()
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
+
+    ImNodes::DestroyContext();
     ImGui::DestroyContext();
 
     glfwDestroyWindow(window);
     glfwTerminate();
+
 }
