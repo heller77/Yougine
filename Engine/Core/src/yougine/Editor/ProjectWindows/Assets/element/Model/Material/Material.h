@@ -14,6 +14,7 @@ namespace editor::projectwindows::assets::elements::model::materials
 
         Material(const std::filesystem::path& assetinfo_file_path);
 
+        void SwapParameter(std::string parameter_name, std::shared_ptr<assetparameters::Parameter> parameter);
         void Export() override;
 
         std::string ToString() override;

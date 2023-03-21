@@ -16,19 +16,25 @@ editor::inspectorwindows::assetviews::options::AssetViewOption::AssetViewOption(
 }
 
 void editor::inspectorwindows::assetviews::options::AssetViewOption::SetInputAction(
-    std::function<void(std::shared_ptr<utility::youginuuid::YougineUuid>)> setAsset)
+    std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> setAsset)
 {
     this->setAsset = setAsset;
 }
 
-void editor::inspectorwindows::assetviews::options::AssetViewOption::FireInputAction(
-    std::shared_ptr<utility::youginuuid::YougineUuid> input)
+std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> editor::inspectorwindows::
+assetviews::options::AssetViewOption::GetInputAction_input_Asset()
 {
-    if (this->setAsset)
-    {
-        setAsset(std::move(input));
-    }
+    return this->setAsset;
 }
+
+// void editor::inspectorwindows::assetviews::options::AssetViewOption::FireInputAction(
+//     std::shared_ptr<utility::youginuuid::YougineUuid> input)
+// {
+//     if (this->setAsset)
+//     {
+//         setAsset(std::move(input));
+//     }
+// }
 
 bool editor::inspectorwindows::assetviews::options::AssetViewOption::AssetViewOption::GetInputAble()
 {

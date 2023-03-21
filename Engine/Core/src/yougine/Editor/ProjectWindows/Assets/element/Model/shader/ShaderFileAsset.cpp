@@ -63,7 +63,7 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
 
 std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ToString()
 {
-    return this->path.filename().string() + "(ShaderAsset)";
+    return this->path.string() + "(ShaderAsset)";
 }
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::vert_default;
