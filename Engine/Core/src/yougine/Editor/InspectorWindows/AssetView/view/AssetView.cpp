@@ -4,11 +4,28 @@
 #include <valarray>
 
 #include "../../../../Projects/Project.h"
+#include "../../../../utilitys/view/parameters/CustomParameter.h"
 #include "../../../ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 #include "imgui/stblib/imgui_stdlib.h"
 
 void AssetView::AssetView::DrawAssetParameter()
 {
+    for (auto parameter : this->parameter_vec)
+    {
+        parameter->Draw();
+    }
+    if (ImGui::Button("save"))
+    {
+        this->asset->Export();
+    }
+}
+
+
+
+AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset)
+{
+    this->asset = asset;
+
     auto parametermap = asset->GetParameter();
     for (auto pair : parametermap)
     {
@@ -27,39 +44,64 @@ void AssetView::AssetView::DrawAssetParameter()
         if (value.type() == typeid(std::string*))
         {
             std::string* value_str = std::any_cast<std::string*>(value);
-            if (option->GetOnlyDisplayNotWrite())
+            std::function<void()> func = [=]()
             {
-                std::string display_text = key + " : " + *value_str;
-                ImGui::Text(display_text.c_str());
-                continue;
-            }
 
-            ImGui::InputText(key.c_str(), value_str);
+                if (option->GetOnlyDisplayNotWrite())
+                {
+                    std::string display_text = key + " : " + *value_str;
+                    ImGui::Text(display_text.c_str());
+                }
+
+                ImGui::InputText(key.c_str(), value_str);
+            };
+
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::CustomParameter>(func));
+
         }
         else if (value.type() == typeid(std::string))
         {
-            if (option->GetOnlyDisplayNotWrite())
+
+            std::function<void()> func = [=]()
             {
-                std::string value_str = std::any_cast<std::string>(value);
-                std::string display_text = key + " : " + value_str;
-                ImGui::Text(display_text.c_str());
-                continue;
-            }
+                if (option->GetOnlyDisplayNotWrite())
+                {
+                    std::string value_str = std::any_cast<std::string>(value);
+                    std::string display_text = key + " : " + value_str;
+                    ImGui::Text(display_text.c_str());
+                }
+            };
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::CustomParameter>(func));
         }
         else if (value.type() == typeid(int*))
         {
-            int* value_int = std::any_cast<int*>(value);
-            ImGui::InputInt(key.c_str(), value_int);
+
+            std::function<void()> func = [=]()
+            {
+                int* value_int = std::any_cast<int*>(value);
+                ImGui::InputInt(key.c_str(), value_int);
+            };
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::CustomParameter>(func));
         }
         else if (value.type() == typeid(float*))
         {
-            float* value_float = std::any_cast<float*>(value);
-            ImGui::InputFloat(key.c_str(), value_float);
+
+            std::function<void()> func = [=]()
+            {
+                float* value_float = std::any_cast<float*>(value);
+                ImGui::InputFloat(key.c_str(), value_float);
+            };
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::CustomParameter>(func));
         }
         else if (value.type() == typeid(double*))
         {
-            double* value_double = std::any_cast<double*>(value);
-            ImGui::InputDouble(key.c_str(), value_double);
+
+            std::function<void()> func = [=]()
+            {
+                double* value_double = std::any_cast<double*>(value);
+                ImGui::InputDouble(key.c_str(), value_double);
+            };
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::CustomParameter>(func));
         }
         if (option->GetIsAsset())
         {
@@ -68,31 +110,7 @@ void AssetView::AssetView::DrawAssetParameter()
             //アセット一覧を表示
             //選んだらvalueなりにセットする
             // option->FireInputAction(utility::youginuuid::YougineUuid("fd"));
-            auto assetdatabase = projects::Project::GetInstance()->GetDataBase();
-            auto asset_map = assetdatabase->GetAssetList();
-            std::vector<std::string> item_vec;
-            for (auto pair : asset_map)
-            {
-                auto asset = pair.second;
-                item_vec.emplace_back(asset->ToString());
-            }
-            static int item_current_idx = 0;
-            std::string combo_preview_value = item_vec[item_current_idx];
-            if (ImGui::BeginCombo(key.c_str(), combo_preview_value.c_str()))
-            {
-                for (int n = 0; n < item_vec.size(); n++)
-                {
-                    const bool is_selected = (item_current_idx == n);
-                    if (ImGui::Selectable(item_vec[n].c_str(), is_selected)) {
-                        std::cout << "select!" << std::endl;
-                        item_current_idx = n;
-                    }
-                    if (is_selected) {
-                        ImGui::SetItemDefaultFocus();
-                    }
-                }
-                ImGui::EndCombo();
-            }
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::AssetReference>(key.c_str()));
         }
 
 
@@ -102,13 +120,5 @@ void AssetView::AssetView::DrawAssetParameter()
         }
 
     }
-    if (ImGui::Button("save"))
-    {
-        this->asset->Export();
-    }
-}
-
-AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset) : asset(asset)
-{
 }
 
