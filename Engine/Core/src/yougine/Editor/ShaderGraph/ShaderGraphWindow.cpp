@@ -12,7 +12,6 @@ namespace editor::shadergraph
         menu_bar_list =
         {
             "Add Node",
-            "Write ShaderFile",
         };
 
         menu_item_list =
