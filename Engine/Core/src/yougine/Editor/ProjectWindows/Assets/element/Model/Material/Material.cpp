@@ -81,6 +81,9 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
 {
     nlohmann::json json;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
+    json[GETVALUENAME(vert_asset_uuid)] = vert_asset_uuid->GetAssetId()->convertstring();
+    json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
+
 
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
