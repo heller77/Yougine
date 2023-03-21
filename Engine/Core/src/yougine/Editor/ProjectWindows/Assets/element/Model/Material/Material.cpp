@@ -39,8 +39,8 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
             if (input_asset) {
                 // this->vert_asset_uuid = input_asset;
                 InputInject(this->vert_asset_uuid, input_asset);
-                auto parameter = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), fragment_assetoption);
-                this->SwapParameter(GETVALUENAME(vert_asset_uuid), std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), fragment_assetoption));
+                auto parameter = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
+                this->SwapParameter(GETVALUENAME(vert_asset_uuid), std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption));
             }
         });
     vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
