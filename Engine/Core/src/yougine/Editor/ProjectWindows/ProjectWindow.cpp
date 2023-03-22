@@ -33,6 +33,7 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
 
     auto file_and_folder_list = std::filesystem::recursive_directory_iterator(projectpath);
     //再帰的にプロジェクトパス以下のファイル全てをAssetクラスをさくせい　
+    //とりあえず、作成=>初期化
     for (auto entry : file_and_folder_list)
     {
         std::cout << "----" << std::endl;
@@ -55,7 +56,12 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
         }
 
     }
-
+    auto asset_list = asset_database->GetAssetList();
+    for (auto pair : asset_list)
+    {
+        auto asset = pair.second;
+        asset->InitializeParameter();
+    }
 
     CreateView(now_display_folderpath);
 
@@ -199,17 +205,7 @@ editor::projectwindows::ProjectWindow::GenerateAssetFromFile(std::filesystem::pa
     {
         return nullptr;
     }
-    if (extension == "cpp")
-    {
-        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
-        {
-            //アセット生成
-            auto asset = std::make_shared<assets::elements::model::TextAsset>(path, uuid);
-            asset->Export();
-            return asset;
-        }
-    }
-    else if (extension == "shader" || extension == "frag" || extension == "vert") {
+    if (extension == "shader" || extension == "frag" || extension == "vert") {
         if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
         {
             std::cout << "assetinfo exist!! : " << filename << std::endl;
