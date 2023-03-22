@@ -17,9 +17,10 @@ namespace yougine::components
         float drag; // 抵抗
         float angular_drag; // トルク抵抗
         bool attraction; // 引力の有無
+
         utility::Bool3* freeze_position; // 各軸の移動を固定する
         utility::Bool3* freeze_rotation; // 各回転軸の移動を固定する
-        
+
     public:
         RigidBodyComponent();
 

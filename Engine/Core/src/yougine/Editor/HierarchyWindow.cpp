@@ -9,12 +9,22 @@ namespace editor
         this->input_manager = input_manager;
         selection_info = SelectionInfo::GetInstance();
 
-        MENU_ITEMS_LIST =
+        InitializeMenuLists();
+    }
+
+    void HierarchyWindow::InitializeMenuLists()
+    {
+        menu_bar_list =
+        {
+            "Creat",
+        };
+
+        menu_item_list =
         {
             "GameObject",
         };
-
     }
+
 
     void HierarchyWindow::Draw()
     {
@@ -23,33 +33,22 @@ namespace editor
         ImGuiWindowFlags flags = (ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar);
         ImGui::Begin(editor_windows_manager->GetWindowName(window_name).c_str(), nullptr, flags);
 
-        if (ImGui::BeginMenuBar())
-        {
-            if (ImGui::BeginMenu("Create"))
-            {
-                RenderMenuItems();
-                ImGui::EndMenu();
-            }
-
-            ImGui::EndMenuBar();
-        }
+        EditorWindow::RenderMenuBar();
 
         RenderObjectsTree();
 
         ImGui::End();
     }
 
-    void HierarchyWindow::RenderMenuItems()
+    void HierarchyWindow::SelectedItemProcess(std::string item)
     {
-        for (std::string item : MENU_ITEMS_LIST)
+        if (ImGui::MenuItem(item.c_str()))
         {
-            if (ImGui::MenuItem(item.c_str()))
-            {
-                std::string o_name = selection_info->GetSelectObject() != nullptr ? selection_info->GetSelectObject()->GetName() + "_c" + std::to_string((selection_info->GetSelectObject()->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
-                CreateGameObject(o_name, selection_info->GetSelectObject());
-            };
-        }
+            std::string o_name = selection_info->GetSelectObject() != nullptr ? selection_info->GetSelectObject()->GetName() + "_c" + std::to_string((selection_info->GetSelectObject()->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
+            CreateGameObject(o_name, selection_info->GetSelectObject());
+        };
     }
+
 
     void HierarchyWindow::RenderObjectsTree()
     {
