@@ -172,6 +172,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
@@ -239,6 +240,8 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\TextAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.h" />
