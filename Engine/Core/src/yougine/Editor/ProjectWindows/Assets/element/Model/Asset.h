@@ -31,6 +31,7 @@ namespace editor::projectwindows::assets::elements::model
         virtual void Export() = 0;
         std::shared_ptr<utility::youginuuid::YougineUuid> GetAssetId();
         virtual std::string ToString() = 0;
+        virtual void InitializeParameter() = 0;
 
     };
 }
