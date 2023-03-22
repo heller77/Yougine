@@ -2,7 +2,6 @@
 #include <memory>
 
 #include "../ShaderInputParameterType.h"
-#include "ShaderInputs/ShaderInput.h"
 
 namespace editor::projectwindows::assets::elements::model::materials::shaderinputparameters
 {
