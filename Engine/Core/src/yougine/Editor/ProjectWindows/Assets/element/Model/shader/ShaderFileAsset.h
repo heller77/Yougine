@@ -18,6 +18,8 @@ namespace editor::projectwindows::assets::elements::model::shader
         static std::shared_ptr<ShaderFileAsset> GetDefaultFragmentShader();
         void Export() override;
 
+        void InitializeParameter() override;
+
         std::string ToString() override;
     };
 }

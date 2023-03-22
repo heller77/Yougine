@@ -11,17 +11,13 @@
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
     const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
-    this->shader_kind = "fragment or vertex";
-    auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
-    this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
+
 }
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
-    const std::filesystem::path assetinfo_file_path) :Asset(assetinfo_file_path)
+    const std::filesystem::path assetinfo_file_path) : Asset(assetinfo_file_path)
 {
-    this->shader_kind = "fragment or vertex";
-    auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
-    this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
+
 }
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
@@ -59,6 +55,13 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
 
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
+}
+
+void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeParameter()
+{
+    this->shader_kind = "fragment or vertex";
+    auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
+    this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
 }
 
 std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ToString()

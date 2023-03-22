@@ -11,6 +11,28 @@
 
 editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
+
+}
+
+editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path assetinfofile_path) : Asset(assetinfofile_path)
+{
+
+}
+
+void editor::projectwindows::assets::elements::model::TextAsset::Export()
+{
+    nlohmann::json json;
+    json[GETVALUENAME(text)] = text;
+    json[GETVALUENAME(uuid)] = uuid->convertstring();
+
+    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    exporter->ExportAssetInfoFile(this->path, json);
+
+}
+
+void editor::projectwindows::assets::elements::model::TextAsset::InitializeParameter()
+{
+
     std::ifstream ifs(path.string());
     if (ifs.fail()) {
         std::cerr << "Failed to open file." << std::endl;
@@ -24,22 +46,6 @@ editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::files
 
     auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
     this->parameter["text"] = std::make_shared<assetparameters::Parameter>(&text, assetoption);
-}
-
-editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path assetinfofile_path) :Asset(assetinfofile_path)
-{
-
-}
-
-void editor::projectwindows::assets::elements::model::TextAsset::Export()
-{
-
-    nlohmann::json json;
-    json[GETVALUENAME(text)] = text;
-    json[GETVALUENAME(uuid)] = uuid->convertstring();
-
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
-    exporter->ExportAssetInfoFile(this->path, json);
 
 }
 

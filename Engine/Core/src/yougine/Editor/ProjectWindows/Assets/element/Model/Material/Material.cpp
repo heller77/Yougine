@@ -52,32 +52,48 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
 editor::projectwindows::assets::elements::model::materials::Material::Material(const std::filesystem::path& path,
     const std::shared_ptr<utility::youginuuid::YougineUuid>& uuid) :Asset(path, uuid)
 {
-    frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
-    vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
-    Initialize();
 }
 editor::projectwindows::assets::elements::model::materials::Material::Material(
-    const std::filesystem::path& assetinfo_file_path) :Asset(assetinfo_file_path)
+    const std::filesystem::path& assetinfo_file_path) : Asset(assetinfo_file_path)
 {
-    // this->frag_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
-    // this->vert_asset_uuid = utility::youginuuid::YougineUuid::GenerateNullUuid();
-    using json = nlohmann::ordered_json;
+}
 
-    std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
+void editor::projectwindows::assets::elements::model::materials::Material::InitializeParameter()
+{
+    //assetinfoファイルある場合
+    if (is_assetinfo_file_exist)
+    {
+        using json = nlohmann::ordered_json;
 
-    json o_json;
-    reading >> o_json;
+        std::ifstream reading(assetinfo_filepath.string(), std::ios::in);
 
-    std::string vertname = GETVALUENAME(vert_asset_uuid);
-    if (o_json.contains(vertname)) {
-        std::string asset_id = o_json[vertname];
-        this->vert_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+        json o_json;
+        reading >> o_json;
+
+        std::string vertname = GETVALUENAME(vert_asset_uuid);
+        if (o_json.contains(vertname)) {
+            std::string asset_id = o_json[vertname];
+            this->vert_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+        }
+        else
+        {
+            vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
+        }
+
+        std::string fragname = GETVALUENAME(frag_asset_uuid);
+        if (o_json.contains(fragname)) {
+            std::string asset_id = o_json[fragname];
+            this->frag_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+        }
+        else
+        {
+            frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
+        }
     }
-
-    std::string fragname = GETVALUENAME(frag_asset_uuid);
-    if (o_json.contains(fragname)) {
-        std::string asset_id = o_json[fragname];
-        this->frag_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+    else
+    {
+        frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
+        vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
     }
     Initialize();
 }
@@ -100,9 +116,10 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
 {
     nlohmann::json json;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
-    json[GETVALUENAME(vert_asset_uuid)] = vert_asset_uuid->GetAssetId()->convertstring();
-    json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
-
+    if (vert_asset_uuid && frag_asset_uuid) {
+        json[GETVALUENAME(vert_asset_uuid)] = vert_asset_uuid->GetAssetId()->convertstring();
+        json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
+    }
 
     auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);

@@ -14,6 +14,8 @@ namespace editor::projectwindows::assets::elements::model
         TextAsset(std::filesystem::path assetinfofile_path);
         void Export() override;
 
+        void InitializeParameter() override;
+
         std::string ToString() override;
     };
 }
