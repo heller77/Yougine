@@ -6,8 +6,11 @@
 #include <memory>
 #include <tinygltf/json.hpp>
 #include <fstream>
+#include <memory>
+
 #include "../../Projects/Project.h"
 #include "Assets/element/Model/TextAsset.h"
+#include "Assets/element/Model/Material/Material.h"
 #include "Assets/element/Model/shader/ShaderFileAsset.h"
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
@@ -24,11 +27,13 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
 
     //アセットデータベース作成
     this->asset_database = std::make_shared<assets::elements::model::assetdatabases::AssetDatabase>();
+    projects::Project::GetInstance()->SetDataBase(asset_database);
 
     auto projectpath = projects::Project::GetInstance()->projectFolderPath;
 
     auto file_and_folder_list = std::filesystem::recursive_directory_iterator(projectpath);
     //再帰的にプロジェクトパス以下のファイル全てをAssetクラスをさくせい　
+    //とりあえず、作成=>初期化
     for (auto entry : file_and_folder_list)
     {
         std::cout << "----" << std::endl;
@@ -51,7 +56,12 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
         }
 
     }
-
+    auto asset_list = asset_database->GetAssetList();
+    for (auto pair : asset_list)
+    {
+        auto asset = pair.second;
+        asset->InitializeParameter();
+    }
 
     CreateView(now_display_folderpath);
 
@@ -143,6 +153,18 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                         SelectionInfo::GetInstance()->SetSelctionInfo(button);
                     });
             }
+            else if (extension == "mat")
+            {
+                auto shaderasset = this->asset_database->GetAsset(uuid->convertstring());
+                auto button
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, shaderasset);
+                assetvies_vector.emplace_back(button);
+                button->SetSelectEvent([=]()
+                    {
+                        SelectionInfo::GetInstance()->SetSelctionInfo(button);
+                    });
+
+            }
             else
             {
                 //アセット生成
@@ -183,17 +205,7 @@ editor::projectwindows::ProjectWindow::GenerateAssetFromFile(std::filesystem::pa
     {
         return nullptr;
     }
-    if (extension == "cpp")
-    {
-        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
-        {
-            //アセット生成
-            auto asset = std::make_shared<assets::elements::model::TextAsset>(path, uuid);
-            asset->Export();
-            return asset;
-        }
-    }
-    else if (extension == "shader" || extension == "frag" || extension == "vert") {
+    if (extension == "shader" || extension == "frag" || extension == "vert") {
         if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
         {
             std::cout << "assetinfo exist!! : " << filename << std::endl;
@@ -214,6 +226,18 @@ editor::projectwindows::ProjectWindow::GenerateAssetFromFile(std::filesystem::pa
         auto asset = std::make_shared<assets::elements::model::TextAsset>(path, uuid);
         asset->Export();
         return asset;
+
+    }
+    else if (extension == "mat")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assets::elements::model::materials::Material>(assetinfo_path);
+        }
+        auto material_asset = std::make_shared<assets::elements::model::materials::Material>(path, uuid);
+        material_asset->Export();
+        return material_asset;
 
     }
     else

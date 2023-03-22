@@ -39,4 +39,16 @@ void projects::Project::Initialize(std::string project_file_path)
     }
 }
 
+void projects::Project::SetDataBase(
+    std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> asset_database)
+{
+    this->asset_database = asset_database;
+}
+
+std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> projects::Project::
+GetDataBase()
+{
+    return this->asset_database;
+}
+
 projects::Project* projects::Project::instance;

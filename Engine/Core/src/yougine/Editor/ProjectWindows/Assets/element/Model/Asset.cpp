@@ -7,12 +7,17 @@
 
 editor::projectwindows::assets::elements::model::Asset::Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid)
 {
+    is_assetinfo_file_exist = false;
     this->path = path;
     this->uuid = uuid;
 }
 
 editor::projectwindows::assets::elements::model::Asset::Asset(const std::filesystem::path assetinfo_file_path)
 {
+    this->assetinfo_filepath = assetinfo_file_path;
+    this->is_assetinfo_file_exist = true;
+
+    this->path = assetinfo_file_path.parent_path().string() + "\\" + assetinfo_file_path.stem().string();
     using json = nlohmann::ordered_json;
 
     std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
