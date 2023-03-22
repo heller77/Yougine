@@ -21,6 +21,8 @@ namespace editor::projectwindows::assets::elements::model
     protected:
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> parameter;
         std::filesystem::path path;
+        std::filesystem::path assetinfo_filepath;
+        bool is_assetinfo_file_exist;
         std::shared_ptr<utility::youginuuid::YougineUuid> uuid;
     public:
         Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
