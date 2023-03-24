@@ -12,8 +12,10 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
 {
     using option_type = inspectorwindows::assetviews::options::AssetViewOption;
 
+
     auto onlydisplay_option = std::make_shared<option_type>(false, true);
     this->parameter["path"] = std::make_shared<assetparameters::Parameter>(this->path.string(), onlydisplay_option);
+    this->parameter[GETVALUENAME(uuid)] = std::make_shared<assetparameters::Parameter>(uuid->convertstring(), onlydisplay_option);
 
     auto fragment_assetoption = std::make_shared<option_type>(false, false, true);
     fragment_assetoption->SetInputAction([&, fragment_assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
