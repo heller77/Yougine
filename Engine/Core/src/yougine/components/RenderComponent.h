@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
+
 namespace yougine::components
 {
     struct ShaderVector4
@@ -43,6 +45,8 @@ namespace yougine::components
         int draw_point_count;
 
     private:
+
+        std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> material;
         GLuint program;
 
         GLuint vao;

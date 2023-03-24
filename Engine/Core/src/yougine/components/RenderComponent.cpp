@@ -6,6 +6,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
+
+#include "../Projects/Project.h"
 #include "tinygltf/tiny_gltf.h"
 
 namespace yougine::components
@@ -122,6 +124,12 @@ namespace yougine::components
         glVertexAttribPointer(vertexshader_normal_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
         this->draw_point_count = indices_accessor.count;
+
+        //露出するパラメータ
+        material = std::make_shared<editor::projectwindows::assets::elements::model::materials::Material>("D:/Yougin/a.mat.assetinfo");
+        auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
+        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material)});
     }
 
     void RenderComponent::SetProgram(GLuint program)
