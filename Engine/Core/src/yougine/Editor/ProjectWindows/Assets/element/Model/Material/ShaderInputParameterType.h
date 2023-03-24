@@ -3,7 +3,7 @@ namespace editor::projectwindows::assets::elements::model::materials
 {
     enum class ShaderInputParameterType
     {
-        kFloat
+        kFloat, kInt
     };
 
 }

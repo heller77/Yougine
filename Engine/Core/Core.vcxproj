@@ -219,6 +219,7 @@
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.cpp" />
     <ClCompile Include="src\yougine\utilitys\Split.cpp" />
     <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
+    <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\imgui\imconfig.h" />
@@ -291,6 +292,7 @@
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderType.h" />
+    <ClInclude Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.h" />
     <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
   </ItemGroup>

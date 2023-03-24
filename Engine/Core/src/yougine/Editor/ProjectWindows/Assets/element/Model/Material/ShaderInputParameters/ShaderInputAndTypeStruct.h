@@ -11,10 +11,15 @@ namespace editor::projectwindows::assets::elements::model::materials::shaderinpu
     class ShaderInputAndTypeStruct
     {
         ShaderInputParameterType type;
+
+
         float float_value;
+        int int_value;
     public:
         ShaderInputAndTypeStruct(ShaderInputParameterType type, float value);
+        ShaderInputAndTypeStruct(ShaderInputParameterType type, int value);
         ShaderInputParameterType GetValueType();
-        float Get_float_value();
+        float* Get_float_value();
+        int* Get_int_value();
     };
 }

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "../shader/ShaderFileAsset.h"
+#include "ShaderInputParameters/ShaderInputAndTypeStruct.h"
 
 namespace editor::projectwindows::assets::elements::model::materials
 {
@@ -8,6 +9,7 @@ namespace editor::projectwindows::assets::elements::model::materials
     private:
         std::shared_ptr<shader::ShaderFileAsset> vert_asset_uuid;
         std::shared_ptr < shader::ShaderFileAsset> frag_asset_uuid;
+        std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>> shader_input_parameters;
         void Initialize();
     public:
         Material(const std::filesystem::path& path, const std::shared_ptr<utility::youginuuid::YougineUuid>& uuid);
