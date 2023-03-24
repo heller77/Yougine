@@ -1,5 +1,7 @@
 #include "ComponentViewer.h"
 #include "../utilitys/Quaternion.h"
+#include "../utilitys/view/parameters/AssetReference.h"
+#include "../utilitys/view/parameters/ShaderInputParameterView.h"
 
 namespace editor
 {
@@ -92,6 +94,18 @@ namespace editor
                     {
                         QuaternionView(std::any_cast<std::shared_ptr<utility::Quaternion>>(propertie[0]), v_name);
                     }
+                    else if (contentOfsharedptr == "class editor::projectwindows::assets::elements::model::Asset")
+                    {
+                        std::cout << "asset!!" << std::endl;
+                        auto asset = std::any_cast<std::shared_ptr<projectwindows::assets::elements::model::Asset>>(propertie[0]);
+                        ImGui::Text(asset->GetAssetId()->convertstring().c_str());
+                        asset->GetParameter();
+
+
+                        std::make_shared<utility::view::parameters::AssetReference>(v_name, asset->GetAssetId(), [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+                            {
+                            })->Draw();
+                    }
                 }
             }
         }
@@ -175,6 +189,7 @@ namespace editor
             // value->w = q->w;
         }
     }
+
 
     void ComponentViewer::StringView(std::string* value, const char* name)
     {
