@@ -49,7 +49,7 @@ namespace yougine::components
         {
             // std::cout << i << "番目 : " << "[" << positions[i * 3 + 0] << "," << positions[i * 3 + 1] << "," << positions[
             //     i * 3 + 2] << "]" << std::endl;
-            ShaderVector4 v = {positions[i * 3 + 0], positions[i * 3 + 1], positions[i * 3 + 2], 1};
+            ShaderVector4 v = { positions[i * 3 + 0], positions[i * 3 + 1], positions[i * 3 + 2], 1 };
             this->vertex_vector.push_back(v);
         }
         auto indices_accessor = model.accessors[indices_index];
@@ -70,7 +70,7 @@ namespace yougine::components
         auto normal_accessors_index = mesh.primitives[0].attributes["NORMAL"];
         auto normal_accessor = model.accessors[normal_accessors_index];
         auto normal_buffer_view = buffer_views[normal_accessor.bufferView];
-        auto normal_buffer = model.buffers[normal_buffer_view.buffer ];
+        auto normal_buffer = model.buffers[normal_buffer_view.buffer];
         const float* normal_data_fromgltf = reinterpret_cast<const float*>(&normal_buffer.data[
             normal_buffer_view.byteOffset + normal_accessor.byteOffset]);
 
@@ -106,7 +106,7 @@ namespace yougine::components
         glGenBuffers(1, &elementBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
         auto indices = this->index_vector;
-        auto indeicesSize = indices.size()*sizeof(indices[0]);
+        auto indeicesSize = indices.size() * sizeof(indices[0]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indeicesSize, indices.data(), GL_STATIC_DRAW);
 
 
@@ -115,7 +115,7 @@ namespace yougine::components
         glGenBuffers(1, &normalBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
         glBufferData(GL_ARRAY_BUFFER, normal_vector.size() * sizeof(ShaderVector3), normal_vector.data(), GL_STATIC_DRAW);
-        
+
         //シェーダに値を渡す
         auto vertexshader_normal_attribute = glGetAttribLocation(program, "normal");
         glEnableVertexAttribArray(vertexshader_normal_attribute);
