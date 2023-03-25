@@ -20,11 +20,11 @@ namespace editor
     {
         if (ImGui::BeginMenuBar())
         {
-            for (std::string bar_label : menu_bar_list)
+            for (std::pair<std::string, std::vector<MenuItem*>> menu : pulldown_menu_bar->menu_items)
             {
-                if (ImGui::BeginMenu(bar_label.c_str()))
+                if (ImGui::BeginMenu(menu.first.c_str()))
                 {
-                    RenderMenuItems();
+                    RenderMenuItems(menu.second);
                     ImGui::EndMenu();
                 }
             }
@@ -33,11 +33,25 @@ namespace editor
         }
     }
 
-    void EditorWindow::RenderMenuItems()
+    void EditorWindow::RenderMenuItems(std::vector<MenuItem*> menu_items)
     {
-        for (std::string item : menu_item_list)
+        for (MenuItem* menu_item : menu_items)
         {
-            SelectedItemProcess(item);
+            for (std::pair<std::string, std::vector<MenuItem*>> item : menu_item->items)
+            {
+                if (item.second.empty())
+                {
+                    SelectedItemProcess(item.first);
+                }
+                else
+                {
+                    if (ImGui::BeginMenu(item.first.c_str()))
+                    {
+                        RenderMenuItems(item.second);
+                        ImGui::EndMenu();
+                    }
+                }
+            }
         }
     }
 
