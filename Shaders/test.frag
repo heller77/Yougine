@@ -1,8 +1,7 @@
 #version 430
-out vec4 fragment
-in vec3 vNormal;
-uniform float c;
-void main() {
-fragment = glm::vec4(vNormal, 1.0);
-//405
+out vec3 fragment
+vec3 color
+void main()
+{
+fragment = glm::vec4(vec3(1.0, 0.0, 0.0), 1.0);
 }

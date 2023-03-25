@@ -5,6 +5,8 @@ namespace editor::shadergraph
     ShaderGraphWindow::ShaderGraphWindow(EditorWindowsManager* editor_windows_manager) : EditorWindow(editor_windows_manager, editor::EditorWindowName::ShaderGraphWindow)
     {
         InitializeMenuLists();
+
+        shaderfile_overwriter = new ShaderfileOverwriter("F:/GameEngineProject/Yougine/Shaders/", "test.frag");
     }
 
     void ShaderGraphWindow::InitializeMenuLists()
@@ -31,7 +33,7 @@ namespace editor::shadergraph
 
         MenuItem* item10 = new MenuItem();
         std::vector<MenuItem*> c_item10(0);
-        item10->items.emplace_back(std::make_pair("Update", c_item10));
+        item10->items.emplace_back(std::make_pair("Ex/Update", c_item10));
 
         std::vector<MenuItem*> items1;
         items1.push_back(item10);
@@ -70,26 +72,42 @@ namespace editor::shadergraph
             int id = nodes.empty() ? 1 : nodes.back()->output_info.back().first.first + 1;
 
             std::string category = utility::Split::SplitStr(item, '/')[0];
-            std::string node_name = utility::Split::SplitStr(item, '/')[1];
-
-            ShaderGraphNode* node = new ShaderGraphNode();
-
-            if (category == "Main")
+            if (category == "Ex")
             {
-                if (node_name == "Unlit")
+                if (main_node != nullptr)
                 {
-                    node = new UnlitShaderGraphNode();
+                    shaderfile_overwriter->UpdateFile(main_node->GetShaderCodeByOutputVal());
+                }
+                else
+                {
+                    std::cout << "Mainƒm[ƒh‚ª‘¶Ý‚µ‚Ü‚¹‚ñ" << std::endl;
                 }
             }
-            if (category == "Input")
+            else
             {
-                if (node_name == "Vector3")
-                {
-                    node = new ShaderGraphVector3Node();
-                }
-            }
+                std::string node_name = utility::Split::SplitStr(item, '/')[1];
 
-            AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
+                ShaderGraphNode* node = new ShaderGraphNode();
+
+                if (category == "Main")
+                {
+                    if (node_name == "Unlit")
+                    {
+                        UnlitShaderGraphNode* t_node = new UnlitShaderGraphNode();
+                        node = t_node;
+                        main_node = t_node;
+                    }
+                }
+                if (category == "Input")
+                {
+                    if (node_name == "Vector3")
+                    {
+                        node = new ShaderGraphVector3Node();
+                    }
+                }
+
+                AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
+            }
         }
     }
 

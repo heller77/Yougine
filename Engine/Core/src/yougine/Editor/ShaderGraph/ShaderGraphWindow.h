@@ -26,6 +26,7 @@ namespace editor::shadergraph
         std::vector<Link> links; //このリストに格納されているリンク構造体のリンクを描画
         int currentLinks = 0; //Link.idの指標
         ShaderfileOverwriter* shaderfile_overwriter;
+        MainShaderGraphNode* main_node;
 
     private:
         void SearchSelectingNodeID();
@@ -42,6 +43,7 @@ namespace editor::shadergraph
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
+        //ShaderGraphWindow(EditorWindowsManager* editor_windows_manager, std::string shaderfile_output_filepath, std::string shaderfile_filename);
         void Draw() override;
 
     protected:

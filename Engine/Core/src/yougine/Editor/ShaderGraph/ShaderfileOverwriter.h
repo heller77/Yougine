@@ -16,6 +16,6 @@ namespace editor::shadergraph
 
     public:
         ShaderfileOverwriter(std::string targetFilePath, std::string filename);
-        void UpdateFile();
+        void UpdateFile(std::vector < std::string > shader_codes);
     };
 }
