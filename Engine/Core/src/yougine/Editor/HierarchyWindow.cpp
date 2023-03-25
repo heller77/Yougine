@@ -14,15 +14,29 @@ namespace editor
 
     void HierarchyWindow::InitializeMenuLists()
     {
-        menu_bar_list =
-        {
-            "Creat",
-        };
+        MenuItem* item0 = new MenuItem();
+        std::vector<MenuItem*> c_item0(0);
+        item0->items.emplace_back(std::make_pair("GameObject", c_item0));
 
-        menu_item_list =
-        {
-            "GameObject",
-        };
+        // --- debug ---
+        MenuItem* item1 = new MenuItem();
+        std::vector<MenuItem*> c_item1;
+        MenuItem* item10 = new MenuItem();
+        MenuItem* item11 = new MenuItem();
+        std::vector<MenuItem*> c_item10(0);
+        item10->items.emplace_back(std::make_pair("Ghost", c_item10));
+        std::vector<MenuItem*> c_item11(0);
+        item11->items.emplace_back(std::make_pair("CC2", c_item11));
+        c_item1.push_back(item10);
+        c_item1.push_back(item11);
+        item1->items.emplace_back(std::make_pair("GameObject_test", c_item1));
+        // ------
+
+        pulldown_menu_bar = new PullDownMenuBar();
+        std::vector<MenuItem*> items;
+        items.push_back(item0);
+        items.push_back(item1);//
+        pulldown_menu_bar->menu_items.emplace_back(std::make_pair("Create", items));
     }
 
 
@@ -44,8 +58,11 @@ namespace editor
     {
         if (ImGui::MenuItem(item.c_str()))
         {
-            std::string o_name = selection_info->GetSelectObject() != nullptr ? selection_info->GetSelectObject()->GetName() + "_c" + std::to_string((selection_info->GetSelectObject()->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
-            CreateGameObject(o_name, selection_info->GetSelectObject());
+            if (item == "GameObject")
+            {
+                std::string o_name = selection_info->GetSelectObject() != nullptr ? selection_info->GetSelectObject()->GetName() + "_c" + std::to_string((selection_info->GetSelectObject()->GetChildObjects().size() + 1)) : "Obj" + std::to_string(scene->GetGameObjects().size() + 1);
+                CreateGameObject(o_name, selection_info->GetSelectObject());
+            }
         };
     }
 
