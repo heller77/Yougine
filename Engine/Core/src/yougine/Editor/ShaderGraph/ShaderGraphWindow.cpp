@@ -9,17 +9,33 @@ namespace editor::shadergraph
 
     void ShaderGraphWindow::InitializeMenuLists()
     {
-        menu_bar_list =
-        {
-            "Add Node",
-        };
+        MenuItem* item00 = new MenuItem();
+        std::vector<MenuItem*> c_item0(0);
+        item00->items.emplace_back(std::make_pair("Debug / Sample Node", c_item0));
 
-        menu_item_list =
-        {
-            "Debug/Sample Node",
-            "Main/Unlit",
-            "Input/Vector3",
-        };
+        MenuItem* item01 = new MenuItem();
+        std::vector<MenuItem*> c_item01(0);
+        item01->items.emplace_back(std::make_pair("Main/Unlit", c_item01));
+
+        MenuItem* item02 = new MenuItem();
+        std::vector<MenuItem*> c_item02(0);
+        item02->items.emplace_back(std::make_pair("Input/Vector3", c_item02));
+
+        pulldown_menu_bar = new PullDownMenuBar();
+        std::vector<MenuItem*> items0;
+        items0.push_back(item00);
+        items0.push_back(item01);
+        items0.push_back(item02);
+        pulldown_menu_bar->menu_items.emplace_back(std::make_pair("Add Node", items0));
+
+
+        MenuItem* item10 = new MenuItem();
+        std::vector<MenuItem*> c_item10(0);
+        item10->items.emplace_back(std::make_pair("Update", c_item10));
+
+        std::vector<MenuItem*> items1;
+        items1.push_back(item10);
+        pulldown_menu_bar->menu_items.emplace_back(std::make_pair("ShaderOverwriter", items1));
     }
 
 
