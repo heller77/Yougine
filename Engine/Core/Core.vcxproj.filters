@@ -66,6 +66,9 @@
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
+    <ClCompile Include="src\yougine\utilitys\view\parameters\AssetReference.cpp" />
+    <ClCompile Include="src\yougine\utilitys\view\parameters\CustomParameter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -301,6 +304,10 @@
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
+    <ClInclude Include="src\yougine\utilitys\view\parameters\ParameterView.h" />
+    <ClInclude Include="src\yougine\utilitys\view\parameters\AssetReference.h" />
+    <ClInclude Include="src\yougine\utilitys\view\parameters\CustomParameter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
