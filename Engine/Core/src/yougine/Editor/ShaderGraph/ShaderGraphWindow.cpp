@@ -42,6 +42,7 @@ namespace editor::shadergraph
         items0.push_back(item02);
         pulldown_menu_bar->menu_items.emplace_back(std::make_pair("Add Node", items0));
 
+
         MenuItem* item10 = new MenuItem();
         std::vector<MenuItem*> c_item10;
         MenuItem* item100 = new MenuItem();
@@ -346,6 +347,5 @@ namespace editor::shadergraph
                 }
             }
         }
-        std::cout << "finish!" << std::endl;
     }
 }
