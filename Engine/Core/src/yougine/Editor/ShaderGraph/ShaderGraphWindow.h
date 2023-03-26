@@ -34,6 +34,7 @@ namespace editor::shadergraph
         void PhaseAddLink();
         void PhaseDisLink();
         void PhaseNode();
+        void CreateNode(ShaderGraphNode* node, std::string node_name);
         void AddNode(ShaderGraphNode* node, int id, int num_inputs, int num_outputs, std::string name);
         void DrawNode(ShaderGraphNode* node);
         void UpdateLinkedNode(ShaderGraphNode* parent_node, ShaderGraphNode* child_node, std::pair<int, int> attr_pair);

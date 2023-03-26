@@ -12,16 +12,28 @@ namespace editor::shadergraph
     void ShaderGraphWindow::InitializeMenuLists()
     {
         MenuItem* item00 = new MenuItem();
-        std::vector<MenuItem*> c_item0(0);
-        item00->items.emplace_back(std::make_pair("Debug / Sample Node", c_item0));
+        std::vector<MenuItem*> c_item00;
+        MenuItem* item000 = new MenuItem();
+        std::vector<MenuItem*> c_item000(0);
+        item000->items.emplace_back(std::make_pair("Sample Node", c_item000));
+        c_item00.push_back(item000);
+        item00->items.emplace_back(std::make_pair("Debug", c_item00));
 
         MenuItem* item01 = new MenuItem();
-        std::vector<MenuItem*> c_item01(0);
-        item01->items.emplace_back(std::make_pair("Main/Unlit", c_item01));
+        std::vector<MenuItem*> c_item01;
+        MenuItem* item010 = new MenuItem();
+        std::vector<MenuItem*> c_item010(0);
+        item010->items.emplace_back(std::make_pair("Unlit", c_item010));
+        c_item01.push_back(item010);
+        item01->items.emplace_back(std::make_pair("Main", c_item01));
 
         MenuItem* item02 = new MenuItem();
-        std::vector<MenuItem*> c_item02(0);
-        item02->items.emplace_back(std::make_pair("Input/Vector3", c_item02));
+        std::vector<MenuItem*> c_item02;
+        MenuItem* item020 = new MenuItem();
+        std::vector<MenuItem*> c_item020(0);
+        item020->items.emplace_back(std::make_pair("Vector3", c_item020));
+        c_item02.push_back(item020);
+        item02->items.emplace_back(std::make_pair("Input", c_item02));
 
         pulldown_menu_bar = new PullDownMenuBar();
         std::vector<MenuItem*> items0;
@@ -30,10 +42,13 @@ namespace editor::shadergraph
         items0.push_back(item02);
         pulldown_menu_bar->menu_items.emplace_back(std::make_pair("Add Node", items0));
 
-
         MenuItem* item10 = new MenuItem();
-        std::vector<MenuItem*> c_item10(0);
-        item10->items.emplace_back(std::make_pair("Ex/Update", c_item10));
+        std::vector<MenuItem*> c_item10;
+        MenuItem* item100 = new MenuItem();
+        std::vector<MenuItem*> c_item100(0);
+        item100->items.emplace_back(std::make_pair("Update", c_item100));
+        c_item10.push_back(item100);
+        item10->items.emplace_back(std::make_pair("Ex", c_item10));
 
         std::vector<MenuItem*> items1;
         items1.push_back(item10);
@@ -69,10 +84,17 @@ namespace editor::shadergraph
     {
         if (ImGui::MenuItem(item.c_str()))
         {
-            int id = nodes.empty() ? 1 : nodes.back()->output_info.back().first.first + 1;
-
-            std::string category = utility::Split::SplitStr(item, '/')[0];
-            if (category == "Ex")
+            if (item == "Unlit")
+            {
+                UnlitShaderGraphNode* t_node = new UnlitShaderGraphNode();
+                main_node = t_node;
+                CreateNode(t_node, item);
+            }
+            if (item == "Vector3")
+            {
+                CreateNode(new ShaderGraphVector3Node(), item);
+            }
+            if (item == "Update")
             {
                 if (main_node != nullptr)
                 {
@@ -82,31 +104,6 @@ namespace editor::shadergraph
                 {
                     std::cout << "MainÉmÅ[ÉhÇ™ë∂ç›ÇµÇ‹ÇπÇÒ" << std::endl;
                 }
-            }
-            else
-            {
-                std::string node_name = utility::Split::SplitStr(item, '/')[1];
-
-                ShaderGraphNode* node = new ShaderGraphNode();
-
-                if (category == "Main")
-                {
-                    if (node_name == "Unlit")
-                    {
-                        UnlitShaderGraphNode* t_node = new UnlitShaderGraphNode();
-                        node = t_node;
-                        main_node = t_node;
-                    }
-                }
-                if (category == "Input")
-                {
-                    if (node_name == "Vector3")
-                    {
-                        node = new ShaderGraphVector3Node();
-                    }
-                }
-
-                AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
             }
         }
     }
@@ -119,6 +116,14 @@ namespace editor::shadergraph
             DrawNode(node);
         }
     }
+
+    void ShaderGraphWindow::CreateNode(ShaderGraphNode* node, std::string node_name)
+    {
+        int id = nodes.empty() ? 1 : nodes.back()->output_info.back().first.first + 1;
+
+        AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
+    }
+
 
     /*
      * ï`âÊÇ∑ÇÈÉmÅ[ÉhÇëùÇ‚ÇµÇΩÇ¢Ç∆Ç´Ç…åƒÇ—èoÇ∑
