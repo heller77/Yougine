@@ -23,8 +23,8 @@ namespace editor::shadergraph
 
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
-        output_info[0].second.second = input_info[0].second.second;
-        shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + output_info[0].second.second + ", 1.0);";
+        output_infos[0]->val = input_infos[0]->val;
+        shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + output_infos[0]->val + ", 1.0);";
     }
 
 }

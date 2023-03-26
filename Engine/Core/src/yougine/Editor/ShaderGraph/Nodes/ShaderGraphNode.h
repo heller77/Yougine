@@ -1,11 +1,38 @@
 #pragma once
 #include "../ShaderType.h"
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
 namespace editor::shadergraph
 {
+    /**
+     * \brief type ... 型(文字列 ex/float型の場合 ... float
+     * attr ... ノードの接続ID
+     * is_linked ... 他ノードに接続しているか
+     * init_val ... 初期値
+     * val ... 現在値
+     *
+     */
+    struct InputInfo
+    {
+        std::string type;
+        int attr;
+        bool is_linked = false;
+        std::string init_val;
+        std::string val;
+    };
+
+    struct OutputInfo
+    {
+        std::string type;
+        int attr;
+        bool is_linked;
+        std::string init_val;
+        std::string val;
+    };
+
     class ShaderGraphNode
     {
     protected:
@@ -78,8 +105,8 @@ namespace editor::shadergraph
 
     public:
         int id;
-        std::vector<std::pair<std::pair<int, bool>, std::pair<std::string, std::string>>> input_info;//first...attr, second...{ first...初期値, second...現在値 }
-        std::vector<std::pair<std::pair<int, bool>, std::pair<std::string, std::string>>> output_info;//first...attr, second...{ first...初期値, second...現在値 }
+        std::vector<std::shared_ptr<InputInfo>> input_infos;
+        std::vector<std::shared_ptr<OutputInfo>> output_infos;
         std::string name;
 
     protected:

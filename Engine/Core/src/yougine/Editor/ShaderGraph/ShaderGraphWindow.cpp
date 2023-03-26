@@ -120,7 +120,7 @@ namespace editor::shadergraph
 
     void ShaderGraphWindow::CreateNode(ShaderGraphNode* node, std::string node_name)
     {
-        int id = nodes.empty() ? 1 : nodes.back()->output_info.back().first.first + 1;
+        int id = nodes.empty() ? 1 : nodes.back()->output_infos.back()->attr + 1;
 
         AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
     }
@@ -141,14 +141,22 @@ namespace editor::shadergraph
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
             std::pair<std::string, std::string> p = node->GetInitInputVals()[index++];
-            node->input_info.emplace_back(std::make_pair(std::make_pair(inputID, false), p));
+            std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
+            input_info->attr = inputID;
+            input_info->init_val = p.first;
+            input_info->val = p.second;
+            node->input_infos.emplace_back(input_info);
         }
 
         index = 0;
-        for (int outputID = node->input_info.back().first.first + 1; outputID < num_outputs + node->input_info.back().first.first + 1; outputID++)
+        for (int outputID = node->input_infos.back()->attr + 1; outputID < num_outputs + node->input_infos.back()->attr + 1; outputID++)
         {
             std::pair<std::string, std::string> p = node->GetInitOutputVals()[index++];
-            node->output_info.emplace_back(std::make_pair(std::make_pair(outputID, false), p));
+            std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
+            output_info->attr = outputID;
+            output_info->init_val = p.first;
+            output_info->val = p.second;
+            node->output_infos.emplace_back(output_info);
         }
         node->name = name;
 
@@ -166,16 +174,18 @@ namespace editor::shadergraph
         ImGui::TextUnformatted(node->name.c_str());
         ImNodes::EndNodeTitleBar();
 
-        for (std::pair<std::pair<int, bool>, std::pair<std::string, std::string>> intput : node->input_info)
+        for (std::shared_ptr<InputInfo> input_info : node->input_infos)
         {
-            ImNodes::BeginInputAttribute(intput.first.first);
-            ImGui::Text("input");
+            ImNodes::BeginInputAttribute(input_info->attr);
+            ImGui::Text("x");
+            float v = 0;
+            if (ImGui::InputFloat("", &v));
             ImNodes::EndInputAttribute();
         }
 
-        for (std::pair<std::pair<int, bool>, std::pair<std::string, std::string>> output : node->output_info)
+        for (std::shared_ptr<OutputInfo> output : node->output_infos)
         {
-            ImNodes::BeginOutputAttribute(output.first.first);
+            ImNodes::BeginOutputAttribute(output->attr);
             ImGui::Indent(40);
             ImGui::Text("output");
             ImNodes::EndOutputAttribute();
@@ -273,9 +283,9 @@ namespace editor::shadergraph
         {
             if (!is_detected_input_node)
             {
-                for (std::pair<std::pair<int, bool>, std::pair<std::string, std::string>> input : node->input_info)
+                for (std::shared_ptr<InputInfo> input : node->input_infos)
                 {
-                    int i_attr = input.first.first;
+                    int i_attr = input->attr;
                     is_detected_input_node = (i_attr == input_attr);
                     if (is_detected_input_node)
                     {
@@ -286,9 +296,9 @@ namespace editor::shadergraph
             }
             if (!is_detected_output_node)
             {
-                for (std::pair<std::pair<int, bool>, std::pair<std::string, std::string>> output : node->output_info)
+                for (std::shared_ptr<OutputInfo> output : node->output_infos)
                 {
-                    int o_attr = output.first.first;
+                    int o_attr = output->attr;
                     is_detected_output_node = (o_attr == output_attr);
                     if (is_detected_output_node)
                     {
@@ -339,7 +349,7 @@ namespace editor::shadergraph
             for (Link link : links)
             {
                 //子ノードのoutput_attrがリンクペアのinput_attrに存在するとき, 親ノードを子とした親子関係が存在する
-                if (link.start_attr == child_node->GetParentNode()->output_info[0].first.first)
+                if (link.start_attr == child_node->GetParentNode()->output_infos[0]->attr)
                 {
                     int input_attr = link.end_attr;
                     int output_attr = link.start_attr;

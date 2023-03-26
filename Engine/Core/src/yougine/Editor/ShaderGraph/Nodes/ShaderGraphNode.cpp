@@ -24,40 +24,40 @@ namespace editor::shadergraph
 
     void ShaderGraphNode::SetInputVal(std::string value, int index)
     {
-        input_info[index].second.second = value;
+        input_infos[index]->val = value;
     }
 
     std::string ShaderGraphNode::GetOutputVal(int index)
     {
-        return output_info[index].second.second;
+        return output_infos[index]->val;
     }
 
     void ShaderGraphNode::ResetInputVal(int input_index)
     {
-        input_info[input_index].first.second = false;
-        input_info[input_index].second.second = input_info[input_index].second.first;
+        input_infos[input_index]->is_linked = false;
+        input_infos[input_index]->val = input_infos[input_index]->init_val;
     }
 
     void ShaderGraphNode::ResetOutputVal(int output_index)
     {
-        output_info[output_index].first.second = false;
-        output_info[output_index].second.second = output_info[output_index].second.first;
+        output_infos[output_index]->is_linked = false;
+        output_infos[output_index]->val = output_infos[output_index]->init_val;
     }
 
     void ShaderGraphNode::DisplayValues()
     {
         std::cout << "Node ID : " + std::to_string(id) + "'s ";
         std::cout << "Input Values ";
-        for (int i = 0; i < input_info.size(); i++)
+        for (int i = 0; i < input_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + input_info[i].second.second + ", ";
+            std::cout << std::to_string(i) + " : " + input_infos[i]->val + ", ";
         }
         std::cout << "" << std::endl;
 
         std::cout << "Output Values ";
-        for (int i = 0; i < output_info.size(); i++)
+        for (int i = 0; i < output_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + output_info[i].second.second + ", ";
+            std::cout << std::to_string(i) + " : " + output_infos[i]->val + ", ";
         }
         std::cout << "" << std::endl;
     }
@@ -65,20 +65,20 @@ namespace editor::shadergraph
     void ShaderGraphNode::UpdateOutputVal()
     {
         int c = 0;
-        for (std::pair<std::pair<int, bool>, std::pair<std::string, std::string>> input : input_info)
+        for (std::shared_ptr<InputInfo> input_info : input_infos)
         {
-            c += stoi(input.second.second);
+            c += stoi(input_info->val);
         }
-        for (int i = 0; i < output_info.size(); i++)
+        for (int i = 0; i < output_infos.size(); i++)
         {
-            output_info[i].second.second = std::to_string((c * 2));
+            output_infos[i]->val = std::to_string((c * 2));
         }
     }
 
     void ShaderGraphNode::SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair)
     {
         this->parent_nodes = parent_node;
-        this->parent_nodes->input_info[this->parent_nodes->FindLinkedInputIndex(attr_pair.first)].first.second = true;
+        this->parent_nodes->input_infos[this->parent_nodes->FindLinkedInputIndex(attr_pair.first)]->is_linked = true;
     }
 
     bool ShaderGraphNode::UpdateParentNodeValue(std::pair<int, int> attr_pair)
@@ -87,7 +87,7 @@ namespace editor::shadergraph
 
         int input_index = parent_nodes->FindLinkedInputIndex(attr_pair.first), output_index = FindLinkedOutputIndex(attr_pair.second);
 
-        if (this->parent_nodes->input_info[input_index].first.second)
+        if (this->parent_nodes->input_infos[input_index]->is_linked)
         {
             this->parent_nodes->SetInputVal(this->GetOutputVal(output_index), input_index);
         }
@@ -99,9 +99,9 @@ namespace editor::shadergraph
 
     int ShaderGraphNode::FindLinkedInputIndex(int input_attr)
     {
-        for (int i = 0; i < input_info.size(); i++)
+        for (int i = 0; i < input_infos.size(); i++)
         {
-            if (input_info[i].first.first == input_attr) return i;
+            if (input_infos[i]->attr == input_attr) return i;
         }
 
         return -1;
@@ -109,9 +109,9 @@ namespace editor::shadergraph
 
     int ShaderGraphNode::FindLinkedOutputIndex(int output_attr)
     {
-        for (int i = 0; i < output_info.size(); i++)
+        for (int i = 0; i < output_infos.size(); i++)
         {
-            if (output_info[i].first.first == output_attr) return i;
+            if (output_infos[i]->attr == output_attr) return i;
 
         }
 

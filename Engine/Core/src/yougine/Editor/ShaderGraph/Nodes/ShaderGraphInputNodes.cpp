@@ -18,7 +18,7 @@ namespace editor::shadergraph
 
     void ShaderGraphVector3Node::UpdateOutputVal()
     {
-        output_info[0].second.second = "vec3(" + input_info[0].second.second + ", " + input_info[1].second.second + ", " + input_info[2].second.second + ")";
+        output_infos[0]->val = "vec3(" + input_infos[0]->val + ", " + input_infos[1]->val + ", " + input_infos[2]->val + ")";
     }
 
 
