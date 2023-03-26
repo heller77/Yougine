@@ -35,7 +35,7 @@ namespace editor
         }
 
         accessable_properties = component->GetAccessablePropertiesList();
-        properties_input_field = new PropertiesInputField();
+        properties_input_field = std::make_shared<PropertiesInputField>();
     }
 
     ComponentViewer::~ComponentViewer()

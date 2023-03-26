@@ -7,6 +7,7 @@ namespace editor::shadergraph
         InitializeMenuLists();
 
         shaderfile_overwriter = new ShaderfileOverwriter("F:/GameEngineProject/Yougine/Shaders/", "test.frag");
+        shader_graph_input_field_viewer = std::make_shared<ShaderGraphInputFieldViewer>();
     }
 
     void ShaderGraphWindow::InitializeMenuLists()
@@ -122,7 +123,7 @@ namespace editor::shadergraph
     {
         int id = nodes.empty() ? 1 : nodes.back()->output_infos.back()->attr + 1;
 
-        AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
+        AddNode(node, id, node->input_infos.size(), node->output_infos.size(), node_name);
     }
 
 
@@ -140,22 +141,24 @@ namespace editor::shadergraph
         int index = 0;
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
-            std::pair<std::string, std::string> p = node->GetInitInputVals()[index++];
             std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
+            //input_info->type = ???;
+            //input_info->label = ???;
             input_info->attr = inputID;
-            input_info->init_val = p.first;
-            input_info->val = p.second;
+            input_info->init_val = node->GetInitInputVals()[index++];
+            input_info->val = input_info->init_val;
             node->input_infos.emplace_back(input_info);
         }
 
         index = 0;
         for (int outputID = node->input_infos.back()->attr + 1; outputID < num_outputs + node->input_infos.back()->attr + 1; outputID++)
         {
-            std::pair<std::string, std::string> p = node->GetInitOutputVals()[index++];
             std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
+            //output_info->type = ???;
+            //output_info->label = ???;
             output_info->attr = outputID;
-            output_info->init_val = p.first;
-            output_info->val = p.second;
+            output_info->init_val = node->GetInitOutputVals()[index++];
+            output_info->val = output_info->init_val;
             node->output_infos.emplace_back(output_info);
         }
         node->name = name;
@@ -177,9 +180,7 @@ namespace editor::shadergraph
         for (std::shared_ptr<InputInfo> input_info : node->input_infos)
         {
             ImNodes::BeginInputAttribute(input_info->attr);
-            ImGui::Text("x");
-            float v = 0;
-            if (ImGui::InputFloat("", &v));
+            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str());
             ImNodes::EndInputAttribute();
         }
 

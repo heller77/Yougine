@@ -6,28 +6,28 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        std::vector<std::pair<std::string, std::string>> input_vals;
-        input_vals.emplace_back(std::make_pair("1", "1"));
+        std::vector<std::any> input_vals;
+        input_vals.emplace_back(1);
 
-        std::vector<std::pair<std::string, std::string>> output_vals;
-        output_vals.emplace_back(std::make_pair("2", "2"));
+        std::vector<std::any> output_vals;
+        output_vals.emplace_back(2);
 
         Initialize(input_vals, output_vals);
     }
 
-    void ShaderGraphNode::Initialize(std::vector<std::pair<std::string, std::string>> init_input_vals, std::vector<std::pair<std::string, std::string>> init_output_vals)
+    void ShaderGraphNode::Initialize(std::vector<std::any> init_input_vals, std::vector<std::any> init_output_vals)
     {
         this->init_input_vals = init_input_vals;
         this->init_output_vals = init_output_vals;
     }
 
 
-    void ShaderGraphNode::SetInputVal(std::string value, int index)
+    void ShaderGraphNode::SetInputVal(std::any value, int index)
     {
         input_infos[index]->val = value;
     }
 
-    std::string ShaderGraphNode::GetOutputVal(int index)
+    std::any ShaderGraphNode::GetOutputVal(int index)
     {
         return output_infos[index]->val;
     }
@@ -46,33 +46,37 @@ namespace editor::shadergraph
 
     void ShaderGraphNode::DisplayValues()
     {
+        /*
         std::cout << "Node ID : " + std::to_string(id) + "'s ";
         std::cout << "Input Values ";
         for (int i = 0; i < input_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + input_infos[i]->val + ", ";
+            //std::cout << std::to_string(i) + " : " + input_infos[i]->val + ", ";
         }
         std::cout << "" << std::endl;
 
         std::cout << "Output Values ";
         for (int i = 0; i < output_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + output_infos[i]->val + ", ";
+            //std::cout << std::to_string(i) + " : " + output_infos[i]->val + ", ";
         }
         std::cout << "" << std::endl;
+        */
     }
 
     void ShaderGraphNode::UpdateOutputVal()
     {
+        /*
         int c = 0;
         for (std::shared_ptr<InputInfo> input_info : input_infos)
         {
-            c += stoi(input_info->val);
+            //c += stoi(input_info->val);
         }
         for (int i = 0; i < output_infos.size(); i++)
         {
-            output_infos[i]->val = std::to_string((c * 2));
+            //output_infos[i]->val = std::to_string((c * 2));
         }
+        */
     }
 
     void ShaderGraphNode::SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair)
@@ -123,12 +127,12 @@ namespace editor::shadergraph
         return this->parent_nodes;
     }
 
-    std::vector<std::pair<std::string, std::string>> ShaderGraphNode::GetInitInputVals()
+    std::vector<std::any> ShaderGraphNode::GetInitInputVals()
     {
         return init_input_vals;
     }
 
-    std::vector<std::pair<std::string, std::string>> ShaderGraphNode::GetInitOutputVals()
+    std::vector<std::any> ShaderGraphNode::GetInitOutputVals()
     {
         return init_output_vals;
     }
@@ -139,5 +143,11 @@ namespace editor::shadergraph
         UpdateOutputVal();
         DisplayValues();
     }
+
+    void ShaderGraphNode::CastValueToString(std::any val)
+    {
+
+    }
+
 
 }

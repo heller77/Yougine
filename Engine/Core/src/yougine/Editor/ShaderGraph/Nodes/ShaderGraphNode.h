@@ -1,4 +1,6 @@
 #pragma once
+#include <any>
+
 #include "../ShaderType.h"
 #include <map>
 #include <memory>
@@ -18,19 +20,21 @@ namespace editor::shadergraph
     struct InputInfo
     {
         std::string type;
+        std::string label;
         int attr;
         bool is_linked = false;
-        std::string init_val;
-        std::string val;
+        std::any init_val;
+        std::any val;
     };
 
     struct OutputInfo
     {
         std::string type;
+        std::string label;
         int attr;
         bool is_linked;
-        std::string init_val;
-        std::string val;
+        std::any init_val;
+        std::any val;
     };
 
     class ShaderGraphNode
@@ -99,8 +103,8 @@ namespace editor::shadergraph
             {ShaderQualifier::kShared, "shared"},
         };
 
-        std::vector < std::pair<std::string, std::string>> init_input_vals;
-        std::vector < std::pair<std::string, std::string>> init_output_vals;
+        std::vector < std::any > init_input_vals;
+        std::vector < std::any > init_output_vals;
         ShaderGraphNode* parent_nodes = nullptr; //íPëÃÇ≈Ç¶Ç¶ÇÒÇ©ÅH
 
     public:
@@ -110,23 +114,24 @@ namespace editor::shadergraph
         std::string name;
 
     protected:
-        void Initialize(std::vector<std::pair<std::string, std::string>> init_input_vals, std::vector<std::pair<std::string, std::string>> init_output_vals);
-        void SetInputVal(std::string value, int input_index);
-        std::string GetOutputVal(int output_index);
+        void Initialize(std::vector<std::any> init_input_vals, std::vector<std::any> init_output_vals);
+        void SetInputVal(std::any value, int input_index);
+        std::any GetOutputVal(int output_index);
         void DisplayValues();
         virtual void UpdateOutputVal();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);
         void ResetOutputVal(int output_index);
+        void CastValueToString(std::any val);
 
     public:
         ShaderGraphNode();
         void SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair);
         bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         ShaderGraphNode* GetParentNode();
-        std::vector<std::pair<std::string, std::string>> GetInitInputVals();
-        std::vector<std::pair<std::string, std::string>> GetInitOutputVals();
+        std::vector<std::any> GetInitInputVals();
+        std::vector<std::any> GetInitOutputVals();
         void DisLinkNode(std::pair<int, int> attr_pair);
     };
 }

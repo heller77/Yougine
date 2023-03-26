@@ -7,6 +7,7 @@
 #include "Nodes/UnlitShaderGraphNode.h"
 #include "../../utilitys/Split.cpp"
 #include "ShaderfileOverwriter.h"
+#include "ShaderGraphInputFieldViewer.h"
 
 namespace editor::shadergraph
 {
@@ -27,6 +28,7 @@ namespace editor::shadergraph
         int currentLinks = 0; //Link.id‚ÌŽw•W
         ShaderfileOverwriter* shaderfile_overwriter;
         MainShaderGraphNode* main_node;
+        std::shared_ptr<ShaderGraphInputFieldViewer> shader_graph_input_field_viewer;
 
     private:
         void SearchSelectingNodeID();
