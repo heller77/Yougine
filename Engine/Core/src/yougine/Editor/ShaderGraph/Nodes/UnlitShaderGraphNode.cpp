@@ -6,10 +6,10 @@ namespace editor::shadergraph
     {
         std::vector<std::any> input_vals;
         std::string vector_zero = "vec3(0.0, 0.0, 0.0)";
-        input_vals.emplace_back(std::make_pair(vector_zero, vector_zero));
+        input_vals.emplace_back(vector_zero);
 
         std::vector<std::any> output_vals;
-        output_vals.emplace_back(std::make_pair(input_vals[0], input_vals[0]));
+        output_vals.emplace_back(vector_zero);
 
         Initialize(input_vals, output_vals);
 
@@ -17,14 +17,14 @@ namespace editor::shadergraph
         shaderCodeListByOutputVal.push_back(type_dictionary[ShaderPropertyType::kVec3] + " " + "color");
         shaderCodeListByOutputVal.push_back(codeMainFunction);
         shaderCodeListByOutputVal.push_back("{");
-        shaderCodeListByOutputVal.push_back(stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + init_input_vals[0] + ", 1.0);");
+        shaderCodeListByOutputVal.push_back(stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(init_input_vals[0]) + ", 1.0);");
         shaderCodeListByOutputVal.push_back("}");
     }
 
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
         output_infos[0]->val = input_infos[0]->val;
-        shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + output_infos[0]->val + ", 1.0);";
+        shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(output_infos[0]->val) + ", 1.0);";
     }
 
 }

@@ -6,16 +6,20 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "../../../utilitys/YougineMath.h"
+#include "../../../utilitys/Quaternion.h"
+#include "../../../utilitys/Split.cpp"
 
 namespace editor::shadergraph
 {
     /**
-     * \brief type ... Œ^(•¶š—ñ ex/floatŒ^‚Ìê‡ ... float
+     * \brief
+     * type ... Œ^(•¶š—ñ ex/floatŒ^‚Ìê‡ ... float
+     * label ... InputField‚É•\¦‚³‚ê‚é•Ï”–¼
      * attr ... ƒm[ƒh‚ÌÚ‘±ID
      * is_linked ... ‘¼ƒm[ƒh‚ÉÚ‘±‚µ‚Ä‚¢‚é‚©
      * init_val ... ‰Šú’l
      * val ... Œ»İ’l
-     *
      */
     struct InputInfo
     {
@@ -92,6 +96,7 @@ namespace editor::shadergraph
             {ShaderPropertyType::kSampler3D, "sampler3D"},
             {ShaderPropertyType::kImage3D, "image3D"},
         };
+
         std::map<ShaderQualifier, std::string> qualifier_dictionary = {
             {ShaderQualifier::kConst, "const"},
             {ShaderQualifier::kIn, "in"},
@@ -101,6 +106,11 @@ namespace editor::shadergraph
             {ShaderQualifier::kVarying, "varying" },
             {ShaderQualifier::kBuffer, "buffer"},
             {ShaderQualifier::kShared, "shared"},
+        };
+
+        std::map<ShaderUniqueValue, std::string> unique_type_dictionary = {
+            {ShaderUniqueValue::kTrue, "true"},
+            {ShaderUniqueValue::kFalse, "false"},
         };
 
         std::vector < std::any > init_input_vals;
@@ -123,7 +133,6 @@ namespace editor::shadergraph
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);
         void ResetOutputVal(int output_index);
-        void CastValueToString(std::any val);
 
     public:
         ShaderGraphNode();
@@ -133,5 +142,6 @@ namespace editor::shadergraph
         std::vector<std::any> GetInitInputVals();
         std::vector<std::any> GetInitOutputVals();
         void DisLinkNode(std::pair<int, int> attr_pair);
+        std::string CastValueToString(std::any val);
     };
 }

@@ -123,7 +123,7 @@ namespace editor::shadergraph
     {
         int id = nodes.empty() ? 1 : nodes.back()->output_infos.back()->attr + 1;
 
-        AddNode(node, id, node->input_infos.size(), node->output_infos.size(), node_name);
+        AddNode(node, id, node->GetInitInputVals().size(), node->GetInitOutputVals().size(), node_name);
     }
 
 
@@ -139,6 +139,7 @@ namespace editor::shadergraph
         node->id = id;
 
         int index = 0;
+        std::cout << "Add Node" << std::endl;
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
             std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
@@ -147,6 +148,7 @@ namespace editor::shadergraph
             input_info->attr = inputID;
             input_info->init_val = node->GetInitInputVals()[index++];
             input_info->val = input_info->init_val;
+            std::cout << node->CastValueToString(input_info->val) << std::endl;
             node->input_infos.emplace_back(input_info);
         }
 
@@ -159,6 +161,7 @@ namespace editor::shadergraph
             output_info->attr = outputID;
             output_info->init_val = node->GetInitOutputVals()[index++];
             output_info->val = output_info->init_val;
+            std::cout << "output : " + node->CastValueToString(node->GetInitOutputVals()[0]) << std::endl;
             node->output_infos.emplace_back(output_info);
         }
         node->name = name;

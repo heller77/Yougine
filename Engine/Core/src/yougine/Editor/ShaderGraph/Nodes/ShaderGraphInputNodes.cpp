@@ -1,25 +1,34 @@
 #include "ShaderGraphInputNodes.h"
 
+#include <iostream>
+
 namespace editor::shadergraph
 {
     ShaderGraphVector3Node::ShaderGraphVector3Node()
     {
         std::vector<std::any> input_vals;
-        input_vals.emplace_back(0.0);
-        input_vals.emplace_back(0.0);
-        input_vals.emplace_back(0.0);
+
+        input_vals.emplace_back(&x);
+        input_vals.emplace_back(&y);
+        input_vals.emplace_back(&z);
+
+        utility::Vector3* init_vec3 = new utility::Vector3(x, y, z);
 
         std::vector<std::any> output_vals;
-        std::string init_output_val = "vec3(" + input_vals[0] + ", " + input_vals[1] + ", " + input_vals[2] + ")";
-        output_vals.emplace_back(std::make_pair(init_output_val, init_output_val));
+
+        output = CastValueToString(init_vec3);
+
+        output_vals.emplace_back(&output);
 
         Initialize(input_vals, output_vals);
     }
 
     void ShaderGraphVector3Node::UpdateOutputVal()
     {
-        output_infos[0]->val = "vec3(" + input_infos[0]->val + ", " + input_infos[1]->val + ", " + input_infos[2]->val + ")";
+        float x = *std::any_cast<float*> (input_infos[0]->val);
+        float y = *std::any_cast<float*> (input_infos[1]->val);
+        float z = *std::any_cast<float*> (input_infos[2]->val);
+        utility::Vector3* vec3 = new utility::Vector3(x, y, z);
+        output_infos[0]->val = CastValueToString(vec3);
     }
-
-
 }

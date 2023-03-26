@@ -1,18 +1,12 @@
 #include "ShaderGraphNode.h"
-
 #include <iostream>
+
 
 namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-        std::vector<std::any> input_vals;
-        input_vals.emplace_back(1);
 
-        std::vector<std::any> output_vals;
-        output_vals.emplace_back(2);
-
-        Initialize(input_vals, output_vals);
     }
 
     void ShaderGraphNode::Initialize(std::vector<std::any> init_input_vals, std::vector<std::any> init_output_vals)
@@ -46,22 +40,20 @@ namespace editor::shadergraph
 
     void ShaderGraphNode::DisplayValues()
     {
-        /*
         std::cout << "Node ID : " + std::to_string(id) + "'s ";
         std::cout << "Input Values ";
         for (int i = 0; i < input_infos.size(); i++)
         {
-            //std::cout << std::to_string(i) + " : " + input_infos[i]->val + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString(input_infos[i]->val) + ", ";
         }
         std::cout << "" << std::endl;
 
         std::cout << "Output Values ";
         for (int i = 0; i < output_infos.size(); i++)
         {
-            //std::cout << std::to_string(i) + " : " + output_infos[i]->val + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString(output_infos[i]->val) + ", ";
         }
         std::cout << "" << std::endl;
-        */
     }
 
     void ShaderGraphNode::UpdateOutputVal()
@@ -144,9 +136,59 @@ namespace editor::shadergraph
         DisplayValues();
     }
 
-    void ShaderGraphNode::CastValueToString(std::any val)
+    /*
+     * ‚±‚ê‚È‚ñ‚Æ‚©‚È‚ç‚ñ‚Ì
+     */
+    std::string ShaderGraphNode::CastValueToString(std::any val)
     {
+        std::string casted_val = "";
 
+        if (val.type() == typeid(int*))
+        {
+            int v = *std::any_cast<int*>(val);
+            casted_val = std::to_string(v);
+        }
+        if (val.type() == typeid(float*))
+        {
+            float v = *std::any_cast<float*>(val);
+            casted_val = std::to_string(v);
+        }
+        if (val.type() == typeid(std::string*))
+        {
+            std::string v = *std::any_cast<std::string*> (val);
+            casted_val = v;
+        }
+        if (val.type() == typeid(bool*))
+        {
+            bool v = *std::any_cast<bool*>(val);
+            if (v) casted_val = unique_type_dictionary[ShaderUniqueValue::kTrue];
+            else casted_val = unique_type_dictionary[ShaderUniqueValue::kFalse];
+        }
+        if (typeid(val) == typeid(std::any))
+        {
+            std::string typename_ = val.type().name();
+            std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(val.type().name(), ' ')[1], '::').back();
+
+            if (str_type == "Vector2")
+            {
+                float v[2];
+                utility::Vector2 vec2 = *std::any_cast<utility::Vector2*> (val);
+                v[0] = vec2.x;
+                v[1] = vec2.y;
+                casted_val = "vec2(" + std::to_string(v[0]) + ", " + std::to_string(v[1]) + ")";
+            }
+            if (str_type == "Vector3")
+            {
+                float v[3];
+                utility::Vector3 vec3 = *std::any_cast<utility::Vector3*> (val);
+                v[0] = vec3.x;
+                v[1] = vec3.y;
+                v[2] = vec3.z;
+                casted_val = "vec3(" + std::to_string(v[0]) + ", " + std::to_string(v[1]) + ", " + std::to_string(v[2]) + ")";
+            }
+        }
+
+        return casted_val;
     }
 
 
