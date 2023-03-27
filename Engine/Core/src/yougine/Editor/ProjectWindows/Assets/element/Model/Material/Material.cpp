@@ -15,12 +15,12 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     this->parameter[GETVALUENAME(uuid)] = std::make_shared<assetparameters::Parameter>(uuid->convertstring(), onlydisplay_option);
 
     auto fragment_assetoption = std::make_shared<option_type>(false, false, true);
-    auto fragassetset_function
-        = this->Generate_Field_SwitchFunction(&frag_asset_uuid, fragment_assetoption,
-            GETVALUENAME(frag_asset_uuid));
-    // auto function
-    //     = this->Generate_Field_SwitchFunction<shader::ShaderFileAsset>(&frag_asset_uuid, fragment_assetoption,
+    // auto fragassetset_function
+    //     = this->Generate_Field_SwitchFunction(&frag_asset_uuid, fragment_assetoption,
     //         GETVALUENAME(frag_asset_uuid));
+    auto fragassetset_function
+        = this->Generate_Field_SwitchFunction_Template<shader::ShaderFileAsset>(&frag_asset_uuid, fragment_assetoption,
+            GETVALUENAME(frag_asset_uuid));
     fragment_assetoption->SetInputAction(fragassetset_function);
     // fragment_assetoption->SetInputAction([&, fragment_assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
     //     {
