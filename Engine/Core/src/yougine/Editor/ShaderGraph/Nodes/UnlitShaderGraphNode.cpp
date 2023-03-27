@@ -1,15 +1,17 @@
 #include "UnlitShaderGraphNode.h"
 
+#include <iostream>
+
 namespace editor::shadergraph
 {
     UnlitShaderGraphNode::UnlitShaderGraphNode() : MainShaderGraphNode()
     {
         std::vector<std::any> input_vals;
-        std::string vector_zero = "vec3(0.0, 0.0, 0.0)";
-        input_vals.emplace_back(vector_zero);
+        input_vals.emplace_back(&albedo);
 
         std::vector<std::any> output_vals;
-        output_vals.emplace_back(vector_zero);
+        color = albedo;
+        output_vals.emplace_back(&color);
 
         Initialize(input_vals, output_vals);
 
@@ -23,6 +25,7 @@ namespace editor::shadergraph
 
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
+        std::cout << "?" << std::endl;
         output_infos[0]->val = input_infos[0]->val;
         shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(output_infos[0]->val) + ", 1.0);";
     }

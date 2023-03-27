@@ -54,6 +54,7 @@ namespace editor::shadergraph
             std::cout << std::to_string(i) + " : " + CastValueToString(output_infos[i]->val) + ", ";
         }
         std::cout << "" << std::endl;
+        std::cout << "end" << std::endl;
     }
 
     void ShaderGraphNode::UpdateOutputVal()

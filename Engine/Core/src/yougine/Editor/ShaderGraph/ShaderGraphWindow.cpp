@@ -30,10 +30,18 @@ namespace editor::shadergraph
 
         MenuItem* item02 = new MenuItem();
         std::vector<MenuItem*> c_item02;
+
         MenuItem* item020 = new MenuItem();
         std::vector<MenuItem*> c_item020(0);
         item020->items.emplace_back(std::make_pair("Vector3", c_item020));
+
+        MenuItem* item021 = new MenuItem();
+        std::vector<MenuItem*> c_item021(0);
+        item021->items.emplace_back(std::make_pair("Float", c_item021));
+
         c_item02.push_back(item020);
+        c_item02.push_back(item021);
+
         item02->items.emplace_back(std::make_pair("Input", c_item02));
 
         pulldown_menu_bar = new PullDownMenuBar();
@@ -96,6 +104,10 @@ namespace editor::shadergraph
             {
                 CreateNode(new ShaderGraphVector3Node(), item);
             }
+            if (item == "Float")
+            {
+                CreateNode(new ShaderGraphFloatNode(), item);
+            }
             if (item == "Update")
             {
                 if (main_node != nullptr)
@@ -148,7 +160,6 @@ namespace editor::shadergraph
             input_info->attr = inputID;
             input_info->init_val = node->GetInitInputVals()[index++];
             input_info->val = input_info->init_val;
-            std::cout << node->CastValueToString(input_info->val) << std::endl;
             node->input_infos.emplace_back(input_info);
         }
 
@@ -161,7 +172,6 @@ namespace editor::shadergraph
             output_info->attr = outputID;
             output_info->init_val = node->GetInitOutputVals()[index++];
             output_info->val = output_info->init_val;
-            std::cout << "output : " + node->CastValueToString(node->GetInitOutputVals()[0]) << std::endl;
             node->output_infos.emplace_back(output_info);
         }
         node->name = name;
