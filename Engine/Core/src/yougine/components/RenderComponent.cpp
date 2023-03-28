@@ -14,9 +14,17 @@ namespace yougine::components
 {
     RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
     {
+        //露出するパラメータ
+        material = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("aec41676-134e-4603-9944-a26bc5d1883d"));
+        auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
+        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
+        auto function = Generate_AssetTypeField_Switch_Function<editor::projectwindows::assets::elements::model::materials::Material>(&material, GETVALUENAME(material));
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
+
         GLuint program, vao;
-        program = yougine::managers::RenderManager::ShaderInitFromFilePath(
-            "./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        // program = yougine::managers::RenderManager::ShaderInitFromFilePath(
+        //     "./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         this->SetProgram(program);
@@ -125,12 +133,6 @@ namespace yougine::components
 
         this->draw_point_count = indices_accessor.count;
 
-        //露出するパラメータ
-        material = std::make_shared<editor::projectwindows::assets::elements::model::materials::Material>("D:/Yougin/a.mat.assetinfo");
-        auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
-        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
-        auto function = Generate_AssetTypeField_Switch_Function<editor::projectwindows::assets::elements::model::materials::Material>(&material, GETVALUENAME(material));
-        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
     }
 
     void RenderComponent::SetProgram(GLuint program)
