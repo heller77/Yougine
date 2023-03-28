@@ -77,7 +77,7 @@ namespace editor::shadergraph
         ImNodes::BeginNodeEditor();
 
         //ノードを描画
-        PhaseNode();//////////////////////////
+        PhaseNode();
 
         //ノード同士を繋げるリンク線を描画
         PhaseLink();
@@ -151,26 +151,17 @@ namespace editor::shadergraph
         node->id = id;
 
         int index = 0;
-        std::cout << "Add Node" << std::endl;
+        std::cout << "Add Node ID" + std::to_string(id) + " : " + name << std::endl;
+
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
             node->SetInputInfoAttr(index++, inputID);
-            /*
-            std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
-            node->SetInputInfoValues(input_info, inputID, node->GetInitInputVals()[index++]);
-            node->input_infos.emplace_back(input_info);
-            */
         }
 
         index = 0;
         for (int outputID = node->GetInputInfos().back()->attr + 1; outputID < num_outputs + node->GetInputInfos().back()->attr + 1; outputID++)
         {
             node->SetOutputInfoAttr(index++, outputID);
-            /*
-            std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
-            node->SetOutputInfoValues(output_info, outputID, node->GetInitOutputVals()[index++]);
-            node->output_infos.emplace_back(output_info);
-            */
         }
         node->name = name;
 
@@ -191,7 +182,7 @@ namespace editor::shadergraph
         for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
         {
             ImNodes::BeginInputAttribute(input_info->attr);
-            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked));
+            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked), input_info->field_width);
             ImNodes::EndInputAttribute();
         }
 
@@ -230,7 +221,6 @@ namespace editor::shadergraph
         {
             std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes; //0がinput(親), 1がoutput(子)
             int input_attr = link.end_attr, output_attr = link.start_attr;
-            std::cout << "input_attr : " + std::to_string(input_attr) + ", output_attr : " + std::to_string(output_attr) << std::endl;
 
             //リンクするノードを探索
             sub_nodes = FindSubNodesByLinkAttr(std::make_pair(input_attr, output_attr));
@@ -253,7 +243,6 @@ namespace editor::shadergraph
         //ノードのピンにマウスホバーされている状態で左クリック
         if (ImNodes::IsPinHovered(&pin) && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
         {
-            std::cout << "PinClicked:" + std::to_string(pin) << std::endl;
             //選択されているリンクを解除
             int l_id;
             if (ImNodes::IsLinkHovered(&l_id))

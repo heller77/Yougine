@@ -29,6 +29,7 @@ namespace editor::shadergraph
         bool is_linked = false;
         std::any init_val;
         std::any val;
+        float field_width = 0;
     };
 
     struct OutputInfo
@@ -115,6 +116,7 @@ namespace editor::shadergraph
         ShaderGraphNode* parent_nodes = nullptr; //íPëÃÇ≈Ç¶Ç¶ÇÒÇ©ÅH
         std::vector<std::shared_ptr<InputInfo>> input_infos;
         std::vector<std::shared_ptr<OutputInfo>> output_infos;
+        float input_field_width = 0;
 
     public:
         int id;

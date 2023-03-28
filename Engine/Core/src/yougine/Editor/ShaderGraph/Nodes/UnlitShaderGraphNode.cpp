@@ -13,6 +13,8 @@ namespace editor::shadergraph
         color = albedo;
         output_vals.emplace_back(std::make_pair(&color, ""));
 
+        input_field_width = 75.0f;
+
         Initialize(input_vals, output_vals);
 
         shaderCodeListByOutputVal.push_back(qualifier_dictionary[ShaderQualifier::kOut] + " " + type_dictionary[ShaderPropertyType::kVec3] + " " + stage_dictionary[ShaderStage::kFragment]);
@@ -25,11 +27,8 @@ namespace editor::shadergraph
 
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
-        std::cout << "00000" << std::endl;
         output_infos[0]->val = input_infos[0]->val;
-        std::cout << "111111" << std::endl;
         shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(output_infos[0]->val) + ", 1.0);";
-        std::cout << "2222222" << std::endl;
     }
 
 }

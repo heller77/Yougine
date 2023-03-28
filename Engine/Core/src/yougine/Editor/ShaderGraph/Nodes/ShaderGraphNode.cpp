@@ -17,6 +17,7 @@ namespace editor::shadergraph
             input_info->init_val = input_val.first;
             input_info->val = input_info->init_val;
             input_info->label = input_val.second;
+            input_info->field_width = input_field_width;
             input_infos.emplace_back(input_info);
         }
         for (std::pair<std::any, std::string> output_val : init_output_vals)
@@ -54,21 +55,21 @@ namespace editor::shadergraph
 
     void ShaderGraphNode::DisplayValues()
     {
-        std::cout << "Node ID : " + std::to_string(id) + "'s ";
-        std::cout << "Input Values ";
+        std::cout << "" << std::endl;
+        std::cout << "----------" + name + " Node Info ----------" << std::endl;
+        std::cout << "Input :";
         for (int i = 0; i < input_infos.size(); i++)
         {
             std::cout << std::to_string(i) + " : " + CastValueToString(input_infos[i]->val) + ", ";
         }
         std::cout << "" << std::endl;
 
-        std::cout << "Output Values ";
+        std::cout << "Output :";
         for (int i = 0; i < output_infos.size(); i++)
         {
             std::cout << std::to_string(i) + " : " + CastValueToString(output_infos[i]->val) + ", ";
         }
         std::cout << "" << std::endl;
-        std::cout << "end" << std::endl;
     }
 
     void ShaderGraphNode::UpdateOutputVal()

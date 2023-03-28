@@ -4,8 +4,10 @@
 
 namespace editor
 {
-    void PropertiesInputField::Draw(std::any val, const char* val_name)
+    void PropertiesInputField::Draw(std::any val, const char* val_name, float field_width)
     {
+        if (field_width > 0) ImGui::PushItemWidth(field_width);//Field幅を変更
+
         if (val.type() == typeid(int*))
         {
             IntView(std::any_cast<int*>(val), val_name);
@@ -51,6 +53,8 @@ namespace editor
                 }
             }
         }
+
+        if (field_width > 0) ImGui::PopItemWidth();//幅をデフォルトに戻す
     }
 
     void PropertiesInputField::Bool3View(utility::Bool3* value, const char* name)

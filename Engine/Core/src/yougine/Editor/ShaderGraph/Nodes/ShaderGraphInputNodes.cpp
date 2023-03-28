@@ -12,6 +12,8 @@ namespace editor::shadergraph
         std::vector<std::pair<std::any, std::string>> output_vals;
         output_vals.emplace_back(std::make_pair(&value, ""));
 
+        input_field_width = 50.0f;
+
         Initialize(input_vals, output_vals);
     }
 
@@ -36,6 +38,8 @@ namespace editor::shadergraph
         output = CastValueToString(init_vec3);
 
         output_vals.emplace_back(std::make_pair(&output, ""));
+
+        input_field_width = 50.0f;
 
         Initialize(input_vals, output_vals);
     }

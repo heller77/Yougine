@@ -12,7 +12,18 @@ namespace editor
     class PropertiesInputField
     {
     public:
-        void Draw(std::any val, const char*);
+        /**
+         * \brief
+         * @fn
+         *
+         * InputFieldを描画する
+         * valの真の型を判別しInputFieldを描画
+         *
+         * \param val 入力した値が入るポインタ変数
+         * \param label InputFieldのラベル
+         * \param field_width InputFieldの幅 何も入れない or 0以下はデフォルト幅になる
+         */
+        void Draw(std::any val, const char* label, float field_width = 0);
 
     private:
         void Bool3View(utility::Bool3* value, const char* name);
