@@ -168,3 +168,15 @@ assets::elements::model::materials::Material::Generate_Field_SwitchFunction(
     };
     return function;
 }
+
+std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
+::elements::model::materials::Material::GetVertexShader()
+{
+    return this->vert_asset_uuid;
+}
+
+std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
+::elements::model::materials::Material::GetFragmentShader()
+{
+    return this->frag_asset_uuid;
+}
