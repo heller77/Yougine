@@ -46,7 +46,7 @@ namespace editor
 
     void ComponentViewer::DrawViews()
     {
-        for (std::vector<std::any> propertie : accessable_properties)
+        for (std::vector<std::any> propertie : component->GetAccessablePropertiesList())
         {
             auto var = propertie[0];
             const char* v_name = std::any_cast<const char*>(propertie[1]);
