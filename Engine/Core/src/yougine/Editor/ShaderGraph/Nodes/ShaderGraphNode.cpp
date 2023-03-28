@@ -197,5 +197,19 @@ namespace editor::shadergraph
         return casted_val;
     }
 
+    void ShaderGraphNode::SetInputInfoValues(std::shared_ptr<InputInfo> input_info, int attr, std::any init_val)
+    {
+        input_info->attr = attr;
+        input_info->init_val = init_val;
+        input_info->val = input_info->init_val;
+    }
+
+    void ShaderGraphNode::SetOutputInfoValues(std::shared_ptr<OutputInfo> output_info, int attr, std::any init_val)
+    {
+        output_info->attr = attr;
+        output_info->init_val = init_val;
+        output_info->val = output_info->init_val;
+    }
+
 
 }

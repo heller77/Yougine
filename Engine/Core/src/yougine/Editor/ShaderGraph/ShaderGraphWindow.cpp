@@ -155,11 +155,7 @@ namespace editor::shadergraph
         for (int inputID = node->id + 1; inputID < num_inputs + node->id + 1; inputID++)
         {
             std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
-            //input_info->type = ???;
-            //input_info->label = ???;
-            input_info->attr = inputID;
-            input_info->init_val = node->GetInitInputVals()[index++];
-            input_info->val = input_info->init_val;
+            node->SetInputInfoValues(input_info, inputID, node->GetInitInputVals()[index++]);
             node->input_infos.emplace_back(input_info);
         }
 
@@ -167,11 +163,7 @@ namespace editor::shadergraph
         for (int outputID = node->input_infos.back()->attr + 1; outputID < num_outputs + node->input_infos.back()->attr + 1; outputID++)
         {
             std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
-            //output_info->type = ???;
-            //output_info->label = ???;
-            output_info->attr = outputID;
-            output_info->init_val = node->GetInitOutputVals()[index++];
-            output_info->val = output_info->init_val;
+            node->SetOutputInfoValues(output_info, outputID, node->GetInitOutputVals()[index++]);
             node->output_infos.emplace_back(output_info);
         }
         node->name = name;

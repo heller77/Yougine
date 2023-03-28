@@ -14,7 +14,6 @@ namespace editor::shadergraph
 {
     /**
      * \brief
-     * type ... Œ^(•¶š—ñ ex/floatŒ^‚Ìê‡ ... float
      * label ... InputField‚É•\¦‚³‚ê‚é•Ï”–¼
      * attr ... ƒm[ƒh‚ÌÚ‘±ID
      * is_linked ... ‘¼ƒm[ƒh‚ÉÚ‘±‚µ‚Ä‚¢‚é‚©
@@ -23,7 +22,6 @@ namespace editor::shadergraph
      */
     struct InputInfo
     {
-        std::string type;
         std::string label;
         int attr;
         bool is_linked = false;
@@ -33,7 +31,6 @@ namespace editor::shadergraph
 
     struct OutputInfo
     {
-        std::string type;
         std::string label;
         int attr;
         bool is_linked;
@@ -143,5 +140,7 @@ namespace editor::shadergraph
         std::vector<std::any> GetInitOutputVals();
         void DisLinkNode(std::pair<int, int> attr_pair);
         std::string CastValueToString(std::any val);
+        virtual void SetInputInfoValues(std::shared_ptr<InputInfo> input_info, int attr, std::any init_val);
+        virtual void SetOutputInfoValues(std::shared_ptr<OutputInfo> output_info, int attr, std::any init_val);
     };
 }
