@@ -129,7 +129,8 @@ namespace yougine::components
         material = std::make_shared<editor::projectwindows::assets::elements::model::materials::Material>("D:/Yougin/a.mat.assetinfo");
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
-        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material)});
+        auto function = Generate_AssetTypeField_Switch_Function<editor::projectwindows::assets::elements::model::materials::Material>(&material, GETVALUENAME(material));
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
     }
 
     void RenderComponent::SetProgram(GLuint program)

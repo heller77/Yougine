@@ -46,7 +46,7 @@ namespace yougine::components
 
     private:
 
-        std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> material;
+        std::shared_ptr<editor::projectwindows::assets::elements::model::materials::Material> material;
         GLuint program;
 
         GLuint vao;

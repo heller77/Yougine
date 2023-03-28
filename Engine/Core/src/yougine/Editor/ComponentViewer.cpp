@@ -98,12 +98,14 @@ namespace editor
                     {
                         std::cout << "asset!!" << std::endl;
                         auto asset = std::any_cast<std::shared_ptr<projectwindows::assets::elements::model::Asset>>(propertie[0]);
+                        auto func = std::any_cast<std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)>>(propertie[2]);
                         ImGui::Text(asset->GetAssetId()->convertstring().c_str());
                         asset->GetParameter();
 
 
                         std::make_shared<utility::view::parameters::AssetReference>(v_name, asset->GetAssetId(), [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
                             {
+                                func(input);
                             })->Draw();
                     }
                 }
