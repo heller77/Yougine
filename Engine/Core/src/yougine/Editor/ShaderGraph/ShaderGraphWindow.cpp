@@ -191,7 +191,7 @@ namespace editor::shadergraph
         for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
         {
             ImNodes::BeginInputAttribute(input_info->attr);
-            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str()); /////////
+            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked));
             ImNodes::EndInputAttribute();
         }
 

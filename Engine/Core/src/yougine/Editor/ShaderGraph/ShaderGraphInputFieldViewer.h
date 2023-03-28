@@ -10,6 +10,6 @@ namespace editor::shadergraph
 
     public:
         ShaderGraphInputFieldViewer();
-        void DrawView(std::any val, const char* val_name);
+        void DrawView(std::any val, const char* val_name, bool enable_input);
     };
 }
