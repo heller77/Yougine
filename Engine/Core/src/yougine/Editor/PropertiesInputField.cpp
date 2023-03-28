@@ -1,5 +1,7 @@
 #include "PropertiesInputField.h"
 
+#include <iostream>
+
 namespace editor
 {
     void PropertiesInputField::Draw(std::any val, const char* val_name)
@@ -14,7 +16,7 @@ namespace editor
         }
         if (val.type() == typeid(std::string*))
         {
-            StringView(std::any_cast<std::string*>(val), val_name);
+            StringView(std::any_cast<std::string*>(val), val_name); /////////
         }
         if (val.type() == typeid(bool*))
         {
@@ -127,7 +129,7 @@ namespace editor
 
     void PropertiesInputField::StringView(std::string* value, const char* name)
     {
-        const int size_str = 32;
+        const int size_str = 32; //ここのサイズが小さいからエラーになっている(Vector3ノードとUnlitのAlbedoを繋げたとき)
         char temp_s[size_str];
         strcpy_s(temp_s, size_str, (*value).c_str());
 
