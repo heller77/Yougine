@@ -12,6 +12,8 @@
 
 namespace editor::shadergraph
 {
+#define GET_VALUE_NAME(VariableName) VariableName
+
     /**
      * \brief
      * label ... InputFieldÇ…ï\é¶Ç≥ÇÍÇÈïœêîñº
@@ -110,18 +112,16 @@ namespace editor::shadergraph
             {ShaderUniqueValue::kFalse, "false"},
         };
 
-        std::vector < std::any > init_input_vals;
-        std::vector < std::any > init_output_vals;
         ShaderGraphNode* parent_nodes = nullptr; //íPëÃÇ≈Ç¶Ç¶ÇÒÇ©ÅH
+        std::vector<std::shared_ptr<InputInfo>> input_infos;
+        std::vector<std::shared_ptr<OutputInfo>> output_infos;
 
     public:
         int id;
-        std::vector<std::shared_ptr<InputInfo>> input_infos;
-        std::vector<std::shared_ptr<OutputInfo>> output_infos;
         std::string name;
 
     protected:
-        void Initialize(std::vector<std::any> init_input_vals, std::vector<std::any> init_output_vals);
+        void Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::any, std::string>> init_output_vals);
         void SetInputVal(std::any value, int input_index);
         std::any GetOutputVal(int output_index);
         void DisplayValues();
@@ -136,11 +136,11 @@ namespace editor::shadergraph
         void SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair);
         bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
         ShaderGraphNode* GetParentNode();
-        std::vector<std::any> GetInitInputVals();
-        std::vector<std::any> GetInitOutputVals();
+        std::vector<std::shared_ptr<InputInfo>> GetInputInfos();
+        std::vector<std::shared_ptr<OutputInfo>> GetOutputInfos();
         void DisLinkNode(std::pair<int, int> attr_pair);
         std::string CastValueToString(std::any val);
-        virtual void SetInputInfoValues(std::shared_ptr<InputInfo> input_info, int attr, std::any init_val);
-        virtual void SetOutputInfoValues(std::shared_ptr<OutputInfo> output_info, int attr, std::any init_val);
+        virtual void SetInputInfoAttr(int index, int attr);
+        virtual void SetOutputInfoAttr(int index, int attr);
     };
 }

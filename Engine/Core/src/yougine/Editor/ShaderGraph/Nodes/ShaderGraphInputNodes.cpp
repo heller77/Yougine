@@ -6,11 +6,11 @@ namespace editor::shadergraph
 {
     ShaderGraphFloatNode::ShaderGraphFloatNode()
     {
-        std::vector<std::any> input_vals(1);
-        input_vals.back() = (&value);
+        std::vector<std::pair<std::any, std::string>> input_vals;
+        input_vals.emplace_back(std::make_pair(&value, "float"));
 
-        std::vector<std::any> output_vals;
-        output_vals.emplace_back(&value);
+        std::vector<std::pair<std::any, std::string>> output_vals;
+        output_vals.emplace_back(std::make_pair(&value, ""));
 
         Initialize(input_vals, output_vals);
     }
@@ -23,19 +23,19 @@ namespace editor::shadergraph
 
     ShaderGraphVector3Node::ShaderGraphVector3Node()
     {
-        std::vector<std::any> input_vals;
+        std::vector<std::pair<std::any, std::string>> input_vals;
 
-        input_vals.emplace_back(&x);
-        input_vals.emplace_back(&y);
-        input_vals.emplace_back(&z);
+        input_vals.emplace_back(std::make_pair(&x, "x"));
+        input_vals.emplace_back(std::make_pair(&y, "y"));
+        input_vals.emplace_back(std::make_pair(&z, "z"));
 
         utility::Vector3* init_vec3 = new utility::Vector3(x, y, z);
 
-        std::vector<std::any> output_vals;
+        std::vector<std::pair<std::any, std::string>> output_vals;
 
         output = CastValueToString(init_vec3);
 
-        output_vals.emplace_back(&output);
+        output_vals.emplace_back(std::make_pair(&output, ""));
 
         Initialize(input_vals, output_vals);
     }

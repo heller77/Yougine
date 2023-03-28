@@ -9,10 +9,24 @@ namespace editor::shadergraph
 
     }
 
-    void ShaderGraphNode::Initialize(std::vector<std::any> init_input_vals, std::vector<std::any> init_output_vals)
+    void ShaderGraphNode::Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::any, std::string>> init_output_vals)
     {
-        this->init_input_vals = init_input_vals;
-        this->init_output_vals = init_output_vals;
+        for (std::pair<std::any, std::string> input_val : init_input_vals)
+        {
+            std::shared_ptr<InputInfo> input_info = std::make_shared<InputInfo>();
+            input_info->init_val = input_val.first;
+            input_info->val = input_info->init_val;
+            input_info->label = input_val.second;
+            input_infos.emplace_back(input_info);
+        }
+        for (std::pair<std::any, std::string> output_val : init_output_vals)
+        {
+            std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
+            output_info->init_val = output_val.first;
+            output_info->val = output_info->init_val;
+            output_info->label = output_val.second;
+            output_infos.emplace_back(output_info);
+        }
     }
 
 
@@ -120,14 +134,14 @@ namespace editor::shadergraph
         return this->parent_nodes;
     }
 
-    std::vector<std::any> ShaderGraphNode::GetInitInputVals()
+    std::vector<std::shared_ptr<InputInfo>> ShaderGraphNode::GetInputInfos()
     {
-        return init_input_vals;
+        return input_infos;
     }
 
-    std::vector<std::any> ShaderGraphNode::GetInitOutputVals()
+    std::vector<std::shared_ptr<OutputInfo>> ShaderGraphNode::GetOutputInfos()
     {
-        return init_output_vals;
+        return output_infos;
     }
 
     void ShaderGraphNode::DisLinkNode(std::pair<int, int> attr_pair)
@@ -197,18 +211,14 @@ namespace editor::shadergraph
         return casted_val;
     }
 
-    void ShaderGraphNode::SetInputInfoValues(std::shared_ptr<InputInfo> input_info, int attr, std::any init_val)
+    void ShaderGraphNode::SetInputInfoAttr(int index, int attr)
     {
-        input_info->attr = attr;
-        input_info->init_val = init_val;
-        input_info->val = input_info->init_val;
+        input_infos[index]->attr = attr;
     }
 
-    void ShaderGraphNode::SetOutputInfoValues(std::shared_ptr<OutputInfo> output_info, int attr, std::any init_val)
+    void ShaderGraphNode::SetOutputInfoAttr(int index, int attr)
     {
-        output_info->attr = attr;
-        output_info->init_val = init_val;
-        output_info->val = output_info->init_val;
+        output_infos[index]->attr = attr;
     }
 
 

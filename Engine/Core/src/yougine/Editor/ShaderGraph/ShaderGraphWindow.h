@@ -11,8 +11,6 @@
 
 namespace editor::shadergraph
 {
-#define GET_VALUE_NAME(VariableName) VariableName
-
     /*
      * ƒŠƒ“ƒN\‘¢‘Ì
      */
