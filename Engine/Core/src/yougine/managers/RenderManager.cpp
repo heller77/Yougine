@@ -58,9 +58,9 @@ namespace yougine::managers
         glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-                               this->colorBuffer, 0);
+            this->colorBuffer, 0);
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-                                  this->depthBuffer);
+            this->depthBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer = frameBuffer;
 
@@ -96,7 +96,7 @@ namespace yougine::managers
         this->depthBuffer = depthBuffer;
 
         //フレームバッファ
-        GLuint frameBuffer=input_framebuffer;
+        GLuint frameBuffer = input_framebuffer;
         // glGenFramebuffers(1, &frameBuffer);
         glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
@@ -124,11 +124,11 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
-        auto camera=components::camera::CameraComponent::GetMainCamera();
-        
+        auto camera = components::camera::CameraComponent::GetMainCamera();
+
         glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
         glViewport(0, 0, this->width, this->height);
-        constexpr GLfloat color[]{0.0f, 0.3f, 0.5f, 0.8f}, depth(1.0f);
+        constexpr GLfloat color[]{ 0.0f, 0.3f, 0.5f, 0.8f }, depth(1.0f);
         glClearBufferfv(GL_COLOR, 0, color);
         glClearBufferfv(GL_DEPTH, 0, &depth);
         glEnable(GL_DEPTH_TEST);
@@ -155,7 +155,7 @@ namespace yougine::managers
     float cValue = 0;
 
     float diff = 0.01f;
-    
+
 
     float camerax = 1;
 
@@ -174,13 +174,13 @@ namespace yougine::managers
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component,std::shared_ptr<components::camera::CameraComponent> camera)
+    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component, std::shared_ptr<components::camera::CameraComponent> camera)
     {
         glUseProgram(this->renderComponent->GetProgram());
         glBindVertexArray(this->renderComponent->GetVao());
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
 
-        auto cameraposition = camera->GetTransform()->GetPosition(); 
+        auto cameraposition = camera->GetTransform()->GetPosition();
         auto cameraposition_glmvec3 = glm::vec3(cameraposition.x, cameraposition.y, cameraposition.z);
         glm::mat4 View = glm::lookAt(
             cameraposition_glmvec3,
@@ -197,7 +197,7 @@ namespace yougine::managers
         auto rotation = transform->GetRotation();
 
         //Model行列を定義
-        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z))* rotation->ConvertToGlmMat4();
+        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z)) * rotation->ConvertToGlmMat4();
         glm::mat4 MVP = Projection * View * Model;
         auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
@@ -257,6 +257,12 @@ namespace yougine::managers
     {
         return ShaderInit(ReadFile(vsFilePath), ReadFile(fsFilePath));
         // return 0;
+    }
+
+    GLuint RenderManager::ShaderInitFromFilePath(const std::shared_ptr<shader::ShaderFileAsset> vsAsset,
+        const std::shared_ptr<shader::ShaderFileAsset> fsAsset)
+    {
+        return ShaderInit(vsAsset->GetCode(), fsAsset->GetCode());
     }
 
     GLuint RenderManager::GetColorBuffer()
