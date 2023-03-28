@@ -42,11 +42,10 @@ namespace editor::shadergraph
 
     void ShaderGraphVector3Node::UpdateOutputVal()
     {
-        std::cout << "???" << std::endl;
         float x = *std::any_cast<float*> (input_infos[0]->val);
         float y = *std::any_cast<float*> (input_infos[1]->val);
         float z = *std::any_cast<float*> (input_infos[2]->val);
-        output_infos[0]->val = "vec3(" + CastValueToString(x) + ", " + CastValueToString(y) + ", " + CastValueToString(z) + ")";
+        output_infos[0]->val = "vec3(" + CastValueToString(&x) + ", " + CastValueToString(&y) + ", " + CastValueToString(&z) + ")";
         std::cout << "UpdateOutputVal : " + CastValueToString(output_infos[0]->val) << std::endl;
     }
 }

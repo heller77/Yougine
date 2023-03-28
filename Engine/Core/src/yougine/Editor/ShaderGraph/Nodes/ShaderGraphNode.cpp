@@ -154,6 +154,11 @@ namespace editor::shadergraph
             float v = *std::any_cast<float*>(val);
             casted_val = std::to_string(v);
         }
+        /*
+         * string‚Ì”»’è‚ª‚¤‚Ü‚­‚¢‚Á‚Ä‚¢‚È‚¢
+         *
+         * —á) val‚ªstring‚Ì‚Æ‚«true‚É‚È‚ç‚È‚¢
+         */
         if (val.type() == typeid(std::string*))
         {
             std::string v = *std::any_cast<std::string*> (val);
