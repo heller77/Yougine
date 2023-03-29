@@ -47,9 +47,9 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
 
     auto shaderinputs_assetoption = std::make_shared<option_type>(false, false, false);
-    auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, 3.0f);
+    auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, "c", 3.0f);
     shader_input_parameters.emplace_back(f);
-    auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, 45);
+    auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, "sample_int", 45);
     shader_input_parameters.emplace_back(f2);
     this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(shader_input_parameters, shaderinputs_assetoption);;
 }
@@ -179,4 +179,10 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderF
 ::elements::model::materials::Material::GetFragmentShader()
 {
     return this->frag_asset_uuid;
+}
+
+std::vector<std::shared_ptr<editor::projectwindows::assets::elements::model::materials::shaderinputparameters::
+    ShaderInputAndTypeStruct>> editor::projectwindows::assets::elements::model::materials::Material::GetShaderInputs()
+{
+    return this->shader_input_parameters;
 }

@@ -36,5 +36,6 @@ namespace editor::projectwindows::assets::elements::model::materials
 
         std::shared_ptr<shader::ShaderFileAsset> GetVertexShader();
         std::shared_ptr<shader::ShaderFileAsset> GetFragmentShader();
+        std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>> GetShaderInputs();
     };
 }
