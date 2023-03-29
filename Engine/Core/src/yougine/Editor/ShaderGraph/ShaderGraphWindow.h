@@ -29,6 +29,7 @@ namespace editor::shadergraph
         ShaderfileOverwriter* shaderfile_overwriter;
         MainShaderGraphNode* main_node;
         std::shared_ptr<ShaderGraphInputFieldViewer> shader_graph_input_field_viewer;
+        float indent_space_arrange_width = 0.0f;
 
     private:
         void SearchSelectingNodeID();

@@ -144,5 +144,6 @@ namespace editor::shadergraph
         std::string CastValueToString(std::any val);
         virtual void SetInputInfoAttr(int index, int attr);
         virtual void SetOutputInfoAttr(int index, int attr);
+        float GetInputFieldWidth();
     };
 }

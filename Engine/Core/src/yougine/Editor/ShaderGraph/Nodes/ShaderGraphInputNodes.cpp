@@ -50,6 +50,5 @@ namespace editor::shadergraph
         float y = *std::any_cast<float*> (input_infos[1]->val);
         float z = *std::any_cast<float*> (input_infos[2]->val);
         output_infos[0]->val = "vec3(" + CastValueToString(&x) + ", " + CastValueToString(&y) + ", " + CastValueToString(&z) + ")";
-        std::cout << "UpdateOutputVal : " + CastValueToString(output_infos[0]->val) << std::endl;
     }
 }

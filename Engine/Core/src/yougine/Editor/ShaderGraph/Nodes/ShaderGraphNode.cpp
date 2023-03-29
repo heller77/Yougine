@@ -60,14 +60,14 @@ namespace editor::shadergraph
         std::cout << "Input :";
         for (int i = 0; i < input_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + CastValueToString(input_infos[i]->val) + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString((input_infos[i]->val)) + ", ";
         }
         std::cout << "" << std::endl;
 
         std::cout << "Output :";
         for (int i = 0; i < output_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + CastValueToString(output_infos[i]->val) + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString((output_infos[i]->val)) + ", ";
         }
         std::cout << "" << std::endl;
     }
@@ -174,6 +174,11 @@ namespace editor::shadergraph
          *
          * —á) val‚ªstring‚Ì‚Æ‚«true‚É‚È‚ç‚È‚¢
          */
+        if (val.type() == typeid(std::string))
+        {
+            std::string v = std::any_cast<std::string> (val);
+            casted_val = v;
+        }
         if (val.type() == typeid(std::string*))
         {
             std::string v = *std::any_cast<std::string*> (val);
@@ -220,6 +225,11 @@ namespace editor::shadergraph
     void ShaderGraphNode::SetOutputInfoAttr(int index, int attr)
     {
         output_infos[index]->attr = attr;
+    }
+
+    float ShaderGraphNode::GetInputFieldWidth()
+    {
+        return input_field_width;
     }
 
 

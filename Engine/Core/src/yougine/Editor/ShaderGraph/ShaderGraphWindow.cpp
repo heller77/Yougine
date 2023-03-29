@@ -189,7 +189,7 @@ namespace editor::shadergraph
         for (std::shared_ptr<OutputInfo> output : node->GetOutputInfos())
         {
             ImNodes::BeginOutputAttribute(output->attr);
-            ImGui::Indent(40);
+            ImGui::Indent(node->GetInputFieldWidth() + indent_space_arrange_width);
             ImGui::Text("output");
             ImNodes::EndOutputAttribute();
         }
