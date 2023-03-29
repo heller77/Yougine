@@ -1,6 +1,7 @@
 ﻿#include "SceneLoader.h"
 
 #include "../component_factory/ComponentFactory.h"
+#include "../Projects/Project.h"
 
 namespace yougine::SceneFiles
 {
@@ -24,7 +25,7 @@ namespace yougine::SceneFiles
                 //     //こんな感じでコンポーネント全列挙（コードジェネレート使うと思う）
                 // }
                 auto componentfactory = new componentfactorys::ComponentFacotory();
-                auto componennt=componentfactory->CreateComponent(c["ComponentType"]);
+                auto componennt = componentfactory->CreateComponent(c["ComponentType"]);
                 new_object->AddComponent(componennt);
                 SetPropertiesToComponent(componennt, c);
                 // std::cout <<"create component : " << c["ComponentType"] << std::endl;
@@ -67,7 +68,7 @@ namespace yougine::SceneFiles
                 int value = p["values"]["value"].get<int>();
                 // int* pa = &value;
                 // (*accessable_properties_list)[apl_indesx][0] = pa;
-                (*std::any_cast<int*>((*accessable_properties_list)[apl_indesx][0]))=value;
+                (*std::any_cast<int*>((*accessable_properties_list)[apl_indesx][0])) = value;
                 // std::cout << (*std::any_cast<int*>((*accessable_properties_list)[apl_indesx][0])) << std::endl;
                 // std::cout << (*std::any_cast<int*>((*component->GetPtrAccessablePropertiesList())[apl_indesx][0])) << std::endl;
 
@@ -97,6 +98,12 @@ namespace yougine::SceneFiles
                 bool value = p["values"]["value"].get<bool>();
                 // (*accessable_properties_list)[apl_indesx][0] = &value;
                 (*std::any_cast<bool*>((*accessable_properties_list)[apl_indesx][0])) = value;
+            }
+            else if (p["type"] == "Asset")
+            {
+                std::string id = p["values"]["value"].get<std::string>();
+                auto func = (std::any_cast<std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)>>((*accessable_properties_list)[apl_indesx][2]));
+                func(projects::Project::GetInstance()->GetDataBase()->GetAsset(id));
             }
             apl_indesx++;
         }
