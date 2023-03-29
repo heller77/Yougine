@@ -20,7 +20,9 @@
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "managers/ComponentList.h"
 #include "components/DebugComponent.h"
+#include "managers/CustomScriptManager.h"
 #include "managers/GameManager.h"
+#include "managers/RigidBodyManager.h"
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
@@ -33,7 +35,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:\\Yougin\\";
+    project->Initialize("./../CoreExeBuildProject/Resource/Project.json");
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -73,8 +75,8 @@ int main()
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj(project->projectFolderPath+"\\build\\scene.json");
-    sceneloader.CreateScene() ;
+    sceneloader.UpdateJsonObj(project->projectFolderPath + "\\build\\scene.json");
+    sceneloader.CreateScene();
     yougine::Scene* scene = sceneloader.jb_scene;
     // int gVCBHeig3ht = 300;
     // //レンダーコンポーネントをAdd出来るかのコード（後で消す）
@@ -102,13 +104,18 @@ int main()
     // editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
 
     //GameManagerで回すマネージャのvector
-    std::vector<IManager> managerlist;
+    std::vector<IManager*> managerlist;
+    auto componentlist = scene->GetComponentList();
+    auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
+    auto rigidbodymanager = new yougine::managers::RigidBodyManager(componentlist);
+    managerlist.push_back(custommanager);
+    managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
     std::cout << "this is game build" << std::endl;
 
     //render
-    auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer,scene->GetComponentList());
+    auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer, scene->GetComponentList());
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
