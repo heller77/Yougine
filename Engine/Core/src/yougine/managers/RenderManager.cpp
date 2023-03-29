@@ -206,8 +206,14 @@ namespace yougine::managers
         {
             std::cout << err << " というエラーがある in rendergameobject" << std::endl;
         }
-
-        SetFloatUniform(renderComponent->GetProgram(), "c", cValue);
+        auto shaderinputs = render_component->GetMaterial()->GetShaderInputs();
+        for (auto shader_input_and_type_struct : shaderinputs)
+        {
+            if (*shader_input_and_type_struct->GetName() == "c")
+            {
+                SetFloatUniform(renderComponent->GetProgram(), "c", *shader_input_and_type_struct->Get_float_value());
+            }
+        }
 
         cValue += diff;
         if (cValue > 1.0f && diff > 0)
