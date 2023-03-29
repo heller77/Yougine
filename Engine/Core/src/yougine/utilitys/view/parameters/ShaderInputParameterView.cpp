@@ -41,7 +41,7 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
         ImGui::SameLine();
 
         // //名前入力
-        ImGui::InputText("name", &name);
+        ImGui::InputText("name", element->GetName());
 
         // ImGui::SameLine();
         switch (type)
