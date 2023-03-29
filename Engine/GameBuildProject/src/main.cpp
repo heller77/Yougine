@@ -35,7 +35,8 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->Initialize("./../CoreExeBuildProject/Resource/Project.json");
+    project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
+    project->AssetInitialize();
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
