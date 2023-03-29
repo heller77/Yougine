@@ -14,11 +14,12 @@ namespace yougine::components
 {
     RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
     {
+        namespace materials = editor::projectwindows::assets::elements::model::materials;
         //露出するパラメータ
-        material = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("aec41676-134e-4603-9944-a26bc5d1883d"));
+        material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("aec41676-134e-4603-9944-a26bc5d1883d"));
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
-        auto function = Generate_AssetTypeField_Switch_Function<editor::projectwindows::assets::elements::model::materials::Material>(&material, GETVALUENAME(material));
+        auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
         accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
 
         GLuint program, vao;
