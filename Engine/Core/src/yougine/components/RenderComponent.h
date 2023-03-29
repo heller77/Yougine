@@ -39,6 +39,8 @@ namespace yougine::components
 
         void SetIndexVector(const std::vector<GLuint>& index_vector);
 
+        std::shared_ptr<editor::projectwindows::assets::elements::model::materials::Material> GetMaterial();
+
         /**
          * \brief ドローコール時に頂点を何個あると伝えるか。頂点座標の数というよりインデックスの数が入ると思われる
          */
@@ -54,5 +56,6 @@ namespace yougine::components
         std::vector<ShaderVector4> vertex_vector;
 
         std::vector<GLuint> index_vector;
+
     };
 }

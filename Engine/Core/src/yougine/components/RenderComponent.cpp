@@ -175,4 +175,9 @@ namespace yougine::components
     {
         this->index_vector = index_vector;
     }
+
+    std::shared_ptr<editor::projectwindows::assets::elements::model::materials::Material> RenderComponent::GetMaterial()
+    {
+        return this->material;
+    }
 }
