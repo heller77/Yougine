@@ -182,7 +182,11 @@ namespace editor::shadergraph
         for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
         {
             ImNodes::BeginInputAttribute(input_info->attr);
-            shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked), input_info->field_width);
+            if (shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked), input_info->field_width))
+            {
+                node->UpdateOutputVal();
+                UpdateNodeValue(node, std::make_pair(node->GetOutputInfos()[0]->linked_input_attr, node->GetOutputInfos()[0]->attr));
+            };
             ImNodes::EndInputAttribute();
         }
 
@@ -318,9 +322,10 @@ namespace editor::shadergraph
     {
         std::pair<ShaderGraphNode*, ShaderGraphNode*> sub_nodes;
         sub_nodes = FindSubNodesByLinkAttr(link_pair);
-        ShaderGraphNode* parent = sub_nodes.first;
 
-        parent->DisLinkNode(link_pair);
+        sub_nodes.first->DisLinkNode(link_pair);
+
+        sub_nodes.second->InitOutputInfoLinkedInputAttr();
         UpdateNodeValue(sub_nodes.second, link_pair);
     }
 
@@ -331,6 +336,15 @@ namespace editor::shadergraph
     {
         child_node->SetParentNode(parent_node, attr_pair); //これAddだわ
 
+        for (std::shared_ptr<InputInfo> input_info : parent_node->GetInputInfos())
+        {
+            if (input_info->attr == attr_pair.first)
+            {
+                child_node->GetOutputInfos()[0]->linked_input_attr = input_info->attr;
+                input_info->linked_output_attr = child_node->GetOutputInfos()[0]->attr;
+            }
+        }
+
         UpdateNodeValue(child_node, attr_pair);
     }
 
@@ -339,6 +353,7 @@ namespace editor::shadergraph
      */
     void ShaderGraphWindow::UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair)
     {
+        std::cout << std::to_string(attr_pair.first) + ", " + std::to_string(attr_pair.second) << std::endl;
         /*
          *親ノードが存在すれば親ノードの値を更新する
          */

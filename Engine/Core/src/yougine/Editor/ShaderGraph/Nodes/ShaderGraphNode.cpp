@@ -45,12 +45,17 @@ namespace editor::shadergraph
     {
         input_infos[input_index]->is_linked = false;
         input_infos[input_index]->val = input_infos[input_index]->init_val;
+        InitInputInfoLinkedOutputAttr(input_index);
     }
 
-    void ShaderGraphNode::ResetOutputVal(int output_index)
+    void ShaderGraphNode::InitInputInfoLinkedOutputAttr(int index)
     {
-        output_infos[output_index]->is_linked = false;
-        output_infos[output_index]->val = output_infos[output_index]->init_val;
+        input_infos[index]->linked_output_attr = -1;
+    }
+
+    void ShaderGraphNode::InitOutputInfoLinkedInputAttr()
+    {
+        output_infos[0]->linked_input_attr = -1;
     }
 
     void ShaderGraphNode::DisplayValues()

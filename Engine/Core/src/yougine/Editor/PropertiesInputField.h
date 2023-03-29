@@ -23,15 +23,15 @@ namespace editor
          * \param label InputFieldのラベル
          * \param field_width InputFieldの幅 何も入れない or 0以下はデフォルト幅になる
          */
-        void Draw(std::any val, const char* label, float field_width = 0);
+        bool Draw(std::any val, const char* label, float field_width = 0);
 
     private:
-        void Bool3View(utility::Bool3* value, const char* name);
-        void Vector3View(utility::Vector3* value, const char* name);
-        void IntView(int* value, const char* name);
-        void FloatView(float* value, const char* name);
-        void StringView(std::string* value, const char* name);
-        void BoolView(bool* value, const char* name);
-        void QuaternionView(std::shared_ptr<utility::Quaternion> value, const char* name);
+        bool Bool3View(utility::Bool3* value, const char* name);
+        bool Vector3View(utility::Vector3* value, const char* name);
+        bool IntView(int* value, const char* name);
+        bool FloatView(float* value, const char* name);
+        bool StringView(std::string* value, const char* name);
+        bool BoolView(bool* value, const char* name);
+        bool QuaternionView(std::shared_ptr<utility::Quaternion> value, const char* name);
     };
 }

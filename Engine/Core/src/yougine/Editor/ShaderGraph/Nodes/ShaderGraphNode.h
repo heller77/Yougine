@@ -30,6 +30,7 @@ namespace editor::shadergraph
         std::any init_val;
         std::any val;
         float field_width = 0;
+        int linked_output_attr;
     };
 
     struct OutputInfo
@@ -39,6 +40,7 @@ namespace editor::shadergraph
         bool is_linked;
         std::any init_val;
         std::any val;
+        int linked_input_attr;
     };
 
     class ShaderGraphNode
@@ -127,11 +129,10 @@ namespace editor::shadergraph
         void SetInputVal(std::any value, int input_index);
         std::any GetOutputVal(int output_index);
         void DisplayValues();
-        virtual void UpdateOutputVal();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);
-        void ResetOutputVal(int output_index);
+        void InitInputInfoLinkedOutputAttr(int index);
 
     public:
         ShaderGraphNode();
@@ -145,5 +146,7 @@ namespace editor::shadergraph
         virtual void SetInputInfoAttr(int index, int attr);
         virtual void SetOutputInfoAttr(int index, int attr);
         float GetInputFieldWidth();
+        virtual void UpdateOutputVal();
+        void InitOutputInfoLinkedInputAttr();
     };
 }
