@@ -13,6 +13,12 @@ ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, int va
 
 }
 
+editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
+ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, utility::Vector3 value) : type(type), name(name)
+{
+    vec3_value = std::make_unique<utility::Vector3>(value);
+}
+
 editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType editor::projectwindows::assets::
 elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::GetValueType()
 {
@@ -35,4 +41,10 @@ int* editor::projectwindows::assets::elements::model::materials::shaderinputpara
 Get_int_value()
 {
     return &int_value;
+}
+
+utility::Vector3* editor::projectwindows::assets::elements::model::materials::shaderinputparameters::
+ShaderInputAndTypeStruct::Get_vec3_value()
+{
+    return vec3_value.get();
 }

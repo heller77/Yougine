@@ -170,6 +170,17 @@ namespace yougine::managers
             std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
         }
     }
+    void SetVec3Uniform(GLint program, const char* name, utility::Vector3 value)
+    {
+        GLuint loc = glGetUniformLocation(program, name);
+        // Send the float data
+        glUniform3f(loc, value.x, value.y, value.z);
+        GLuint err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
+        }
+    }
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -209,10 +220,15 @@ namespace yougine::managers
         auto shaderinputs = render_component->GetMaterial()->GetShaderInputs();
         for (auto shader_input_and_type_struct : shaderinputs)
         {
-            if (*shader_input_and_type_struct->GetName() == "c")
-            {
-                SetFloatUniform(renderComponent->GetProgram(), "c", *shader_input_and_type_struct->Get_float_value());
+            if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kFloat) {
+                SetFloatUniform(renderComponent->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_float_value());
             }
+            else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kVec3)
+            {
+                SetVec3Uniform(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_vec3_value());
+            }
+
+
         }
 
         cValue += diff;

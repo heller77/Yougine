@@ -58,6 +58,18 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
             {
             }
             break;
+        case materials::ShaderInputParameterType::kVec3: {
+            ImGui::SameLine();
+            auto value = element->Get_vec3_value();
+            float tmpvalue[3] = { value->x,value->y,value->z };
+            if (ImGui::ColorEdit3("value", tmpvalue))
+            {
+                value->x = tmpvalue[0];
+                value->y = tmpvalue[1];
+                value->z = tmpvalue[2];
+            }
+            break;
+        }
         default:
             ImGui::SameLine();
             ImGui::Text("Type not supported");
