@@ -105,6 +105,7 @@ int main()
     FILE* fp;
     errno_t error;
     error = fopen_s(&fp, scenefilepath.c_str(), "r");
+    fclose(fp);
     if (error == 0)
     {
         //シーンファイルがあれば

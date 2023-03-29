@@ -93,7 +93,7 @@ void projects::Project::Initialize(std::string project_file_path)
     {
         std::cerr << "projectparse error at byte " << er.byte << std::endl;
     }
-
+    reading.close();
     this->projectFolderPath = projectData["Projectpath"];
     std::vector<std::string> sceneFilePathVector;
     for (std::string a : projectData["SceneFileLocations"])
