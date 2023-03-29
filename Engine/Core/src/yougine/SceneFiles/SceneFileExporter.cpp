@@ -137,9 +137,16 @@ void yougine::SceneFiles::SceneFileExporter::ScenefileExportFromScene(Scene* sce
     json_scene_nakami["Hierarchy"] = json_gameobject_list;
     json_scene["Scene"] = json_scene_nakami;
 
-    std::ofstream writing_file;
-    writing_file.open(filepath, std::ios::out);
-    writing_file << json_scene.dump(2) << std::endl;
-    writing_file.close();
+
+    std::ofstream writing_file(filepath);
+    if (!writing_file)
+    {
+        std::cout << "scene export Failed !!" << std::endl;
+    }
+    else {
+        // writing_file.open(filepath, std::ios::out);
+        writing_file << json_scene.dump(2) << std::endl;
+        writing_file.close();
+    }
 }
 
