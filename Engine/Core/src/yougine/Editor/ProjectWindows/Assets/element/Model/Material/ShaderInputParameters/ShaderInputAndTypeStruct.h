@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <memory>
+#include <string>
 
 #include "../ShaderInputParameterType.h"
 
@@ -11,14 +12,15 @@ namespace editor::projectwindows::assets::elements::model::materials::shaderinpu
     class ShaderInputAndTypeStruct
     {
         ShaderInputParameterType type;
-
+        std::string name;
 
         float float_value;
         int int_value;
     public:
-        ShaderInputAndTypeStruct(ShaderInputParameterType type, float value);
-        ShaderInputAndTypeStruct(ShaderInputParameterType type, int value);
+        ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, float value);
+        ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, int value);
         ShaderInputParameterType GetValueType();
+        std::string* GetName();
         float* Get_float_value();
         int* Get_int_value();
     };

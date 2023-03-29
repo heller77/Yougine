@@ -1,13 +1,13 @@
 ﻿#include "ShaderInputAndTypeStruct.h"
 
 editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
-ShaderInputAndTypeStruct(ShaderInputParameterType type, float value) :type(type), float_value(value)
+ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, float value) :type(type), name(name), float_value(value)
 {
 
 }
 
 editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
-ShaderInputAndTypeStruct(ShaderInputParameterType type, int value) : type(type), int_value(value)
+ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, int value) : type(type), name(name), int_value(value)
 {
 
 
@@ -17,6 +17,12 @@ editor::projectwindows::assets::elements::model::materials::ShaderInputParameter
 elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::GetValueType()
 {
     return this->type;
+}
+
+std::string* editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct
+::GetName()
+{
+    return &this->name;
 }
 
 float* editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
