@@ -87,8 +87,9 @@ void yougine::SceneFiles::SceneFileExporter::ScenefileExportFromScene(Scene* sce
                 }
                 if (typeid(var) == typeid(std::any))
                 {
+                    std::string type_name = var.type().name();
                     std::string str_type = utility::Split::SplitStr(utility::Split::SplitStr(var.type().name(), ' ')[1],
-                                                                    '::').back();
+                        '::').back();
 
                     if (str_type == "Vector3")
                     {
@@ -101,6 +102,23 @@ void yougine::SceneFiles::SceneFileExporter::ScenefileExportFromScene(Scene* sce
                         tmp_property_json["z"] = value->z;
                         json_propertylist[property_index][key_of_valuetype] = "utility::Vector3";
                     }
+
+                    //sharedptrかどうか
+                    auto template_start_pos = type_name.find("<");
+                    if (template_start_pos != std::string::npos)
+                    {
+                        //最後の>
+                        auto template_end_pos = type_name.rfind(">");
+                        auto templatename = type_name.substr(template_start_pos + 1, template_end_pos - template_start_pos - 1);
+                        if (templatename == "class editor::projectwindows::assets::elements::model::Asset")
+                        {
+                            auto value = std::any_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(var);
+                            auto id = value->GetAssetId()->convertstring();
+                            tmp_property_json["value"] = id;
+                            json_propertylist[property_index][key_of_valuetype] = "Asset";
+                        }
+                    }
+
                 }
                 json_propertylist[property_index][key_valuename] = valuename;
                 json_propertylist[property_index]["values"] = tmp_property_json;
