@@ -185,7 +185,7 @@ namespace editor::shadergraph
             if (shader_graph_input_field_viewer->DrawView(input_info->val, input_info->label.c_str(), !(input_info->is_linked), input_info->field_width))
             {
                 node->UpdateOutputVal();
-                UpdateNodeValue(node, std::make_pair(node->GetOutputInfos()[0]->linked_input_attr, node->GetOutputInfos()[0]->attr));
+                if (node->GetOutputInfos()[0]->linked_input_attr > -1) UpdateNodeValue(node, std::make_pair(node->GetOutputInfos()[0]->linked_input_attr, node->GetOutputInfos()[0]->attr));
             };
             ImNodes::EndInputAttribute();
         }
