@@ -5,6 +5,8 @@
 
 #include "../../../../Projects/Project.h"
 #include "../../../../utilitys/view/parameters/CustomParameter.h"
+#include "../../../../utilitys/view/parameters/ShaderInputParameterView.h"
+#include "../../../ProjectWindows/Assets/element/Model/Material/ShaderInputParameters/ShaderInputAndTypeStruct.h"
 #include "../../../ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 #include "imgui/stblib/imgui_stdlib.h"
 
@@ -113,6 +115,32 @@ AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::
             this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::AssetReference>(key.c_str(), yougineuuid, option->GetInputAction_input_Asset()));
         }
 
+        auto template_start_pos = type_name.find("<");
+
+        if (template_start_pos != std::string::npos) {
+            //最後の>
+            auto template_end_pos = type_name.rfind(">", template_start_pos);
+            auto edge_template_and_allocator = type_name.find(",", template_start_pos);//これより前がvecに入っている型
+
+            //vec
+            auto classname = type_name.substr(0, template_start_pos);
+            auto template_name = type_name.substr(template_start_pos + 1, edge_template_and_allocator - template_start_pos - 1);
+
+            // std::cout << template_start_pos << " : " << template_end_pos << std::endl;
+            // std::cout << "template before" << classname << std::endl;
+            // std::cout << "template name : " << template_name << std::endl;
+            if (classname == "class std::vector")
+            {
+                std::cout << "vec!!" << std::endl;
+                if (template_name == "class std::shared_ptr<class editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct>")
+                {
+                    namespace  shaderinputstruct_namespace = editor::projectwindows::assets::elements::model::materials::shaderinputparameters;
+                    std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>> vec_shaderinput = std::any_cast<std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>>>(value);
+                    std::cout << "class std::shared_ptr<class editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct>!!" << std::endl;
+                    this->parameter_vec.emplace_back(std::make_shared <utility::view::parameters::ShaderInputParameterView>(vec_shaderinput));
+                }
+            }
+        }
 
         if (enumtext == "enum")
         {

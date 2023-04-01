@@ -2,6 +2,8 @@
 out vec4 fragment;
 in vec3 vNormal;
 uniform float c;
+uniform vec3 color_vec3;
 void main() {
-fragment = vec4(vNormal, 1.0); 
+float diffuse=dot(vNormal,vec3(1,1,1));
+fragment = vec4(color_vec3*diffuse, 1.0); 
 }

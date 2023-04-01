@@ -25,44 +25,6 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
         now_display_folderpath.pop_back();
     }
 
-    //アセットデータベース作成
-    this->asset_database = std::make_shared<assets::elements::model::assetdatabases::AssetDatabase>();
-    projects::Project::GetInstance()->SetDataBase(asset_database);
-
-    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
-
-    auto file_and_folder_list = std::filesystem::recursive_directory_iterator(projectpath);
-    //再帰的にプロジェクトパス以下のファイル全てをAssetクラスをさくせい　
-    //とりあえず、作成=>初期化
-    for (auto entry : file_and_folder_list)
-    {
-        std::cout << "----" << std::endl;
-        auto path_string = entry.path().string();
-        std::cout << entry.path().string() << std::endl;
-
-
-        auto uuid = std::make_shared<utility::youginuuid::YougineUuid>();
-        // auto uuid = new utility::youginuuid::YougineUuid();
-        std::cout << "asset id : " << uuid->convertstring() << std::endl << std::endl;
-
-        auto asset = this->GenerateAssetFromFile(entry.path(), uuid);
-
-        if (asset != nullptr) {
-            this->asset_database->AddAsset(asset->GetAssetId(), asset);
-        }
-        else
-        {
-            std::cerr << "asset is null" << " : " << path_string << std::endl;
-        }
-
-    }
-    auto asset_list = asset_database->GetAssetList();
-    for (auto pair : asset_list)
-    {
-        auto asset = pair.second;
-        asset->InitializeParameter();
-    }
-
     CreateView(now_display_folderpath);
 
 }
@@ -144,7 +106,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else if (extension == "shader" || extension == "frag" || extension == "vert") {
                 // auto shaderasset = std::make_shared<assets::elements::model::shader::ShaderFileAsset>(path, 0);
-                auto shaderasset = this->asset_database->GetAsset(uuid->convertstring());
+                auto shaderasset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid->convertstring());
                 auto button
                     = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, shaderasset);
                 assetvies_vector.emplace_back(button);
@@ -155,7 +117,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             }
             else if (extension == "mat")
             {
-                auto shaderasset = this->asset_database->GetAsset(uuid->convertstring());
+                auto shaderasset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid->convertstring());
                 auto button
                     = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, shaderasset);
                 assetvies_vector.emplace_back(button);
@@ -169,7 +131,7 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
             {
                 //アセット生成
                 // auto asset = std::make_shared<assets::elements::model::TextAsset>(path, 0);
-                auto asset = this->asset_database->GetAsset(uuid->convertstring());
+                auto asset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid->convertstring());
                 auto defaultfile
                     = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, asset);
                 assetvies_vector.emplace_back(defaultfile);
@@ -187,63 +149,6 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
 void editor::projectwindows::ProjectWindow::UpdateNextFrame()
 {
     is_updateelements_flag = true;
-}
-
-std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>
-editor::projectwindows::ProjectWindow::GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid)
-{
-    //ファイル拡張子
-    std::string extension = path.extension().string().replace(0, 1, "");
-    //ファイルの名前だけ
-    std::string filename = path.filename().string();
-
-    std::filesystem::path assetinfo_path = path.string() + ".assetinfo";
-
-    //フォルダ以外
-    std::cout << "extension " << extension << std::endl;
-    if (extension == "assetinfo")
-    {
-        return nullptr;
-    }
-    if (extension == "shader" || extension == "frag" || extension == "vert") {
-        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
-        {
-            std::cout << "assetinfo exist!! : " << filename << std::endl;
-            return std::shared_ptr<assets::elements::model::shader::ShaderFileAsset>(new assets::elements::model::shader::ShaderFileAsset(assetinfo_path));
-        }
-        auto shaderasset = std::shared_ptr<assets::elements::model::shader::ShaderFileAsset>(new assets::elements::model::shader::ShaderFileAsset(path, uuid));
-        shaderasset->Export();
-        return shaderasset;
-    }
-    else if (extension == "txt")
-    {
-        std::ifstream ifs(path.string());
-        if (ifs.fail()) {
-            std::cerr << "Failed to open file. __ in project window" << std::endl;
-            return nullptr;
-        }
-        //アセット生成
-        auto asset = std::make_shared<assets::elements::model::TextAsset>(path, uuid);
-        asset->Export();
-        return asset;
-
-    }
-    else if (extension == "mat")
-    {
-        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
-        {
-            std::cout << "assetinfo exist!! : " << filename << std::endl;
-            return std::make_shared<assets::elements::model::materials::Material>(assetinfo_path);
-        }
-        auto material_asset = std::make_shared<assets::elements::model::materials::Material>(path, uuid);
-        material_asset->Export();
-        return material_asset;
-
-    }
-    else
-    {
-        return nullptr;
-    }
 }
 
 void editor::projectwindows::ProjectWindow::Draw()

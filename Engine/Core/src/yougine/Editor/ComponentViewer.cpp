@@ -1,5 +1,7 @@
 #include "ComponentViewer.h"
 #include "../utilitys/Quaternion.h"
+#include "../utilitys/view/parameters/AssetReference.h"
+#include "../utilitys/view/parameters/ShaderInputParameterView.h"
 
 namespace editor
 {
@@ -44,7 +46,7 @@ namespace editor
 
     void ComponentViewer::DrawViews()
     {
-        for (std::vector<std::any> propertie : accessable_properties)
+        for (std::vector<std::any> propertie : component->GetAccessablePropertiesList())
         {
             auto var = propertie[0];
             const char* v_name = std::any_cast<const char*>(propertie[1]);
@@ -91,6 +93,20 @@ namespace editor
                     if (contentOfsharedptr == "class utility::Quaternion")
                     {
                         QuaternionView(std::any_cast<std::shared_ptr<utility::Quaternion>>(propertie[0]), v_name);
+                    }
+                    else if (contentOfsharedptr == "class editor::projectwindows::assets::elements::model::Asset")
+                    {
+                        std::cout << "asset!!" << std::endl;
+                        auto asset = std::any_cast<std::shared_ptr<projectwindows::assets::elements::model::Asset>>(propertie[0]);
+                        auto func = std::any_cast<std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)>>(propertie[2]);
+                        ImGui::Text(asset->GetAssetId()->convertstring().c_str());
+                        asset->GetParameter();
+
+
+                        std::make_shared<utility::view::parameters::AssetReference>(v_name, asset->GetAssetId(), [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+                            {
+                                func(input);
+                            })->Draw();
                     }
                 }
             }
@@ -175,6 +191,7 @@ namespace editor
             // value->w = q->w;
         }
     }
+
 
     void ComponentViewer::StringView(std::string* value, const char* name)
     {

@@ -6,15 +6,26 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
+
+#include "../Projects/Project.h"
 #include "tinygltf/tiny_gltf.h"
 
 namespace yougine::components
 {
     RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
     {
+        namespace materials = editor::projectwindows::assets::elements::model::materials;
+        //露出するパラメータ("2342161b-f95e-4c2f-81fb-f21fe464712a"はデフォルトで用意しているマテリアルのアセットID)
+        material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("2342161b-f95e-4c2f-81fb-f21fe464712a"));
+        auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
+        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
+        auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
+
         GLuint program, vao;
-        program = yougine::managers::RenderManager::ShaderInitFromFilePath(
-            "./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        // program = yougine::managers::RenderManager::ShaderInitFromFilePath(
+        //     "./Resource/shader/test.vert", "./Resource/shader/test.frag");
+        program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
         this->SetProgram(program);
@@ -49,7 +60,7 @@ namespace yougine::components
         {
             // std::cout << i << "番目 : " << "[" << positions[i * 3 + 0] << "," << positions[i * 3 + 1] << "," << positions[
             //     i * 3 + 2] << "]" << std::endl;
-            ShaderVector4 v = {positions[i * 3 + 0], positions[i * 3 + 1], positions[i * 3 + 2], 1};
+            ShaderVector4 v = { positions[i * 3 + 0], positions[i * 3 + 1], positions[i * 3 + 2], 1 };
             this->vertex_vector.push_back(v);
         }
         auto indices_accessor = model.accessors[indices_index];
@@ -70,7 +81,7 @@ namespace yougine::components
         auto normal_accessors_index = mesh.primitives[0].attributes["NORMAL"];
         auto normal_accessor = model.accessors[normal_accessors_index];
         auto normal_buffer_view = buffer_views[normal_accessor.bufferView];
-        auto normal_buffer = model.buffers[normal_buffer_view.buffer ];
+        auto normal_buffer = model.buffers[normal_buffer_view.buffer];
         const float* normal_data_fromgltf = reinterpret_cast<const float*>(&normal_buffer.data[
             normal_buffer_view.byteOffset + normal_accessor.byteOffset]);
 
@@ -106,7 +117,7 @@ namespace yougine::components
         glGenBuffers(1, &elementBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
         auto indices = this->index_vector;
-        auto indeicesSize = indices.size()*sizeof(indices[0]);
+        auto indeicesSize = indices.size() * sizeof(indices[0]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indeicesSize, indices.data(), GL_STATIC_DRAW);
 
 
@@ -115,13 +126,14 @@ namespace yougine::components
         glGenBuffers(1, &normalBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
         glBufferData(GL_ARRAY_BUFFER, normal_vector.size() * sizeof(ShaderVector3), normal_vector.data(), GL_STATIC_DRAW);
-        
+
         //シェーダに値を渡す
         auto vertexshader_normal_attribute = glGetAttribLocation(program, "normal");
         glEnableVertexAttribArray(vertexshader_normal_attribute);
         glVertexAttribPointer(vertexshader_normal_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
         this->draw_point_count = indices_accessor.count;
+
     }
 
     void RenderComponent::SetProgram(GLuint program)
@@ -162,5 +174,10 @@ namespace yougine::components
     void RenderComponent::SetIndexVector(const std::vector<GLuint>& index_vector)
     {
         this->index_vector = index_vector;
+    }
+
+    std::shared_ptr<editor::projectwindows::assets::elements::model::materials::Material> RenderComponent::GetMaterial()
+    {
+        return this->material;
     }
 }

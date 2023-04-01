@@ -14,7 +14,6 @@ namespace editor::projectwindows
          */
         std::string now_display_folderpath;
         std::vector<std::shared_ptr<assets::elements::view::IElementOfProjectView>> assetvies_vector;
-        std::shared_ptr<assets::elements::model::assetdatabases::AssetDatabase> asset_database;
 
         /**
          * \brief パスを変える
@@ -37,7 +36,7 @@ namespace editor::projectwindows
          */
         bool is_updateelements_flag;
 
-        std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
+        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
     public:
         void Draw() override;
 

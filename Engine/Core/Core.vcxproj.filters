@@ -69,6 +69,8 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\AssetReference.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\CustomParameter.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
+    <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -308,6 +310,9 @@
     <ClInclude Include="src\yougine\utilitys\view\parameters\ParameterView.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\AssetReference.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\CustomParameter.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />
+    <ClInclude Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
