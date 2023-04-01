@@ -11,6 +11,7 @@ namespace editor::shadergraph
 
     protected:
         void UpdateOutputVal() override;
+        std::string MakeupOutputCode(std::string output_code) override;
 
     public:
         ShaderGraphFloatNode();
@@ -26,6 +27,7 @@ namespace editor::shadergraph
 
     protected:
         void UpdateOutputVal() override;
+        std::string MakeupOutputCode(std::string output_code) override;
 
     public:
         ShaderGraphVector3Node();

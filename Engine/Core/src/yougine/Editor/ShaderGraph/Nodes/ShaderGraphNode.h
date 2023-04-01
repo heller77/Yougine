@@ -9,9 +9,12 @@
 #include "../../../utilitys/YougineMath.h"
 #include "../../../utilitys/Quaternion.h"
 #include "../../../utilitys/Split.cpp"
+//#include "../ShaderGraphGroupStacked.h"
 
 namespace editor::shadergraph
 {
+    class ShaderGraphNode;
+
 #define GET_VALUE_NAME(VariableName) VariableName
 
     /**
@@ -31,6 +34,7 @@ namespace editor::shadergraph
         std::any val;
         float field_width = 0;
         int linked_output_attr;
+        ShaderGraphNode* child_node;
     };
 
     struct OutputInfo
@@ -38,9 +42,17 @@ namespace editor::shadergraph
         std::string label;
         int attr;
         bool is_linked;
-        std::any init_val;
-        std::any val;
+        std::string* init_val;
+        std::string* val;
         int linked_input_attr;
+        int stack_index = -1;
+    };
+
+    enum class CodeType
+    {
+        kVariable,
+        kFunction,
+        kMain,
     };
 
     class ShaderGraphNode
@@ -119,13 +131,15 @@ namespace editor::shadergraph
         std::vector<std::shared_ptr<InputInfo>> input_infos;
         std::vector<std::shared_ptr<OutputInfo>> output_infos;
         float input_field_width = 0;
+        CodeType code_type;
+        //std::shared_ptr<GroupStacked> group_stacked = nullptr;
 
     public:
         int id;
         std::string name;
 
     protected:
-        void Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::any, std::string>> init_output_vals);
+        void Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals);
         void SetInputVal(std::any value, int input_index);
         std::any GetOutputVal(int output_index);
         void DisplayValues();
@@ -133,6 +147,7 @@ namespace editor::shadergraph
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);
         void InitInputInfoLinkedOutputAttr(int index);
+        virtual std::string MakeupOutputCode(std::string output_code);
 
     public:
         ShaderGraphNode();
@@ -148,5 +163,10 @@ namespace editor::shadergraph
         float GetInputFieldWidth();
         virtual void UpdateOutputVal();
         void InitOutputInfoLinkedInputAttr();
+        CodeType GetCodeType();
+        //void SetGroupStacked(std::shared_ptr<GroupStacked> group_stacked);
+        //std::shared_ptr<GroupStacked> GetGroupStacked();
+        void SetChildNode(std::shared_ptr<InputInfo> input_info, ShaderGraphNode* child_node);
+        ShaderGraphNode* GetChildNode(std::shared_ptr<InputInfo> input_info);
     };
 }

@@ -6,11 +6,15 @@ namespace editor::shadergraph
 {
     ShaderGraphFloatNode::ShaderGraphFloatNode()
     {
+        code_type = CodeType::kVariable;
+
         std::vector<std::pair<std::any, std::string>> input_vals;
         input_vals.emplace_back(std::make_pair(&value, "float"));
 
-        std::vector<std::pair<std::any, std::string>> output_vals;
-        output_vals.emplace_back(std::make_pair(&value, ""));
+        std::vector<std::pair<std::string*, std::string>> output_vals;
+        std::string init_output = (CastValueToString(&value));
+        output = init_output;
+        output_vals.emplace_back(std::make_pair(&output, ""));
 
         input_field_width = 50.0f;
 
@@ -19,12 +23,19 @@ namespace editor::shadergraph
 
     void ShaderGraphFloatNode::UpdateOutputVal()
     {
+        *output_infos[0]->val = MakeupOutputCode(CastValueToString(&input_infos[0]->val));
+    }
 
+    std::string ShaderGraphFloatNode::MakeupOutputCode(std::string output_code)
+    {
+        return type_dictionary[ShaderPropertyType::kFloat] + "name" + " = " + output_code;
     }
 
 
     ShaderGraphVector3Node::ShaderGraphVector3Node()
     {
+        code_type = CodeType::kVariable;
+
         std::vector<std::pair<std::any, std::string>> input_vals;
 
         input_vals.emplace_back(std::make_pair(&x, "x"));
@@ -33,10 +44,9 @@ namespace editor::shadergraph
 
         utility::Vector3* init_vec3 = new utility::Vector3(x, y, z);
 
-        std::vector<std::pair<std::any, std::string>> output_vals;
-
-        output = CastValueToString(init_vec3);
-
+        std::vector<std::pair<std::string*, std::string>> output_vals;
+        std::string init_output = (CastValueToString(init_vec3));
+        output = init_output;
         output_vals.emplace_back(std::make_pair(&output, ""));
 
         input_field_width = 50.0f;
@@ -46,9 +56,12 @@ namespace editor::shadergraph
 
     void ShaderGraphVector3Node::UpdateOutputVal()
     {
-        float x = *std::any_cast<float*> (input_infos[0]->val);
-        float y = *std::any_cast<float*> (input_infos[1]->val);
-        float z = *std::any_cast<float*> (input_infos[2]->val);
-        output_infos[0]->val = "vec3(" + CastValueToString(&x) + ", " + CastValueToString(&y) + ", " + CastValueToString(&z) + ")";
+        *output_infos[0]->val = MakeupOutputCode("vec3(" + CastValueToString(input_infos[0]->val) + ", " + CastValueToString(input_infos[1]->val) + ", " + CastValueToString(input_infos[2]->val) + ")");
     }
+
+    std::string ShaderGraphVector3Node::MakeupOutputCode(std::string output_code)
+    {
+        return type_dictionary[ShaderPropertyType::kVec3] + "name" + " = " + output_code;
+    }
+
 }

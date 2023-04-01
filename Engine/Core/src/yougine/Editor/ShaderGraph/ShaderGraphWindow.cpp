@@ -99,6 +99,7 @@ namespace editor::shadergraph
                 UnlitShaderGraphNode* t_node = new UnlitShaderGraphNode();
                 main_node = t_node;
                 CreateNode(t_node, item);
+                AddCode(t_node);//メインノードなので
             }
             if (item == "Vector3")
             {
@@ -327,6 +328,8 @@ namespace editor::shadergraph
 
         sub_nodes.second->InitOutputInfoLinkedInputAttr();
         UpdateNodeValue(sub_nodes.second, link_pair);
+
+        //RemoveCode(sub_nodes.second);
     }
 
     /*
@@ -342,6 +345,7 @@ namespace editor::shadergraph
             {
                 child_node->GetOutputInfos()[0]->linked_input_attr = input_info->attr;
                 input_info->linked_output_attr = child_node->GetOutputInfos()[0]->attr;
+                parent_node->SetChildNode(input_info, child_node);
             }
         }
 
@@ -359,6 +363,7 @@ namespace editor::shadergraph
          */
         if ((child_node->UpdateParentNodeValue(attr_pair)))
         {
+            AddCode(child_node);
             /*
              * リンクしているペアから子孫関係を探索しattrを見つける
              */
@@ -374,4 +379,168 @@ namespace editor::shadergraph
             }
         }
     }
+
+    /**
+     * \brief
+     * \param node
+     */
+    void ShaderGraphWindow::AddCode(ShaderGraphNode* node)
+    {
+        if (node->GetCodeType() == CodeType::kVariable)
+        {
+            ResisterSortedLinkedCodeList(&stack_defined_variable_shadercode, node);
+            DebugCode(stack_defined_variable_shadercode);
+        }
+        if (node->GetCodeType() == CodeType::kFunction)
+        {
+            int stackeds = stack_defined_function_shadercode.size();
+            if (node->GetOutputInfos()[0]->stack_index == -1)
+            {
+                stack_defined_function_shadercode.emplace_back(node->GetOutputInfos()[0]->val);
+                node->GetOutputInfos()[0]->stack_index = stack_defined_function_shadercode.size() - 1;
+                DebugCode(stack_defined_function_shadercode);
+            }
+        }
+        if (node->GetCodeType() == CodeType::kMain)
+        {
+            ResisterSortedLinkedCodeList(&stack_main_shadercode, node);
+            DebugCode(stack_main_shadercode);
+        }
+    }
+
+    /**
+     * \brief
+     * \param stack_code_list 追加したいcode_listを入れる (例 : CodeType::kVariableの場合, variable_shadercodeのポインタを渡す
+     * \param p_node 連結させたいリストの一番上階層の親ノードが入る. 基本的には使用先のnodeそのままでok
+     *
+     * stack_code_listにp_nodeが親となる階層構造を結合する
+     *
+     * 1. MakeupLinkNodeCodeListで結合したいリストを用意する
+     * 2. stack_code_listに挿入するindexを定義
+     * 3. stack_code_listに1.)のリストを挿入
+     * 4. p_nodeの子ノードのOutputInfo->stack_indexを結合後のindexに更新
+     */
+    void ShaderGraphWindow::ResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node)
+    {
+        std::vector < std::string > t_link_list;
+        MakeupLinkNodeCodeList(&t_link_list, p_node);
+        int insert_index = p_node->GetParentNode()->GetOutputInfos()[0]->stack_index;
+        //error
+        (*stack_code_list).insert(stack_defined_variable_shadercode.begin() + insert_index, t_link_list.begin(), t_link_list.end());
+        UpdateStackIndex(p_node, insert_index);
+    }
+
+    /**
+     * \brief
+     * \param link_list 結合するリスト
+     * \param node リストに追加したいノード
+     *
+     * 再帰関数
+     *
+     * listの格納順
+     * 例)
+     * p_node
+     *  - node1
+     *    - node11
+     *    - node12
+     *  - node2
+     *
+     *  list = [p_node, node1, node11, node12, node2]
+     *
+     *  p_nodeはnode1, node2のoutputを知っていて, node1はnode11, node12のoutputを知っている必要がある
+     */
+    void ShaderGraphWindow::MakeupLinkNodeCodeList(std::vector<std::string>* link_list, ShaderGraphNode* node)
+    {
+        node->GetOutputInfos()[0]->stack_index = node->GetParentNode()->GetOutputInfos()[0]->stack_index + link_list->size();
+        link_list->emplace_back(*(node->GetOutputInfos()[0]->val));
+        for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
+        {
+            if (input_info->child_node != nullptr)
+            {
+                MakeupLinkNodeCodeList(link_list, input_info->child_node);
+            }
+        }
+    }
+
+    void ShaderGraphWindow::SearchLeafIndexNodeAndResetStackIndex(ShaderGraphNode* node, ShaderGraphNode* leaf_node, int p_node_stack_index)
+    {
+        node->GetOutputInfos()[0]->stack_index -= p_node_stack_index;
+        for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
+        {
+            if (input_info->child_node != nullptr)
+            {
+                SearchLeafIndexNodeAndResetStackIndex(input_info->child_node, leaf_node, p_node_stack_index);
+            }
+            else
+            {
+                if (leaf_node->GetOutputInfos()[0]->stack_index < node->GetOutputInfos()[0]->stack_index)
+                {
+                    leaf_node = node;
+                }
+            }
+        }
+    }
+
+    void ShaderGraphWindow::RemoveCode(ShaderGraphNode* node)
+    {
+        if (node->GetCodeType() == CodeType::kVariable)
+        {
+            UnResisterSortedLinkedCodeList(&stack_defined_variable_shadercode, node);
+        }
+        if (node->GetCodeType() == CodeType::kFunction)
+        {
+            stack_defined_function_shadercode.erase(stack_defined_function_shadercode.begin() + node->GetOutputInfos()[0]->stack_index);
+        }
+        if (node->GetCodeType() == CodeType::kMain)
+        {
+            UnResisterSortedLinkedCodeList(&stack_main_shadercode, node);
+        }
+    }
+
+    void ShaderGraphWindow::UnResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node)
+    {
+        ShaderGraphNode* leaf_node = p_node;
+        SearchLeafIndexNodeAndResetStackIndex(p_node, leaf_node, p_node->GetOutputInfos()[0]->stack_index);
+        std::pair<int, int> remove_range = std::make_pair(p_node->GetOutputInfos()[0]->stack_index, leaf_node->GetOutputInfos()[0]->stack_index);
+        //error
+        (*stack_code_list).erase((*stack_code_list).begin() + remove_range.first, (*stack_code_list).begin() + remove_range.second);
+        UpdateStackIndex(p_node, remove_range.second);
+    }
+
+    /**
+     * \brief
+     * \param node indexを更新する対象ノード
+     * \param start_index リストの結合先index
+     *
+     * 再帰関数
+     *
+     * 結合対象のリストに格納されているノードのstack_indexを更新する
+     * 各stack_indexには結合前stackリストの要素数分(start_index)+される
+     *  再帰でstart_indexを+1して更新
+     */
+    void ShaderGraphWindow::UpdateStackIndex(ShaderGraphNode* node, int start_index)
+    {
+        int index = start_index + 1;
+        node->GetOutputInfos()[0]->stack_index = index;
+        for (std::shared_ptr<InputInfo> input_info : node->GetInputInfos())
+        {
+            if (input_info->child_node != nullptr)
+            {
+                UpdateStackIndex(node->GetChildNode(input_info), index);
+            }
+        }
+    }
+
+    void ShaderGraphWindow::DebugCode(std::vector<std::string*> code_list)
+    {
+        std::cout << "" << std::endl;
+        std::cout << "- Code List Log -" << std::endl;
+        for (std::string* code : code_list)
+        {
+            std::cout << code << std::endl;
+        }
+        std::cout << "- This Log End -" << std::endl;
+        std::cout << "" << std::endl;
+    }
+
 }

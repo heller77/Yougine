@@ -9,7 +9,7 @@ namespace editor::shadergraph
 
     }
 
-    void ShaderGraphNode::Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::any, std::string>> init_output_vals)
+    void ShaderGraphNode::Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals)
     {
         for (std::pair<std::any, std::string> input_val : init_input_vals)
         {
@@ -20,7 +20,7 @@ namespace editor::shadergraph
             input_info->field_width = input_field_width;
             input_infos.emplace_back(input_info);
         }
-        for (std::pair<std::any, std::string> output_val : init_output_vals)
+        for (std::pair<std::string*, std::string> output_val : init_output_vals)
         {
             std::shared_ptr<OutputInfo> output_info = std::make_shared<OutputInfo>();
             output_info->init_val = output_val.first;
@@ -153,6 +153,7 @@ namespace editor::shadergraph
     void ShaderGraphNode::DisLinkNode(std::pair<int, int> attr_pair)
     {
         ResetInputVal(FindLinkedInputIndex(attr_pair.first));
+        GetInputInfos()[FindLinkedInputIndex(attr_pair.first)]->child_node = nullptr;
         UpdateOutputVal();
         DisplayValues();
     }
@@ -237,5 +238,36 @@ namespace editor::shadergraph
         return input_field_width;
     }
 
+    CodeType ShaderGraphNode::GetCodeType()
+    {
+        return code_type;
+    }
 
+    std::string ShaderGraphNode::MakeupOutputCode(std::string output_code)
+    {
+        return "MakeupOutputCode is called on super() function";
+    }
+
+    void ShaderGraphNode::SetChildNode(std::shared_ptr<InputInfo> input_info, ShaderGraphNode* child_node)
+    {
+        input_info->child_node = child_node;
+    }
+
+    ShaderGraphNode* ShaderGraphNode::GetChildNode(std::shared_ptr<InputInfo> input_info)
+    {
+        return input_info->child_node;
+    }
+
+
+    /*
+    void ShaderGraphNode::SetGroupStacked(std::shared_ptr<GroupStacked> group_stacked)
+    {
+        this->group_stacked = group_stacked;
+    }
+
+    std::shared_ptr<GroupStacked> ShaderGraphNode::GetGroupStacked()
+    {
+        return group_stacked;
+    }
+    */
 }

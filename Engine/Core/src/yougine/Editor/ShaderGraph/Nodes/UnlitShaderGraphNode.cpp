@@ -6,10 +6,12 @@ namespace editor::shadergraph
 {
     UnlitShaderGraphNode::UnlitShaderGraphNode() : MainShaderGraphNode()
     {
+        code_type = CodeType::kMain;
+
         std::vector<std::pair<std::any, std::string>> input_vals;
         input_vals.emplace_back(std::make_pair(&albedo, "albedo"));
 
-        std::vector<std::pair<std::any, std::string>> output_vals;
+        std::vector<std::pair<std::string*, std::string>> output_vals;
         color = albedo;
         output_vals.emplace_back(std::make_pair(&color, ""));
 
@@ -27,7 +29,7 @@ namespace editor::shadergraph
 
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
-        output_infos[0]->val = input_infos[0]->val;
+        *output_infos[0]->val = CastValueToString(&input_infos[0]->val);
         shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(output_infos[0]->val) + ", 1.0);";
     }
 

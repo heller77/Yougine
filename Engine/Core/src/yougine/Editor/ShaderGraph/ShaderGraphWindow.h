@@ -30,6 +30,9 @@ namespace editor::shadergraph
         MainShaderGraphNode* main_node;
         std::shared_ptr<ShaderGraphInputFieldViewer> shader_graph_input_field_viewer;
         float indent_space_arrange_width = 0.0f;
+        std::vector<std::string*> stack_defined_variable_shadercode;
+        std::vector<std::string*> stack_defined_function_shadercode;
+        std::vector<std::string*> stack_main_shadercode;
 
     private:
         void SearchSelectingNodeID();
@@ -44,6 +47,15 @@ namespace editor::shadergraph
         void UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair);
         void DisLinkNodes(std::pair<int, int> link_pair);
         std::pair<ShaderGraphNode*, ShaderGraphNode*> FindSubNodesByLinkAttr(std::pair<int, int> attr_pair);
+        void AddCode(ShaderGraphNode* node);
+        void RemoveCode(ShaderGraphNode* node);
+        void MakeupLinkNodeCodeList(std::vector<std::string>* link_list, ShaderGraphNode* node);
+        void UpdateStackIndex(ShaderGraphNode* node, int start_index);
+        void ResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node);
+        void SearchLeafIndexNodeAndResetStackIndex(ShaderGraphNode* node, ShaderGraphNode* leaf_node, int p_node_stack_index);
+        void UnResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node);
+        void DebugCode(std::vector<std::string*> code_list);
+
 
     public:
         ShaderGraphWindow(EditorWindowsManager* editor_windows_manager);
