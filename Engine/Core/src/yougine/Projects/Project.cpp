@@ -146,8 +146,32 @@ void projects::Project::AssetInitialize()
         {
             std::cerr << "asset is null" << " : " << path_string << std::endl;
         }
-
     }
+    std::filesystem::path engine_Default_Path = "./Resource/Export/";
+    auto exportfile = std::filesystem::recursive_directory_iterator(engine_Default_Path);
+
+    for (auto entry : exportfile)
+    {
+        std::cout << "----" << std::endl;
+        auto path_string = entry.path().string();
+        std::cout << entry.path().string() << std::endl;
+
+
+        auto uuid = std::make_shared<utility::youginuuid::YougineUuid>();
+        // auto uuid = new utility::youginuuid::YougineUuid();
+        std::cout << "asset id : " << uuid->convertstring() << std::endl << std::endl;
+
+        auto asset = this->GenerateAssetFromFile(entry.path(), uuid);
+
+        if (asset != nullptr) {
+            this->asset_database->AddAsset(asset->GetAssetId(), asset);
+        }
+        else
+        {
+            std::cerr << "asset is null" << " : " << path_string << std::endl;
+        }
+    }
+
     auto asset_list = projects::Project::GetInstance()->GetDataBase()->GetAssetList();
     for (auto pair : asset_list)
     {

@@ -15,8 +15,8 @@ namespace yougine::components
     RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
     {
         namespace materials = editor::projectwindows::assets::elements::model::materials;
-        //露出するパラメータ
-        material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("aec41676-134e-4603-9944-a26bc5d1883d"));
+        //露出するパラメータ("2342161b-f95e-4c2f-81fb-f21fe464712a"はデフォルトで用意しているマテリアルのアセットID)
+        material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("2342161b-f95e-4c2f-81fb-f21fe464712a"));
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
         auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
