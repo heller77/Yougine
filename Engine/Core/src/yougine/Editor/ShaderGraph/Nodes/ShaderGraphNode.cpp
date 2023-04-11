@@ -257,17 +257,4 @@ namespace editor::shadergraph
     {
         return input_info->child_node;
     }
-
-
-    /*
-    void ShaderGraphNode::SetGroupStacked(std::shared_ptr<GroupStacked> group_stacked)
-    {
-        this->group_stacked = group_stacked;
-    }
-
-    std::shared_ptr<GroupStacked> ShaderGraphNode::GetGroupStacked()
-    {
-        return group_stacked;
-    }
-    */
 }

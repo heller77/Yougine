@@ -6,7 +6,7 @@ namespace editor::shadergraph
     class ShaderGraphFloatNode : public ShaderGraphNode
     {
     private:
-        float value = 0.0;
+        float value = 1.0;
         std::string output;
 
     protected:

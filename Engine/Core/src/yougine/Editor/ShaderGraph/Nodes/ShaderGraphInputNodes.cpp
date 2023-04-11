@@ -23,12 +23,12 @@ namespace editor::shadergraph
 
     void ShaderGraphFloatNode::UpdateOutputVal()
     {
-        *output_infos[0]->val = MakeupOutputCode(CastValueToString(&input_infos[0]->val));
+        *output_infos[0]->val = MakeupOutputCode(CastValueToString(input_infos[0]->val));
     }
 
     std::string ShaderGraphFloatNode::MakeupOutputCode(std::string output_code)
     {
-        return type_dictionary[ShaderPropertyType::kFloat] + "name" + " = " + output_code;
+        return type_dictionary[ShaderPropertyType::kFloat] + " unique_name" + " = " + output_code;
     }
 
 
@@ -61,7 +61,7 @@ namespace editor::shadergraph
 
     std::string ShaderGraphVector3Node::MakeupOutputCode(std::string output_code)
     {
-        return type_dictionary[ShaderPropertyType::kVec3] + "name" + " = " + output_code;
+        return type_dictionary[ShaderPropertyType::kVec3] + " unique_name" + " = " + output_code;
     }
 
 }

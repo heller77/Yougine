@@ -30,9 +30,14 @@ namespace editor::shadergraph
         MainShaderGraphNode* main_node;
         std::shared_ptr<ShaderGraphInputFieldViewer> shader_graph_input_field_viewer;
         float indent_space_arrange_width = 0.0f;
+        /*
         std::vector<std::string*> stack_defined_variable_shadercode;
         std::vector<std::string*> stack_defined_function_shadercode;
         std::vector<std::string*> stack_main_shadercode;
+        */
+        std::vector<std::shared_ptr<OutputInfo>> stack_defined_variable_shadercode;//include main code
+        std::vector<std::shared_ptr<OutputInfo>> stack_defined_function_shadercode;
+        //std::vector<std::shared_ptr<OutputInfo>> stack_main_shadercode;
 
     private:
         void SearchSelectingNodeID();
@@ -47,14 +52,16 @@ namespace editor::shadergraph
         void UpdateNodeValue(ShaderGraphNode* child_node, std::pair<int, int> attr_pair);
         void DisLinkNodes(std::pair<int, int> link_pair);
         std::pair<ShaderGraphNode*, ShaderGraphNode*> FindSubNodesByLinkAttr(std::pair<int, int> attr_pair);
-        void AddCode(ShaderGraphNode* node);
-        void RemoveCode(ShaderGraphNode* node);
-        void MakeupLinkNodeCodeList(std::vector<std::string>* link_list, ShaderGraphNode* node);
-        void UpdateStackIndex(ShaderGraphNode* node, int start_index);
-        void ResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node);
-        void SearchLeafIndexNodeAndResetStackIndex(ShaderGraphNode* node, ShaderGraphNode* leaf_node, int p_node_stack_index);
-        void UnResisterSortedLinkedCodeList(std::vector<std::string*>* stack_code_list, ShaderGraphNode* p_node);
-        void DebugCode(std::vector<std::string*> code_list);
+        void AddCode(ShaderGraphNode* linked_node);
+        void RemoveCode(ShaderGraphNode* dislinked_node);
+        void MakeupLinkNodeCodeList(std::vector<std::shared_ptr<OutputInfo>>* link_list, ShaderGraphNode* node, int base_index);
+        void UpdateStackIndex(std::vector<std::shared_ptr<OutputInfo>>* code_list, int start_index, int modifired_num);
+        void ResisterSortedLinkedCodeList(std::vector<std::shared_ptr<OutputInfo>>* stack_code_list, ShaderGraphNode* linked_node);
+        void SearchLeafIndexNodeAndResetStackIndex(ShaderGraphNode* node, ShaderGraphNode* leaf_node, int top_index, int* leaf_index);
+        void UnResisterSortedLinkedCodeList(std::vector<std::shared_ptr<OutputInfo>>* stack_code_list, ShaderGraphNode* dislinked_node);
+        void DebugCode(std::vector<std::shared_ptr<OutputInfo>> code_list);
+        ShaderGraphNode* SearchMainNode(ShaderGraphNode* node);
+        void CreateMainNode(MainShaderGraphNode* main_node, std::string name);
 
 
     public:

@@ -9,7 +9,7 @@
 #include "../../../utilitys/YougineMath.h"
 #include "../../../utilitys/Quaternion.h"
 #include "../../../utilitys/Split.cpp"
-//#include "../ShaderGraphGroupStacked.h"
+#include <any>
 
 namespace editor::shadergraph
 {
@@ -45,7 +45,7 @@ namespace editor::shadergraph
         std::string* init_val;
         std::string* val;
         int linked_input_attr;
-        int stack_index = -1;
+        int stack_index = 0;
     };
 
     enum class CodeType
@@ -132,7 +132,6 @@ namespace editor::shadergraph
         std::vector<std::shared_ptr<OutputInfo>> output_infos;
         float input_field_width = 0;
         CodeType code_type;
-        //std::shared_ptr<GroupStacked> group_stacked = nullptr;
 
     public:
         int id;
@@ -164,8 +163,6 @@ namespace editor::shadergraph
         virtual void UpdateOutputVal();
         void InitOutputInfoLinkedInputAttr();
         CodeType GetCodeType();
-        //void SetGroupStacked(std::shared_ptr<GroupStacked> group_stacked);
-        //std::shared_ptr<GroupStacked> GetGroupStacked();
         void SetChildNode(std::shared_ptr<InputInfo> input_info, ShaderGraphNode* child_node);
         ShaderGraphNode* GetChildNode(std::shared_ptr<InputInfo> input_info);
     };
