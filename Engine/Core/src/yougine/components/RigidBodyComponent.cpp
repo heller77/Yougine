@@ -5,7 +5,9 @@ namespace yougine::components
     RigidBodyComponent::RigidBodyComponent() : Component(managers::ComponentName::kRigidBody)
     {
         this->velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
+        this->angular_velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
         this->acceleration = new utility::Vector3(0, 0, 0); // x, y, z方向に関する加速度
+        this->angular_acceleration = new utility::Vector3(0, 0, 0); // x, y, z方向に関する加速度
         this->mass = 1.00f; // オブジェクトの質量
         this->drag = 0.10f; // オブジェクトの抵抗
         this->angular_drag = 0.10f; // オブジェクトの回転に関する抵抗
@@ -13,7 +15,9 @@ namespace yougine::components
         this->freeze_position = new utility::Bool3(false, false, false); // x, y, z方向に関して動きを無効化するかどうか
         this->freeze_rotation = new utility::Bool3(false, false, false); // 回転に関して動きを無効化するかどうか
         accessable_properties_list.push_back(std::vector<std::any>{velocity, GETVALUENAME(velocity)});
+        accessable_properties_list.push_back(std::vector<std::any>{angular_velocity, GETVALUENAME(angular_velocity)});
         accessable_properties_list.push_back(std::vector<std::any>{acceleration, GETVALUENAME(acceleration)});
+        accessable_properties_list.push_back(std::vector<std::any>{angular_acceleration, GETVALUENAME(angular_acceleration)});
         accessable_properties_list.push_back(std::vector<std::any>{&mass, GETVALUENAME(mass)});
         accessable_properties_list.push_back(std::vector<std::any>{&drag, GETVALUENAME(drag)});
         accessable_properties_list.push_back(std::vector<std::any>{&angular_drag, GETVALUENAME(angular_drag)});
@@ -43,6 +47,26 @@ namespace yougine::components
     }
 
     /**
+     * \brief velocityの実体を返す（参照ではないので変更しても、rigidbody.velocityそのものを変更できる訳ではない）
+     * \return velocityの実体
+     */
+    utility::Vector3 RigidBodyComponent::GetAngularVelocity()
+    {
+        return *this->angular_velocity;
+    }
+
+    /**
+     * \brief velocityのセッター
+     * \param velocity セットする値
+     */
+    void RigidBodyComponent::SetAngularVelocity(utility::Vector3 angular_velocity)
+    {
+        (*this->angular_velocity).x = angular_velocity.x;
+        (*this->angular_velocity).y = angular_velocity.y;
+        (*this->angular_velocity).z = angular_velocity.z;
+    }
+
+    /**
      * \brief accelerationの実体を返す（参照ではないので変更しても、rigidbody.accelerationそのものを変更できる訳ではない）
      * \return accelerationの実体
      */
@@ -60,6 +84,26 @@ namespace yougine::components
         (*this->acceleration).x = acceleration.x;
         (*this->acceleration).y = acceleration.y;
         (*this->acceleration).z = acceleration.z;
+    }
+
+    /**
+     * \brief accelerationの実体を返す（参照ではないので変更しても、rigidbody.accelerationそのものを変更できる訳ではない）
+     * \return accelerationの実体
+     */
+    utility::Vector3 RigidBodyComponent::GetAngularAcceleration()
+    {
+        return *this->angular_acceleration;
+    }
+
+    /**
+     * \brief accelerationのセッター
+     * \param acceleration セットする値
+     */
+    void RigidBodyComponent::SetAngularAcceleration(utility::Vector3 angular_acceleration)
+    {
+        (*this->angular_acceleration).x = angular_acceleration.x;
+        (*this->angular_acceleration).y = angular_acceleration.y;
+        (*this->angular_acceleration).z = angular_acceleration.z;
     }
 
     /**
