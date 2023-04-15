@@ -13,8 +13,8 @@ namespace yougine::components
         // utility::Vector3* angularAcceleration; // 回転加速度
         // utility::Vector3* angularForce; // 回転運動エネルギー
         float mass; // 質量
-        float drag; // 抵抗
-        float angular_drag; // トルク抵抗
+        float drag; // 抵抗係数
+        float angular_drag; // トルク抵抗係数
         bool attraction; // 引力の有無
 
         utility::Bool3* freeze_position; // 各軸の移動を固定する

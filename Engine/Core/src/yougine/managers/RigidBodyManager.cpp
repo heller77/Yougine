@@ -20,8 +20,6 @@ namespace yougine::managers
     void RigidBodyManager::Update()
     {
         auto rigidbody_componentlist = componentlist->GetObjectsDictionary()[ComponentName::kRigidBody];
-        //std::cout << "TEST" << rigidbody_componentlist.size() << "\n";
-        //for (components::Component* rigidbody_component : componentlist->GetObjectsDictionary()[ComponentName::kRigidBody])
         for (components::Component* component : rigidbody_componentlist)
         {
             yougine::components::TransformComponent* transform_compornent = component->GetGameObject()->GetComponent<components::TransformComponent>();
@@ -35,15 +33,20 @@ namespace yougine::managers
             auto freeze_position = rigidbody_component->GetFreezePosition();
 
             // 抵抗
-            utility::Vector3 kv = *(new utility::Vector3(drag * verosity.x, drag * verosity.y, drag * verosity.z));
+            utility::Vector3 resistance = *(new utility::Vector3(drag * verosity.x, drag * verosity.y, drag * verosity.z));
 
-            verosity.x += static_cast<float>((acceleration.x - kv.x) * dt * !freeze_position.x + 0);
-            verosity.y += static_cast<float>((acceleration.y - kv.y) * dt * !freeze_position.y + 0);
-            verosity.z += static_cast<float>((acceleration.z - kv.z) * dt * !freeze_position.z + 0);
-
-            position.x += static_cast<float>(verosity.x * dt * !freeze_position.x + 0);
-            position.y += static_cast<float>(verosity.y * dt * !freeze_position.y + 0);
-            position.z += static_cast<float>(verosity.z * dt * !freeze_position.z + 0);
+            if (!freeze_position.x) {
+                verosity.x += static_cast<float>((acceleration.x - resistance.x) * dt + 0);
+                position.x += static_cast<float>(verosity.x * dt + 0);
+            }
+            if (!freeze_position.y) {
+                verosity.y += static_cast<float>((acceleration.y - resistance.y) * dt + 0);
+                position.y += static_cast<float>(verosity.y * dt + 0);
+            }
+            if (!freeze_position.z) {
+                verosity.z += static_cast<float>((acceleration.z - resistance.z) * dt + 0);
+                position.z += static_cast<float>(verosity.z * dt + 0);
+            }
 
             rigidbody_component->SetAcceleration(acceleration);
             rigidbody_component->SetVelocity(verosity);
