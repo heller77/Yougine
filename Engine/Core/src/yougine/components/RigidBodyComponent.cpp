@@ -6,7 +6,6 @@ namespace yougine::components
     {
         this->velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
         this->acceleration = new utility::Vector3(0, 0, 0); // x, y, z方向に関する加速度
-        this->force = new utility::Vector3(0, 0, 0); // x, y, z方向に関する運動エネルギー
         this->mass = 1.00f; // オブジェクトの質量
         this->drag = 0.10f; // オブジェクトの抵抗
         this->angular_drag = 0.10f; // オブジェクトの回転に関する抵抗
@@ -15,7 +14,6 @@ namespace yougine::components
         this->freeze_rotation = new utility::Bool3(false, false, false); // 回転に関して動きを無効化するかどうか
         accessable_properties_list.push_back(std::vector<std::any>{velocity, GETVALUENAME(velocity)});
         accessable_properties_list.push_back(std::vector<std::any>{acceleration, GETVALUENAME(acceleration)});
-        accessable_properties_list.push_back(std::vector<std::any>{force, GETVALUENAME(force)});
         accessable_properties_list.push_back(std::vector<std::any>{&mass, GETVALUENAME(mass)});
         accessable_properties_list.push_back(std::vector<std::any>{&drag, GETVALUENAME(drag)});
         accessable_properties_list.push_back(std::vector<std::any>{&angular_drag, GETVALUENAME(angular_drag)});
@@ -62,26 +60,6 @@ namespace yougine::components
         (*this->acceleration).x = acceleration.x;
         (*this->acceleration).y = acceleration.y;
         (*this->acceleration).z = acceleration.z;
-    }
-
-    /**
-     * \brief forceの実体を返す（参照ではないので変更しても、rigidbody.forceそのものを変更できる訳ではない）
-     * \return forceの実体
-     */
-    utility::Vector3 RigidBodyComponent::GetForce()
-    {
-        return *this->force;
-    }
-
-    /**
-     * \brief velocityのセッター
-     * \param velocity セットする値
-     */
-    void RigidBodyComponent::SetForce(utility::Vector3 force)
-    {
-        (*this->force).x = force.x;
-        (*this->force).y = force.y;
-        (*this->force).z = force.z;
     }
 
     /**
