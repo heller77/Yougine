@@ -11,7 +11,6 @@ namespace yougine::components
         // Vector3* angularVelocity; // 回転速度
         utility::Vector3* acceleration; // 加速度
         // utility::Vector3* angularAcceleration; // 回転加速度
-        utility::Vector3* force; // 運動エネルギー
         // utility::Vector3* angularForce; // 回転運動エネルギー
         float mass; // 質量
         float drag; // 抵抗
@@ -29,9 +28,6 @@ namespace yougine::components
 
         utility::Vector3 GetAcceleration();
         void SetAcceleration(utility::Vector3 acceleration);
-
-        utility::Vector3 GetForce();
-        void SetForce(utility::Vector3 force);
 
         float GetMass();
         void SetMass(float mass);
