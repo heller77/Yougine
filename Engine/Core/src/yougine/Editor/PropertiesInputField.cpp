@@ -1,11 +1,16 @@
 #include "PropertiesInputField.h"
+#include "../utilitys/view/parameters/AssetReference.h"
+#include "../utilitys/view/parameters/ShaderInputParameterView.h"
 
 #include <iostream>
 
 namespace editor
 {
-    bool PropertiesInputField::Draw(std::any val, const char* val_name, float field_width)
+    bool PropertiesInputField::Draw(std::vector<std::any> propertie, float field_width)
     {
+        auto val = propertie[0];
+        const char* val_name = std::any_cast<const char*>(propertie[1]);
+
         if (field_width > 0) ImGui::PushItemWidth(field_width);//FieldïùÇïœçX
 
         bool is_updated_value = false;
@@ -52,6 +57,20 @@ namespace editor
                 if (contentOfsharedptr == "class utility::Quaternion")
                 {
                     is_updated_value = QuaternionView(std::any_cast<std::shared_ptr<utility::Quaternion>>(val), val_name);
+                }
+                else if (contentOfsharedptr == "class editor::projectwindows::assets::elements::model::Asset")
+                {
+                    std::cout << "asset!!" << std::endl;
+                    auto asset = std::any_cast<std::shared_ptr<projectwindows::assets::elements::model::Asset>>(val);
+                    auto func = std::any_cast<std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)>>(propertie[2]);
+                    ImGui::Text(asset->GetAssetId()->convertstring().c_str());
+                    asset->GetParameter();
+
+
+                    std::make_shared<utility::view::parameters::AssetReference>(val_name, asset->GetAssetId(), [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+                        {
+                            func(input);
+                        })->Draw();
                 }
             }
         }

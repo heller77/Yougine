@@ -1,7 +1,5 @@
 #include "ComponentViewer.h"
 #include "../utilitys/Quaternion.h"
-#include "../utilitys/view/parameters/AssetReference.h"
-#include "../utilitys/view/parameters/ShaderInputParameterView.h"
 
 namespace editor
 {
@@ -49,10 +47,7 @@ namespace editor
     {
         for (std::vector<std::any> propertie : component->GetAccessablePropertiesList())
         {
-            auto var = propertie[0];
-            const char* v_name = std::any_cast<const char*>(propertie[1]);
-
-            properties_input_field->Draw(var, v_name);
+            properties_input_field->Draw(propertie);
         }
     }
 

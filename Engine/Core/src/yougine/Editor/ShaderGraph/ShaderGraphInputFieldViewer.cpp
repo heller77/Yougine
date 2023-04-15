@@ -11,7 +11,8 @@ namespace editor::shadergraph
     {
         if (enable_input)
         {
-            return properties_input_field->Draw(val, val_name, field_width);
+            std::vector<std::any> propertie = { val, val_name };
+            return properties_input_field->Draw(propertie, field_width);
         }
         else
         {

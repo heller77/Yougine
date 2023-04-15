@@ -23,7 +23,7 @@ namespace editor
          * \param label InputFieldのラベル
          * \param field_width InputFieldの幅 何も入れない or 0以下はデフォルト幅になる
          */
-        bool Draw(std::any val, const char* label, float field_width = 0);
+        bool Draw(std::vector<std::any> propertie, float field_width = 0);
 
     private:
         bool Bool3View(utility::Bool3* value, const char* name);
