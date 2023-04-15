@@ -6,8 +6,8 @@ namespace editor::shadergraph
     class ShaderGraphFloatNode : public ShaderGraphNode
     {
     private:
-        float value = 1.0;
-        std::string output;
+        float value = 1.0; //値(ポインタ)
+        std::string output = ""; //変数名を含んだ値(変数)
 
     protected:
         void UpdateOutputVal() override;
@@ -15,6 +15,7 @@ namespace editor::shadergraph
 
     public:
         ShaderGraphFloatNode();
+        void Initialize() override;
     };
 
     class ShaderGraphVector3Node : public ShaderGraphNode
@@ -23,7 +24,7 @@ namespace editor::shadergraph
         float x = 1.0;
         float y = 1.0;
         float z = 1.0;
-        std::string output;
+        std::string output = "";
 
     protected:
         void UpdateOutputVal() override;
@@ -31,5 +32,6 @@ namespace editor::shadergraph
 
     public:
         ShaderGraphVector3Node();
+        void Initialize() override;
     };
 }

@@ -6,10 +6,15 @@ namespace editor::shadergraph
 {
     ShaderGraphNode::ShaderGraphNode()
     {
-
     }
 
-    void ShaderGraphNode::Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals)
+    void ShaderGraphNode::Initialize()
+    {
+        std::cout << "‚±‚Á‚¿ŒÄ‚Î‚ê‚Ä‚é???" << std::endl;
+    }
+
+
+    void ShaderGraphNode::InitializeInfos(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals)
     {
         for (std::pair<std::any, std::string> input_val : init_input_vals)
         {
@@ -31,14 +36,20 @@ namespace editor::shadergraph
     }
 
 
-    void ShaderGraphNode::SetInputVal(std::any value, int index)
+    void ShaderGraphNode::SetInputVal(std::any value, std::string unique_vn, int index)
     {
         input_infos[index]->val = value;
+        input_infos[index]->unique_vn = unique_vn;
     }
 
     std::any ShaderGraphNode::GetOutputVal(int index)
     {
         return output_infos[index]->val;
+    }
+
+    std::string ShaderGraphNode::GetOutputUniqueVN(int output_index)
+    {
+        return output_infos[output_index]->unique_vn;
     }
 
     void ShaderGraphNode::ResetInputVal(int input_index)
@@ -62,17 +73,19 @@ namespace editor::shadergraph
     {
         std::cout << "" << std::endl;
         std::cout << "----------" + name + " Node Info ----------" << std::endl;
-        std::cout << "Input :";
+        std::cout << "Input";
         for (int i = 0; i < input_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + CastValueToString((input_infos[i]->val)) + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString((input_infos[i]->unique_vn)) + " ";
+            std::cout << CastValueToString((input_infos[i]->val)) + ", ";
         }
         std::cout << "" << std::endl;
 
-        std::cout << "Output :";
+        std::cout << "Output";
         for (int i = 0; i < output_infos.size(); i++)
         {
-            std::cout << std::to_string(i) + " : " + CastValueToString((output_infos[i]->val)) + ", ";
+            std::cout << std::to_string(i) + " : " + CastValueToString((output_infos[i]->unique_vn)) + " ";
+            std::cout << CastValueToString((output_infos[i]->val)) + ", ";
         }
         std::cout << "" << std::endl;
     }
@@ -106,7 +119,7 @@ namespace editor::shadergraph
 
         if (this->parent_nodes->input_infos[input_index]->is_linked)
         {
-            this->parent_nodes->SetInputVal(this->GetOutputVal(output_index), input_index);
+            this->parent_nodes->SetInputVal(this->GetOutputVal(output_index), this->GetOutputUniqueVN(output_index), input_index);
         }
         this->parent_nodes->UpdateOutputVal();
         this->parent_nodes->DisplayValues();
@@ -257,4 +270,21 @@ namespace editor::shadergraph
     {
         return input_info->child_node;
     }
+
+    void ShaderGraphNode::SetID(int id)
+    {
+        this->id = id;
+    }
+
+    void ShaderGraphNode::SetVN(int vn_n)
+    {
+        unique_vn = "vn" + std::to_string((vn_n + id));
+        output_infos[0]->unique_vn = unique_vn;
+    }
+
+    bool ShaderGraphNode::CheckExistLinkedInput(std::string vn)
+    {
+        return (vn != "");
+    }
+
 }

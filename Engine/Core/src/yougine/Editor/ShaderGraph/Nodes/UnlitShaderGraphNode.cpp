@@ -8,29 +8,34 @@ namespace editor::shadergraph
     {
         code_type = CodeType::kMain;
 
+        Initialize();
+    }
+
+    void UnlitShaderGraphNode::Initialize()
+    {
         std::vector<std::pair<std::any, std::string>> input_vals;
         input_vals.emplace_back(std::make_pair(&albedo, "albedo"));
 
         std::vector<std::pair<std::string*, std::string>> output_vals;
-        color = albedo;
+        color = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + albedo + ", 1.0)";
         output_vals.emplace_back(std::make_pair(&color, ""));
 
         input_field_width = 75.0f;
 
-        Initialize(input_vals, output_vals);
+        InitializeInfos(input_vals, output_vals);
 
-        shaderCodeListByOutputVal.push_back(qualifier_dictionary[ShaderQualifier::kOut] + " " + type_dictionary[ShaderPropertyType::kVec3] + " " + stage_dictionary[ShaderStage::kFragment]);
-        shaderCodeListByOutputVal.push_back(type_dictionary[ShaderPropertyType::kVec3] + " " + "color");
+        SetInitializationCodes();
         shaderCodeListByOutputVal.push_back(codeMainFunction);
         shaderCodeListByOutputVal.push_back("{");
-        shaderCodeListByOutputVal.push_back(stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(input_infos[0]->init_val) + ", 1.0);");
+        shaderCodeListByOutputVal.push_back(color);
         shaderCodeListByOutputVal.push_back("}");
     }
 
+
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
-        *output_infos[0]->val = CastValueToString(&input_infos[0]->val);
-        shaderCodeListByOutputVal[5] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(output_infos[0]->val) + ", 1.0);";
+        color = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(input_infos[0]->unique_vn) + ", 1.0)";
+        output_infos[0]->val = &color;
     }
 
 }

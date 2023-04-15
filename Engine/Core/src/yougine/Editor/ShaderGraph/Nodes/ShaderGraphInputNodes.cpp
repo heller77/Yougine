@@ -8,27 +8,34 @@ namespace editor::shadergraph
     {
         code_type = CodeType::kVariable;
 
+        Initialize();
+    }
+
+    void ShaderGraphFloatNode::Initialize()
+    {
         std::vector<std::pair<std::any, std::string>> input_vals;
         input_vals.emplace_back(std::make_pair(&value, "float"));
 
         std::vector<std::pair<std::string*, std::string>> output_vals;
         std::string init_output = (CastValueToString(&value));
-        output = init_output;
+        output = MakeupOutputCode(init_output);
         output_vals.emplace_back(std::make_pair(&output, ""));
 
         input_field_width = 50.0f;
 
-        Initialize(input_vals, output_vals);
+        InitializeInfos(input_vals, output_vals);
     }
+
 
     void ShaderGraphFloatNode::UpdateOutputVal()
     {
-        *output_infos[0]->val = MakeupOutputCode(CastValueToString(input_infos[0]->val));
+        std::string output = CheckExistLinkedInput(input_infos[0]->unique_vn) ? input_infos[0]->unique_vn : CastValueToString(&(this->value));
+        *output_infos[0]->val = MakeupOutputCode(output);
     }
 
     std::string ShaderGraphFloatNode::MakeupOutputCode(std::string output_code)
     {
-        return type_dictionary[ShaderPropertyType::kFloat] + " unique_name" + " = " + output_code;
+        return type_dictionary[ShaderPropertyType::kFloat] + " " + unique_vn + " = " + output_code;
     }
 
 
@@ -36,6 +43,11 @@ namespace editor::shadergraph
     {
         code_type = CodeType::kVariable;
 
+        Initialize();
+    }
+
+    void ShaderGraphVector3Node::Initialize()
+    {
         std::vector<std::pair<std::any, std::string>> input_vals;
 
         input_vals.emplace_back(std::make_pair(&x, "x"));
@@ -46,22 +58,27 @@ namespace editor::shadergraph
 
         std::vector<std::pair<std::string*, std::string>> output_vals;
         std::string init_output = (CastValueToString(init_vec3));
-        output = init_output;
+        output = MakeupOutputCode(init_output);
         output_vals.emplace_back(std::make_pair(&output, ""));
 
         input_field_width = 50.0f;
 
-        Initialize(input_vals, output_vals);
+        InitializeInfos(input_vals, output_vals);
+
     }
+
 
     void ShaderGraphVector3Node::UpdateOutputVal()
     {
-        *output_infos[0]->val = MakeupOutputCode("vec3(" + CastValueToString(input_infos[0]->val) + ", " + CastValueToString(input_infos[1]->val) + ", " + CastValueToString(input_infos[2]->val) + ")");
+        std::string x = CheckExistLinkedInput(input_infos[0]->unique_vn) ? input_infos[0]->unique_vn : CastValueToString(&(this->x));
+        std::string y = CheckExistLinkedInput(input_infos[1]->unique_vn) ? input_infos[1]->unique_vn : CastValueToString(&(this->y));
+        std::string z = CheckExistLinkedInput(input_infos[2]->unique_vn) ? input_infos[2]->unique_vn : CastValueToString(&(this->z));
+        *output_infos[0]->val = MakeupOutputCode("vec3(" + x + ", " + y + ", " + z + ")");
     }
 
     std::string ShaderGraphVector3Node::MakeupOutputCode(std::string output_code)
     {
-        return type_dictionary[ShaderPropertyType::kVec3] + " unique_name" + " = " + output_code;
+        return type_dictionary[ShaderPropertyType::kVec3] + " " + unique_vn + " = " + output_code;
     }
 
 }

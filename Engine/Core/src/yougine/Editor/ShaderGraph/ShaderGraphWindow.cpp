@@ -8,6 +8,8 @@ namespace editor::shadergraph
 
         shaderfile_overwriter = new ShaderfileOverwriter("F:/GameEngineProject/Yougine/Shaders/", "test.frag");
         shader_graph_input_field_viewer = std::make_shared<ShaderGraphInputFieldViewer>();
+
+        srand(time(NULL));
     }
 
     void ShaderGraphWindow::InitializeMenuLists()
@@ -68,6 +70,14 @@ namespace editor::shadergraph
         CreateMainNode(new UnlitShaderGraphNode(), "Unlit");
     }
 
+    void ShaderGraphWindow::CreateMainNode(MainShaderGraphNode* node, std::string name)
+    {
+        MainShaderGraphNode* t_node = node;
+        main_node = t_node;
+        CreateNode(t_node, name);
+        stack_defined_variable_shadercode.emplace_back(main_node->GetOutputInfos()[0]);
+    }
+
 
     void ShaderGraphWindow::Draw()
     {
@@ -116,6 +126,7 @@ namespace editor::shadergraph
             {
                 if (main_node != nullptr)
                 {
+                    main_node->UpdateShaderCode(stack_defined_function_shadercode, stack_defined_variable_shadercode);
                     shaderfile_overwriter->UpdateFile(main_node->GetShaderCodeByOutputVal());
                 }
                 else
@@ -152,7 +163,8 @@ namespace editor::shadergraph
      */
     void ShaderGraphWindow::AddNode(ShaderGraphNode* node, int id, int num_inputs, int num_outputs, std::string name)
     {
-        node->id = id;
+        node->SetID(id);
+        SetVNOfNode(node);
 
         int index = 0;
         std::cout << "Add Node ID" + std::to_string(id) + " : " + name << std::endl;
@@ -168,6 +180,8 @@ namespace editor::shadergraph
             node->SetOutputInfoAttr(index++, outputID);
         }
         node->name = name;
+
+        node->UpdateOutputVal();
 
         nodes.push_back(node);
     }
@@ -582,12 +596,9 @@ namespace editor::shadergraph
         std::cout << "" << std::endl;
     }
 
-    void ShaderGraphWindow::CreateMainNode(MainShaderGraphNode* node, std::string name)
+    void ShaderGraphWindow::SetVNOfNode(ShaderGraphNode* node)
     {
-        MainShaderGraphNode* t_node = node;
-        main_node = t_node;
-        CreateNode(t_node, name);
-        stack_defined_variable_shadercode.emplace_back(main_node->GetOutputInfos()[0]);
+        node->SetVN(rand());
     }
 
 }

@@ -62,6 +62,7 @@ namespace editor::shadergraph
         void DebugCode(std::vector<std::shared_ptr<OutputInfo>> code_list);
         ShaderGraphNode* SearchMainNode(ShaderGraphNode* node);
         void CreateMainNode(MainShaderGraphNode* main_node, std::string name);
+        void SetVNOfNode(ShaderGraphNode* node);
 
 
     public:

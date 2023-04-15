@@ -11,6 +11,7 @@ namespace editor::shadergraph
         std::string color; //output
 
     public:
+        void Initialize() override;
         UnlitShaderGraphNode();
         void UpdateOutputVal() override;
     };

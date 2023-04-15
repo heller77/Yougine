@@ -32,6 +32,7 @@ namespace editor::shadergraph
         bool is_linked = false;
         std::any init_val;
         std::any val;
+        std::string unique_vn = "";
         float field_width = 0;
         int linked_output_attr;
         ShaderGraphNode* child_node;
@@ -44,6 +45,7 @@ namespace editor::shadergraph
         bool is_linked;
         std::string* init_val;
         std::string* val;
+        std::string unique_vn = "";
         int linked_input_attr;
         int stack_index = 0;
     };
@@ -132,23 +134,27 @@ namespace editor::shadergraph
         std::vector<std::shared_ptr<OutputInfo>> output_infos;
         float input_field_width = 0;
         CodeType code_type;
+        std::string unique_vn;
 
     public:
         int id;
         std::string name;
 
     protected:
-        void Initialize(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals);
-        void SetInputVal(std::any value, int input_index);
+        void InitializeInfos(std::vector<std::pair<std::any, std::string>> init_input_vals, std::vector<std::pair<std::string*, std::string>> init_output_vals);
+        void SetInputVal(std::any value, std::string unique_vn, int input_index);
         std::any GetOutputVal(int output_index);
+        std::string GetOutputUniqueVN(int output_index);
         void DisplayValues();
         int FindLinkedInputIndex(int input_attr);
         int FindLinkedOutputIndex(int output_attr);
         void ResetInputVal(int input_index);
         void InitInputInfoLinkedOutputAttr(int index);
         virtual std::string MakeupOutputCode(std::string output_code);
+        bool CheckExistLinkedInput(std::string vn);
 
     public:
+        virtual void Initialize();
         ShaderGraphNode();
         void SetParentNode(ShaderGraphNode* parent_node, std::pair<int, int> attr_pair);
         bool UpdateParentNodeValue(std::pair<int, int> attr_pair);
@@ -165,5 +171,7 @@ namespace editor::shadergraph
         CodeType GetCodeType();
         void SetChildNode(std::shared_ptr<InputInfo> input_info, ShaderGraphNode* child_node);
         ShaderGraphNode* GetChildNode(std::shared_ptr<InputInfo> input_info);
+        void SetVN(int vn_n);
+        void SetID(int id);
     };
 }
