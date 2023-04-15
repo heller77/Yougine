@@ -71,6 +71,8 @@
     <ClCompile Include="src\yougine\utilitys\view\parameters\CustomParameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
+    <ClCompile Include="src\yougine\Editor\PropertiesInputField.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -313,6 +315,8 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.h" />
+    <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

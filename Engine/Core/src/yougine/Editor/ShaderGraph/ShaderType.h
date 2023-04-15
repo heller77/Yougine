@@ -70,6 +70,12 @@ namespace editor::shadergraph
         kShared,
     };
 
+    enum class ShaderUniqueValue
+    {
+        kTrue,
+        kFalse,
+    };
+
     enum class ShaderVersion
     {
         k430,

@@ -178,9 +178,11 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\Button\ButtonInProjectwindow.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
+    <ClCompile Include="src\yougine\Editor\PropertiesInputField.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
+    <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
@@ -249,9 +251,11 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\IElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
+    <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
+    <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.h" />
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h" />
     <ClInclude Include="lib\imnodes\imnodes.h" />
     <ClInclude Include="lib\imnodes\imnodes_internal.h" />
