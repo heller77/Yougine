@@ -3,6 +3,7 @@
 #include <tinygltf/json.hpp>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <memory>
 
 editor::projectwindows::assets::elements::model::Asset::Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid)
@@ -49,4 +50,39 @@ std::shared_ptr<utility::youginuuid::YougineUuid> editor::projectwindows::assets
     return this->uuid;
 }
 
+void editor::projectwindows::assets::elements::model::Asset::SwapParameter(std::string parameter_name,
+    std::shared_ptr<assetparameters::Parameter> parameter)
+{
+    bool is_parameter_exist = this->parameter.find(parameter_name) != this->parameter.end();
+    if (is_parameter_exist)
+    {
+        this->parameter[parameter_name] = parameter;
+    }
+    else
+    {
+        std::cout << "not exist" << std::endl;
+    }
+}
 
+// std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> editor::projectwindows::
+// assets::elements::model::Asset::Generate_Field_SwitchFunction(std::shared_ptr<shader::ShaderFileAsset>& field,
+//     std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option, std::string parameter_name)
+// {
+//     std::function<void(std::shared_ptr<Asset>)> function = [=](std::shared_ptr<Asset> input)
+//     {
+//         auto input_cast_ptr = std::dynamic_pointer_cast<shader::ShaderFileAsset>(input);
+//         std::shared_ptr<shader::ShaderFileAsset> input_cast_shared_ptr = std::shared_ptr<shader::ShaderFileAsset>(input_cast_ptr);
+//         std::cout << typeid(field).name() << std::endl;
+//         if (input_cast_shared_ptr)
+//         {
+//             field = input_cast_shared_ptr;
+//             // auto parameter = std::make_shared<assetparameters::Parameter>(field->GetAssetId(), option);
+//             // SwapParameter(parameter_name, std::make_shared<assetparameters::Parameter>(field->GetAssetId(), option));
+//         }
+//         else
+//         {
+//             std::cout << "cast failed!! in Field_SwitchFunction" << std::endl;
+//         }
+//     };
+//     return function;
+// }

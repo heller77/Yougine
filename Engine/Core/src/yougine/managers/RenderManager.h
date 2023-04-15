@@ -12,12 +12,14 @@
 
 namespace yougine::managers
 {
+    namespace shader = editor::projectwindows::assets::elements::model::shader;
+
     class RenderManager
     {
     public:
         RenderManager(int width, int height, ComponentList* component_list);
 
-        RenderManager(int width, int height,GLint input_framebuffer, ComponentList* component_list);
+        RenderManager(int width, int height, GLint input_framebuffer, ComponentList* component_list);
 
         void Initialize();
 
@@ -26,6 +28,8 @@ namespace yougine::managers
         static GLuint ShaderInit(std::string vs_shader_source, std::string fs_shader_source);
 
         static GLuint ShaderInitFromFilePath(const std::string vsFilePath, const std::string fsFilePath);
+
+        static GLuint ShaderInitFromFilePath(const std::shared_ptr<shader::ShaderFileAsset> vsAsset, const std::shared_ptr<shader::ShaderFileAsset> fsAsset);
 
         GLuint GetColorBuffer();
 
@@ -44,7 +48,7 @@ namespace yougine::managers
 
         GLuint depthBuffer;
 
-        void RenderOneGameObject(components::RenderComponent* render_component,std::shared_ptr<components::camera::CameraComponent> camera);
+        void RenderOneGameObject(components::RenderComponent* render_component, std::shared_ptr<components::camera::CameraComponent> camera);
 
         void MeshBufferInit();
 

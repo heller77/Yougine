@@ -10,6 +10,8 @@ namespace editor::projectwindows::assets::elements::model::shader
         std::string shader_kind;
         static std::shared_ptr<ShaderFileAsset> vert_default;
         static std::shared_ptr<ShaderFileAsset> frag_default;
+        std::string code;
+        void InitializeCode(std::filesystem::path shaderfile_path);
     public:
         ShaderFileAsset(const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> asset_id);
         ShaderFileAsset(const std::filesystem::path assetinfo_file_path);
@@ -19,6 +21,7 @@ namespace editor::projectwindows::assets::elements::model::shader
         void Export() override;
 
         void InitializeParameter() override;
+        std::string GetCode();
 
         std::string ToString() override;
     };

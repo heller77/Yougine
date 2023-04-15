@@ -7,6 +7,10 @@
 #include "ComponentsIncluder.h"
 #include <string>
 #include <any>
+#include "../utilitys/YougineMath.h"
+#include "../utilitys/Split.cpp"
+#include "../utilitys/Quaternion.h"
+
 #include "PropertiesInputField.h"
 
 namespace editor

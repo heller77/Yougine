@@ -105,6 +105,7 @@ int main()
     FILE* fp;
     errno_t error;
     error = fopen_s(&fp, scenefilepath.c_str(), "r");
+
     if (error == 0)
     {
         //シーンファイルがあれば
@@ -112,6 +113,7 @@ int main()
         sceneloader.UpdateJsonObj(scenefilepath);
         sceneloader.CreateScene();
         scene = sceneloader.jb_scene;
+        fclose(fp);
     }
     else
     {

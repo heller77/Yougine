@@ -8,16 +8,32 @@
 #include "../../../../../../Projects/Project.h"
 #include "../AssetInfoExporter/AssetInfoFileExporter.h"
 
+void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeCode(
+    std::filesystem::path shaderfile_path)
+{
+    std::ifstream ifs(shaderfile_path.string());
+    if (ifs.fail()) {
+        std::cerr << "Failed to open file." << std::endl;
+        return;
+    }
+    //入力
+    std::string input;
+    while (getline(ifs, input)) {
+        this->code += input + "\n";
+    }
+    std::cout << shaderfile_path << ": " << code << std::endl;
+}
+
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
     const std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
-
+    InitializeCode(this->path);
 }
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
     const std::filesystem::path assetinfo_file_path) : Asset(assetinfo_file_path)
 {
-
+    InitializeCode(this->path);
 }
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
@@ -62,6 +78,11 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::I
     this->shader_kind = "fragment or vertex";
     auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
     this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
+}
+
+std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::GetCode()
+{
+    return this->code;
 }
 
 std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ToString()
