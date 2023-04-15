@@ -8,10 +8,9 @@ namespace yougine::components
     {
     private:
         utility::Vector3* velocity; // 速度
-        // Vector3* angularVelocity; // 回転速度
+        utility::Vector3* angular_velocity; // 回転速度
         utility::Vector3* acceleration; // 加速度
-        // utility::Vector3* angularAcceleration; // 回転加速度
-        // utility::Vector3* angularForce; // 回転運動エネルギー
+        utility::Vector3* angular_acceleration; // 回転加速度
         float mass; // 質量
         float drag; // 抵抗係数
         float angular_drag; // トルク抵抗係数
@@ -26,8 +25,14 @@ namespace yougine::components
         utility::Vector3 GetVelocity();
         void SetVelocity(utility::Vector3 velocity);
 
+        utility::Vector3 GetAngularVelocity();
+        void SetAngularVelocity(utility::Vector3 angular_velocity);
+
         utility::Vector3 GetAcceleration();
         void SetAcceleration(utility::Vector3 acceleration);
+
+        utility::Vector3 GetAngularAcceleration();
+        void SetAngularAcceleration(utility::Vector3 angular_acceleration);
 
         float GetMass();
         void SetMass(float mass);
