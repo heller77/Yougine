@@ -21,6 +21,12 @@ void editor::projectwindows::assets::elements::model::assetdatabases::AssetDatab
 std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::projectwindows::assets::elements::model
 ::assetdatabases::AssetDatabase::GetAsset(std::string assetid)
 {
+    //[]でvalueのないkeyを指定するとnullがvalueのpairが生成されるので、チェック
+    if (this->asset_map.find(assetid) == asset_map.end())
+    {
+        std::cout << assetid << " : assetid is null" << std::endl;
+        return nullptr;
+    }
     return this->asset_map[assetid];
 }
 
