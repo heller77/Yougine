@@ -22,6 +22,7 @@ namespace editor::shadergraph
         c_item00.push_back(item000);
         item00->items.emplace_back(std::make_pair("Debug", c_item00));
 
+
         MenuItem* item01 = new MenuItem();
         std::vector<MenuItem*> c_item01;
         MenuItem* item010 = new MenuItem();
@@ -29,6 +30,7 @@ namespace editor::shadergraph
         item010->items.emplace_back(std::make_pair("Unlit", c_item010));
         c_item01.push_back(item010);
         item01->items.emplace_back(std::make_pair("Main", c_item01));
+
 
         MenuItem* item02 = new MenuItem();
         std::vector<MenuItem*> c_item02;
@@ -46,11 +48,28 @@ namespace editor::shadergraph
 
         item02->items.emplace_back(std::make_pair("Input", c_item02));
 
+
+        MenuItem* item03 = new MenuItem();
+        std::vector<MenuItem*> c_item03;
+
+        MenuItem* item030 = new MenuItem();
+        std::vector<MenuItem*> c_item030(0);
+        item030->items.emplace_back(std::make_pair("Add", c_item030));
+        MenuItem* item031 = new MenuItem();
+        std::vector<MenuItem*> c_item031(0);
+        item031->items.emplace_back(std::make_pair("Subtract", c_item031));
+
+        c_item03.push_back(item030);
+        c_item03.push_back(item031);
+
+        item03->items.emplace_back(std::make_pair("Math", c_item03));
+
         pulldown_menu_bar = new PullDownMenuBar();
         std::vector<MenuItem*> items0;
         items0.push_back(item00);
         items0.push_back(item01);
         items0.push_back(item02);
+        items0.push_back(item03);
         pulldown_menu_bar->menu_items.emplace_back(std::make_pair("Add Node", items0));
 
 
@@ -121,6 +140,14 @@ namespace editor::shadergraph
             if (item == "Float")
             {
                 CreateNode(new ShaderGraphFloatNode(), item);
+            }
+            if (item == "Add")
+            {
+                CreateNode(new ShaderGraphAddNode(), item);
+            }
+            if (item == "Subtract")
+            {
+                CreateNode(new ShaderGraphSubtractNode(), item);
             }
             if (item == "Update")
             {

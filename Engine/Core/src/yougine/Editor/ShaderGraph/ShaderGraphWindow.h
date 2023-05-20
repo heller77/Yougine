@@ -8,6 +8,7 @@
 #include "../../utilitys/Split.cpp"
 #include "ShaderfileOverwriter.h"
 #include "ShaderGraphInputFieldViewer.h"
+#include "Nodes/ShaderGraphMethNodes.h"
 
 namespace editor::shadergraph
 {
