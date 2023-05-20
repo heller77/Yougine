@@ -1,30 +1,41 @@
 #include "UnlitShaderGraphNode.h"
 
+#include <iostream>
+
 namespace editor::shadergraph
 {
     UnlitShaderGraphNode::UnlitShaderGraphNode() : MainShaderGraphNode()
     {
-        std::vector<std::pair<std::string, std::string>> input_vals;
-        std::string vector_zero = "vec3(0.0, 0.0, 0.0)";
-        input_vals.emplace_back(std::make_pair(vector_zero, vector_zero));
+        code_type = CodeType::kMain;
 
-        std::vector<std::pair<std::string, std::string>> output_vals;
-        output_vals.emplace_back(std::make_pair(input_vals[0].first, input_vals[0].first));
+        Initialize();
+    }
 
-        Initialize(input_vals, output_vals);
+    void UnlitShaderGraphNode::Initialize()
+    {
+        std::vector<std::pair<std::any, std::string>> input_vals;
+        input_vals.emplace_back(std::make_pair(&albedo, "albedo"));
 
-        shaderCodeListByOutputVal.push_back(qualifier_dictionary[ShaderQualifier::kOut] + " " + type_dictionary[ShaderPropertyType::kVec3] + " " + stage_dictionary[ShaderStage::kFragment]);
-        shaderCodeListByOutputVal.push_back(type_dictionary[ShaderPropertyType::kVec3] + " " + "color");
+        std::vector<std::pair<std::string*, std::string>> output_vals;
+        color = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + albedo + ", 1.0)";
+        output_vals.emplace_back(std::make_pair(&color, ""));
+
+        input_field_width = 75.0f;
+
+        InitializeInfos(input_vals, output_vals);
+
+        SetInitializationCodes();
         shaderCodeListByOutputVal.push_back(codeMainFunction);
         shaderCodeListByOutputVal.push_back("{");
-        shaderCodeListByOutputVal.push_back(stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + init_input_vals[0].first + ", 1.0);");
+        shaderCodeListByOutputVal.push_back(color);
         shaderCodeListByOutputVal.push_back("}");
     }
 
+
     void UnlitShaderGraphNode::UpdateOutputVal()
     {
-        output_info[0].second.second = input_info[0].second.second;
-        shaderCodeListByOutputVal[4] = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + output_info[0].second.second + ", 1.0);";
+        color = stage_dictionary[ShaderStage::kFragment] + " = " + "glm::" + type_dictionary[ShaderPropertyType::kVec4] + "(" + CastValueToString(input_infos[0]->unique_vn) + ", 1.0)";
+        output_infos[0]->val = &color;
     }
 
 }
