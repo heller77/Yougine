@@ -37,3 +37,14 @@
 - 立方体や球などの当たり判定用のColliderComponent
 - シェーダをノードプログラミングで開発する機能。
 - ユーザがc++で独自コンポーネントを定義できるCustomComponent
+
+# third party library
+
+glew
+glfw
+glm
+gsl
+imgui
+imnodes
+stduuid
+tinygltf
