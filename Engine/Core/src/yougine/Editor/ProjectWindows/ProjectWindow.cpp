@@ -127,6 +127,17 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                     });
 
             }
+            else if (extension == "h")
+            {
+                auto cppAsset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid->convertstring());
+                auto button
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, cppAsset);
+                assetvies_vector.emplace_back(button);
+                button->SetSelectEvent([=]()
+                    {
+                        SelectionInfo::GetInstance()->SetSelctionInfo(button);
+                    });
+            }
             else
             {
                 //アセット生成

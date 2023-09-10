@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 
@@ -59,6 +60,17 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         material_asset->Export();
         return material_asset;
 
+    }
+    else if (extension == "h")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<editor::projectwindows::assets::elements::model::customscript::CustomScriptAsset>(assetinfo_path);
+        }
+        auto custom_script_asset = std::make_shared<editor::projectwindows::assets::elements::model::customscript::CustomScriptAsset>(path, uuid);
+        custom_script_asset->Export();
+        return custom_script_asset;
     }
     else
     {
