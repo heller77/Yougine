@@ -1,10 +1,12 @@
 ﻿#pragma once
-namespace CutomComponent
+#include "../Component.h"
+
+namespace yougine::components::customcomponents
 {
     /**
      * \brief ユーザが書くことのできるコンポーネントが継承するコンポーネント
      */
-    class CutomComponent
+    class CutomComponent : public yougine::components::Component
     {
     public:
         virtual void Update() = 0;
