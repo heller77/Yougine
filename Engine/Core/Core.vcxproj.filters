@@ -74,6 +74,7 @@
     <ClCompile Include="src\yougine\Editor\PropertiesInputField.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.cpp" />
     <ClCompile Include="src\yougine\components\CustomComponents\CutomComponent.cpp" />
+    <ClCompile Include="src\yougine\components\CustomComponents\MyComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -319,6 +320,7 @@
     <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.h" />
     <ClInclude Include="src\yougine\components\CustomComponents\CutomComponent.h" />
+    <ClInclude Include="src\yougine\components\CustomComponents\MyComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
