@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Component.h"
-#include "../utilitys/YougineMath.h"
+#include "UserShare/utilitys/YougineMath.h"
 
 namespace yougine::components
 {

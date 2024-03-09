@@ -40,7 +40,6 @@
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
     <ClCompile Include="src\yougine\Editor\MenuBar.cpp" />
     <ClCompile Include="lib\imnodes\imnodes.cpp" />
-    <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
@@ -59,7 +58,6 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwrite.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.cpp" />
-    <ClCompile Include="src\yougine\utilitys\Split.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
@@ -76,6 +74,7 @@
     <ClCompile Include="src\yougine\components\CustomComponents\CutomComponent.cpp" />
     <ClCompile Include="src\yougine\components\CustomComponents\MyComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
+    <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -207,13 +206,11 @@
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwriter.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderType.h" />
-    <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\BuildScript\Builder.h" />
     <ClInclude Include="src\yougine\Editor\MenuBar.h" />
     <ClInclude Include="lib\imnodes\imnodes.h" />
     <ClInclude Include="lib\imnodes\imnodes_internal.h" />
-    <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
@@ -323,6 +320,7 @@
     <ClInclude Include="src\yougine\components\CustomComponents\CutomComponent.h" />
     <ClInclude Include="src\yougine\components\CustomComponents\MyComponent.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
+    <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

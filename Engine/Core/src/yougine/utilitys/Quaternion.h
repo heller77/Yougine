@@ -4,7 +4,7 @@
 
 #include "glm/glm.hpp"
 
-#include "YougineMath.h"
+#include "UserShare/utilitys/YougineMath.h"
 
 namespace utility
 {
@@ -19,9 +19,9 @@ namespace utility
 
         Quaternion(float x, float y, float z, float w)
             : x(x),
-              y(y),
-              z(z),
-              w(w)
+            y(y),
+            z(z),
+            w(w)
         {
         }
         ~Quaternion();

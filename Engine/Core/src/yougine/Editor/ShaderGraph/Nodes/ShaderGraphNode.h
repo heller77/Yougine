@@ -6,9 +6,9 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "../../../utilitys/YougineMath.h"
+#include "UserShare/utilitys/YougineMath.h"
 #include "../../../utilitys/Quaternion.h"
-#include "../../../utilitys/Split.cpp"
+#include "UserShare/utilitys/Split.cpp"
 #include <any>
 
 namespace editor::shadergraph
