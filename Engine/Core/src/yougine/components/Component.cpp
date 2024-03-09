@@ -9,6 +9,7 @@ namespace yougine::components
         this->component_name = componentname;
 
         this->register_component_list = nullptr;
+        this->yougine_uuid = std::shared_ptr<utility::youginuuid::YougineUuid>();
     }
 
     Component::~Component()
@@ -90,6 +91,8 @@ namespace yougine::components
         return &accessable_properties_list;
     }
 
-
-
+    std::shared_ptr<utility::youginuuid::YougineUuid> Component::GetUUid()
+    {
+        return this->yougine_uuid;
+    }
 }

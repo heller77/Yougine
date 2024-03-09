@@ -5,6 +5,8 @@
 #include <any>
 #include <functional>
 #include "./../Editor/ProjectWindows/Assets/element/Model/Asset.h"
+
+#include "./../utilitys/uuid/YougineUuid.h"
 namespace yougine
 {
     class GameObject;
@@ -23,6 +25,11 @@ namespace yougine::components
          * \brief 登録しているComponentList
          */
         managers::ComponentList* register_component_list;
+
+        /**
+         * \brief uuid
+         */
+        std::shared_ptr<utility::youginuuid::YougineUuid> yougine_uuid;
 
     protected:
         std::vector<std::vector<std::any>> accessable_properties_list;
@@ -80,6 +87,12 @@ namespace yougine::components
         bool isAlradyRegisterComponentList();
         std::vector<std::vector<std::any>> GetAccessablePropertiesList();
         std::vector<std::vector<std::any>>* GetPtrAccessablePropertiesList();
+
+        /**
+         * \brief uuidを返す
+         * \return
+         */
+        std::shared_ptr<utility::youginuuid::YougineUuid> GetUUid();
 
 
     };
