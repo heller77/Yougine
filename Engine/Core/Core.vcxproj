@@ -182,6 +182,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\PropertiesInputField.cpp" />
+    <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\IElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
+    <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
