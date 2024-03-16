@@ -3,7 +3,6 @@
 #include "../managers/ComponentName.h"
 #include <any>
 #include <functional>
-#include "./../Editor/ProjectWindows/Assets/element/Model/Asset.h"
 
 #include "./../utilitys/uuid/YougineUuid.h"
 namespace yougine

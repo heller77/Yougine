@@ -9,6 +9,8 @@
 #include "UserShare/utilitys/Split.h"
 #include "UserShare/utilitys/YougineMath.h"
 
+#include "../Editor/ProjectWindows/Assets/element/Model/Asset.h"
+
 yougine::SceneFiles::SceneFileExporter::SceneFileExporter()
 {
     std::cout << "scenefileexporter create " << std::endl;
