@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include "UserShare/utilitys/YougineMath.h"
-#include "UserShare/utilitys/Split.cpp"
+#include "UserShare/utilitys/Split.h"
 #include "../utilitys/Quaternion.h"
 #include <any>
 #include "imgui/imgui.h"

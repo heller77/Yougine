@@ -1,39 +1,31 @@
-#pragma once
-#include <vector>
-#include <string>
+﻿
+#include "Split.h"
 
-namespace utility
+std::vector<std::string> utility::Split::SplitStr(const std::string s, char delim)
 {
-    struct Split
+    std::vector<std::string> elems;
+    std::string s_chars;
+
+    for (char c : s)
     {
-    public:
-        static std::vector<std::string> SplitStr(const std::string s, char delim)
+        if (c == delim)
         {
-            std::vector<std::string> elems;
-            std::string s_chars;
-
-            for (char c : s)
-            {
-                if (c == delim)
-                {
-                    if (!s_chars.empty())
-                    {
-                        elems.push_back(s_chars);
-                    }
-                    s_chars.clear();
-                }
-                else
-                {
-                    s_chars += c;
-                }
-            }
-
             if (!s_chars.empty())
             {
                 elems.push_back(s_chars);
             }
-
-            return elems;
+            s_chars.clear();
         }
-    };
+        else
+        {
+            s_chars += c;
+        }
+    }
+
+    if (!s_chars.empty())
+    {
+        elems.push_back(s_chars);
+    }
+
+    return elems;
 }

@@ -8,7 +8,7 @@
 #include <vector>
 #include "UserShare/utilitys/YougineMath.h"
 #include "../../../utilitys/Quaternion.h"
-#include "UserShare/utilitys/Split.cpp"
+#include "UserShare/utilitys/Split.h"
 #include <any>
 
 namespace editor::shadergraph

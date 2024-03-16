@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="UserShare\utilitys\Split.h">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="UserShare\utilitys\Split.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>

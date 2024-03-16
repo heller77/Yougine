@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UserShare\utilitys\Split.cpp" />
+    <ClCompile Include="UserShare\utilitys\Split.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UserShare\utilitys\YougineMath.h" />

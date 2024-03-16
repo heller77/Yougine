@@ -5,7 +5,7 @@
 #include "Nodes/ShaderGraphNode.h"
 #include "Nodes/ShaderGraphInputNodes.h"
 #include "Nodes/UnlitShaderGraphNode.h"
-#include "UserShare/utilitys/Split.cpp"
+#include "UserShare/utilitys/Split.h"
 #include "ShaderfileOverwriter.h"
 #include "ShaderGraphInputFieldViewer.h"
 
