@@ -2,7 +2,7 @@
 
 namespace yougine::components
 {
-    TransformComponent::TransformComponent(float x, float y, float z) : Component(managers::ComponentName::kNone)
+    TransformComponent::TransformComponent(float x, float y, float z) : Component(components::ComponentName::kNone)
     {
         this->position = new utility::Vector3(x, y, z);
         this->rotation = utility::Quaternion::GenerateQuartanionFromEuler(0, 0, 0);

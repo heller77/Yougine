@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "../Scene.h"
-#include "../managers/ComponentName.h"
+#include "ComponentName.h"
 #include <any>
 #include <functional>
 
@@ -17,7 +17,7 @@ namespace yougine::components
 #define GETVALUENAME(name) (#name)
     private:
         GameObject* parent_gameobject;
-        managers::ComponentName component_name;
+        components::ComponentName component_name;
         // bool isRegisterdToComponentList;
         /**
          * \brief 登録しているComponentList
@@ -37,10 +37,10 @@ namespace yougine::components
         void InitializeProperties();
 
     public:
-        Component(managers::ComponentName componentname);
+        Component(components::ComponentName componentname);
         ~Component();
         virtual void Excute();
-        managers::ComponentName GetComponentName();
+        components::ComponentName GetComponentName();
         void InitializeOnPlayBack();
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();

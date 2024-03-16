@@ -3,7 +3,7 @@
 
 namespace yougine::components
 {
-    Component::Component(managers::ComponentName componentname)
+    Component::Component(components::ComponentName componentname)
     {
         this->parent_gameobject = nullptr;
         this->component_name = componentname;
@@ -27,7 +27,7 @@ namespace yougine::components
         std::cout << "excute" << std::endl;
     }
 
-    managers::ComponentName Component::GetComponentName()
+    components::ComponentName Component::GetComponentName()
     {
         return component_name;
     }
@@ -59,7 +59,7 @@ namespace yougine::components
      */
     bool Component::RegisterThisComponentToComponentList(Scene* scene)
     {
-        if (this->component_name == managers::ComponentName::kNone)
+        if (this->component_name == components::ComponentName::kNone)
         {
             //componentnameがkNoneなのでComponentListに追加しない
             return false;

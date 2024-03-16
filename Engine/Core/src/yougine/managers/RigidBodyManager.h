@@ -14,7 +14,8 @@ namespace yougine::managers
 
     private:
         ComponentList* componentlist;
-        ComponentName component_name = ComponentName::kRigidBody;
+
+        components::ComponentName component_name = components::ComponentName::kRigidBody;
     public:
         RigidBodyManager(ComponentList*);
         //void ExcuteCoponents();

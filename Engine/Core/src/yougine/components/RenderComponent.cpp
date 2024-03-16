@@ -13,7 +13,7 @@
 
 namespace yougine::components
 {
-    RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
+    RenderComponent::RenderComponent() : Component(components::ComponentName::kRender), program(0), vao(0)
     {
         namespace materials = editor::projectwindows::assets::elements::model::materials;
         //露出するパラメータ("2342161b-f95e-4c2f-81fb-f21fe464712a"はデフォルトで用意しているマテリアルのアセットID)

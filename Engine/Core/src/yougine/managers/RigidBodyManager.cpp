@@ -19,7 +19,7 @@ namespace yougine::managers
 
     void RigidBodyManager::Update()
     {
-        auto rigidbody_componentlist = componentlist->GetObjectsDictionary()[ComponentName::kRigidBody];
+        auto rigidbody_componentlist = componentlist->GetObjectsDictionary()[components::ComponentName::kRigidBody];
         for (components::Component* component : rigidbody_componentlist)
         {
             yougine::components::TransformComponent* transform_compornent = component->GetGameObject()->GetComponent<components::TransformComponent>();

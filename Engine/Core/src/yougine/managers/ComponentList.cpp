@@ -12,37 +12,37 @@ namespace yougine::managers
     {
         components_dictionary =
         {
-            {managers::ComponentName::kCollider, vector<components::Component*>()},
-            {managers::ComponentName::kRigidBody, vector<components::Component*>()},
-            {managers::ComponentName::kRender, vector<components::Component*>()},
-            {managers::ComponentName::kUIRender, vector<components::Component*>()},
-            {managers::ComponentName::kUICollider, vector<components::Component*>()},
-            {managers::ComponentName::kCustom, vector<components::Component*>()},
+            {components::ComponentName::kCollider, vector<components::Component*>()},
+            {components::ComponentName::kRigidBody, vector<components::Component*>()},
+            {components::ComponentName::kRender, vector<components::Component*>()},
+            {components::ComponentName::kUIRender, vector<components::Component*>()},
+            {components::ComponentName::kUICollider, vector<components::Component*>()},
+            {components::ComponentName::kCustom, vector<components::Component*>()},
         };
     }
 
-    map<managers::ComponentName, vector<components::Component*>> ComponentList::GetObjectsDictionary()
+    map<components::ComponentName, vector<components::Component*>> ComponentList::GetObjectsDictionary()
     {
         return components_dictionary;
     }
 
-    void ComponentList::AddObjectToDictionary(managers::ComponentName component_name, components::Component* component)
+    void ComponentList::AddObjectToDictionary(components::ComponentName component_name, components::Component* component)
     {
         components_dictionary[component_name].push_back(component);
     }
 
-    vector<components::Component*> ComponentList::GetReferObjectList(managers::ComponentName component_name)
+    vector<components::Component*> ComponentList::GetReferObjectList(components::ComponentName component_name)
     {
         return components_dictionary[component_name];
     }
 
     /**
      * \brief componentの登録を消す
-     * \param component_name 
-     * \param component 
+     * \param component_name
+     * \param component
      */
-    void yougine::managers::ComponentList::RemoveComponentFromDictionary(managers::ComponentName component_name,
-                                                                      components::Component* component)
+    void yougine::managers::ComponentList::RemoveComponentFromDictionary(components::ComponentName component_name,
+        components::Component* component)
     {
         auto target_component_list = components_dictionary[component_name];
         vector<components::Component*> new_component_list;

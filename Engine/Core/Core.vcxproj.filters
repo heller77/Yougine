@@ -198,7 +198,7 @@
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
     <ClInclude Include="src\yougine\InputManager.h" />
     <ClInclude Include="src\yougine\managers\ComponentList.h" />
-    <ClInclude Include="src\yougine\managers\ComponentName.h" />
+    <ClInclude Include="src\yougine\components\ComponentName.h" />
     <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />

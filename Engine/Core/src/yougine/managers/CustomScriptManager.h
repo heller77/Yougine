@@ -14,7 +14,8 @@ namespace yougine::managers
 
     private:
         ComponentList* componentlist;
-        ComponentName component_name = ComponentName::kCustom;
+
+        components::ComponentName component_name = components::ComponentName::kCustom;
 
     private:
         void InitializeMembers();

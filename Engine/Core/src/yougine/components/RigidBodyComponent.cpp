@@ -2,7 +2,7 @@
 
 namespace yougine::components
 {
-    RigidBodyComponent::RigidBodyComponent() : Component(managers::ComponentName::kRigidBody)
+    RigidBodyComponent::RigidBodyComponent() : Component(components::ComponentName::kRigidBody)
     {
         this->velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度
         this->angular_velocity = new utility::Vector3(0, 0, 0); // x, y, z方向に関する速度

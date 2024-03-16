@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <map>
-#include "ComponentName.h"
+#include "./../components/ComponentName.h"
 #include "../GameObject.h"
 
 namespace yougine::managers
@@ -9,13 +9,13 @@ namespace yougine::managers
     class ComponentList
     {
     private:
-        std::map<ComponentName, std::vector<components::Component*>> components_dictionary;
+        std::map<components::ComponentName, std::vector<components::Component*>> components_dictionary;
 
     public:
         ComponentList();
-        std::map<ComponentName, std::vector<components::Component*>> GetObjectsDictionary();
-        void AddObjectToDictionary(ComponentName component_name, components::Component* component);
-        std::vector<components::Component*> GetReferObjectList(ComponentName);
-        void RemoveComponentFromDictionary(managers::ComponentName component_name, components::Component* component);
+        std::map<components::ComponentName, std::vector<components::Component*>> GetObjectsDictionary();
+        void AddObjectToDictionary(components::ComponentName component_name, components::Component* component);
+        std::vector<components::Component*> GetReferObjectList(components::ComponentName);
+        void RemoveComponentFromDictionary(components::ComponentName component_name, components::Component* component);
     };
 }

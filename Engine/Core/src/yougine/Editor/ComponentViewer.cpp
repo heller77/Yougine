@@ -9,25 +9,25 @@ namespace editor
 
         switch (component->GetComponentName())
         {
-        case yougine::managers::ComponentName::kRender:
+        case yougine::components::ComponentName::kRender:
             component_name = "RenderComponent";
             break;
-        case yougine::managers::ComponentName::kRigidBody:
+        case yougine::components::ComponentName::kRigidBody:
             component_name = "RigidBodyComponent";
             break;
-        case yougine::managers::ComponentName::kCollider:
+        case yougine::components::ComponentName::kCollider:
             component_name = "ColliderComponent";
             break;
-        case yougine::managers::ComponentName::kUIRender:
+        case yougine::components::ComponentName::kUIRender:
             component_name = "UIRenderComponent";
             break;
-        case yougine::managers::ComponentName::kUICollider:
+        case yougine::components::ComponentName::kUICollider:
             component_name = "UIColliderComponent";
             break;
-        case yougine::managers::ComponentName::kCustom:
+        case yougine::components::ComponentName::kCustom:
             component_name = "CustomComponent";
             break;
-        case yougine::managers::ComponentName::kNone:
+        case yougine::components::ComponentName::kNone:
             component_name = typeid(*component).name();
             break;
         default:
