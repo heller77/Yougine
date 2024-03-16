@@ -2,6 +2,8 @@
 #include "EditorWindow.h"
 #include "../Scene.h"
 #include <algorithm>
+
+#include "SelectionInfo.h"
 #include  "../InputManager.h"
 namespace editor
 {

@@ -2,6 +2,7 @@
 #include "EditorWindow.h"
 #include "../InputManager.h"
 #include "ComponentViewer.h"
+#include "SelectionInfo.h"
 #include "../component_factory/ComponentFactory.h"
 #include "InspectorWindows/AssetView/view/AssetView.h"
 

@@ -1,7 +1,11 @@
 ﻿#include "SceneFileExporter.h"
+
+#include <any>
 #include <fstream>
 #include <typeinfo>
 #include <iostream>
+
+#include "../components/Component.h"
 
 yougine::SceneFiles::SceneFileExporter::SceneFileExporter()
 {

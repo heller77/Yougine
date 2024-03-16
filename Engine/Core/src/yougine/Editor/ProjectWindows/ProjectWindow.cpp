@@ -15,6 +15,8 @@
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
 
+#include "../SelectionInfo.h"
+
 editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManager* editor_windows_manager,
     yougine::Scene* scene)
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
