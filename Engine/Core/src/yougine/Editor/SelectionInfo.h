@@ -33,11 +33,12 @@ namespace editor
          * \brief selectイベント発火
          */
         void FireSelectEvent();
+        static void Create();
 
     public:
         SelectTarget GetRecentClickTarget();
 
-        static void Create();
+
         static void Destroy();
         static SelectionInfo* GetInstance();
 
