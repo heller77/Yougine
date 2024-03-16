@@ -34,7 +34,6 @@ namespace editor
             break;
         }
 
-        accessable_properties = component->GetAccessablePropertiesList();
         properties_input_field = std::make_shared<PropertiesInputField>();
     }
 

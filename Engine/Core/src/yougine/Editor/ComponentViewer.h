@@ -20,7 +20,6 @@ namespace editor
     private:
         yougine::components::Component* component;
         std::string component_name;
-        std::vector<std::vector<std::any>> accessable_properties;
         std::shared_ptr<PropertiesInputField> properties_input_field;
 
     public:
