@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "../Scene.h"
 #include "../managers/ComponentName.h"
-#include "../Editor/ComponentViewer.h"
 #include <any>
 #include <functional>
 #include "./../Editor/ProjectWindows/Assets/element/Model/Asset.h"

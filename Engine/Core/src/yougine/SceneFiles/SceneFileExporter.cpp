@@ -6,6 +6,8 @@
 #include <iostream>
 
 #include "../components/Component.h"
+#include "UserShare/utilitys/Split.h"
+#include "UserShare/utilitys/YougineMath.h"
 
 yougine::SceneFiles::SceneFileExporter::SceneFileExporter()
 {
