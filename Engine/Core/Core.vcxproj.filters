@@ -76,6 +76,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
     <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
+    <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -287,7 +288,6 @@
     <ClInclude Include="src\yougine\GameObject.h" />
     <ClInclude Include="src\yougine\Scene.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
-    <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
@@ -322,6 +322,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
     <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
+    <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

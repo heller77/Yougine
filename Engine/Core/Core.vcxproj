@@ -164,6 +164,7 @@
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
+    <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\components\CustomComponents\CutomComponent.cpp" />
     <ClCompile Include="src\yougine\components\CustomComponents\MyComponent.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
+    <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
     <ClInclude Include="src\yougine\components\CustomComponents\CutomComponent.h" />
     <ClInclude Include="src\yougine\components\CustomComponents\MyComponent.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
