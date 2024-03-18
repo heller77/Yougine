@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\UserShare\Layer.h" />
     <ClInclude Include="include\UserShare\MacroDifHeader.h" />
     <ClInclude Include="include\UserShare\utilitys\Split.h" />
     <ClInclude Include="include\UserShare\utilitys\YougineMath.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CPP\UserShare\utilitys\Split.cpp" />
+    <ClCompile Include="include\UserShare\utilitys\Split.cpp" />
+    <ClCompile Include="include\UserShare\Layer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
