@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "../components/Component.h"
-#include "./../utilitys/uuid/YougineUuid.h"
+#include "UserShare/utilitys/uuid/YougineUuid.h"
 #include "./../components/ComponentExportParameters/ComponentExportParameter.h"
 #include "./../Editor/ProjectWindows/Assets/element/Model/Asset.h"
 

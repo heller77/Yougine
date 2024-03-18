@@ -5,6 +5,7 @@
 
 #include "../MacroDifHeader.h"
 
+
 namespace utility
 {
     class EXPORT Split

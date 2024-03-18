@@ -1,9 +1,11 @@
 ﻿#pragma once
 #include <stduuid/uuid.h>
 
+#include "UserShare/MacroDifHeader.h"
+
 namespace utility::youginuuid
 {
-    class YougineUuid
+    class EXPORT YougineUuid
     {
     private:
         std::shared_ptr<uuids::uuid> uuid;

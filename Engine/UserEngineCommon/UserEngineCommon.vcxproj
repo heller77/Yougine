@@ -22,11 +22,13 @@
     <ClInclude Include="include\UserShare\Layer.h" />
     <ClInclude Include="include\UserShare\MacroDifHeader.h" />
     <ClInclude Include="include\UserShare\utilitys\Split.h" />
+    <ClInclude Include="include\UserShare\utilitys\uuid\YougineUuid.h" />
     <ClInclude Include="include\UserShare\utilitys\YougineMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\UserShare\utilitys\Split.cpp" />
     <ClCompile Include="include\UserShare\Layer.cpp" />
+    <ClCompile Include="include\UserShare\utilitys\uuid\YougineUuid.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -135,6 +137,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdPartyLibrary\lib;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,6 +160,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdPartyLibrary\lib;$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -125,7 +125,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -223,7 +223,6 @@
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwrite.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.cpp" />
-    <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -304,7 +303,6 @@
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderType.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.h" />
-    <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
