@@ -19,12 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UserShare\MacroDifHeader.h" />
-    <ClInclude Include="UserShare\utilitys\Split.h" />
-    <ClInclude Include="UserShare\utilitys\YougineMath.h" />
+    <ClInclude Include="include\UserShare\MacroDifHeader.h" />
+    <ClInclude Include="include\UserShare\utilitys\Split.h" />
+    <ClInclude Include="include\UserShare\utilitys\YougineMath.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UserShare\utilitys\Split.cpp" />
+    <ClCompile Include="CPP\UserShare\utilitys\Split.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

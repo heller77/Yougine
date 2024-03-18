@@ -125,7 +125,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
