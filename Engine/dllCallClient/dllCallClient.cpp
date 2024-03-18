@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include "UserShare/utilitys/Split.h"
+#include "UserShare/utilitys/YougineMath.h"
+
 int main()
 {
     std::cout << "main" << std::endl;
@@ -13,6 +15,9 @@ int main()
 
     auto hoge = utility::Split::SplitStr(ore_sore, elem);
     std::cout << hoge[0] << " , " << hoge[1] << std::endl;
+
+    utility::Vector3 vector3(1, 2, 3);
+    std::cout << vector3.x << " : " << vector3.y << " : " << vector3.z << std::endl;
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー

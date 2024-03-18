@@ -3,7 +3,7 @@
 
 namespace utility
 {
-    EXPORT struct Vector2
+    struct Vector2
     {
     public:
         float x, y, z;
@@ -26,7 +26,7 @@ namespace utility
         }
     };
 
-    EXPORT struct Vector3
+    struct Vector3
     {
     public:
         float x, y, z;
