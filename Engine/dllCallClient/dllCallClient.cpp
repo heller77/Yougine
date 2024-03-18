@@ -8,7 +8,6 @@
 int main()
 {
     std::cout << "main" << std::endl;
-    Hello();
 
     std::string ore_sore = "ore,sore";
     char elem = ',';

@@ -14,7 +14,3 @@ namespace utility
 
     };
 }
-CEXTERN_EXPORT void Hello()
-{
-    std::cout << "hello" << std::endl;
-}
