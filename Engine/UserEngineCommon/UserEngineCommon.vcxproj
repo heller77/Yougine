@@ -21,11 +21,13 @@
   <ItemGroup>
     <ClInclude Include="include\UserShare\Layer.h" />
     <ClInclude Include="include\UserShare\MacroDifHeader.h" />
+    <ClInclude Include="include\UserShare\UserScriptComponent.h" />
     <ClInclude Include="include\UserShare\utilitys\Split.h" />
     <ClInclude Include="include\UserShare\utilitys\uuid\YougineUuid.h" />
     <ClInclude Include="include\UserShare\utilitys\YougineMath.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\UserShare\UserScriptComponent.cpp" />
     <ClCompile Include="include\UserShare\utilitys\Split.cpp" />
     <ClCompile Include="include\UserShare\Layer.cpp" />
     <ClCompile Include="include\UserShare\utilitys\uuid\YougineUuid.cpp" />

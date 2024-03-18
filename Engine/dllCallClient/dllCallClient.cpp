@@ -4,19 +4,34 @@
 #include <iostream>
 #include "UserShare/utilitys/Split.h"
 #include "UserShare/utilitys/YougineMath.h"
+#include "windows.h"
+#include "UserShare/UserScriptComponent.h"
+typedef components::UserScriptComponent* (*FUNC1)();
 
 int main()
 {
-    std::cout << "main" << std::endl;
+    // std::cout << "main" << std::endl;
+    //
+    // std::string ore_sore = "ore,sore";
+    // char elem = ',';
+    //
+    // auto hoge = utility::Split::SplitStr(ore_sore, elem);
+    // std::cout << hoge[0] << " , " << hoge[1] << std::endl;
+    //
+    // utility::Vector3 vector3(1, 2, 3);
+    // std::cout << vector3.x << " : " << vector3.y << " : " << vector3.z << std::endl;
 
-    std::string ore_sore = "ore,sore";
-    char elem = ',';
+    //todo: ファイルパスは一旦直
+    HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Debug/MyNewDLLProject.dll"));
+    if (!hModule) {
+        std::cerr << "DLLをロードできませんでした。" << std::endl;
+        return 1;
+    }
+    FUNC1 func1 = (FUNC1)GetProcAddress(hModule, "GenerateUserScriptComponent");
 
-    auto hoge = utility::Split::SplitStr(ore_sore, elem);
-    std::cout << hoge[0] << " , " << hoge[1] << std::endl;
+    auto comp = func1();
+    comp->hoge();
 
-    utility::Vector3 vector3(1, 2, 3);
-    std::cout << vector3.x << " : " << vector3.y << " : " << vector3.z << std::endl;
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
