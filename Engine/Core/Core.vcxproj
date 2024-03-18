@@ -125,7 +125,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommonLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommonLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -316,8 +316,8 @@
     <Text Include="CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UserEngineCommonLib\UserEngineCommonLib.vcxproj">
-      <Project>{872cae5a-30f8-46c6-b59c-7ce9560f9ae4}</Project>
+    <ProjectReference Include="..\UserEngineCommon\UserEngineCommon.vcxproj">
+      <Project>{cd658777-a75d-4e5d-9080-afd14369c861}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

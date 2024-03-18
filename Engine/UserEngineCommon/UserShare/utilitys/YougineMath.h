@@ -1,7 +1,9 @@
 #pragma once
+#include "UserShare/MacroDifHeader.h"
+
 namespace utility
 {
-    struct Vector2
+    EXPORT struct Vector2
     {
     public:
         float x, y, z;
@@ -24,7 +26,7 @@ namespace utility
         }
     };
 
-    struct Vector3
+    EXPORT struct Vector3
     {
     public:
         float x, y, z;
