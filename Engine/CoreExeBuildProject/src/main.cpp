@@ -170,7 +170,8 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
+    auto menubar = new editor::MenuBar(editor_windows_manager, scene);
+    editor_windows_manager->AddRenderWindow(menubar);
     editor_windows_manager->AddRenderWindow(new editor::shadergraph::ShaderGraphWindow(editor_windows_manager));
     //GameManagerで回すマネージャのvector
     std::vector<IManager*> managerlist;
@@ -193,7 +194,9 @@ int main()
         */
 
         //毎フレーム、マネージャ群のUpdate関数を呼び出す
-        game_manager->Update();
+        if (menubar->GetPlay()) {
+            game_manager->Update();
+        }
 
         editor_windows_manager->CreateWindows(window);
     }
