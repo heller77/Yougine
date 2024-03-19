@@ -5,6 +5,9 @@
 #include "../components/TransformComponent.h"
 #include "../components/RigidBodyComponent.h"
 #include "../components/Camera/CameraComponent.h"
+#include "windows.h"
+
+typedef yougine::components::Component* (*FUNC)(std::string);
 
 yougine::components::Component* yougine::componentfactorys::ComponentFacotory::CreateComponent(
     std::string component_class_name)
@@ -24,9 +27,19 @@ yougine::components::Component* yougine::componentfactorys::ComponentFacotory::C
     else if (component_class_name == "yougine::components::RenderComponent")
     {
         return new components::RenderComponent();
-    }else if(component_class_name=="yougine::components::camera::CameraComponent")
+    }
+    else if (component_class_name == "yougine::components::camera::CameraComponent")
     {
         return new components::camera::CameraComponent();
     }
     //ここにユーザの作ったカスタムコンポーネントのelse if文も動的に入る予定
+
+    HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Debug/MyNewDLLProject.dll"));
+    if (!hModule) {
+        std::cerr << "DLLをロードできませんでした。" << std::endl;
+        return nullptr;
+    }
+    FUNC generateUserScriptComponentFunc = (FUNC)GetProcAddress(hModule, "GenerateUserScriptComponent");
+    auto component = generateUserScriptComponentFunc(component_class_name);
+    return component;
 }
