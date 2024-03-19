@@ -8,6 +8,7 @@
 
 #include "imgui/imgui.h"
 
+#include "UserShare/managers/ComponentList.h"
 
 
 namespace yougine::managers

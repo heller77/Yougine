@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../lib/tinygltf/json.hpp"
-#include "../Scene.h"
+#include "UserShare/Scene.h"
 #include <fstream>
 #include "../components/DebugComponent.h"
 #include "UserShare/utilitys/YougineMath.h"

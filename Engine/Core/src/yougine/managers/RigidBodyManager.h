@@ -1,6 +1,6 @@
 #pragma once
-#include "../components/Component.h"
-#include "ComponentList.h"
+#include "UserShare/components/Component.h"
+#include "UserShare/managers/ComponentList.h"
 #include <vector>
 
 #include "IManager.h"

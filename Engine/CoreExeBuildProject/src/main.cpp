@@ -21,7 +21,7 @@
 
 #include "components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
-#include "managers/ComponentList.h"
+#include "UserShare/managers/ComponentList.h"
 #include "components/DebugComponent.h"
 #include "Editor/MenuBar.h"
 #include "managers/CustomScriptManager.h"

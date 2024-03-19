@@ -4,7 +4,7 @@
 #include <iostream>
 #include <regex>
 
-#include "../components/Component.h"
+#include "UserShare//components/Component.h"
 #include "../Projects/Project.h"
 #include "../SceneFiles/SceneFileExporter.h"
 

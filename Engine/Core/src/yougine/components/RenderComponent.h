@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Component.h"
+#include "UserShare/components/Component.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 

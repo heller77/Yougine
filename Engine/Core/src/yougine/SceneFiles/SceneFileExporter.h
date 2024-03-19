@@ -3,7 +3,7 @@
 
 
 
-#include "../Scene.h"
+#include "UserShare/Scene.h"
 #include "../../../lib/tinygltf/json.hpp"
 using json = nlohmann::ordered_json;
 /**
@@ -22,6 +22,6 @@ namespace yougine::SceneFiles
          * \param scene 対象のSceneインスタンス
          * \param filepath 出力するファイルパス
          */
-        void ScenefileExportFromScene(Scene* scene,std::string filepath);
+        void ScenefileExportFromScene(Scene* scene, std::string filepath);
     };
 }

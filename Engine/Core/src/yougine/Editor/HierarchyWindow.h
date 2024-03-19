@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "EditorWindow.h"
-#include "../Scene.h"
+#include "UserShare//Scene.h"
 #include <algorithm>
 
 #include "SelectionInfo.h"

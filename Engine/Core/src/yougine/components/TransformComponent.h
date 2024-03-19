@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Component.h"
+#include "UserShare/components/Component.h"
 #include "UserShare/utilitys/YougineMath.h"
 #include "../utilitys/Quaternion.h"
 namespace yougine::components

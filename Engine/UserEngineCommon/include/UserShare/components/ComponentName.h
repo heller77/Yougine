@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "UserShare/MacroDifHeader.h"
 namespace yougine::components
 {
     enum class ComponentName

@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../GameObject.h"
+#include "UserShare/GameObject.h"
 #include "ComponentViewer.h"
 #include "ProjectWindows/Assets/element/view/IElementOfProjectView.h"
 

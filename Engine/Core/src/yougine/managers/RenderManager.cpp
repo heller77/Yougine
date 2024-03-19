@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "./../GameObject.h"
+#include "UserShare/GameObject.h"
 
 #include "../components/TransformComponent.h"
 
