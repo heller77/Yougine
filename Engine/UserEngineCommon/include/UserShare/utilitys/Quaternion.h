@@ -5,10 +5,11 @@
 #include "glm/glm.hpp"
 
 #include "UserShare/utilitys/YougineMath.h"
+#include "UserShare/MacroDifHeader.h"
 
 namespace utility
 {
-    class Quaternion
+    class EXPORT Quaternion
     {
 
     public:

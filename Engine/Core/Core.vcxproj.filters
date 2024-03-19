@@ -27,7 +27,6 @@
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
     <ClCompile Include="src\yougine\InputManager.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
-    <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
     <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneLoader.cpp" />
@@ -68,7 +67,6 @@
     <ClCompile Include="src\yougine\components\CustomComponents\CutomComponent.cpp" />
     <ClCompile Include="src\yougine\components\CustomComponents\MyComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
-    <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
@@ -188,7 +186,6 @@
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
     <ClInclude Include="src\yougine\InputManager.h" />
     <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
-    <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwriter.h" />
@@ -237,7 +234,6 @@
     <ClInclude Include="src\yougine\Editor\MenuBar.h" />
     <ClInclude Include="lib\imnodes\imnodes.h" />
     <ClInclude Include="lib\imnodes\imnodes_internal.h" />
-    <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="lib\imgui\imconfig.h" />
     <ClInclude Include="lib\imgui\imgui.h" />
     <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />

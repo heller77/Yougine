@@ -5,13 +5,13 @@
 #include <vector>
 #include "UserShare/GameObject.h"
 
-#include "../components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 
 #include "glm/glm.hpp"
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "../utilitys/Quaternion.h"
+#include "UserShare/utilitys/Quaternion.h"
 
 namespace yougine
 {

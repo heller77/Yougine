@@ -19,7 +19,7 @@
 
 #include <fstream>
 
-#include "components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "UserShare/managers/ComponentList.h"
 #include "components/DebugComponent.h"

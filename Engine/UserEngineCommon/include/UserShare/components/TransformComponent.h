@@ -2,9 +2,10 @@
 #include "UserShare/components/Component.h"
 #include "UserShare/utilitys/YougineMath.h"
 #include "../utilitys/Quaternion.h"
+#include "UserShare/MacroDifHeader.h"
 namespace yougine::components
 {
-    class TransformComponent : public yougine::components::Component
+    class EXPORT TransformComponent : public yougine::components::Component
     {
     private:
         utility::Vector3* position;

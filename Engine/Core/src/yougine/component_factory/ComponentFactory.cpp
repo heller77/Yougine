@@ -2,7 +2,7 @@
 
 #include "../components/DebugComponent.h"
 #include "../components/RenderComponent.h"
-#include "../components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 #include "../components/RigidBodyComponent.h"
 #include "../components/Camera/CameraComponent.h"
 #include "windows.h"

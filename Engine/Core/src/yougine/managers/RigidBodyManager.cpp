@@ -1,6 +1,6 @@
 ﻿#include "RigidBodyManager.h"
 
-#include "../components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 #include "../components/RigidBodyComponent.h"
 
 /**

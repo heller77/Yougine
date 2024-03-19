@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "UserShare/components/Component.h"
-#include "../TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 
 namespace yougine::components::camera
 {
