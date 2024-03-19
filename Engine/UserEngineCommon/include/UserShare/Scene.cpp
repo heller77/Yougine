@@ -1,6 +1,7 @@
 ﻿#include "Scene.h"
 
 #include <memory>
+#include <memory>
 
 namespace yougine
 {
@@ -11,6 +12,7 @@ namespace yougine
         component_list = new managers::ComponentList();
 
         this->user_script_component_entry_point_manager = std::make_shared<managers::UserScriptComponentEntryPointManager>();
+        this->input_manager = std::make_shared<InputManager>();
     }
 
     GameObject* Scene::CreateGameObject(std::string name, GameObject* parent)
@@ -95,6 +97,9 @@ namespace yougine
 
     void Scene::Update()
     {
+        this->input_manager->UpdateInput();
+
+
         this->user_script_component_entry_point_manager->Update();
     }
 

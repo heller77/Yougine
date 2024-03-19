@@ -3,6 +3,7 @@
 #include "managers/ComponentList.h"
 #include <list>
 
+#include "InputManager.h"
 #include "managers/UserScriptComponentEntryPointManager.h"
 #include "UserShare/Layer.h"
 #include "UserShare/MacroDifHeader.h"
@@ -18,6 +19,7 @@ namespace yougine
         managers::ComponentList* component_list;
         std::string name;
         std::shared_ptr<managers::UserScriptComponentEntryPointManager> user_script_component_entry_point_manager;
+        std::shared_ptr<InputManager> input_manager;
     private:
         void RemoveGameObject(GameObject*);
         GameObject* RecursiveGameObjects(std::list<GameObject*>, std::string);
@@ -32,6 +34,8 @@ namespace yougine
         GameObject* GetGameObjectByName(std::string);
         void InitializeAllGameObjcts();
 
+        std::shared_ptr<InputManager> GetInputManager();
+
         void AddRegisterUpdate(std::function<void()> method);
         /*
          *ユーザが呼ばない!!
@@ -40,4 +44,8 @@ namespace yougine
         void Update();
     };
 
+    inline std::shared_ptr<InputManager> Scene::GetInputManager()
+    {
+        return this->input_manager;
+    }
 }
