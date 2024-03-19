@@ -71,6 +71,7 @@
     <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
+    <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\components\Component.cpp">
@@ -304,6 +305,7 @@
     <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
     <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
+    <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
