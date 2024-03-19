@@ -30,9 +30,6 @@
     <ClInclude Include="include\UserShare\utilitys\uuid\YougineUuid.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="include\UserShare\UserScriptComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="include\UserShare\GameObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -48,6 +45,9 @@
     <ClInclude Include="include\UserShare\managers\ComponentList.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\UserShare\components\UserScriptComponent.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\UserShare\utilitys\Split.cpp">
@@ -57,9 +57,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="include\UserShare\utilitys\uuid\YougineUuid.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="include\UserShare\UserScriptComponent.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="include\UserShare\GameObject.cpp">
@@ -72,6 +69,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="include\UserShare\managers\ComponentList.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="include\UserShare\components\UserScriptComponent.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

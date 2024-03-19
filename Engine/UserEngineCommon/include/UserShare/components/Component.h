@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "../Scene.h"
-#include "ComponentName.h"
+#include "UserShare/Scene.h"
+#include "UserShare/components/ComponentName.h"
 #include <any>
 #include <functional>
 

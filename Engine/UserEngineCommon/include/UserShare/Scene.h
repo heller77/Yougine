@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "GameObject.h"
+#include "UserShare/GameObject.h"
 #include "managers/ComponentList.h"
 #include <list>
 #include "UserShare/Layer.h"

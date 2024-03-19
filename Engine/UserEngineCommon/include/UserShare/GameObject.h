@@ -3,7 +3,6 @@
 #include <list>
 #include <string>
 #include "UserShare/Layer.h"
-#include "UserShare/UserScriptComponent.h"
 
 namespace yougine::components
 {

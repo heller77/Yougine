@@ -5,8 +5,10 @@
 #include "UserShare/utilitys/Split.h"
 #include "UserShare/utilitys/YougineMath.h"
 #include "windows.h"
-#include "UserShare/UserScriptComponent.h"
-typedef components::UserScriptComponent* (*FUNC1)();
+#include "stduuid/uuid.h"
+#include "UserShare/components/Component.h"
+
+typedef yougine::components::Component* (*FUNC1)();
 
 int main()
 {
@@ -30,7 +32,6 @@ int main()
     FUNC1 func1 = (FUNC1)GetProcAddress(hModule, "GenerateUserScriptComponent");
 
     auto comp = func1();
-    comp->hoge();
 
 }
 

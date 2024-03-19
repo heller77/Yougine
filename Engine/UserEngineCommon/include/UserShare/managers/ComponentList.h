@@ -3,7 +3,6 @@
 #include <map>
 #include "./../components/ComponentName.h"
 #include "../GameObject.h"
-#include "UserShare/UserScriptComponent.h"
 namespace yougine::managers
 {
     class EXPORT ComponentList
