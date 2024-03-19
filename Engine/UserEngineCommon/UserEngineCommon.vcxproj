@@ -28,6 +28,7 @@
     <ClInclude Include="include\UserShare\Layer.h" />
     <ClInclude Include="include\UserShare\MacroDifHeader.h" />
     <ClInclude Include="include\UserShare\managers\ComponentList.h" />
+    <ClInclude Include="include\UserShare\managers\UserScriptComponentEntryPointManager.h" />
     <ClInclude Include="include\UserShare\Scene.h" />
     <ClInclude Include="include\UserShare\utilitys\Quaternion.h" />
     <ClInclude Include="include\UserShare\utilitys\Split.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="include\UserShare\components\UserScriptComponent.cpp" />
     <ClCompile Include="include\UserShare\GameObject.cpp" />
     <ClCompile Include="include\UserShare\managers\ComponentList.cpp" />
+    <ClCompile Include="include\UserShare\managers\UserScriptComponentEntryPointManager.cpp" />
     <ClCompile Include="include\UserShare\Scene.cpp" />
     <ClCompile Include="include\UserShare\utilitys\Quaternion.cpp" />
     <ClCompile Include="include\UserShare\utilitys\Split.cpp" />

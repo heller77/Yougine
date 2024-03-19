@@ -39,6 +39,8 @@ namespace yougine
         GameObject* GetParentObject();
         std::list<GameObject*> GetChildObjects();
         bool operator==(const GameObject& rhs) const;
+        Scene* GetScene();
+
 
         void AddComponent(components::Component* component);
         void RemoveComponent(components::Component* component);

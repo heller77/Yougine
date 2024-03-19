@@ -183,6 +183,9 @@ int main()
     managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
+
+    //一フレーム前にPlayだったか
+    bool preIsPlay = false;
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
@@ -195,10 +198,20 @@ int main()
 
         //毎フレーム、マネージャ群のUpdate関数を呼び出す
         if (menubar->GetPlay()) {
+            if (preIsPlay == false)
+            {
+                //プレイし始め最初
+                scene->InitializeAllGameObjcts();
+            }
             game_manager->Update();
+            scene->Update();
         }
+        preIsPlay = menubar->GetPlay();
+
 
         editor_windows_manager->CreateWindows(window);
+
+
     }
 
     ImGui_ImplOpenGL3_Shutdown();

@@ -15,6 +15,10 @@ namespace yougine
 
     void GameObject::InitializeComponents()
     {
+        for (auto component : this->components)
+        {
+            component->InitializeOnPlayBack();
+        }
     }
 
     std::string GameObject::GetName()
@@ -62,6 +66,11 @@ namespace yougine
         return *this == rhs;
     }
 
+    Scene* GameObject::GetScene()
+    {
+        return this->scene;
+    }
+
     void yougine::GameObject::AddComponent(components::Component* component)
     {
         if (component == nullptr)
@@ -69,7 +78,7 @@ namespace yougine
             return;
         }
         //componentが既に登録されていれば、AddComponentしない
-        if(component->isAlradyRegisterComponentList())
+        if (component->isAlradyRegisterComponentList())
         {
             return;
         }

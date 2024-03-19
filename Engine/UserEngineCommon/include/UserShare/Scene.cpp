@@ -1,5 +1,7 @@
 ﻿#include "Scene.h"
 
+#include <memory>
+
 namespace yougine
 {
     Scene::Scene(std::string name)
@@ -7,6 +9,8 @@ namespace yougine
         LayerManager::Create();
         this->name = name;
         component_list = new managers::ComponentList();
+
+        this->user_script_component_entry_point_manager = std::make_shared<managers::UserScriptComponentEntryPointManager>();
     }
 
     GameObject* Scene::CreateGameObject(std::string name, GameObject* parent)
@@ -73,6 +77,25 @@ namespace yougine
         }
 
         return r_obj;
+    }
+
+    void Scene::InitializeAllGameObjcts()
+    {
+        for (auto gameobject : this->gameobject_list)
+        {
+            gameobject->InitializeComponents();
+        }
+    }
+
+    void Scene::AddRegisterUpdate(std::function<void()> method)
+    {
+        this->user_script_component_entry_point_manager->AddUpdate(method);
+    }
+
+
+    void Scene::Update()
+    {
+        this->user_script_component_entry_point_manager->Update();
     }
 
     GameObject* Scene::RecursiveGameObjects(std::list<GameObject*> game_objects, std::string name)

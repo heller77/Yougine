@@ -42,7 +42,7 @@ namespace yougine::components
         ~Component();
         virtual void Excute();
         components::ComponentName GetComponentName();
-        void InitializeOnPlayBack();
+        virtual void InitializeOnPlayBack();
         bool operator==(const Component& rhs) const;
         GameObject* GetGameObject();
         void SetParentGameObject(GameObject* parent_gameobject);
