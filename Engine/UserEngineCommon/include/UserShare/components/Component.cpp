@@ -9,7 +9,8 @@ namespace yougine::components
         this->component_name = componentname;
 
         this->register_component_list = nullptr;
-        this->yougine_uuid = std::shared_ptr<utility::youginuuid::YougineUuid>();
+        // this->yougine_uuid = std::shared_ptr<utility::youginuuid::YougineUuid>();
+        this->yougine_uuid = std::make_shared<utility::youginuuid::YougineUuid>();
     }
 
     Component::~Component()
