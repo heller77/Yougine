@@ -30,6 +30,7 @@
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
+#include "UserShare/InputManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {

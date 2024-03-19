@@ -25,6 +25,7 @@
     <ClInclude Include="include\UserShare\components\userscriptcomponents\IUpdatable.h" />
     <ClInclude Include="include\UserShare\components\UserScriptComponent.h" />
     <ClInclude Include="include\UserShare\GameObject.h" />
+    <ClInclude Include="include\UserShare\InputManager.h" />
     <ClInclude Include="include\UserShare\Layer.h" />
     <ClInclude Include="include\UserShare\MacroDifHeader.h" />
     <ClInclude Include="include\UserShare\managers\ComponentList.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="include\UserShare\components\TransformComponent.cpp" />
     <ClCompile Include="include\UserShare\components\UserScriptComponent.cpp" />
     <ClCompile Include="include\UserShare\GameObject.cpp" />
+    <ClCompile Include="include\UserShare\InputManager.cpp" />
     <ClCompile Include="include\UserShare\managers\ComponentList.cpp" />
     <ClCompile Include="include\UserShare\managers\UserScriptComponentEntryPointManager.cpp" />
     <ClCompile Include="include\UserShare\Scene.cpp" />

@@ -25,7 +25,6 @@
     <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
-    <ClCompile Include="src\yougine\InputManager.cpp" />
     <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
     <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
@@ -184,7 +183,6 @@
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
-    <ClInclude Include="src\yougine\InputManager.h" />
     <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />

@@ -4,7 +4,7 @@
 #include <algorithm>
 
 #include "SelectionInfo.h"
-#include  "../InputManager.h"
+#include  "UserShare/InputManager.h"
 namespace editor
 {
     class HierarchyWindow : public EditorWindow
