@@ -48,6 +48,9 @@
     <ClInclude Include="include\UserShare\components\UserScriptComponent.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\UserShare\components\userscriptcomponents\IUpdatable.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\UserShare\utilitys\Split.cpp">

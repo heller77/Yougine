@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\UserShare\components\Component.h" />
     <ClInclude Include="include\UserShare\components\ComponentName.h" />
+    <ClInclude Include="include\UserShare\components\userscriptcomponents\IUpdatable.h" />
     <ClInclude Include="include\UserShare\components\UserScriptComponent.h" />
     <ClInclude Include="include\UserShare\GameObject.h" />
     <ClInclude Include="include\UserShare\Layer.h" />

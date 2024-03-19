@@ -7,6 +7,8 @@
 #include "windows.h"
 #include "UserShare/components/Component.h"
 #include "UserShare/GameObject.h"
+#include "UserShare/components/userscriptcomponents/IUpdatable.h"
+
 typedef yougine::components::Component* (*FUNC1)();
 
 int main()
@@ -36,6 +38,8 @@ int main()
 
     gameobjcet->AddComponent(comp);
 
+    yougine::components::userscriptcomponents::IUpdatable* i_updatable = dynamic_cast<yougine::components::userscriptcomponents::IUpdatable*>(comp);
+    i_updatable->Update();
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
