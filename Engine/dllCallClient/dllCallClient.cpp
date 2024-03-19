@@ -5,9 +5,8 @@
 #include "UserShare/utilitys/Split.h"
 #include "UserShare/utilitys/YougineMath.h"
 #include "windows.h"
-#include "stduuid/uuid.h"
 #include "UserShare/components/Component.h"
-
+#include "UserShare/GameObject.h"
 typedef yougine::components::Component* (*FUNC1)();
 
 int main()
@@ -31,7 +30,11 @@ int main()
     }
     FUNC1 func1 = (FUNC1)GetProcAddress(hModule, "GenerateUserScriptComponent");
 
+    auto scene = new yougine::Scene("tamesiScene");
+    auto gameobjcet = scene->CreateGameObject("tamesi", nullptr);
     auto comp = func1();
+
+    gameobjcet->AddComponent(comp);
 
 }
 
