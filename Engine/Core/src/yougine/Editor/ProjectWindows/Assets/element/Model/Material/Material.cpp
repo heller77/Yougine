@@ -130,7 +130,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
         json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
     }
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 
 }

@@ -3,7 +3,7 @@
 #include <fstream>
 #include <tinygltf/json.hpp>
 
-void editor::projectwindows::assets::elements::model::assetinfofileexporter::AssetInfoFileExporter::AssetInfoFileExporter::ExportAssetInfoFile(std::filesystem::path targetAssetFilePath, nlohmann::json target_json)
+void editor::projectwindows::assets::elements::model::assetinfos::AssetInfoFileExporter::AssetInfoFileExporter::ExportAssetInfoFile(std::filesystem::path targetAssetFilePath, nlohmann::json target_json)
 {
     std::ofstream writing_file;
     auto assetfilename = targetAssetFilePath.filename().string() + ".assetinfo";

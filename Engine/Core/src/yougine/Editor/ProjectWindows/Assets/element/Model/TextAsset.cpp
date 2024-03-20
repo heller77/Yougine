@@ -25,7 +25,7 @@ void editor::projectwindows::assets::elements::model::TextAsset::Export()
     json[GETVALUENAME(text)] = text;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 
 }

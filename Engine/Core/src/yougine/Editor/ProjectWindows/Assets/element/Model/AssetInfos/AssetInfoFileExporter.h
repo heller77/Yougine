@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <tinygltf/json.hpp>
 
-namespace editor::projectwindows::assets::elements::model::assetinfofileexporter
+namespace editor::projectwindows::assets::elements::model::assetinfos
 {
     class AssetInfoFileExporter
     {

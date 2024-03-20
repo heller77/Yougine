@@ -10,7 +10,7 @@ void editor::projectwindows::assets::elements::model::customscript::CustomScript
     json[GETVALUENAME(uuid)] = uuid->convertstring();
     json[GETVALUENAME(scriptname)] = scriptname;
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 }
 

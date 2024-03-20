@@ -69,7 +69,7 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
     json[GETVALUENAME(uuid)] = uuid->convertstring();
     json[GETVALUENAME(shader_kind)] = shader_kind;
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 }
 
