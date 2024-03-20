@@ -31,6 +31,11 @@ void editor::MenuBar::Draw()
 
     ImGui::InputText("exportpath", buildexportpath, 256);
     ImGui::InputText("scenefilepath", sceenfilepath, 256);
+    if (ImGui::Button("save"))
+    {
+        auto builder = new builders::Builder();
+        builder->Save(scene);
+    }
 
     if (ImGui::Button("Play"))
     {
