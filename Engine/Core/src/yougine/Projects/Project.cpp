@@ -159,6 +159,7 @@ void projects::Project::AssetInitialize()
             std::cerr << "asset is null" << " : " << path_string << std::endl;
         }
     }
+    auto nowfilepath = std::filesystem::current_path();
     std::filesystem::path engine_Default_Path = "./Resource/Export/";
     auto exportfile = std::filesystem::recursive_directory_iterator(engine_Default_Path);
 
