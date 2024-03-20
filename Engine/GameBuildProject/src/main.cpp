@@ -16,11 +16,10 @@
 
 #include <fstream>
 
-#include "components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
-#include "managers/ComponentList.h"
+#include "UserShare/managers/ComponentList.h"
 #include "components/DebugComponent.h"
-#include "managers/CustomScriptManager.h"
 #include "managers/GameManager.h"
 #include "managers/RigidBodyManager.h"
 #include "Projects/Project.h"
@@ -107,9 +106,7 @@ int main()
     //GameManagerで回すマネージャのvector
     std::vector<IManager*> managerlist;
     auto componentlist = scene->GetComponentList();
-    auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
     auto rigidbodymanager = new yougine::managers::RigidBodyManager(componentlist);
-    managerlist.push_back(custommanager);
     managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);

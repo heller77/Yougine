@@ -1,6 +1,6 @@
 ﻿#include "CameraComponent.h"
 std::shared_ptr<yougine::components::camera::CameraComponent> yougine::components::camera::CameraComponent::main_camera;
-yougine::components::camera::CameraComponent::CameraComponent() : Component(managers::ComponentName::kNone)
+yougine::components::camera::CameraComponent::CameraComponent() : Component(components::ComponentName::kNone)
 {
     CameraComponent::main_camera = std::shared_ptr<CameraComponent>(this);
 }

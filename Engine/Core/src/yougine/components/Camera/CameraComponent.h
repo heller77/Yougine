@@ -1,15 +1,15 @@
 ﻿#pragma once
 #include <memory>
 
-#include "../Component.h"
-#include "../TransformComponent.h"
+#include "UserShare/components/Component.h"
+#include "UserShare/components/TransformComponent.h"
 
 namespace yougine::components::camera
 {
     class CameraComponent : public yougine::components::Component
     {
     private:
-         static std::shared_ptr<CameraComponent> main_camera;
+        static std::shared_ptr<CameraComponent> main_camera;
 
     public:
         CameraComponent();

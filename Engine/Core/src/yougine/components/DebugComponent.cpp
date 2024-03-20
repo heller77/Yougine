@@ -2,7 +2,7 @@
 
 namespace yougine::components
 {
-    DebugComponent::DebugComponent() : Component(managers::ComponentName::kCustom)
+    DebugComponent::DebugComponent() : Component(components::ComponentName::kCustom)
     {
         this->vec3val = new utility::Vector3(1, 1, 1);
         this->bool3_value = new utility::Bool3(true, true, true);

@@ -1,8 +1,10 @@
 ﻿#pragma once
 #include "EditorWindow.h"
-#include "../Scene.h"
+#include "UserShare//Scene.h"
 #include <algorithm>
-#include  "../InputManager.h"
+
+#include "SelectionInfo.h"
+#include  "UserShare/InputManager.h"
 namespace editor
 {
     class HierarchyWindow : public EditorWindow

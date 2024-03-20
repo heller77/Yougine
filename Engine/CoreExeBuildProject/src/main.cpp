@@ -19,17 +19,17 @@
 
 #include <fstream>
 
-#include "components/TransformComponent.h"
+#include "UserShare/components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
-#include "managers/ComponentList.h"
+#include "UserShare/managers/ComponentList.h"
 #include "components/DebugComponent.h"
 #include "Editor/MenuBar.h"
-#include "managers/CustomScriptManager.h"
 #include "managers/RigidBodyManager.h"
 #include "managers/GameManager.h"
 #include "Projects/Project.h"
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
+#include "UserShare/InputManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -170,18 +170,22 @@ int main()
     editor_windows_manager->AddRenderWindow(new editor::SceneWindow(editor_windows_manager, scene));
     editor_windows_manager->AddRenderWindow(new editor::InspectorWindow(editor_windows_manager, scene, input_manager));
     editor_windows_manager->AddRenderWindow(new editor::projectwindows::ProjectWindow(editor_windows_manager, scene));
-    editor_windows_manager->AddRenderWindow(new editor::MenuBar(editor_windows_manager, scene));
+    auto menubar = new editor::MenuBar(editor_windows_manager, scene);
+    editor_windows_manager->AddRenderWindow(menubar);
     editor_windows_manager->AddRenderWindow(new editor::shadergraph::ShaderGraphWindow(editor_windows_manager));
     //GameManagerで回すマネージャのvector
     std::vector<IManager*> managerlist;
     //auto componentlist = new yougine::managers::ComponentList();
     auto componentlist = scene->GetComponentList();
-    auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
+    // auto custommanager = new yougine::managers::CustomScriptManager(componentlist);
     auto rigidbodymanager = new yougine::managers::RigidBodyManager(componentlist);
-    managerlist.push_back(custommanager);
+    // managerlist.push_back(custommanager);
     managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
+
+    //一フレーム前にPlayだったか
+    bool preIsPlay = false;
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
         input_manager->UpdateInput();
@@ -193,9 +197,21 @@ int main()
         */
 
         //毎フレーム、マネージャ群のUpdate関数を呼び出す
-        game_manager->Update();
+        if (menubar->GetPlay()) {
+            if (preIsPlay == false)
+            {
+                //プレイし始め最初
+                scene->InitializeAllGameObjcts();
+            }
+            game_manager->Update();
+            scene->Update();
+        }
+        preIsPlay = menubar->GetPlay();
+
 
         editor_windows_manager->CreateWindows(window);
+
+
     }
 
     ImGui_ImplOpenGL3_Shutdown();

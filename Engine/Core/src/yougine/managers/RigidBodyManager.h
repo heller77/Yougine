@@ -1,6 +1,6 @@
 #pragma once
-#include "../components/Component.h"
-#include "ComponentList.h"
+#include "UserShare/components/Component.h"
+#include "UserShare/managers/ComponentList.h"
 #include <vector>
 
 #include "IManager.h"
@@ -14,7 +14,8 @@ namespace yougine::managers
 
     private:
         ComponentList* componentlist;
-        ComponentName component_name = ComponentName::kRigidBody;
+
+        components::ComponentName component_name = components::ComponentName::kRigidBody;
     public:
         RigidBodyManager(ComponentList*);
         //void ExcuteCoponents();

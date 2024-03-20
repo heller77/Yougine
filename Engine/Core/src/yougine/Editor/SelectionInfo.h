@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../GameObject.h"
+#include "UserShare/GameObject.h"
 #include "ComponentViewer.h"
 #include "ProjectWindows/Assets/element/view/IElementOfProjectView.h"
 
@@ -33,11 +33,12 @@ namespace editor
          * \brief selectイベント発火
          */
         void FireSelectEvent();
+        static void Create();
 
     public:
         SelectTarget GetRecentClickTarget();
 
-        static void Create();
+
         static void Destroy();
         static SelectionInfo* GetInstance();
 

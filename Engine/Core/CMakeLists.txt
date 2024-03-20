@@ -18,6 +18,8 @@ set(includeDir
     ${PROJECT_SOURCE_DIR}/lib
     ${PROJECT_SOURCE_DIR}/lib/glew/include
     ${PROJECT_SOURCE_DIR}/lib/glfw/include
+    ${PROJECT_SOURCE_DIR}/../ThirdPartyLibrary/lib
+    ${PROJECT_SOURCE_DIR}/../UserEngineCommon/include
 )
 set(linkDir
     ${PROJECT_SOURCE_DIR}/lib/glew/lib

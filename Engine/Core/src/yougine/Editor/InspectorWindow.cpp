@@ -5,6 +5,9 @@
 #include "../component_factory/ComponentFactory.h"
 #include "imgui/stblib/imgui_stdlib.h"
 #include <string>
+
+#include "./../componentclassnames/ComponentClassNames.h"
+
 namespace editor
 {
     InspectorWindow::InspectorWindow(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene,
@@ -132,20 +135,22 @@ namespace editor
     void InspectorWindow::ShowAddComponentMenu()
     {
         int selected = -1;
-        const char* componentNames[] = {
-            "yougine::components::DebugComponent", "yougine::components::TransformComponent",
-            "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent",
-            "yougine::components::camera::CameraComponent"
-
-        };
+        // const char* componentNames[] = {
+        //     "yougine::components::DebugComponent", "yougine::components::TransformComponent",
+        //     "yougine::components::RigidBodyComponent", "yougine::components::RenderComponent",
+        //     "yougine::components::camera::CameraComponent"
+        //
+        // };
+        ComponentClassNames::ComponentClassNames::GetInstance()->AddUserScriptNames();
+        auto componentNames = ComponentClassNames::ComponentClassNames::GetInstance()->GetComponentClassNames();
         ImGui::Spacing();
         if (ImGui::Button("Add Component"))
             ImGui::OpenPopup("add_component_popup");
         if (ImGui::BeginPopup("add_component_popup"))
         {
             ImGui::Text("Component List");
-            for (int i = 0; i < IM_ARRAYSIZE(componentNames); i++)
-                if (ImGui::Selectable(componentNames[i]))
+            for (int i = 0; i < componentNames.size(); i++)
+                if (ImGui::Selectable(componentNames[i].data()))
                 {
                     selected = i;
                     selection_info->GetInstance()->GetSelectObject()->AddComponent(

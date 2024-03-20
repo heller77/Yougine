@@ -7,9 +7,9 @@
 #include "ComponentsIncluder.h"
 #include <string>
 #include <any>
-#include "../utilitys/YougineMath.h"
-#include "../utilitys/Split.cpp"
-#include "../utilitys/Quaternion.h"
+#include "UserShare/utilitys/YougineMath.h"
+#include "UserShare/utilitys/Split.h"
+#include "UserShare/utilitys/Quaternion.h"
 
 #include "PropertiesInputField.h"
 
@@ -20,7 +20,6 @@ namespace editor
     private:
         yougine::components::Component* component;
         std::string component_name;
-        std::vector<std::vector<std::any>> accessable_properties;
         std::shared_ptr<PropertiesInputField> properties_input_field;
 
     public:

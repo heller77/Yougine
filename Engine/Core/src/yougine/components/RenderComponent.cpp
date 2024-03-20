@@ -7,19 +7,21 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
 
+#include "../managers/ComponentExportParameterManager.h"
 #include "../Projects/Project.h"
 #include "tinygltf/tiny_gltf.h"
 
 namespace yougine::components
 {
-    RenderComponent::RenderComponent() : Component(managers::ComponentName::kRender), program(0), vao(0)
+    RenderComponent::RenderComponent() : Component(components::ComponentName::kRender), program(0), vao(0)
     {
         namespace materials = editor::projectwindows::assets::elements::model::materials;
         //露出するパラメータ("2342161b-f95e-4c2f-81fb-f21fe464712a"はデフォルトで用意しているマテリアルのアセットID)
         material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("2342161b-f95e-4c2f-81fb-f21fe464712a"));
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
-        auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
+        // auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
+        auto function = managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(std::shared_ptr<components::Component>(this), &material, GETVALUENAME(material));
         accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
 
         GLuint program, vao;

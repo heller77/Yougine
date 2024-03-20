@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../components/Component.h"
+#include "UserShare//components/Component.h"
 
 namespace yougine::componentfactorys
 {

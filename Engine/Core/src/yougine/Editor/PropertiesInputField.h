@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 #include <string>
-#include "../utilitys/YougineMath.h"
-#include "../utilitys/Split.cpp"
-#include "../utilitys/Quaternion.h"
+#include "UserShare/utilitys/YougineMath.h"
+#include "UserShare/utilitys/Split.h"
+#include "UserShare/utilitys/Quaternion.h"
 #include <any>
 #include "imgui/imgui.h"
 

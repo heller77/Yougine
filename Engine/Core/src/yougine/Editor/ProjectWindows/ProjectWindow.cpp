@@ -15,6 +15,8 @@
 #include "Assets/element/view/DefaultFileElementOfProjectView.h"
 #include "Assets/element/view/FolderElementOfProjectView.h"
 
+#include "../SelectionInfo.h"
+
 editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManager* editor_windows_manager,
     yougine::Scene* scene)
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
@@ -126,6 +128,17 @@ void editor::projectwindows::ProjectWindow::CreateView(std::string now_display_p
                         SelectionInfo::GetInstance()->SetSelctionInfo(button);
                     });
 
+            }
+            else if (extension == "h")
+            {
+                auto cppAsset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid->convertstring());
+                auto button
+                    = std::make_shared<assets::elements::view::DefaultFileElementOfProjectView>(filename, button_size, cppAsset);
+                assetvies_vector.emplace_back(button);
+                button->SetSelectEvent([=]()
+                    {
+                        SelectionInfo::GetInstance()->SetSelctionInfo(button);
+                    });
             }
             else
             {

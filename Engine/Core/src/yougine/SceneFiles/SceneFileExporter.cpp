@@ -1,7 +1,15 @@
 ﻿#include "SceneFileExporter.h"
+
+#include <any>
 #include <fstream>
 #include <typeinfo>
 #include <iostream>
+
+#include "UserShare/components/Component.h"
+#include "UserShare/utilitys/Split.h"
+#include "UserShare/utilitys/YougineMath.h"
+
+#include "../Editor/ProjectWindows/Assets/element/Model/Asset.h"
 
 yougine::SceneFiles::SceneFileExporter::SceneFileExporter()
 {

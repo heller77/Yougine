@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -125,7 +125,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +142,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\tinygltf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -163,7 +163,9 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
+    <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
+    <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\components\RigidBodyComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
@@ -179,6 +182,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\DefaultFileElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.cpp" />
     <ClCompile Include="src\yougine\Editor\PropertiesInputField.cpp" />
+    <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
@@ -196,31 +200,20 @@
     <ClCompile Include="src\yougine\Editor\SceneWindow.cpp" />
     <ClCompile Include="src\yougine\components\RenderComponent.cpp" />
     <ClCompile Include="src\yougine\Editor\SelectionInfo.cpp" />
-    <ClCompile Include="src\yougine\Layer.cpp" />
     <ClCompile Include="src\yougine\managers\GameManager.cpp" />
     <ClCompile Include="src\yougine\managers\RenderManager.cpp" />
-    <ClCompile Include="src\yougine\components\Component.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindow.cpp" />
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp" />
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp" />
-    <ClCompile Include="src\yougine\InputManager.cpp" />
-    <ClCompile Include="src\yougine\managers\ComponentList.cpp" />
-    <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp" />
-    <ClCompile Include="src\yougine\GameObject.cpp" />
-    <ClCompile Include="src\yougine\Scene.cpp" />
-    <ClCompile Include="src\yougine\components\TransformComponent.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneFileExporter.cpp" />
     <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneLoader.cpp" />
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\AssetReference.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\CustomParameter.cpp" />
-    <ClCompile Include="src\yougine\utilitys\Quaternion.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwrite.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.cpp" />
-    <ClCompile Include="src\yougine\utilitys\Split.cpp" />
-    <ClCompile Include="src\yougine\utilitys\uuid\YougineUuid.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +227,9 @@
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
+    <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
+    <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
     <ClInclude Include="src\yougine\components\RigidBodyComponent.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\Option\AssetViewOption.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.h" />
@@ -242,6 +237,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />
@@ -252,6 +248,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\IElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\view\FolderElementOfProjectView.h" />
     <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
+    <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\MainShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
@@ -271,34 +268,22 @@
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
-    <ClInclude Include="src\yougine\Layer.h" />
     <ClInclude Include="src\yougine\managers\GameManager.h" />
     <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
-    <ClInclude Include="src\yougine\components\Component.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
-    <ClInclude Include="src\yougine\InputManager.h" />
-    <ClInclude Include="src\yougine\managers\ComponentList.h" />
-    <ClInclude Include="src\yougine\managers\ComponentName.h" />
-    <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
-    <ClInclude Include="src\yougine\GameObject.h" />
-    <ClInclude Include="src\yougine\Scene.h" />
-    <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\AssetReference.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\CustomParameter.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\ParameterView.h" />
-    <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwriter.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphWindow.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderType.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.h" />
-    <ClInclude Include="src\yougine\utilitys\YougineMath.h" />
-    <ClInclude Include="src\yougine\utilitys\uuid\YougineUuid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
@@ -306,6 +291,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UserEngineCommon\UserEngineCommon.vcxproj">
+      <Project>{cd658777-a75d-4e5d-9080-afd14369c861}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -51,6 +51,7 @@ namespace editor
 
     SelectionInfo* SelectionInfo::GetInstance()
     {
+        Create();
         if (m_selection_info)
             return m_selection_info;
         return nullptr;
