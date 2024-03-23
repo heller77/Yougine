@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <memory>
+#include <memory>
 
 editor::projectwindows::assets::elements::model::Asset::Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid)
 {
@@ -21,13 +22,14 @@ editor::projectwindows::assets::elements::model::Asset::Asset(const std::filesys
     this->path = assetinfo_file_path.parent_path().string() + "\\" + assetinfo_file_path.stem().string();
     using json = nlohmann::ordered_json;
 
-    std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
+    // std::ifstream reading(assetinfo_file_path.string(), std::ios::in);
+    //
+    // json o_json;
+    // reading >> o_json;
 
-    json o_json;
-    reading >> o_json;
-
-    if (o_json.contains("uuid")) {
-        std::string asset_id = o_json["uuid"];
+    this->asset_info = std::make_shared<assetinfos::AssetInfoFile>(assetinfo_file_path);
+    if (asset_info->IsContainValue("uuid")) {
+        std::string asset_id = asset_info->GetParameter("uuid");
         this->uuid = std::shared_ptr<utility::youginuuid::YougineUuid>(new utility::youginuuid::YougineUuid(asset_id));
     }
     else
