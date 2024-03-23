@@ -12,7 +12,7 @@ namespace editor::projectwindows::assets::elements::model::assetinfos
 
     public:
         AssetInfoFile(const std::filesystem::path assetinfofilePath);
-        std::string GetParameter(std::string parameterName);
+        nlohmann::basic_json<> GetParameter(std::string parameterName);
 
         /**
          * \brief parameterNameというパラメータがあるかを返す

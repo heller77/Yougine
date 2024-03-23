@@ -17,7 +17,7 @@ editor::projectwindows::assets::elements::model::assetinfos::AssetInfoFile::Asse
 
 }
 
-std::string editor::projectwindows::assets::elements::model::assetinfos::AssetInfoFile::GetParameter(
+nlohmann::basic_json<> editor::projectwindows::assets::elements::model::assetinfos::AssetInfoFile::GetParameter(
     std::string parameterName)
 {
     return (*json)[parameterName];

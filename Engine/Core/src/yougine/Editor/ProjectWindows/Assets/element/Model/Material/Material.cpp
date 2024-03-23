@@ -47,13 +47,43 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
 
     this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
 
+    auto propertys = this->asset_info->GetParameter(key_property);
+    std::cout << propertys.dump() << std::endl;
+
     auto shaderinputs_assetoption = std::make_shared<option_type>(false, false, false);
-    auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, "c", 3.0f);
-    shader_input_parameters.emplace_back(f);
-    auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, "sample_int", 45);
-    shader_input_parameters.emplace_back(f2);
-    auto ve3_color = std::make_shared<shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, "color_vec3", utility::Vector3(1, 1, 1));
-    shader_input_parameters.emplace_back(ve3_color);
+    for (auto property : propertys)
+    {
+        std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct> parameter;
+        ShaderInputParameterType type;
+        if (property[this->key_valuetype] == key_int)
+        {
+            type = ShaderInputParameterType::kInt;
+            parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>
+                (type, property[key_valuename], property[key_values][key_value].get<int>());
+        }
+        else if (property[this->key_valuetype] == key_float)
+        {
+            type = ShaderInputParameterType::kFloat;
+            parameter = std::make_shared
+                <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], property[key_values][key_value].get<float>());
+        }
+        else if (property[this->key_valuetype] == key_vec3)
+        {
+            type = ShaderInputParameterType::kVec3;
+            utility::Vector3 vec3 = utility::Vector3(property[key_values]["x"].get<float>(), property[key_values]["y"].get<float>(), property[key_values]["z"].get<float>());
+            parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], vec3);
+        }
+        shader_input_parameters.emplace_back(parameter);
+
+
+    }
+
+    // auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, "c", 3.0f);
+    // shader_input_parameters.emplace_back(f);
+    // auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, "sample_int", 45);
+    // shader_input_parameters.emplace_back(f2);
+    // auto ve3_color = std::make_shared<shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, "color_vec3", utility::Vector3(1, 1, 1));
+    // shader_input_parameters.emplace_back(ve3_color);
     this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(shader_input_parameters, shaderinputs_assetoption);;
 }
 
@@ -72,16 +102,11 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     //assetinfoファイルある場合
     if (is_assetinfo_file_exist)
     {
-        using json = nlohmann::ordered_json;
 
-        std::ifstream reading(assetinfo_filepath.string(), std::ios::in);
-
-        json o_json;
-        reading >> o_json;
-
+        //vertexshaderのアセットを取得
         std::string vertname = GETVALUENAME(vert_asset_uuid);
-        if (o_json.contains(vertname)) {
-            std::string asset_id = o_json[vertname];
+        if (this->asset_info->IsContainValue(vertname)) {
+            std::string asset_id = asset_info->GetParameter(vertname);
             this->vert_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
         }
         else
@@ -89,9 +114,10 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
             vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
         }
 
+        //fragmentshaderのアセットを取得
         std::string fragname = GETVALUENAME(frag_asset_uuid);
-        if (o_json.contains(fragname)) {
-            std::string asset_id = o_json[fragname];
+        if (asset_info->IsContainValue(fragname)) {
+            std::string asset_id = asset_info->GetParameter(fragname);
             this->frag_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
         }
         else
@@ -130,6 +156,45 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
         json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
     }
 
+    //シェーダへの入力パラメータをエクスポート(変数jsonに書き込む)
+
+
+    int property_index = 0;
+    nlohmann::json json_propertylist;
+    for (auto shader_input_and_type_struct : shader_input_parameters)
+    {
+        auto valuename = *shader_input_and_type_struct->GetName();
+
+        nlohmann::json tmp_property_json;
+        //intの場合
+        if (shader_input_and_type_struct->GetValueType() == ShaderInputParameterType::kInt)
+        {
+            tmp_property_json[key_value] = *shader_input_and_type_struct->Get_int_value();
+            json_propertylist[property_index][key_valuetype] = "int";
+        }
+        //floatの場合
+        if (shader_input_and_type_struct->GetValueType() == ShaderInputParameterType::kFloat)
+        {
+            tmp_property_json[key_value] = *shader_input_and_type_struct->Get_float_value();
+            json_propertylist[property_index][key_valuetype] = "float";
+        }
+        //vec3の場合
+        if (shader_input_and_type_struct->GetValueType() == ShaderInputParameterType::kVec3)
+        {
+            auto value = shader_input_and_type_struct->Get_vec3_value();
+            tmp_property_json["x"] = value->x;
+            tmp_property_json["y"] = value->y;
+            tmp_property_json["z"] = value->z;
+            json_propertylist[property_index][key_valuetype] = "Vector3";
+        }
+        json_propertylist[property_index][key_valuename] = valuename;
+        json_propertylist[property_index][key_values] = tmp_property_json;
+
+        property_index++;
+    }
+    json["property"] = json_propertylist;
+
+    //エクスポート
     auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 

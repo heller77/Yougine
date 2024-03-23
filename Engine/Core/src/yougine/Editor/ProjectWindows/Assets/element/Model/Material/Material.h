@@ -15,6 +15,16 @@ namespace editor::projectwindows::assets::elements::model::materials
 
         void Initialize();
 
+
+        const std::string key_value = "value";
+        const std::string key_values = "values";
+        const std::string key_valuename = "name";
+        const std::string key_valuetype = "type";
+        const std::string key_property = "property";
+        const std::string key_int = "int";
+        const std::string key_float = "float";
+        const std::string key_vec3 = "Vector3";
+
     public:
         Material(const std::filesystem::path& path, const std::shared_ptr<utility::youginuuid::YougineUuid>& uuid);
 
