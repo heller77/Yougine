@@ -75,9 +75,16 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
 
 void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeParameter()
 {
-    this->shader_kind = "fragment or vertex";
+    if (is_assetinfo_file_exist)
+    {
+        this->shader_kind = asset_info->GetParameter(GETVALUENAME(shader_kind));
+    }
+    else {
+        this->shader_kind = "fragment or vertex";
+    }
     auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
     this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
+
 }
 
 std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::GetCode()
