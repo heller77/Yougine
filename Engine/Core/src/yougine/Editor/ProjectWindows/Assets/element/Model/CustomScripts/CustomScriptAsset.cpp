@@ -2,7 +2,7 @@
 
 #include <tinygltf/json.hpp>
 
-#include "../AssetInfoExporter/AssetInfoFileExporter.h"
+#include "../AssetInfos//AssetInfoFileExporter.h"
 
 void editor::projectwindows::assets::elements::model::customscript::CustomScriptAsset::Export()
 {

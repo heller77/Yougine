@@ -66,6 +66,7 @@
     <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\imgui\imgui.cpp">
@@ -264,6 +265,7 @@
     <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
     <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
     <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

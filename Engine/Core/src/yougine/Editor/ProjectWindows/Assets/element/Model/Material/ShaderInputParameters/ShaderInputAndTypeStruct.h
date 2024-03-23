@@ -24,6 +24,7 @@ namespace editor::projectwindows::assets::elements::model::materials::shaderinpu
         ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, int value);
         ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, utility::Vector3 value);
 
+        void Export();
         ShaderInputParameterType GetValueType();
         std::string* GetName();
         float* Get_float_value();

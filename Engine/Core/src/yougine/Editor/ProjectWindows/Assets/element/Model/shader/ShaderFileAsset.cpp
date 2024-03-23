@@ -6,7 +6,7 @@
 #include <tinygltf/json.hpp>
 
 #include "../../../../../../Projects/Project.h"
-#include "../AssetInfoExporter/AssetInfoFileExporter.h"
+#include "../AssetInfos//AssetInfoFileExporter.h"
 
 void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeCode(
     std::filesystem::path shaderfile_path)

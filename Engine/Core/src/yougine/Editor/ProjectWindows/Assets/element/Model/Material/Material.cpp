@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "../../../../../../Projects/Project.h"
-#include "../AssetInfoExporter/AssetInfoFileExporter.h"
+#include "../AssetInfos//AssetInfoFileExporter.h"
 using option_type = editor::inspectorwindows::assetviews::options::AssetViewOption;
 void editor::projectwindows::assets::elements::model::materials::Material::Initialize()
 {
