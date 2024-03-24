@@ -116,12 +116,16 @@ int main()
 
     //render
     auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer, scene->GetComponentList());
+    scene->InitializeAllGameObjcts();
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
-        input_manager->UpdateInput();
+        // input_manager->UpdateInput();
         rendermanager.RenderScene();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        game_manager->Update();
+        scene->Update();
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {
