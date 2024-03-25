@@ -21,7 +21,7 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
     yougine::Scene* scene)
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
 {
-    now_display_folderpath = projects::Project::GetInstance()->projectFolderPath;
+    now_display_folderpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString();
     auto lastchar = now_display_folderpath[now_display_folderpath.size() - 1];
     if (lastchar == '/') {
         now_display_folderpath.pop_back();

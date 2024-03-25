@@ -94,13 +94,13 @@ int main()
     //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
     //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
     auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
-    auto projectpath = projects::Project::GetInstance()->projectFolderPath;
+    auto projectpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString();
     auto buildfolder = projectpath + "build\\";
     if (_mkdir(buildfolder.c_str())) {
         std::cout << "buildフォルダ作成" << std::endl;
     }
     //シーンファイルのパス
-    std::string scenefilepath = project->projectFolderPath + "\\build\\scene.json";
+    std::string scenefilepath = project->GetProjectFolderPath_ByTypeString() + "\\build\\scene.json";
     yougine::Scene* scene;
     FILE* fp;
     errno_t error;

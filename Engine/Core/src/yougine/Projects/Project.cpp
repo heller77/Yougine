@@ -106,7 +106,13 @@ void projects::Project::Initialize(std::string project_file_path)
         std::cerr << "projectparse error at byte " << er.byte << std::endl;
     }
     reading.close();
-    this->projectFolderPath = projectData["Projectpath"];
+    //jsonからProjectpathを取得
+    std::string projectpathstr = projectData["Projectpath"];
+    this->projectFolderPath = projectpathstr;
+
+    //userfolderのパスを設定
+    this->userfolder = this->projectFolderPath / c_userfolder;
+
     std::vector<std::string> sceneFilePathVector;
     for (std::string a : projectData["SceneFileLocations"])
     {
@@ -133,7 +139,7 @@ void projects::Project::AssetInitialize()
     this->asset_database = std::make_shared<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase>();
     projects::Project::GetInstance()->SetDataBase(asset_database);
 
-    auto projectpath = projectFolderPath;
+    auto projectpath = this->userfolder.string();
 
     auto file_and_folder_list = std::filesystem::recursive_directory_iterator(projectpath);
     //再帰的にプロジェクトパス以下のファイル全てをAssetクラスをさくせい　
@@ -193,5 +199,19 @@ void projects::Project::AssetInitialize()
     }
 }
 
+std::filesystem::path projects::Project::GetUserFolderPath()
+{
+    return this->userfolder;
+}
+
+std::filesystem::path projects::Project::GetProjectFolderPath()
+{
+    return this->projectFolderPath;
+}
+
+std::string projects::Project::GetProjectFolderPath_ByTypeString()
+{
+    return this->projectFolderPath.string();
+}
 
 projects::Project* projects::Project::instance;
