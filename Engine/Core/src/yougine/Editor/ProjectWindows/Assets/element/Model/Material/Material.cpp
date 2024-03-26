@@ -47,43 +47,47 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
 
     this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
 
-    auto propertys = this->asset_info->GetParameter(key_property);
-    std::cout << propertys.dump() << std::endl;
-
     auto shaderinputs_assetoption = std::make_shared<option_type>(false, false, false);
-    for (auto property : propertys)
+
+    if (is_assetinfo_file_exist) {
+        auto propertys = this->asset_info->GetParameter(key_property);
+        std::cout << propertys.dump() << std::endl;
+
+        for (auto property : propertys)
+        {
+            std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct> parameter;
+            ShaderInputParameterType type;
+            if (property[this->key_valuetype] == key_int)
+            {
+                type = ShaderInputParameterType::kInt;
+                parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>
+                    (type, property[key_valuename], property[key_values][key_value].get<int>());
+            }
+            else if (property[this->key_valuetype] == key_float)
+            {
+                type = ShaderInputParameterType::kFloat;
+                parameter = std::make_shared
+                    <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], property[key_values][key_value].get<float>());
+            }
+            else if (property[this->key_valuetype] == key_vec3)
+            {
+                type = ShaderInputParameterType::kVec3;
+                utility::Vector3 vec3 = utility::Vector3(property[key_values]["x"].get<float>(), property[key_values]["y"].get<float>(), property[key_values]["z"].get<float>());
+                parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], vec3);
+            }
+            shader_input_parameters.emplace_back(parameter);
+        }
+    }
+    else
     {
-        std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct> parameter;
-        ShaderInputParameterType type;
-        if (property[this->key_valuetype] == key_int)
-        {
-            type = ShaderInputParameterType::kInt;
-            parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>
-                (type, property[key_valuename], property[key_values][key_value].get<int>());
-        }
-        else if (property[this->key_valuetype] == key_float)
-        {
-            type = ShaderInputParameterType::kFloat;
-            parameter = std::make_shared
-                <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], property[key_values][key_value].get<float>());
-        }
-        else if (property[this->key_valuetype] == key_vec3)
-        {
-            type = ShaderInputParameterType::kVec3;
-            utility::Vector3 vec3 = utility::Vector3(property[key_values]["x"].get<float>(), property[key_values]["y"].get<float>(), property[key_values]["z"].get<float>());
-            parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], vec3);
-        }
-        shader_input_parameters.emplace_back(parameter);
-
-
+        auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, "c", 3.0f);
+        shader_input_parameters.emplace_back(f);
+        auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, "sample_int", 45);
+        shader_input_parameters.emplace_back(f2);
+        auto ve3_color = std::make_shared<shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, "color_vec3", utility::Vector3(1, 1, 1));
+        shader_input_parameters.emplace_back(ve3_color);
     }
 
-    // auto f = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, "c", 3.0f);
-    // shader_input_parameters.emplace_back(f);
-    // auto f2 = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, "sample_int", 45);
-    // shader_input_parameters.emplace_back(f2);
-    // auto ve3_color = std::make_shared<shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, "color_vec3", utility::Vector3(1, 1, 1));
-    // shader_input_parameters.emplace_back(ve3_color);
     this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(shader_input_parameters, shaderinputs_assetoption);;
 }
 
