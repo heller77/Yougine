@@ -15,13 +15,14 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     this->parameter["path"] = std::make_shared<assetparameters::Parameter>(this->path.string(), onlydisplay_option);
     this->parameter[GETVALUENAME(uuid)] = std::make_shared<assetparameters::Parameter>(uuid->convertstring(), onlydisplay_option);
 
+    //fragment shader　設定
     auto fragment_assetoption = std::make_shared<option_type>(false, false, true);
     // auto fragassetset_function
     //     = this->Generate_Field_SwitchFunction(&frag_asset_uuid, fragment_assetoption,
     //         GETVALUENAME(frag_asset_uuid));
     auto fragassetset_function
-        = this->Generate_Field_SwitchFunction_Template<shader::ShaderFileAsset>(&frag_asset_uuid, fragment_assetoption,
-            GETVALUENAME(frag_asset_uuid));
+        = this->Generate_Field_SwitchFunction_Template<shader::ShaderFileAsset>(&frag_asset, fragment_assetoption,
+            GETVALUENAME(frag_asset));
     fragment_assetoption->SetInputAction(fragassetset_function);
     // fragment_assetoption->SetInputAction([&, fragment_assetoption](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
     //     {
@@ -36,16 +37,17 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     //             this->SwapParameter(GETVALUENAME(frag_asset_uuid), std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption));
     //         }
     //     });
-    this->parameter[GETVALUENAME(frag_asset_uuid)] = std::make_shared<assetparameters::Parameter>(frag_asset_uuid->GetAssetId(), fragment_assetoption);
+    this->parameter[GETVALUENAME(frag_asset)] = std::make_shared<assetparameters::Parameter>(frag_asset->GetAssetId(), fragment_assetoption);
 
+    //vertexshader 設定
     auto vertex_assetoption = std::make_shared<option_type>(false, false, true);
     auto vert_function
-        = this->Generate_Field_SwitchFunction(&vert_asset_uuid, vertex_assetoption,
-            GETVALUENAME(vert_asset_uuid));
+        = this->Generate_Field_SwitchFunction(&vert_asset, vertex_assetoption,
+            GETVALUENAME(vert_asset));
 
     vertex_assetoption->SetInputAction(vert_function);
 
-    this->parameter[GETVALUENAME(vert_asset_uuid)] = std::make_shared<assetparameters::Parameter>(vert_asset_uuid->GetAssetId(), vertex_assetoption);
+    this->parameter[GETVALUENAME(vert_asset)] = std::make_shared<assetparameters::Parameter>(vert_asset->GetAssetId(), vertex_assetoption);
 
     auto shaderinputs_assetoption = std::make_shared<option_type>(false, false, false);
 
@@ -111,28 +113,28 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
         std::string vertname = GETVALUENAME(vert_asset_uuid);
         if (this->asset_info->IsContainValue(vertname)) {
             std::string asset_id = asset_info->GetParameter(vertname);
-            this->vert_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+            this->vert_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
         }
         else
         {
-            vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
+            vert_asset = shader::ShaderFileAsset::GetDefaultVertexShader();
         }
 
         //fragmentshaderのアセットを取得
         std::string fragname = GETVALUENAME(frag_asset_uuid);
         if (asset_info->IsContainValue(fragname)) {
             std::string asset_id = asset_info->GetParameter(fragname);
-            this->frag_asset_uuid = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
+            this->frag_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
         }
         else
         {
-            frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
+            frag_asset = shader::ShaderFileAsset::GetDefaultFragmentShader();
         }
     }
     else
     {
-        frag_asset_uuid = shader::ShaderFileAsset::GetDefaultFragmentShader();
-        vert_asset_uuid = shader::ShaderFileAsset::GetDefaultVertexShader();
+        frag_asset = shader::ShaderFileAsset::GetDefaultFragmentShader();
+        vert_asset = shader::ShaderFileAsset::GetDefaultVertexShader();
     }
     Initialize();
 }
@@ -155,9 +157,9 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
 {
     nlohmann::json json;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
-    if (vert_asset_uuid && frag_asset_uuid) {
-        json[GETVALUENAME(vert_asset_uuid)] = vert_asset_uuid->GetAssetId()->convertstring();
-        json[GETVALUENAME(frag_asset_uuid)] = frag_asset_uuid->GetAssetId()->convertstring();
+    if (vert_asset && frag_asset) {
+        json[GETVALUENAME(vert_asset_uuid)] = vert_asset->GetAssetId()->convertstring();
+        json[GETVALUENAME(frag_asset_uuid)] = frag_asset->GetAssetId()->convertstring();
     }
 
     //シェーダへの入力パラメータをエクスポート(変数jsonに書き込む)
@@ -227,11 +229,11 @@ assets::elements::model::materials::Material::Generate_Field_SwitchFunction(
         // std::cout << typeid(field).name() << std::endl;
         if (input_cast_ptr)
         {
-            std::cout << this->frag_asset_uuid->GetAssetId()->convertstring() << std::endl;
+            std::cout << this->frag_asset->GetAssetId()->convertstring() << std::endl;
             *field = input_cast_ptr;
             auto parameter = std::make_shared<assetparameters::Parameter>((*field)->GetAssetId(), option);
             SwapParameter(parameter_name, std::make_shared<assetparameters::Parameter>((*field)->GetAssetId(), option));
-            std::cout << this->frag_asset_uuid->GetAssetId()->convertstring() << std::endl;
+            std::cout << this->frag_asset->GetAssetId()->convertstring() << std::endl;
         }
         else
         {
@@ -244,13 +246,13 @@ assets::elements::model::materials::Material::Generate_Field_SwitchFunction(
 std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
 ::elements::model::materials::Material::GetVertexShader()
 {
-    return this->vert_asset_uuid;
+    return this->vert_asset;
 }
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> editor::projectwindows::assets
 ::elements::model::materials::Material::GetFragmentShader()
 {
-    return this->frag_asset_uuid;
+    return this->frag_asset;
 }
 
 std::vector<std::shared_ptr<editor::projectwindows::assets::elements::model::materials::shaderinputparameters::

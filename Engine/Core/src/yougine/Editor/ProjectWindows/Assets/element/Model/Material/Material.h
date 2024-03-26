@@ -7,9 +7,9 @@ namespace editor::projectwindows::assets::elements::model::materials
     class Material : public Asset
     {
     private:
-        std::shared_ptr<shader::ShaderFileAsset> vert_asset_uuid;
+        std::shared_ptr<shader::ShaderFileAsset> vert_asset;
 
-        std::shared_ptr<shader::ShaderFileAsset> frag_asset_uuid;
+        std::shared_ptr<shader::ShaderFileAsset> frag_asset;
 
         std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>> shader_input_parameters;
 
