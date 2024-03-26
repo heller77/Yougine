@@ -52,6 +52,11 @@ std::shared_ptr<utility::youginuuid::YougineUuid> editor::projectwindows::assets
     return this->uuid;
 }
 
+const std::filesystem::path editor::projectwindows::assets::elements::model::Asset::GetFilePath()
+{
+    return this->path;
+}
+
 void editor::projectwindows::assets::elements::model::Asset::SwapParameter(std::string parameter_name,
     std::shared_ptr<assetparameters::Parameter> parameter)
 {

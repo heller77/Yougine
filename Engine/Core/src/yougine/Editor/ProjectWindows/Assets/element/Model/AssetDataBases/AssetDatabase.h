@@ -15,6 +15,13 @@ namespace editor::projectwindows::assets::elements::model::assetdatabases
         AssetDatabase();
         void AddAsset(std::shared_ptr<utility::youginuuid::YougineUuid> uuid, std::shared_ptr<Asset> asset);
         std::shared_ptr<Asset> GetAsset(std::string assetid);
+
+        /**
+         * \brief ファイルパスからアセットを全探索。（全探索するのであまり使いたくない）
+         * \param assetpath 探索対象のファイルパス
+         * \return
+         */
+        std::shared_ptr<Asset> GetAssetFromFilePath(std::filesystem::path assetpath);
         std::unordered_map<std::string, std::shared_ptr<Asset>, utility::youginuuid::Hash> GetAssetList();
     };
 }
