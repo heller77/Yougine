@@ -158,8 +158,8 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
     nlohmann::json json;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
     if (vert_asset && frag_asset) {
-        json[GETVALUENAME(vert_asset_uuid)] = vert_asset->GetAssetId()->convertstring();
-        json[GETVALUENAME(frag_asset_uuid)] = frag_asset->GetAssetId()->convertstring();
+        json[GETVALUENAME(vert_asset)] = vert_asset->GetAssetId()->convertstring();
+        json[GETVALUENAME(frag_asset)] = frag_asset->GetAssetId()->convertstring();
     }
 
     //シェーダへの入力パラメータをエクスポート(変数jsonに書き込む)
