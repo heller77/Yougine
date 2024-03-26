@@ -23,15 +23,23 @@ void builders::Builder::Build(std::string exportpath, yougine::Scene* scene)
     // sceneexporter->ScenefileExportFromScene(scene, projectpath + "build\\scene.json");
     Save(scene);
 
+
+
+
     std::string exportpath_for_cmd = std::regex_replace(exportpath, std::regex("/"), "\\");
+
+    //リソースファイルをコピー
+    std::string resourcefolder = "./Resource/";
+    std::filesystem::copy(resourcefolder, exportpath_for_cmd + "/Resource", std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive);
+
 
     auto cmakepath = "";
     std::string cddirectoryCMD = "dir&mkdir tmpbuild & cd tmpbuild & mkdir build & cd build";
     std::string cmakebuildcmd =
         "cmake .\\..\\..\\..\\GameBuildProject -G\"Visual Studio 16 2019\" & cmake --build .";
-    std::string copyDebugfolderToExortoathcmd = "xcopy Debug " + exportpath_for_cmd + " /s /y";
+    // std::string copyDebugfolderToExortoathcmd = "xcopy Debug " + exportpath_for_cmd + " /s /y";
     std::string runcmd = "cd " + exportpath_for_cmd + " & " + "ExeProject.exe";
-    std::string cmd = cddirectoryCMD + " & " + cmakebuildcmd + " & " + copyDebugfolderToExortoathcmd + " & " + runcmd;
+    std::string cmd = cddirectoryCMD + " & " + cmakebuildcmd + " & " + runcmd;
     std::cout << cmd << std::endl;
     system(cmd.c_str());
     // system("rmdir /S /Q .\\tmpbuild");
