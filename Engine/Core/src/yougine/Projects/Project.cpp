@@ -113,6 +113,21 @@ void projects::Project::Initialize(std::string project_file_path)
     //userfolderのパスを設定
     this->userfolder = this->projectFolderPath / c_userfolder;
 
+    //エンジン側が提供するリソースをプロジェクトに配置
+    this->engineresourcefolder = this->projectFolderPath / c_libraryfolder;
+    //engineresourcefolderというフォルダが無ければ作成
+    std::filesystem::create_directory(engineresourcefolder);
+    //配置
+    //test.vertをプロジェクトフォルダに配置
+    std::string resourcefolder = "./Resource/";
+    std::filesystem::copy(resourcefolder, this->engineresourcefolder, std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive);
+
+    //エンジン側が提供するリソース情報を管理するjsonファイルのパス
+    this->engineresource_InfofilePath = this->engineresourcefolder / this->c_libraryfolder_ResourceInfojsonFileName;
+    std::ifstream engineresourceinfofile(engineresource_InfofilePath, std::ios::in);
+    engineresourceinfofile >> engineresource_info_json_obj;
+
+
     std::vector<std::string> sceneFilePathVector;
     for (std::string a : projectData["SceneFileLocations"])
     {
@@ -165,9 +180,9 @@ void projects::Project::AssetInitialize()
             std::cerr << "asset is null" << " : " << path_string << std::endl;
         }
     }
-    auto nowfilepath = std::filesystem::current_path();
-    std::filesystem::path engine_Default_Path = "./Resource/Export/";
-    auto exportfile = std::filesystem::recursive_directory_iterator(engine_Default_Path);
+    // auto nowfilepath = std::filesystem::current_path();
+    // std::filesystem::path engine_Default_Path = "./Resource/Export/";
+    auto exportfile = std::filesystem::recursive_directory_iterator(this->engineresourcefolder);
 
     for (auto entry : exportfile)
     {
@@ -212,6 +227,16 @@ std::filesystem::path projects::Project::GetProjectFolderPath()
 std::string projects::Project::GetProjectFolderPath_ByTypeString()
 {
     return this->projectFolderPath.string();
+}
+
+nlohmann::basic_json<> projects::Project::GetParameterFromEngineResourceJson(std::string parameterName)
+{
+    return this->engineresource_info_json_obj[parameterName];
+}
+
+std::filesystem::path projects::Project::GetEngineResouceFolderPath()
+{
+    return this->projectFolderPath / this->c_libraryfolder;
 }
 
 projects::Project* projects::Project::instance;

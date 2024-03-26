@@ -4,6 +4,7 @@
 #include <memory>
 #include <memory>
 #include <tinygltf/json.hpp>
+#include <filesystem>
 
 #include "../../../../../../Projects/Project.h"
 #include "../AssetInfos//AssetInfoFileExporter.h"
@@ -41,11 +42,20 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderF
 {
     if (vert_default == nullptr)
     {
-        auto id = std::make_shared<utility::youginuuid::YougineUuid>();
-        vert_default = std::make_shared<ShaderFileAsset>("./Resource/shader/test.vert", id);
-        projects::Project::GetInstance()->GetDataBase()->AddAsset(id, vert_default);
+        auto engineresouce_shaderinfo = projects::Project::GetInstance()->GetParameterFromEngineResourceJson("shader");
+        auto vertshaderfilePath = projects::Project::GetInstance()->GetEngineResouceFolderPath() / engineresouce_shaderinfo["default"]["vert"];
 
-        return vert_default;
+
+        // vert_default = std::make_shared<ShaderFileAsset>(vertshaderfilePath.string(), id);
+        std::shared_ptr<Asset> vertdefaultasset = projects::Project::GetInstance()->GetDataBase()->GetAssetFromFilePath(vertshaderfilePath);
+        std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> asset
+            = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>(vertdefaultasset);
+        if (asset == nullptr)
+        {
+            throw "vertexshaderのデフォルトアセットが見つからない。エンジンリソースの初期化が上手くいっていない可能性がある。";
+        }
+
+        vert_default = asset;
     }
     return vert_default;
 }
@@ -55,10 +65,20 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderF
 {
     if (frag_default == nullptr)
     {
-        auto id = std::make_shared<utility::youginuuid::YougineUuid>();
-        frag_default = std::make_shared<ShaderFileAsset>("./Resource/shader/test.frag", id);
-        projects::Project::GetInstance()->GetDataBase()->AddAsset(id, frag_default);
-        return frag_default;
+        auto engineresouce_shaderinfo = projects::Project::GetInstance()->GetParameterFromEngineResourceJson("shader");
+        auto vertshaderfilePath = projects::Project::GetInstance()->GetEngineResouceFolderPath() / engineresouce_shaderinfo["default"]["frag"];
+
+
+        // vert_default = std::make_shared<ShaderFileAsset>(vertshaderfilePath.string(), id);
+        std::shared_ptr<Asset> vertdefaultasset = projects::Project::GetInstance()->GetDataBase()->GetAssetFromFilePath(vertshaderfilePath);
+        std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> asset
+            = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>(vertdefaultasset);
+        if (asset == nullptr)
+        {
+            throw "fragmentshaderのデフォルトアセットが見つからない。エンジンリソースの初期化が上手くいっていない可能性がある。";
+        }
+
+        frag_default = asset;
     }
     return frag_default;
 }

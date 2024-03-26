@@ -10,7 +10,7 @@ namespace projects
     {
     private:
 
-        const std::string c_userfolder = "userFolder";
+
         static Project* instance;
         std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> asset_database;
         std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
@@ -19,12 +19,30 @@ namespace projects
          * \brief プロジェクトパス/userFolder　ユーザがスクリプトやアセットを置く場所
          */
         std::filesystem::path userfolder;
+
+        /**
+         * \brief プロジェクトフォルダ直下にある
+         */
+        std::filesystem::path engineresourcefolder;
+
+        std::filesystem::path engineresource_InfofilePath;
+
+        /**
+         * \brief エンジンのリソースについての情報をjsonをパースしたもの。
+         */
+        nlohmann::json engineresource_info_json_obj;
+
         //プロジェクトフォルダのパスを格納（main.cppで指定しているが、実行時引数とかで貰うようにするのがよさそう）
         std::filesystem::path projectFolderPath;
 
+
+
+
     public:
 
-
+        const std::string c_userfolder = "userFolder";
+        const std::string c_libraryfolder = "libFolder";
+        const std::string c_libraryfolder_ResourceInfojsonFileName = "ResourceInfo.json";
         static Project* GetInstance();
         void Initialize(std::string project_file_path);
         void SetDataBase(std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> asset_database);
@@ -34,5 +52,14 @@ namespace projects
         std::filesystem::path GetProjectFolderPath();
 
         std::string GetProjectFolderPath_ByTypeString();
+
+        /**
+         * \brief エンジン側が提供するリソースの情報を取得できる
+         * \param parameterName
+         * \return
+         */
+        nlohmann::basic_json<> GetParameterFromEngineResourceJson(std::string parameterName);
+
+        std::filesystem::path GetEngineResouceFolderPath();
     };
 }
