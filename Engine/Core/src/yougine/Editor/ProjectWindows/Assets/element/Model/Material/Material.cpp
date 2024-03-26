@@ -110,7 +110,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     {
 
         //vertexshaderのアセットを取得
-        std::string vertname = GETVALUENAME(vert_asset_uuid);
+        std::string vertname = GETVALUENAME(vert_asset);
         if (this->asset_info->IsContainValue(vertname)) {
             std::string asset_id = asset_info->GetParameter(vertname);
             this->vert_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
@@ -121,7 +121,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
         }
 
         //fragmentshaderのアセットを取得
-        std::string fragname = GETVALUENAME(frag_asset_uuid);
+        std::string fragname = GETVALUENAME(frag_asset);
         if (asset_info->IsContainValue(fragname)) {
             std::string asset_id = asset_info->GetParameter(fragname);
             this->frag_asset = std::dynamic_pointer_cast<shader::ShaderFileAsset>(projects::Project::GetInstance()->GetDataBase()->GetAsset(asset_id));
