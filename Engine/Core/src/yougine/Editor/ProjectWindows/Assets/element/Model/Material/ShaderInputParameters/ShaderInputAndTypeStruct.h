@@ -30,5 +30,8 @@ namespace editor::projectwindows::assets::elements::model::materials::shaderinpu
         float* Get_float_value();
         int* Get_int_value();
         utility::Vector3* Get_vec3_value();
+
+        void SetValueType(ShaderInputParameterType type);
+        static std::shared_ptr<ShaderInputAndTypeStruct> GenerateDefaultInstance(ShaderInputParameterType type, std::string name);
     };
 }

@@ -90,7 +90,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
         shader_input_parameters.emplace_back(ve3_color);
     }
 
-    this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(shader_input_parameters, shaderinputs_assetoption);;
+    this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(&shader_input_parameters, shaderinputs_assetoption);;
 }
 
 

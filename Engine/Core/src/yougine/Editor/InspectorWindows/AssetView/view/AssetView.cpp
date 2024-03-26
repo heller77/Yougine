@@ -1,6 +1,7 @@
 ﻿#include "AssetView.h"
 
 #include <iostream>
+#include <memory>
 #include <valarray>
 
 #include "../../../../Projects/Project.h"
@@ -135,7 +136,8 @@ AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::
                 if (template_name == "class std::shared_ptr<class editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct>")
                 {
                     namespace  shaderinputstruct_namespace = editor::projectwindows::assets::elements::model::materials::shaderinputparameters;
-                    std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>> vec_shaderinput = std::any_cast<std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>>>(value);
+                    std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>>* vec_shaderinput
+                        = std::any_cast<std::vector<std::shared_ptr<shaderinputstruct_namespace::ShaderInputAndTypeStruct>>*>(value);
                     std::cout << "class std::shared_ptr<class editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct>!!" << std::endl;
                     this->parameter_vec.emplace_back(std::make_shared <utility::view::parameters::ShaderInputParameterView>(vec_shaderinput));
                 }
