@@ -8,6 +8,7 @@
 
 void utility::view::parameters::ShaderInputParameterView::Draw()
 {
+    ImGui::Separator();
     ImGui::Text("shader input parameterview");
     int index = 0;
     for (auto element : *vec_shaderinput)
@@ -83,6 +84,7 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
     ImGui::PushID(index++);
     ImGui::PushItemWidth(80);
     ImGui::Text("new input paramter ");
+    ImGui::SameLine();
     if (ImGui::BeginCombo(this->label.c_str(), this->type2text[new_value->GetValueType()].c_str()))
     {
         for (auto pair : type2text)
@@ -104,7 +106,7 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
         }
         ImGui::EndCombo();
     }
-    // ImGui::SameLine();
+    ImGui::SameLine();
 
     // //名前入力
     ImGui::InputText("name", new_value->GetName());
@@ -152,6 +154,7 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
     ImGui::PopID();
 
     ImGui::NewLine();
+    ImGui::Separator();
 }
 
 utility::view::parameters::ShaderInputParameterView::ShaderInputParameterView(
