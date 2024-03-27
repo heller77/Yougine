@@ -5,6 +5,7 @@
 #include <memory>
 #include <tinygltf/json.hpp>
 #include <filesystem>
+#include <memory>
 
 #include "../../../../../../Projects/Project.h"
 #include "../AssetInfos//AssetInfoFileExporter.h"
@@ -23,6 +24,8 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::I
         this->code += input + "\n";
     }
     std::cout << shaderfile_path << ": " << code << std::endl;
+    std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>(false, true);
+    this->parameter[GETVALUENAME(code)] = std::make_shared<assetparameters::Parameter>(&code, option);
 }
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
