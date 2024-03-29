@@ -31,7 +31,6 @@ namespace yougine::managers
     RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
         this->component_list = component_list;
-        GLenum err;
         this->width = width;
         this->height = height;
         //カラーバッファ
@@ -63,18 +62,16 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer = frameBuffer;
 
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in constructer" << std::endl;
-        }
+        geterror("in rendermanager constructer");
     }
 
     RenderManager::RenderManager(int width, int height, GLint input_framebuffer, ComponentList* component_list)
     {
         this->component_list = component_list;
-        GLenum err;
         this->width = width;
         this->height = height;
+        geterror("in rendermanager constructer");
+
         //カラーバッファ
         GLuint colorBuffer;
         glGenTextures(1, &colorBuffer);
@@ -85,6 +82,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
+        geterror("in rendermanager constructer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -92,6 +90,7 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
+        geterror("in rendermanager constructer");
 
         //フレームバッファ
         GLuint frameBuffer = input_framebuffer;
@@ -104,10 +103,8 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer = frameBuffer;
 
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in constructer" << std::endl;
-        }
+        geterror("in rendermanager constructer");
+
     }
 
     /**
@@ -230,7 +227,6 @@ namespace yougine::managers
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
 
         geterror("RenderOneGameObject");
-        RenderManager::getcurrentbindProgram();
 
         auto shaderinputs = render_component->GetMaterial()->GetShaderInputs();
         for (auto shader_input_and_type_struct : shaderinputs)
