@@ -60,7 +60,7 @@ namespace editor
                 }
                 else if (contentOfsharedptr == "class editor::projectwindows::assets::elements::model::Asset")
                 {
-                    std::cout << "asset!!" << std::endl;
+                    // std::cout << "asset!!" << std::endl;
                     auto asset = std::any_cast<std::shared_ptr<projectwindows::assets::elements::model::Asset>>(val);
                     auto func = std::any_cast<std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)>>(propertie[2]);
                     ImGui::Text(asset->GetAssetId()->convertstring().c_str());

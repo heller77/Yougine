@@ -12,5 +12,6 @@ namespace builders
          * \brief
          */
         void Build(std::string exportpath, yougine::Scene* scene);
+        void Save(yougine::Scene* scene);
     };
 }

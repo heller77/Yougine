@@ -1,5 +1,8 @@
 ﻿#include "ShaderInputAndTypeStruct.h"
 
+#include <memory>
+#include <memory>
+
 editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
 ShaderInputAndTypeStruct(ShaderInputParameterType type, std::string name, float value) :type(type), name(name), float_value(value)
 {
@@ -47,4 +50,25 @@ utility::Vector3* editor::projectwindows::assets::elements::model::materials::sh
 ShaderInputAndTypeStruct::Get_vec3_value()
 {
     return vec3_value.get();
+}
+
+void editor::projectwindows::assets::elements::model::materials::shaderinputparameters::ShaderInputAndTypeStruct::
+SetValueType(ShaderInputParameterType type)
+{
+    this->type = type;
+}
+
+std::shared_ptr<editor::projectwindows::assets::elements::model::materials::shaderinputparameters::
+    ShaderInputAndTypeStruct> editor::projectwindows::assets::elements::model::materials::shaderinputparameters::
+    ShaderInputAndTypeStruct::GenerateDefaultInstance(ShaderInputParameterType type, std::string name)
+{
+    switch (type)
+    {
+    case ShaderInputParameterType::kInt:
+        return std::make_shared<ShaderInputAndTypeStruct>(ShaderInputParameterType::kInt, name, 1);
+    case ShaderInputParameterType::kFloat:
+        return std::make_shared<ShaderInputAndTypeStruct>(ShaderInputParameterType::kFloat, name, 1.0f);
+    case  ShaderInputParameterType::kVec3:
+        return std::make_shared<ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, name, utility::Vector3(1, 1, 1));
+    }
 }

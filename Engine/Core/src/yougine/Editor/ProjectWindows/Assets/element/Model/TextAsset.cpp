@@ -7,7 +7,7 @@
 #include <tinygltf/json.hpp>
 
 
-#include "AssetInfoExporter/AssetInfoFileExporter.h"
+#include "AssetInfos/AssetInfoFileExporter.h"
 
 editor::projectwindows::assets::elements::model::TextAsset::TextAsset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid) : Asset(path, uuid)
 {
@@ -25,7 +25,7 @@ void editor::projectwindows::assets::elements::model::TextAsset::Export()
     json[GETVALUENAME(text)] = text;
     json[GETVALUENAME(uuid)] = uuid->convertstring();
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 
 }

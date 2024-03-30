@@ -35,7 +35,8 @@ namespace yougine::managers
         GLuint GetColorBuffer();
 
         void SetWindowSize(ImVec2 vec2);
-
+        static void geterror(std::string adderErrortext);
+        static void getcurrentbindProgram();
     private:
         ComponentList* component_list;
 
@@ -43,7 +44,6 @@ namespace yougine::managers
 
         GLuint frameBuffer;
 
-        components::RenderComponent* renderComponent;
 
         GLuint colorBuffer;
 

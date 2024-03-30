@@ -4,9 +4,11 @@
 #include <memory>
 #include <memory>
 #include <tinygltf/json.hpp>
+#include <filesystem>
+#include <memory>
 
 #include "../../../../../../Projects/Project.h"
-#include "../AssetInfoExporter/AssetInfoFileExporter.h"
+#include "../AssetInfos//AssetInfoFileExporter.h"
 
 void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeCode(
     std::filesystem::path shaderfile_path)
@@ -22,6 +24,8 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::I
         this->code += input + "\n";
     }
     std::cout << shaderfile_path << ": " << code << std::endl;
+    std::shared_ptr<inspectorwindows::assetviews::options::AssetViewOption> option = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>(false, true);
+    this->parameter[GETVALUENAME(code)] = std::make_shared<assetparameters::Parameter>(&code, option);
 }
 
 editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::ShaderFileAsset(
@@ -41,11 +45,20 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderF
 {
     if (vert_default == nullptr)
     {
-        auto id = std::make_shared<utility::youginuuid::YougineUuid>();
-        vert_default = std::make_shared<ShaderFileAsset>("./Resource/shader/test.vert", id);
-        projects::Project::GetInstance()->GetDataBase()->AddAsset(id, vert_default);
+        auto engineresouce_shaderinfo = projects::Project::GetInstance()->GetParameterFromEngineResourceJson("shader");
+        auto vertshaderfilePath = projects::Project::GetInstance()->GetEngineResouceFolderPath() / engineresouce_shaderinfo["default"]["vert"];
 
-        return vert_default;
+
+        // vert_default = std::make_shared<ShaderFileAsset>(vertshaderfilePath.string(), id);
+        std::shared_ptr<Asset> vertdefaultasset = projects::Project::GetInstance()->GetDataBase()->GetAssetFromFilePath(vertshaderfilePath);
+        std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> asset
+            = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>(vertdefaultasset);
+        if (asset == nullptr)
+        {
+            throw "vertexshaderのデフォルトアセットが見つからない。エンジンリソースの初期化が上手くいっていない可能性がある。";
+        }
+
+        vert_default = asset;
     }
     return vert_default;
 }
@@ -55,10 +68,20 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderF
 {
     if (frag_default == nullptr)
     {
-        auto id = std::make_shared<utility::youginuuid::YougineUuid>();
-        frag_default = std::make_shared<ShaderFileAsset>("./Resource/shader/test.frag", id);
-        projects::Project::GetInstance()->GetDataBase()->AddAsset(id, frag_default);
-        return frag_default;
+        auto engineresouce_shaderinfo = projects::Project::GetInstance()->GetParameterFromEngineResourceJson("shader");
+        auto vertshaderfilePath = projects::Project::GetInstance()->GetEngineResouceFolderPath() / engineresouce_shaderinfo["default"]["frag"];
+
+
+        // vert_default = std::make_shared<ShaderFileAsset>(vertshaderfilePath.string(), id);
+        std::shared_ptr<Asset> vertdefaultasset = projects::Project::GetInstance()->GetDataBase()->GetAssetFromFilePath(vertshaderfilePath);
+        std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset> asset
+            = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>(vertdefaultasset);
+        if (asset == nullptr)
+        {
+            throw "fragmentshaderのデフォルトアセットが見つからない。エンジンリソースの初期化が上手くいっていない可能性がある。";
+        }
+
+        frag_default = asset;
     }
     return frag_default;
 }
@@ -69,15 +92,22 @@ void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::E
     json[GETVALUENAME(uuid)] = uuid->convertstring();
     json[GETVALUENAME(shader_kind)] = shader_kind;
 
-    auto exporter = std::make_shared<assetinfofileexporter::AssetInfoFileExporter>();
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
     exporter->ExportAssetInfoFile(this->path, json);
 }
 
 void editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::InitializeParameter()
 {
-    this->shader_kind = "fragment or vertex";
+    if (is_assetinfo_file_exist)
+    {
+        this->shader_kind = asset_info->GetParameter(GETVALUENAME(shader_kind));
+    }
+    else {
+        this->shader_kind = "fragment or vertex";
+    }
     auto assetoption = std::make_shared<inspectorwindows::assetviews::options::AssetViewOption>();
     this->parameter["shader_kind"] = std::make_shared<assetparameters::Parameter>(&shader_kind, assetoption);
+
 }
 
 std::string editor::projectwindows::assets::elements::model::shader::ShaderFileAsset::GetCode()

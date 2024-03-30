@@ -30,6 +30,20 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::
     return this->asset_map[assetid];
 }
 
+std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> editor::projectwindows::assets::elements::model
+::assetdatabases::AssetDatabase::GetAssetFromFilePath(std::filesystem::path assetpath)
+{
+    for (auto asset_map : this->asset_map)
+    {
+        auto asset = asset_map.second;
+        if (asset->GetFilePath() == assetpath)
+        {
+            return asset;
+        }
+    }
+    return nullptr;
+}
+
 std::unordered_map<std::string, std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>, utility::
     youginuuid::Hash> editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase::GetAssetList()
 {

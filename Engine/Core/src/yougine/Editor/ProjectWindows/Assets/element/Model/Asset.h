@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 
+#include "AssetInfos/AssetInfoFile.h"
 #include "UserShare/utilitys/uuid/YougineUuid.h"
 #include "AssetParameter/Parameter.h"
 
@@ -25,13 +26,14 @@ namespace editor::projectwindows::assets::elements::model
         std::filesystem::path assetinfo_filepath;
         bool is_assetinfo_file_exist;
         std::shared_ptr<utility::youginuuid::YougineUuid> uuid;
+        std::shared_ptr<assetinfos::AssetInfoFile> asset_info;
     public:
         Asset(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
         Asset(const std::filesystem::path assetinfo_file_path);
         std::map<std::string, std::shared_ptr<assetparameters::Parameter>> GetParameter();
         virtual void Export() = 0;
         std::shared_ptr<utility::youginuuid::YougineUuid> GetAssetId();
-
+        const std::filesystem::path GetFilePath();
         void SwapParameter(std::string parameter_name, std::shared_ptr<assetparameters::Parameter> parameter);
 
         // template <class fieldType>

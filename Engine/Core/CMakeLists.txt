@@ -46,4 +46,4 @@ add_library(YouginLib STATIC ${cppfiles})
 
 target_link_libraries(YouginLib opengl32 libglew32d glfw3)
 
-file(COPY ${PROJECT_SOURCE_DIR}/Resource DESTINATION ${CMAKE_BINARY_DIR}/Debug)
+#file(COPY ${PROJECT_SOURCE_DIR}/Resource DESTINATION ${CMAKE_BINARY_DIR}/Debug)

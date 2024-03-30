@@ -34,8 +34,10 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
     auto project = projects::Project::GetInstance();
-    project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
-    project->AssetInitialize();
+    // project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
+    // project->AssetInitialize();
+    project->Initialize("./Resource/Project.json");
+
     glfwSetErrorCallback(glfw_error_callback);
 
     if (glfwInit() == GLFW_FALSE)
@@ -75,7 +77,7 @@ int main()
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj(project->projectFolderPath + "\\build\\scene.json");
+    sceneloader.UpdateJsonObj(project->GetProjectFolderPath_ByTypeString() + "\\build\\scene.json");
     sceneloader.CreateScene();
     yougine::Scene* scene = sceneloader.jb_scene;
     // int gVCBHeig3ht = 300;
@@ -114,12 +116,16 @@ int main()
 
     //render
     auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer, scene->GetComponentList());
+    scene->InitializeAllGameObjcts();
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
-        input_manager->UpdateInput();
+        // input_manager->UpdateInput();
         rendermanager.RenderScene();
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        game_manager->Update();
+        scene->Update();
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {

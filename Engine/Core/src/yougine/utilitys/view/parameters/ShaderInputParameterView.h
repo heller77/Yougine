@@ -11,10 +11,11 @@ namespace utility::view::parameters
     namespace materials = editor::projectwindows::assets::elements::model::materials;
     namespace shaderinputparameters = materials::shaderinputparameters;
 
+
     class ShaderInputParameterView : public ParameterView
     {
         // std::vector<std::string> type_list;
-        std::string label;
+        const std::string label = "type";;
 
         std::string name;
 
@@ -22,12 +23,16 @@ namespace utility::view::parameters
 
         std::map<materials::ShaderInputParameterType, std::string> type2text;
 
-        std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>> vec_shaderinput;
+        std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>>* vec_shaderinput;
+
+        std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct> new_value;
+
+        // std::shared_ptr<>
 
     public:
         void Draw() override;
 
         ShaderInputParameterView(
-            std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>> vec_shaderinput);
+            std::vector<std::shared_ptr<shaderinputparameters::ShaderInputAndTypeStruct>>* vec_shaderinput);
     };
 }

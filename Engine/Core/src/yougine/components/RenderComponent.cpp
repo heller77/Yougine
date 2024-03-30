@@ -21,20 +21,70 @@ namespace yougine::components
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
         // auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
-        auto function = managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(std::shared_ptr<components::Component>(this), &material, GETVALUENAME(material));
-        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), function});
 
-        GLuint program, vao;
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> function =
+            managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(
+                std::shared_ptr<components::Component>(this), &material, GETVALUENAME(material));
+
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> parentfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
+            std::cout << "material change" << std::endl;
+            function(input);
+            managers::RenderManager::geterror("RenderComponent() ");
+            if (this->program) { // 既存のプログラムがあれば削除
+                // glDeleteProgram(this->program);
+                program = -1;
+            }
+            managers::RenderManager::geterror("RenderComponent() ");
+
+            if (this->vao)
+            {
+                glBindVertexArray(0);
+                vao = -1;
+            }
+            managers::RenderManager::geterror("RenderComponent() ");
+
+
+            this->vbolist.Release();
+            managers::RenderManager::geterror("RenderComponent() ");
+
+
+            program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
+            managers::RenderManager::geterror("RenderComponent() ");
+
+            glGenVertexArrays(1, &vao);
+            managers::RenderManager::geterror("RenderComponent() ");
+
+            glBindVertexArray(vao);
+            managers::RenderManager::geterror("RenderComponent() ");
+
+            InitializeMesh();
+            managers::RenderManager::geterror("RenderComponent() ");
+
+        };
+
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), parentfunction});
+
+        // GLuint program, vao;
         // program = yougine::managers::RenderManager::ShaderInitFromFilePath(
         //     "./Resource/shader/test.vert", "./Resource/shader/test.frag");
         program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
         glGenVertexArrays(1, &vao);
         glBindVertexArray(vao);
-        this->SetProgram(program);
-        this->SetVao(vao);
+        // this->SetProgram(program);
+        // this->SetVao(vao);
+
+        InitializeMesh();
 
 
 
+    }
+    void RenderComponent::ShaderCompile()
+    {
+
+    }
+
+    void RenderComponent::InitializeMesh()
+    {
         tinygltf::Model model;
         tinygltf::TinyGLTF loader;
         std::string err, warn;
@@ -105,9 +155,9 @@ namespace yougine::components
 
         auto position_point_count = position_accessor.count;
         //頂点バッファを作成
-        GLuint vertexBuffer;
-        glGenBuffers(1, &vertexBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        // GLuint vertexBuffer;
+        glGenBuffers(1, &this->vbolist.vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, this->vbolist.vertexBuffer);
         auto vertex = this->vertex_vector;
         glBufferData(GL_ARRAY_BUFFER, position_point_count * sizeof(ShaderVector4), vertex.data(), GL_STATIC_DRAW);
         auto vertexShader_PositionAttribute = glGetAttribLocation(program, "position");
@@ -115,26 +165,37 @@ namespace yougine::components
         glVertexAttribPointer(vertexShader_PositionAttribute, 4, GL_FLOAT, GL_FALSE, 0, 0);
 
         // //インデックスバッファ
-        GLuint elementBuffer;
-        glGenBuffers(1, &elementBuffer);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBuffer);
+        // GLuint elementBuffer;
+        glGenBuffers(1, &this->vbolist.elementBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->vbolist.elementBuffer);
         auto indices = this->index_vector;
         auto indeicesSize = indices.size() * sizeof(indices[0]);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indeicesSize, indices.data(), GL_STATIC_DRAW);
 
+        managers::RenderManager::geterror("InitializeMesh() ");
 
         //法線バッファ
-        GLuint normalBuffer;
-        glGenBuffers(1, &normalBuffer);
-        glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+        // GLuint normalBuffer;
+        glGenBuffers(1, &this->vbolist.normalBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, this->vbolist.normalBuffer);
         glBufferData(GL_ARRAY_BUFFER, normal_vector.size() * sizeof(ShaderVector3), normal_vector.data(), GL_STATIC_DRAW);
+        managers::RenderManager::geterror("InitializeMesh() ");
 
         //シェーダに値を渡す
         auto vertexshader_normal_attribute = glGetAttribLocation(program, "normal");
-        glEnableVertexAttribArray(vertexshader_normal_attribute);
-        glVertexAttribPointer(vertexshader_normal_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
+        managers::RenderManager::geterror("InitializeMesh() glGetAttribLocation ");
+
+        if (vertexshader_normal_attribute > 0) {
+            glEnableVertexAttribArray(vertexshader_normal_attribute);
+            managers::RenderManager::geterror("InitializeMesh() glEnableVertexAttribArray");
+
+            glVertexAttribPointer(vertexshader_normal_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
+            managers::RenderManager::geterror("InitializeMesh() glVertexAttribPointer");
+        }
         this->draw_point_count = indices_accessor.count;
+        managers::RenderManager::geterror("InitializeMesh() ");
+
 
     }
 
@@ -182,4 +243,6 @@ namespace yougine::components
     {
         return this->material;
     }
+
+
 }

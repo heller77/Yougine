@@ -31,8 +31,6 @@ namespace yougine::managers
     RenderManager::RenderManager(int width, int height, ComponentList* component_list)
     {
         this->component_list = component_list;
-        this->renderComponent = new components::RenderComponent();
-        GLenum err;
         this->width = width;
         this->height = height;
         //カラーバッファ
@@ -64,19 +62,16 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer = frameBuffer;
 
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in constructer" << std::endl;
-        }
+        geterror("in rendermanager constructer");
     }
 
     RenderManager::RenderManager(int width, int height, GLint input_framebuffer, ComponentList* component_list)
     {
         this->component_list = component_list;
-        this->renderComponent = new components::RenderComponent();
-        GLenum err;
         this->width = width;
         this->height = height;
+        geterror("in rendermanager constructer");
+
         //カラーバッファ
         GLuint colorBuffer;
         glGenTextures(1, &colorBuffer);
@@ -87,6 +82,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
+        geterror("in rendermanager constructer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -94,6 +90,7 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
+        geterror("in rendermanager constructer");
 
         //フレームバッファ
         GLuint frameBuffer = input_framebuffer;
@@ -106,10 +103,8 @@ namespace yougine::managers
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         this->frameBuffer = frameBuffer;
 
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in constructer" << std::endl;
-        }
+        geterror("in rendermanager constructer");
+
     }
 
     /**
@@ -124,6 +119,8 @@ namespace yougine::managers
      */
     void RenderManager::RenderScene()
     {
+        geterror("RenderScene");
+
         auto camera = components::camera::CameraComponent::GetMainCamera();
 
         glBindFramebuffer(GL_FRAMEBUFFER, this->frameBuffer);
@@ -133,6 +130,8 @@ namespace yougine::managers
         glClearBufferfv(GL_DEPTH, 0, &depth);
         glEnable(GL_DEPTH_TEST);
         // glEnable(GL_CULL_FACE);
+        geterror("RenderScene");
+
         int i = 0;
         //オブジェクトそれぞれ描画
         auto render_component_list = component_list->GetReferObjectList(components::ComponentName::kRender);
@@ -173,13 +172,12 @@ namespace yougine::managers
     void SetVec3Uniform(GLint program, const char* name, utility::Vector3 value)
     {
         GLuint loc = glGetUniformLocation(program, name);
+
+        RenderManager::geterror("glGetUniformLocation");
+
         // Send the float data
         glUniform3f(loc, value.x, value.y, value.z);
-        GLuint err;
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in setfloatuniform" << std::endl;
-        }
+        RenderManager::geterror("glUniform3f");
     }
     /**
      * \brief ゲームオブジェクトを描画する
@@ -187,8 +185,23 @@ namespace yougine::managers
      */
     void RenderManager::RenderOneGameObject(components::RenderComponent* render_component, std::shared_ptr<components::camera::CameraComponent> camera)
     {
-        glUseProgram(this->renderComponent->GetProgram());
-        glBindVertexArray(this->renderComponent->GetVao());
+        geterror("RenderOneGameObject beforegetprogram");
+
+        auto program = render_component->GetProgram();
+        // GLint linkStatus;
+        // glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+        // if (linkStatus == GL_FALSE) {
+        //     // リンク失敗の処理
+        //     char infoLog[512];
+        //     glGetProgramInfoLog(program, 512, NULL, infoLog);
+        //     std::cerr << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        // }
+
+        glUseProgram(render_component->GetProgram());
+        geterror("RenderOneGameObject GetProgram");
+
+        glBindVertexArray(render_component->GetVao());
+        geterror("RenderOneGameObject GetVao()");
         glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 400.0f);
 
         auto cameraposition = camera->GetTransform()->GetPosition();
@@ -210,18 +223,16 @@ namespace yougine::managers
         //Model行列を定義
         glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z)) * rotation->ConvertToGlmMat4();
         glm::mat4 MVP = Projection * View * Model;
-        auto vShader_mvp_pointer = glGetUniformLocation(this->renderComponent->GetProgram(), "mvp");
+        auto vShader_mvp_pointer = glGetUniformLocation(render_component->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
-        GLenum err;
-        while ((err = glGetError()) != GL_NO_ERROR)
-        {
-            std::cout << err << " というエラーがある in rendergameobject" << std::endl;
-        }
+
+        geterror("RenderOneGameObject");
+
         auto shaderinputs = render_component->GetMaterial()->GetShaderInputs();
         for (auto shader_input_and_type_struct : shaderinputs)
         {
             if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kFloat) {
-                SetFloatUniform(renderComponent->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_float_value());
+                SetFloatUniform(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_float_value());
             }
             else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kVec3)
             {
@@ -243,6 +254,7 @@ namespace yougine::managers
 
     GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)
     {
+        geterror("ShaderInit");
         const auto program = glCreateProgram();
 
         //シェーダオブジェクト生成
@@ -253,13 +265,15 @@ namespace yougine::managers
         const char* vsShaderSource_char = vs_shader_source.c_str();
         std::cout << "vertex \n" << vs_shader_source << std::endl;
         glShaderSource(vsShader, 1, &vsShaderSource_char, nullptr);
+
         const char* fsShaderSource_char = fs_shader_source.c_str();
+        std::cout << "vertex \n" << fs_shader_source << std::endl;
         glShaderSource(fsShader, 1, &fsShaderSource_char, nullptr);
 
         //コンパイル
         glCompileShader(vsShader);
         glCompileShader(fsShader);
-
+        geterror("ShaderInit");
         //エラー
         PrintShaderInfoLog(vsShader, "vertex shader");
         PrintShaderInfoLog(fsShader, "fragment shader");
@@ -271,6 +285,8 @@ namespace yougine::managers
         glDeleteShader(fsShader);
 
         glLinkProgram(program);
+
+        geterror("ShaderInit");
 
         return program;
     }
@@ -348,4 +364,27 @@ namespace yougine::managers
 
         return content;
     }
+
+    void RenderManager::geterror(std::string adderErrortext)
+    {
+        GLenum err;
+        while ((err = glGetError()) != GL_NO_ERROR)
+        {
+            std::cout << err << " というエラーがある " << adderErrortext << std::endl;
+        }
+    }
+
+    void RenderManager::getcurrentbindProgram()
+    {
+        GLint currentProgram = 0;
+        glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
+
+        if (currentProgram != 0) {
+            printf("Currently bound shader program ID: %d\n", currentProgram);
+        }
+        else {
+            printf("No shader program is currently bound.\n");
+        }
+    }
 }
+

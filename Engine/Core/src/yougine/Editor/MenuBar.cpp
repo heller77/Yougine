@@ -6,10 +6,10 @@
 editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene) : EditorWindow(editor_windows_manager, editor::EditorWindowName::MenuBar)
 {
     //ビルド先のぱす（初期値だが、とりあえず）
-    auto buildpath = projects::Project::GetInstance()->projectFolderPath + "build";
+    auto buildpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString() + "build";
     strcpy_s(buildexportpath, buildpath.c_str());
     //シーンファイルの参照（本来はプロジェクトのフォルダーにあるのを、ビルド時に選択、エクスポートが正しいが、今回は既にビルドさきにあるものとする）
-    auto scenefilepath = projects::Project::GetInstance()->projectFolderPath + "build\scene.json";
+    auto scenefilepath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString() + "build\scene.json";
     strcpy_s(sceenfilepath, scenefilepath.c_str());
     this->scene = scene;
 
@@ -31,6 +31,11 @@ void editor::MenuBar::Draw()
 
     ImGui::InputText("exportpath", buildexportpath, 256);
     ImGui::InputText("scenefilepath", sceenfilepath, 256);
+    if (ImGui::Button("save"))
+    {
+        auto builder = new builders::Builder();
+        builder->Save(scene);
+    }
 
     if (ImGui::Button("Play"))
     {

@@ -15,6 +15,22 @@ namespace yougine::components
     {
         GLfloat position[3];
     };
+
+    struct VBOList
+    {
+        GLuint vertexBuffer;
+        GLuint elementBuffer;
+        GLuint normalBuffer;
+        void Release()
+        {
+            GLuint vboIDs[] = { vertexBuffer, elementBuffer, normalBuffer };
+            glDeleteBuffers(3, vboIDs);
+            vertexBuffer = -1;
+            elementBuffer = -1;
+            normalBuffer = -1;
+
+        }
+    };
     class RenderComponent : public components::Component
     {
         //マテリアル（シェーダー、シェーダに渡す値）、メッシュ。
@@ -52,10 +68,13 @@ namespace yougine::components
         GLuint program;
 
         GLuint vao;
+        VBOList vbolist;
 
         std::vector<ShaderVector4> vertex_vector;
 
         std::vector<GLuint> index_vector;
+        void ShaderCompile();
+        void InitializeMesh();
 
     };
 }

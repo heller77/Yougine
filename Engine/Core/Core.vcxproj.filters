@@ -45,7 +45,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.cpp" />
-    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwrite.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphNode.cpp" />
@@ -66,23 +66,9 @@
     <ClCompile Include="src\yougine\managers\ComponentExportParameterManager.cpp" />
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\yougine\components\Component.cpp">
-      <Filter>ソース ファイル\src\yougine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\managers\ComponentList.cpp">
-      <Filter>ソース ファイル\src\yougine\managers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\managers\CustomScriptManager.cpp">
-      <Filter>ソース ファイル\src\yougine\managers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\GameObject.cpp">
-      <Filter>ソース ファイル\src\yougine</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\Scene.cpp">
-      <Filter>ソース ファイル\src\yougine</Filter>
-    </ClCompile>
     <ClCompile Include="lib\imgui\imgui.cpp">
       <Filter>ソース ファイル\lib\imgui</Filter>
     </ClCompile>
@@ -112,12 +98,6 @@
     </ClCompile>
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp">
       <Filter>ソース ファイル\src\yougine\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\components\TransformComponent.cpp">
-      <Filter>ソース ファイル\src\yougine\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\InputManager.cpp">
-      <Filter>ソース ファイル\src\yougine</Filter>
     </ClCompile>
     <ClCompile Include="src\yougine\components\TransformComponent.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
@@ -213,16 +193,9 @@
     <ClInclude Include="src\yougine\managers\GameManager.h" />
     <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
-    <ClInclude Include="src\yougine\components\Component.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
-    <ClInclude Include="src\yougine\InputManager.h" />
-    <ClInclude Include="src\yougine\managers\ComponentList.h" />
-    <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
-    <ClInclude Include="src\yougine\GameObject.h" />
-    <ClInclude Include="src\yougine\Scene.h" />
-    <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
     <ClInclude Include="src\yougine\BuildScript\Builder.h" />
     <ClInclude Include="src\yougine\Editor\MenuBar.h" />
@@ -247,7 +220,6 @@
     <ClInclude Include="src\yougine\Editor\SceneWindow.h" />
     <ClInclude Include="src\yougine\components\RenderComponent.h" />
     <ClInclude Include="src\yougine\Editor\SelectionInfo.h" />
-    <ClInclude Include="src\yougine\Layer.h" />
     <ClInclude Include="src\yougine\managers\GameManager.h" />
     <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
@@ -274,7 +246,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\InspectorWindows\AssetView\view\AssetView.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\shader\ShaderFileAsset.h" />
-    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfoExporter\AssetInfoFileExporter.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetDataBases\AssetDatabase.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\ShaderGraphInputNodes.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
@@ -290,10 +262,10 @@
     <ClInclude Include="src\yougine\Editor\PropertiesInputField.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
-    <ClInclude Include="src\yougine\utilitys\Quaternion.h" />
     <ClInclude Include="src\yougine\managers\ComponentExportParameterManager.h" />
     <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
     <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
