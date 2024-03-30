@@ -34,7 +34,7 @@ yougine::components::Component* yougine::componentfactorys::ComponentFacotory::C
     }
     //ここにユーザの作ったカスタムコンポーネントのelse if文も動的に入る予定
 
-    HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Debug/MyNewDLLProject.dll"));
+    HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Release/MyNewDLLProject.dll"));
     if (!hModule) {
         std::cerr << "DLLをロードできませんでした。" << std::endl;
         return nullptr;
