@@ -224,6 +224,11 @@ std::filesystem::path projects::Project::GetProjectFolderPath()
     return this->projectFolderPath;
 }
 
+std::filesystem::path projects::Project::GetUserScriptFolderAbsolutePath()
+{
+    return this->projectFolderPath / this->c_userscript_buildfolder;
+}
+
 std::string projects::Project::GetProjectFolderPath_ByTypeString()
 {
     return this->projectFolderPath.string();

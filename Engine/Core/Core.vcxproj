@@ -163,6 +163,7 @@
     <ClCompile Include="lib\imgui\imgui_tables.cpp" />
     <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
     <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
+    <ClCompile Include="src\yougine\BuildScript\UserScriptCompiler.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="lib\imgui\imstb_textedit.h" />
     <ClInclude Include="lib\imgui\imstb_truetype.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
+    <ClInclude Include="src\yougine\BuildScript\UserScriptCompiler.h" />
     <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />

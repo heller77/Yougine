@@ -1,6 +1,7 @@
 ﻿#include "MenuBar.h"
 
 #include "../BuildScript/Builder.h"
+#include "../BuildScript/UserScriptCompiler.h"
 #include "../Projects/Project.h"
 
 editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene) : EditorWindow(editor_windows_manager, editor::EditorWindowName::MenuBar)
@@ -46,6 +47,7 @@ void editor::MenuBar::Draw()
         else
         {
             play = true;
+            builders::UserScriptCompiler::Compile();
         }
     }
     ImGui::SameLine();

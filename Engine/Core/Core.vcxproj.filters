@@ -67,6 +67,7 @@
     <ClCompile Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.cpp" />
+    <ClCompile Include="src\yougine\BuildScript\UserScriptCompiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\imgui\imgui.cpp">
@@ -98,9 +99,6 @@
     </ClCompile>
     <ClCompile Include="src\yougine\Editor\EditorWindowsManager.cpp">
       <Filter>ソース ファイル\src\yougine\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="src\yougine\components\TransformComponent.cpp">
-      <Filter>ソース ファイル\src\yougine\components</Filter>
     </ClCompile>
     <ClCompile Include="src\yougine\components\RenderComponent.cpp">
       <Filter>ソース ファイル\src\yougine\components</Filter>
@@ -223,16 +221,9 @@
     <ClInclude Include="src\yougine\managers\GameManager.h" />
     <ClInclude Include="src\yougine\managers\IManager.h" />
     <ClInclude Include="src\yougine\managers\RenderManager.h" />
-    <ClInclude Include="src\yougine\components\Component.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindow.h" />
     <ClInclude Include="src\yougine\Editor\EditorWindowsManager.h" />
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
-    <ClInclude Include="src\yougine\InputManager.h" />
-    <ClInclude Include="src\yougine\managers\ComponentList.h" />
-    <ClInclude Include="src\yougine\managers\CustomScriptManager.h" />
-    <ClInclude Include="src\yougine\GameObject.h" />
-    <ClInclude Include="src\yougine\Scene.h" />
-    <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
     <ClInclude Include="src\yougine\components\TransformComponent.h" />
     <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
@@ -266,6 +257,7 @@
     <ClInclude Include="src\yougine\components\ComponentExportParameters\ComponentExportParameter.h" />
     <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFile.h" />
+    <ClInclude Include="src\yougine\BuildScript\UserScriptCompiler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />

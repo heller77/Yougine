@@ -19,6 +19,7 @@
 
 #include <fstream>
 
+#include "BuildScript/UserScriptCompiler.h"
 #include "UserShare/components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "UserShare/managers/ComponentList.h"
@@ -42,6 +43,7 @@ int main()
     auto project = projects::Project::GetInstance();
     //projectのパスを設定
     project->Initialize("./Resource/Project.json");
+    builders::UserScriptCompiler::Compile();
 
     glfwSetErrorCallback(glfw_error_callback);
 
