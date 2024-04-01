@@ -50,6 +50,9 @@
     <ClCompile Include="include\UserShare\Layer.cpp" />
     <ClCompile Include="include\UserShare\utilitys\uuid\YougineUuid.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
