@@ -112,6 +112,9 @@ void projects::Project::Initialize(std::string project_file_path)
 
     //userfolderのパスを設定
     this->userfolder = this->projectFolderPath / c_userfolder;
+    //userfolder無ければ生成
+    std::filesystem::create_directory(userfolder);
+
 
     //エンジン側が提供するリソースをプロジェクトに配置
     this->engineresourcefolder = this->projectFolderPath / c_libraryfolder;
