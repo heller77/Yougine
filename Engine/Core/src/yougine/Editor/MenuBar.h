@@ -10,8 +10,8 @@ namespace editor
         void Draw() override;
         bool GetPlay();
     private:
-        char buildexportpath[256];
-        char sceenfilepath[256];
+        // char sceenfilepath[256];
+        std::string sceenfilepath;
         yougine::Scene* scene;//editor上でシーンを指定したいが、今はできないのでとりあえず参照をもたせる
         void Build();
         bool play;

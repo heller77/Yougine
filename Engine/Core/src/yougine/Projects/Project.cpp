@@ -115,6 +115,10 @@ void projects::Project::Initialize(std::string project_file_path)
     //userfolder無ければ生成
     std::filesystem::create_directory(userfolder);
 
+    //ビルドフォルダを作成
+    this->project_build_export_path = projectFolderPath / this->c_projectbuildexportfolder;
+    std::filesystem::create_directory(this->project_build_export_path);
+
 
     //エンジン側が提供するリソースをプロジェクトに配置
     this->engineresourcefolder = this->projectFolderPath / c_libraryfolder;
@@ -130,6 +134,8 @@ void projects::Project::Initialize(std::string project_file_path)
     std::ifstream engineresourceinfofile(engineresource_InfofilePath, std::ios::in);
     engineresourceinfofile >> engineresource_info_json_obj;
 
+    //シーンファイルパス設定
+    this->now_targetscenefile_path = this->projectFolderPath / "build/scene.json";
 
     std::vector<std::string> sceneFilePathVector;
     for (std::string a : projectData["SceneFileLocations"])
@@ -247,6 +253,11 @@ std::filesystem::path projects::Project::GetEngineResouceFolderPath()
     return this->projectFolderPath / this->c_libraryfolder;
 }
 
+std::filesystem::path projects::Project::GetBuildExportPath()
+{
+    return project_build_export_path;
+}
+
 const std::string projects::Project::GetNowIsDebugOrRelease()
 {
 #if _DEBUG
@@ -254,6 +265,11 @@ const std::string projects::Project::GetNowIsDebugOrRelease()
 #else
     return "Release";
 #endif
+}
+
+std::filesystem::path projects::Project::GetNowSceneFilePath()
+{
+    return now_targetscenefile_path;
 }
 
 projects::Project* projects::Project::instance;

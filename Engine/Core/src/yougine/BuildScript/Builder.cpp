@@ -50,7 +50,7 @@ void builders::Builder::Save(yougine::Scene* scene)
     //シーンファイルのエクスポート（本来はeditor上の操作によりエクスポートしたい。
     //なんならビルド先にできるのおかしい。ビルド時にファイルコピーがされるべき）
     auto projectpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString();
-    auto exportPath = projectpath + "build\\scene.json";
+    auto exportPath = projects::Project::GetInstance()->GetNowSceneFilePath().string();
 
     auto sceneexporter = new yougine::SceneFiles::SceneFileExporter();
     sceneexporter->ScenefileExportFromScene(scene, exportPath);

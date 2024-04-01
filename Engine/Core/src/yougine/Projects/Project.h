@@ -35,6 +35,10 @@ namespace projects
         //プロジェクトフォルダのパスを格納（main.cppで指定しているが、実行時引数とかで貰うようにするのがよさそう）
         std::filesystem::path projectFolderPath;
 
+        std::filesystem::path project_build_export_path;
+
+        std::filesystem::path now_targetscenefile_path;
+
 
 
 
@@ -44,6 +48,7 @@ namespace projects
         const std::string c_libraryfolder = "libFolder";
         const std::string c_libraryfolder_ResourceInfojsonFileName = "ResourceInfo.json";
         const std::string c_userscript_buildfolder = "userscriptbuild";
+        const std::string c_projectbuildexportfolder = "build";
         static Project* GetInstance();
         void Initialize(std::string project_file_path);
         void SetDataBase(std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> asset_database);
@@ -68,8 +73,11 @@ namespace projects
         nlohmann::basic_json<> GetParameterFromEngineResourceJson(std::string parameterName);
 
         std::filesystem::path GetEngineResouceFolderPath();
+        std::filesystem::path GetBuildExportPath();
 
         static const std::string GetNowIsDebugOrRelease();
+
+        std::filesystem::path GetNowSceneFilePath();
 
     };
 }
