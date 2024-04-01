@@ -69,5 +69,7 @@ namespace projects
 
         std::filesystem::path GetEngineResouceFolderPath();
 
+        static const std::string GetNowIsDebugOrRelease();
+
     };
 }

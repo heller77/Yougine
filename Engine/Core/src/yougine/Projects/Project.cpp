@@ -244,4 +244,13 @@ std::filesystem::path projects::Project::GetEngineResouceFolderPath()
     return this->projectFolderPath / this->c_libraryfolder;
 }
 
+const std::string projects::Project::GetNowIsDebugOrRelease()
+{
+#if _DEBUG
+    return "Debug";
+#else
+    return "Release"
+#endif
+}
+
 projects::Project* projects::Project::instance;

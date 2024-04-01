@@ -36,8 +36,8 @@ void builders::Builder::Build(std::string exportpath, yougine::Scene* scene)
     auto cmakepath = "";
     std::string cddirectoryCMD = "dir&mkdir tmpbuild & cd tmpbuild & mkdir build & cd build";
     std::string cmakebuildcmd =
-        "cmake .\\..\\..\\..\\GameBuildProject -G\"Visual Studio 16 2019\" & cmake --build .";
-    std::string copyDebugfolderToExortoathcmd = "xcopy Debug " + exportpath_for_cmd + " /s /y";
+        "cmake .\\..\\..\\..\\GameBuildProject -G\"Visual Studio 16 2019\" & cmake --build . & cmake --install . --prefix ./ --config Debug ";
+    std::string copyDebugfolderToExortoathcmd = "xcopy bin " + exportpath_for_cmd + " /s /y";
     std::string runcmd = "cd " + exportpath_for_cmd + " & " + "ExeProject.exe &";
     std::string cmd = cddirectoryCMD + " & " + cmakebuildcmd + " & " + copyDebugfolderToExortoathcmd + " & " + runcmd;
     std::cout << cmd << std::endl;
