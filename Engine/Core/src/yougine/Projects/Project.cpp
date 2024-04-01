@@ -249,7 +249,7 @@ const std::string projects::Project::GetNowIsDebugOrRelease()
 #if _DEBUG
     return "Debug";
 #else
-    return "Release"
+    return "Release";
 #endif
 }
 
