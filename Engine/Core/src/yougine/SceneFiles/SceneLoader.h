@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../lib/tinygltf/json.hpp"
+#include "tinygltf/json.hpp"
 #include "UserShare/Scene.h"
 #include <fstream>
 #include "../components/DebugComponent.h"

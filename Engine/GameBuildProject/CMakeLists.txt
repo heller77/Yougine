@@ -2,10 +2,18 @@ cmake_minimum_required(VERSION 3.1)
 project(ExeProject CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+add_executable(ExeProject ./src/main.cpp)
 
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-add_subdirectory(./../Core ./../Core/Build)
-set(includeDir
+message(${CMAKE_BINARY_DIR})
+add_subdirectory(./../Core
+    ${CMAKE_BINARY_DIR}/Core)
+
+add_subdirectory(
+    D:/tmp/Densannkenn/YoujinProject/Yougine/Engine/UserEngineCommon
+    ${CMAKE_BINARY_DIR}/UserEngineCommon
+)
+target_include_directories(
+    ExeProject PRIVATE
     ${PROJECT_SOURCE_DIR}/../Core/lib
     ${PROJECT_SOURCE_DIR}/../Core/lib/glew/include
     ${PROJECT_SOURCE_DIR}/../Core/lib/glfw/include
@@ -14,18 +22,17 @@ set(includeDir
     ${PROJECT_SOURCE_DIR}/../UserEngineCommon/include
 )
 
-message("${includeDir}")
-
-include_directories("${includeDir}")
-set(linkDir
+target_link_directories(
+    ExeProject PRIVATE
     ${PROJECT_SOURCE_DIR}/../Core/lib/glew/lib
     ${PROJECT_SOURCE_DIR}/../Core/lib/glfw/lib
     ${PROJECT_SOURCE_DIR}/../x64/Debug
 )
+message("${linkDir}")
 
-link_directories("${linkDir}")
 
-# message(${includeDir})
-add_executable(ExeProject ./src/main.cpp)
-target_link_libraries(ExeProject YouginLib)
-target_link_libraries(ExeProject opengl32 libglew32d glfw3 UserEngineCommon)
+target_link_libraries(ExeProject YouginLib opengl32 libglew32d glfw3 UserEngineCommon)
+
+# 実行可能ファイルのインストール先を指定
+install(TARGETS ExeProject
+    RUNTIME DESTINATION)

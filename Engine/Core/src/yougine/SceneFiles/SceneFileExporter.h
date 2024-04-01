@@ -4,7 +4,7 @@
 
 
 #include "UserShare/Scene.h"
-#include "../../../lib/tinygltf/json.hpp"
+#include "tinygltf/json.hpp"
 using json = nlohmann::ordered_json;
 /**
  * \brief シーンファイルを出力するクラス

@@ -6,6 +6,8 @@
 #include "../components/RigidBodyComponent.h"
 #include "../components/Camera/CameraComponent.h"
 #include "windows.h"
+#include "../BuildScript/UserScriptCompiler.h"
+#include "../Projects/Project.h"
 
 typedef yougine::components::Component* (*FUNC)(std::string);
 
@@ -33,8 +35,9 @@ yougine::components::Component* yougine::componentfactorys::ComponentFacotory::C
         return new components::camera::CameraComponent();
     }
     //ここにユーザの作ったカスタムコンポーネントのelse if文も動的に入る予定
-
-    HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Debug/MyNewDLLProject.dll"));
+    auto userscriptpath = builders::UserScriptCompiler::GetDLLPath();
+    // HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Release/MyNewDLLProject.dll"));
+    HMODULE hModule = LoadLibrary(userscriptpath.string().c_str());
     if (!hModule) {
         std::cerr << "DLLをロードできませんでした。" << std::endl;
         return nullptr;

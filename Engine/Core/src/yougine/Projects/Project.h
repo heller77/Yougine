@@ -43,6 +43,7 @@ namespace projects
         const std::string c_userfolder = "userFolder";
         const std::string c_libraryfolder = "libFolder";
         const std::string c_libraryfolder_ResourceInfojsonFileName = "ResourceInfo.json";
+        const std::string c_userscript_buildfolder = "userscriptbuild";
         static Project* GetInstance();
         void Initialize(std::string project_file_path);
         void SetDataBase(std::shared_ptr<editor::projectwindows::assets::elements::model::assetdatabases::AssetDatabase> asset_database);
@@ -50,6 +51,12 @@ namespace projects
         void AssetInitialize();
         std::filesystem::path GetUserFolderPath();
         std::filesystem::path GetProjectFolderPath();
+
+        /**
+         * \brief ユーザスクリプトをビルド出力する先
+         * \return
+         */
+        std::filesystem::path GetUserScriptFolderAbsolutePath();
 
         std::string GetProjectFolderPath_ByTypeString();
 
@@ -61,5 +68,8 @@ namespace projects
         nlohmann::basic_json<> GetParameterFromEngineResourceJson(std::string parameterName);
 
         std::filesystem::path GetEngineResouceFolderPath();
+
+        static const std::string GetNowIsDebugOrRelease();
+
     };
 }
