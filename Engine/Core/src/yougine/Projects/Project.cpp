@@ -109,6 +109,14 @@ void projects::Project::Initialize(std::string project_file_path)
     //jsonからProjectpathを取得
     std::string projectpathstr = projectData["Projectpath"];
     this->projectFolderPath = projectpathstr;
+    //プロジェクトのパスが存在するかどうか
+    if (!std::filesystem::exists(projectFolderPath))
+    {
+        std::cout << projectFolderPath << " は存在しないため、エンジンは起動できません" << std::endl;
+        std::cout << project_file_path << "にかかれたプロジェクトパスを確認してください" << std::endl;
+        exit(1);
+    }
+
 
     //userfolderのパスを設定
     this->userfolder = this->projectFolderPath / c_userfolder;
