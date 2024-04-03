@@ -5,33 +5,35 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(ExeProject ./src/main.cpp)
 
 message(${CMAKE_BINARY_DIR})
-add_subdirectory(./../Core
-    ${CMAKE_BINARY_DIR}/Core)
 
-add_subdirectory(
-    D:/tmp/Densannkenn/YoujinProject/Yougine/Engine/UserEngineCommon
-    ${CMAKE_BINARY_DIR}/UserEngineCommon
-)
+if(NOT DEFINED ROOTPATH)
+    set(ROOTPATH "../")
+endif()
+
+message(${ROOTPATH})
+message(${ROOTPATH}/Core/src/yougine)
+
+# includeパス
+#
 target_include_directories(
     ExeProject PRIVATE
-    ${PROJECT_SOURCE_DIR}/../Core/lib
-    ${PROJECT_SOURCE_DIR}/../Core/lib/glew/include
-    ${PROJECT_SOURCE_DIR}/../Core/lib/glfw/include
-    ${PROJECT_SOURCE_DIR}/../Core/src/yougine
-    ${PROJECT_SOURCE_DIR}/../ThirdPartyLibrary/lib
-    ${PROJECT_SOURCE_DIR}/../UserEngineCommon/include
+    ${ROOTPATH}/ThirdPartyLibrary/lib/glew/include
+    ${ROOTPATH}/ThirdPartyLibrary/lib/glfw/include
+    ${ROOTPATH}/ThirdPartyLibrary/lib
+    ${ROOTPATH}/Core/src/yougine
+    ${ROOTPATH}/UserEngineCommon/include
 )
 
+# 直下にThirdPartyLibraryフォルダとを配置
 target_link_directories(
     ExeProject PRIVATE
-    ${PROJECT_SOURCE_DIR}/../Core/lib/glew/lib
-    ${PROJECT_SOURCE_DIR}/../Core/lib/glfw/lib
-    ${PROJECT_SOURCE_DIR}/../x64/Debug
+    ${ROOTPATH}/ThirdPartyLibrary/lib/glew/lib
+    ${ROOTPATH}/ThirdPartyLibrary/lib/glfw/lib
+    ${ROOTPATH}
 )
-message("${linkDir}")
 
-
-target_link_libraries(ExeProject YouginLib opengl32 libglew32d glfw3 UserEngineCommon)
+# target_link_libraries(ExeProject YouginLib opengl32 libglew32d glfw3 UserEngineCommon)
+target_link_libraries(ExeProject Core opengl32 libglew32d glfw3 UserEngineCommon)
 
 # 実行可能ファイルのインストール先を指定
 install(TARGETS ExeProject

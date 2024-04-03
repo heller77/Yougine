@@ -19,16 +19,33 @@ void builders::Builder::Build(std::string exportpath, yougine::Scene* scene)
     std::string resourcefolder = "./Resource/";
     std::filesystem::copy(resourcefolder, exportpath_for_cmd + "/Resource", std::filesystem::copy_options::overwrite_existing | std::filesystem::copy_options::recursive);
 
+    auto gemeengine_mainbody_path = projects::Project::GetInstance()->GetEngineMainBodyPath();
 
     auto cmakepath = "";
-    std::string cddirectoryCMD = "dir&mkdir tmpbuild & cd tmpbuild & mkdir build & cd build";
+    std::string cddirectoryCMD = "cd " + gemeengine_mainbody_path.string() + "& dir&mkdir tmpbuild & cd tmpbuild & mkdir build & cd build";
+    //ゲームビルドプロジェクトのパス（todo: 配布するときとデバッグ時にパスが変わるのでよしなにする）
+    // std::string gamebuildprojectpath = ".\\..\\..\\..\\GameBuildProject";
+    auto gamebuildprojectpath = gemeengine_mainbody_path / "GameBuildProject";
     std::string cmakebuildcmd =
-        "cmake .\\..\\..\\..\\GameBuildProject -G\"Visual Studio 16 2019\" & cmake --build . & cmake --install . --prefix ./ --config Debug ";
-    std::string copyDebugfolderToExortoathcmd = "xcopy bin " + exportpath_for_cmd + " /s /y";
+        "cmake " + gamebuildprojectpath.string() + " -G\"Visual Studio 16 2019\" -DROOTPATH=" + "\"../Release\"" + " & cmake --build . --config Release & cmake --install . --prefix ./ --config Release ";
+    auto build_cmd = cddirectoryCMD + " & " + cmakebuildcmd;
+    system(build_cmd.c_str());
+    //binにexeがあるので、そこにUserEngineCommon.dllを配置
+    auto UserEngineCommonDLL_Path = projects::Project::GetInstance()->GetUserEngineCommonDLLPath();
+    auto binfolder = gemeengine_mainbody_path / "tmpbuild/build/bin/";
+    std::filesystem::copy(UserEngineCommonDLL_Path, binfolder, std::filesystem::copy_options::overwrite_existing);
+    std::cout << "UserEngineCommonDLL copy to binfolder" << std::endl;
+
+
+    // std::string copyDebugfolderToExortoathcmd = "xcopy bin " + exportpath_for_cmd + " /s /y";
+    std::filesystem::copy(binfolder, exportpath_for_cmd, std::filesystem::copy_options::overwrite_existing);
+
+
     std::string runcmd = "cd " + exportpath_for_cmd + " & " + "ExeProject.exe &";
-    std::string cmd = cddirectoryCMD + " & " + cmakebuildcmd + " & " + copyDebugfolderToExortoathcmd + " & " + runcmd;
-    std::cout << cmd << std::endl;
-    system(cmd.c_str());
+    //exeを配置し、実行するコマンド
+    std::string distribute_and_execute_cmd = runcmd;
+    std::cout << distribute_and_execute_cmd << std::endl;
+    system(distribute_and_execute_cmd.c_str());
     // system("rmdir /S /Q .\\tmpbuild");
 }
 

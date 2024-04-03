@@ -39,7 +39,10 @@ namespace projects
 
         std::filesystem::path now_targetscenefile_path;
 
-
+        /**
+         * \brief エンジン自体のパス。ユーザと共有すべきdllファイルなども含む。
+         */
+        std::filesystem::path engine_mainbody_path;
 
 
     public:
@@ -78,6 +81,9 @@ namespace projects
         static const std::string GetNowIsDebugOrRelease();
 
         std::filesystem::path GetNowSceneFilePath();
+
+        std::filesystem::path GetEngineMainBodyPath();
+        std::filesystem::path GetUserEngineCommonDLLPath();
 
     };
 }

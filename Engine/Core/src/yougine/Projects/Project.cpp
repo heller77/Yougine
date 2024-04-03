@@ -116,7 +116,10 @@ void projects::Project::Initialize(std::string project_file_path)
         std::cout << project_file_path << "にかかれたプロジェクトパスを確認してください" << std::endl;
         exit(1);
     }
-
+    //エンジン自体のパスを取得
+    std::string enginemainbodypath_string = projectData["EngineManBodyPath"];
+    this->engine_mainbody_path = enginemainbodypath_string;
+    ;
 
     //userfolderのパスを設定
     this->userfolder = this->projectFolderPath / c_userfolder;
@@ -278,6 +281,16 @@ const std::string projects::Project::GetNowIsDebugOrRelease()
 std::filesystem::path projects::Project::GetNowSceneFilePath()
 {
     return now_targetscenefile_path;
+}
+
+std::filesystem::path projects::Project::GetEngineMainBodyPath()
+{
+    return this->engine_mainbody_path;
+}
+
+std::filesystem::path projects::Project::GetUserEngineCommonDLLPath()
+{
+    return this->engine_mainbody_path / "UserEngineCommon.dll";
 }
 
 projects::Project* projects::Project::instance;
