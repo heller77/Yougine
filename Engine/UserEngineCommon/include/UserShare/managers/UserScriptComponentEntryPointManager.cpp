@@ -1,19 +1,25 @@
 ﻿#include "UserScriptComponentEntryPointManager.h"
 
+#include <iostream>
+
 yougine::managers::UserScriptComponentEntryPointManager::UserScriptComponentEntryPointManager()
 {
-    this->updateMethods = {};
+    this->update_entrypoint = nullptr;
 }
 
-void yougine::managers::UserScriptComponentEntryPointManager::AddUpdate(std::function<void()> method)
+void yougine::managers::UserScriptComponentEntryPointManager::SetUpdate(components::userscriptcomponents::IUpdatable* i_updatable)
 {
-    this->updateMethods.push_back(method);
+    if (update_entrypoint != nullptr)
+    {
+        std::cout << "update に既に登録されています。上書きします。" << std::endl;
+    }
+    update_entrypoint = i_updatable;
 }
 
 void yougine::managers::UserScriptComponentEntryPointManager::Update()
 {
-    for (auto callback : this->updateMethods)
+    if (update_entrypoint != nullptr)
     {
-        callback();
+        this->update_entrypoint->Update();
     }
 }
