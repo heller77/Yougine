@@ -1,11 +1,14 @@
 ﻿#pragma once
 #include <functional>
+
+#include "UserShare/components/userscriptcomponents/IUpdatable.h"
+
 namespace yougine::managers
 {
     class UserScriptComponentEntryPointManager
     {
     private:
-        std::vector<std::function<void(void)>> updateMethods;
+        components::userscriptcomponents::IUpdatable* update_entrypoint;
     public:
         UserScriptComponentEntryPointManager();
 
@@ -13,7 +16,7 @@ namespace yougine::managers
          * \brief update関数を追加する
          * \param method
          */
-        void AddUpdate(std::function<void(void)> method);
+        void SetUpdate(components::userscriptcomponents::IUpdatable* i_updatable);
 
         /**
          * \brief updateを実行する（ユーザは呼ばないで！）

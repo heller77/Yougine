@@ -4,6 +4,7 @@
 #include <list>
 
 #include "InputManager.h"
+#include "components/userscriptcomponents/IUpdatable.h"
 #include "managers/UserScriptComponentEntryPointManager.h"
 #include "UserShare/Layer.h"
 #include "UserShare/MacroDifHeader.h"
@@ -36,7 +37,7 @@ namespace yougine
 
         std::shared_ptr<InputManager> GetInputManager();
 
-        void AddRegisterUpdate(std::function<void()> method);
+        void RegisterOnlyUpdate(components::userscriptcomponents::IUpdatable* i_updatable);
         /*
          *ユーザが呼ばない!!
          *

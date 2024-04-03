@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "../BuildScript/UserScriptCompiler.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
@@ -153,6 +154,10 @@ void projects::Project::Initialize(std::string project_file_path)
     {
         std::cout << a << std::endl;
     }
+
+    //ユーザスクリプトコンパイル
+    builders::UserScriptCompiler::Compile();
+
     this->AssetInitialize();
 }
 

@@ -89,9 +89,9 @@ namespace yougine
         }
     }
 
-    void Scene::AddRegisterUpdate(std::function<void()> method)
+    void Scene::RegisterOnlyUpdate(components::userscriptcomponents::IUpdatable* i_updatable)
     {
-        this->user_script_component_entry_point_manager->AddUpdate(method);
+        this->user_script_component_entry_point_manager->SetUpdate(i_updatable);
     }
 
 
