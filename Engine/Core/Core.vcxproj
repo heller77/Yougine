@@ -81,6 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)Release</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -125,7 +126,7 @@
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC;_DEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdPartyLibrary\lib\glfw\include;$(SolutionDir)ThirdPartyLibrary\lib\glew\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,7 +143,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IMGUI_IMPL_OPENGL_LOADER_GLEW;GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew\include;$(ProjectDir)lib\;$(ProjectDir)lib\glfw\include;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)ThirdPartyLibrary\lib\glew\include;$(SolutionDir)ThirdPartyLibrary\lib\glfw\include;$(SolutionDir)ThirdPartyLibrary\lib;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -155,14 +156,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="lib\imgui\imgui.cpp" />
-    <ClCompile Include="lib\imgui\imgui_demo.cpp" />
-    <ClCompile Include="lib\imgui\imgui_draw.cpp" />
-    <ClCompile Include="lib\imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="lib\imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="lib\imgui\imgui_tables.cpp" />
-    <ClCompile Include="lib\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="lib\imgui\stblib\imgui_stdlib.cpp" />
     <ClCompile Include="src\yougine\BuildScript\UserScriptCompiler.cpp" />
     <ClCompile Include="src\yougine\componentclassnames\ComponentClassNames.cpp" />
     <ClCompile Include="src\yougine\components\Camera\CameraComponent.cpp" />
@@ -190,7 +183,6 @@
     <ClCompile Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.cpp" />
     <ClCompile Include="src\yougine\managers\RigidBodyManager.cpp" />
-    <ClCompile Include="lib\imnodes\imnodes.cpp" />
     <ClCompile Include="src\yougine\BuildScript\Builder.cpp" />
     <ClCompile Include="src\yougine\component_factory\ComponentFactory.cpp" />
     <ClCompile Include="src\yougine\components\DebugComponent.cpp" />
@@ -219,16 +211,6 @@
     <ClCompile Include="src\yougine\utilitys\view\parameters\ShaderInputParameterView.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lib\imgui\imconfig.h" />
-    <ClInclude Include="lib\imgui\imgui.h" />
-    <ClInclude Include="lib\imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="lib\imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="lib\imgui\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="lib\imgui\imgui_internal.h" />
-    <ClInclude Include="lib\imgui\imstb_rectpack.h" />
-    <ClInclude Include="lib\imgui\imstb_textedit.h" />
-    <ClInclude Include="lib\imgui\imstb_truetype.h" />
-    <ClInclude Include="lib\imgui\stblib\imgui_stdlib.h" />
     <ClInclude Include="src\yougine\BuildScript\UserScriptCompiler.h" />
     <ClInclude Include="src\yougine\componentclassnames\ComponentClassNames.h" />
     <ClInclude Include="src\yougine\components\Camera\CameraComponent.h" />
@@ -258,8 +240,6 @@
     <ClInclude Include="src\yougine\Editor\ShaderGraph\Nodes\UnlitShaderGraphNode.h" />
     <ClInclude Include="src\yougine\Editor\ShaderGraph\ShaderGraphInputFieldViewer.h" />
     <ClInclude Include="src\yougine\managers\RigidBodyManager.h" />
-    <ClInclude Include="lib\imnodes\imnodes.h" />
-    <ClInclude Include="lib\imnodes\imnodes_internal.h" />
     <ClInclude Include="src\yougine\BuildScript\Builder.h" />
     <ClInclude Include="src\yougine\component_factory\ComponentFactory.h" />
     <ClInclude Include="src\yougine\components\DebugComponent.h" />

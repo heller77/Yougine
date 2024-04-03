@@ -109,9 +109,27 @@ void projects::Project::Initialize(std::string project_file_path)
     //jsonからProjectpathを取得
     std::string projectpathstr = projectData["Projectpath"];
     this->projectFolderPath = projectpathstr;
+    //プロジェクトのパスが存在するかどうか
+    if (!std::filesystem::exists(projectFolderPath))
+    {
+        std::cout << projectFolderPath << " は存在しないため、エンジンは起動できません" << std::endl;
+        std::cout << project_file_path << "にかかれたプロジェクトパスを確認してください" << std::endl;
+        exit(1);
+    }
+    //エンジン自体のパスを取得
+    std::string enginemainbodypath_string = projectData["EngineManBodyPath"];
+    this->engine_mainbody_path = enginemainbodypath_string;
+    ;
 
     //userfolderのパスを設定
     this->userfolder = this->projectFolderPath / c_userfolder;
+    //userfolder無ければ生成
+    std::filesystem::create_directory(userfolder);
+
+    //ビルドフォルダを作成
+    this->project_build_export_path = projectFolderPath / this->c_projectbuildexportfolder;
+    std::filesystem::create_directory(this->project_build_export_path);
+
 
     //エンジン側が提供するリソースをプロジェクトに配置
     this->engineresourcefolder = this->projectFolderPath / c_libraryfolder;
@@ -127,6 +145,8 @@ void projects::Project::Initialize(std::string project_file_path)
     std::ifstream engineresourceinfofile(engineresource_InfofilePath, std::ios::in);
     engineresourceinfofile >> engineresource_info_json_obj;
 
+    //シーンファイルパス設定
+    this->now_targetscenefile_path = this->projectFolderPath / "build/scene.json";
 
     std::vector<std::string> sceneFilePathVector;
     for (std::string a : projectData["SceneFileLocations"])
@@ -244,13 +264,33 @@ std::filesystem::path projects::Project::GetEngineResouceFolderPath()
     return this->projectFolderPath / this->c_libraryfolder;
 }
 
+std::filesystem::path projects::Project::GetBuildExportPath()
+{
+    return project_build_export_path;
+}
+
 const std::string projects::Project::GetNowIsDebugOrRelease()
 {
 #if _DEBUG
     return "Debug";
 #else
-    return "Release"
+    return "Release";
 #endif
+}
+
+std::filesystem::path projects::Project::GetNowSceneFilePath()
+{
+    return now_targetscenefile_path;
+}
+
+std::filesystem::path projects::Project::GetEngineMainBodyPath()
+{
+    return this->engine_mainbody_path;
+}
+
+std::filesystem::path projects::Project::GetUserEngineCommonDLLPath()
+{
+    return this->engine_mainbody_path / "UserEngineCommon.dll";
 }
 
 projects::Project* projects::Project::instance;

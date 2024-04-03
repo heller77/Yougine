@@ -49,6 +49,17 @@ std::vector<std::string> ComponentClassNames::ComponentClassNames::GetComponentC
 void ComponentClassNames::ComponentClassNames::AddUserScriptNames()
 {
     auto componentnameFile = projects::Project::GetInstance()->GetUserFolderPath() / "usercomponentnames.json";
+    //usercomponentnames.jsonがあるかどうか
+    if (!std::filesystem::is_regular_file(componentnameFile))
+    {
+        std::ofstream writing_file;
+
+        writing_file.open(componentnameFile, std::ios::out);
+        std::string writing_text = "{\n\"name\": []}";
+        writing_file << writing_text << std::endl;
+        writing_file.close();
+
+    }
 
     std::ifstream reading(componentnameFile, std::ios::in);
     using json = nlohmann::ordered_json;
