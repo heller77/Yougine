@@ -117,13 +117,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\yougine;$(SolutionDir)Core\lib\glfw\include;$(SolutionDir)Core\lib\glew\include;$(SolutionDir)Core\lib;$(SolutionDir)UserEngineCommon;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\yougine;$(SolutionDir)ThirdPartyLibrary\lib\glfw\include;$(SolutionDir)ThirdPartyLibrary\lib\glew\include;$(SolutionDir)ThirdPartyLibrary\lib;$(SolutionDir)UserEngineCommon\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Core\lib\glfw\lib;$(SolutionDir)Core\lib\glew\lib;$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)ThirdPartyLibrary\lib\glfw\lib;$(SolutionDir)ThirdPartyLibrary\lib\glew\lib;$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;libglew32d.lib;UserEngineCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);GLEW_STATIC</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\yougine;$(SolutionDir)Core\lib\glfw\include;$(SolutionDir)Core\lib\glew\include;$(SolutionDir)Core\lib;$(SolutionDir)UserEngineCommon;$(SolutionDir)UserEngineCommon\include;$(SolutionDir)ThirdPartyLibrary\lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Core\src\yougine;$(SolutionDir)ThirdPartyLibrary\lib\glfw\include;$(SolutionDir)ThirdPartyLibrary\lib\glew\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -156,6 +156,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">
       <Project>{238e5e32-b799-447d-be1f-ab9676de6932}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdPartyLibrary\ThirdPartyLibrary.vcxproj">
+      <Project>{7febdc0f-de49-44ae-b21f-e8999facad15}</Project>
     </ProjectReference>
     <ProjectReference Include="..\UserEngineCommon\UserEngineCommon.vcxproj">
       <Project>{cd658777-a75d-4e5d-9080-afd14369c861}</Project>
