@@ -76,6 +76,10 @@ namespace yougine
         for (GameObject* game_object : gameobject_list)
         {
             r_obj = RecursiveGameObjects({ game_object }, name);
+            if (r_obj != nullptr)
+            {
+                break;
+            }
         }
 
         return r_obj;
