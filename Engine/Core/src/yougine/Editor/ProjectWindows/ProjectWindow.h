@@ -37,6 +37,17 @@ namespace editor::projectwindows
         bool is_updateelements_flag;
 
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> GenerateAssetFromFile(std::filesystem::path path, std::shared_ptr<utility::youginuuid::YougineUuid> uuid);
+
+        /**
+         * \brief ファイルを入力するウィンドをーポップアップさせるためのフラグ
+         */
+        bool show_input_popup;
+        /**
+         * \brief ファイルを入力するウィンドで入力する
+         */
+        char inputwindow_textbuffer[256];
+        //ファイル生成するwindow（inputwindow）で生成されるファイルの拡張子
+        std::string inputwindow_generatefile_extension;
     public:
         void Draw() override;
 
