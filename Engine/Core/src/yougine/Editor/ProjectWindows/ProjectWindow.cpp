@@ -21,7 +21,7 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
     yougine::Scene* scene)
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
 {
-    now_display_folderpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString();
+    now_display_folderpath = projects::Project::GetInstance()->GetUserFolderPath().string();
     auto lastchar = now_display_folderpath[now_display_folderpath.size() - 1];
     if (lastchar == '/') {
         now_display_folderpath.pop_back();
@@ -186,7 +186,7 @@ void editor::projectwindows::ProjectWindow::Draw()
     {
         auto parent = std::filesystem::path(path).parent_path();
         //プロジェクトのパスより上だったら上がらない
-        auto projectpath = projects::Project::GetInstance()->GetProjectFolderPath();
+        auto projectpath = projects::Project::GetInstance()->GetUserFolderPath();
         auto relativePath = parent.lexically_relative(projectpath);
         bool isupper_fromProjectpath = false;
         for (const auto& part : relativePath)
