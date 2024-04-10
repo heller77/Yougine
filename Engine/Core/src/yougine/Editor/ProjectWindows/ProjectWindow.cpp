@@ -185,9 +185,26 @@ void editor::projectwindows::ProjectWindow::Draw()
     if (ImGui::Button("up"))
     {
         auto parent = std::filesystem::path(path).parent_path();
-        std::cout << "parent path : " << parent << std::endl;
-        this->now_display_folderpath = parent.string();
-        UpdateNextFrame();
+        //プロジェクトのパスより上だったら上がらない
+        auto projectpath = projects::Project::GetInstance()->GetProjectFolderPath();
+        auto relativePath = parent.lexically_relative(projectpath);
+        bool isupper_fromProjectpath = false;
+        for (const auto& part : relativePath)
+        {
+            if (part == "..") {
+                // ".."が見つかった場合、基準パスより上にある
+                isupper_fromProjectpath = true;
+                break;
+            }
+        }
+
+        if (!isupper_fromProjectpath)
+        {
+            std::cout << "parent path : " << parent << std::endl;
+
+            this->now_display_folderpath = parent.string();
+            UpdateNextFrame();
+        }
     }
     ImGui::SameLine();
     ImGui::Text(path.c_str());
