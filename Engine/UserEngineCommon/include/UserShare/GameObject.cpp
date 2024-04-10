@@ -15,7 +15,7 @@ namespace yougine
 
     void GameObject::InitializeComponents()
     {
-        for (auto component : this->components)
+        for (auto& component : this->components)
         {
             component->InitializeOnPlayBack();
         }
@@ -43,7 +43,12 @@ namespace yougine
 
     std::vector<components::Component*> GameObject::GetComponents()
     {
-        return components;
+        std::vector<components::Component*> component_ptr_vec;
+        for (auto& component : components)
+        {
+            component_ptr_vec.push_back(component.get());
+        }
+        return component_ptr_vec;
     }
 
     void GameObject::AddChild(GameObject* gameobject)
@@ -71,6 +76,17 @@ namespace yougine
         return this->scene;
     }
 
+    void GameObject::Dispose()
+    {
+        //componentsが破棄される
+        components.clear();
+    }
+
+    GameObject::~GameObject()
+    {
+        Dispose();
+    }
+
     void yougine::GameObject::AddComponent(components::Component* component)
     {
         if (component == nullptr)
@@ -87,25 +103,14 @@ namespace yougine
         //componentlistにcomponentを登録
         component->RegisterThisComponentToComponentList(this->scene);
         //componentをこのGameObjectに追加
-        this->components.push_back(component);
+        this->components.push_back(std::unique_ptr<components::Component>(component));
     }
 
     void GameObject::RemoveComponent(components::Component* component)
     {
-        std::cout << "call RemoveComponent" << std::endl;
-        std::vector<components::Component*> new_components;
-        for (components::Component* c : GetComponents())
-        {
-            if (c != component)
-            {
-                new_components.push_back(c);
-            }
-            else
-            {
-                component->UnregisterThisComponentFromComponentList();
-                std::cout << "componentをリムーブ！　" << std::endl;
-            }
-        }
-        this->components = new_components;
+        components.erase(std::remove_if(components.begin(), components.end(),
+            [component](const std::shared_ptr<components::Component>& v) {return v.get() == component; })
+            , components.end());
+
     }
 }
