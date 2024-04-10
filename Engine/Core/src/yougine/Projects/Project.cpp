@@ -75,7 +75,15 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
     }
     else
     {
-        return nullptr;
+        std::ifstream ifs(path.string());
+        if (ifs.fail()) {
+            std::cerr << "Failed to open file. __ in project window" << std::endl;
+            return nullptr;
+        }
+        //アセット生成
+        auto asset = std::make_shared<editor::projectwindows::assets::elements::model::TextAsset>(path, uuid);
+        asset->Export();
+        return asset;
     }
 }
 

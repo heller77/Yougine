@@ -221,6 +221,89 @@ void editor::projectwindows::ProjectWindow::Draw()
 
     ImVec2 button_size(140, 40);
 
+
+
+    // ウィンドウ全体での右クリックメニュー
+    if (ImGui::BeginPopupContextWindow("project_context_menu")) {
+
+        if (ImGui::BeginMenu("filegenerate")) {
+            // 「txt」というメニューアイテム
+            if (ImGui::MenuItem("mat")) {
+                // ポップアップを開く
+                show_input_popup = true;
+                this->inputwindow_generatefile_extension = ".mat";
+            }
+            else if (ImGui::MenuItem("input filenname(with extension)"))
+            {
+                // ポップアップを開く
+                show_input_popup = true;
+                this->inputwindow_generatefile_extension = "";
+            }
+
+            // 「create」メニューの終了
+            ImGui::EndMenu();
+        }
+
+        //アセットを選択した状態なら
+        if (SelectionInfo::GetInstance()->GetRecentClickTarget() == SelectTarget::Projectwindow &&
+            SelectionInfo::GetInstance()->GetSelectElementInProjectWindow() != nullptr
+            )
+        {
+            auto selectfile = SelectionInfo::GetInstance()->GetSelectElementInProjectWindow();
+            auto asset = selectfile->GetAsset();
+            if (ImGui::BeginMenu("remove"))
+            {
+                auto removefile_label = "remove " + asset->GetFilePath().filename().string();
+                if (ImGui::MenuItem(removefile_label.c_str())) {
+                    auto filepath = asset->GetFilePath();
+                    auto assetinfofilepath = asset->GetAssetInfoFilePath();
+                    std::filesystem::remove(filepath);
+                    std::filesystem::remove(assetinfofilepath);
+
+                    projects::Project::GetInstance()->AssetInitialize();
+                    CreateView(this->now_display_folderpath);
+                    SelectionInfo::GetInstance()->SetSelctionInfo(nullptr);
+                }
+                ImGui::EndMenu();
+            }
+
+
+        }
+
+
+        ImGui::EndPopup();
+
+    }
+    // ウィンドウの表示制御
+    if (show_input_popup) {
+        ImGui::Begin("file generate", &show_input_popup);
+
+        if (inputwindow_generatefile_extension == "")
+        {
+            // テキスト入力
+            ImGui::InputText("inputfilename", inputwindow_textbuffer, IM_ARRAYSIZE(inputwindow_textbuffer));
+        }
+        else {
+            // テキスト入力
+            ImGui::InputText(inputwindow_generatefile_extension.c_str(), inputwindow_textbuffer, IM_ARRAYSIZE(inputwindow_textbuffer));
+        }
+        // ファイル生成ボタン
+        if (ImGui::Button("generate")) {
+            // テキストに基づいてファイルを生成
+            auto generatefile = now_display_folderpath + "/" + inputwindow_textbuffer + inputwindow_generatefile_extension;
+            std::ofstream file(generatefile);
+            std::cout << generatefile << " generate" << std::endl;
+            projects::Project::GetInstance()->AssetInitialize();
+            CreateView(this->now_display_folderpath);
+
+            // ウィンドウを閉じる
+            show_input_popup = false;
+        }
+
+        ImGui::End();
+    }
+
+
     for (auto element_of_project_view : this->assetvies_vector)
     {
         element_of_project_view->DrawElement();
