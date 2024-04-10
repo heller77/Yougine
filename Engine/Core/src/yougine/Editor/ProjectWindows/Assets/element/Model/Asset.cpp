@@ -57,6 +57,11 @@ const std::filesystem::path editor::projectwindows::assets::elements::model::Ass
     return this->path;
 }
 
+const std::filesystem::path editor::projectwindows::assets::elements::model::Asset::GetAssetInfoFilePath()
+{
+    return this->assetinfo_filepath;
+}
+
 void editor::projectwindows::assets::elements::model::Asset::SwapParameter(std::string parameter_name,
     std::shared_ptr<assetparameters::Parameter> parameter)
 {

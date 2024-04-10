@@ -34,6 +34,7 @@ namespace editor::projectwindows::assets::elements::model
         virtual void Export() = 0;
         std::shared_ptr<utility::youginuuid::YougineUuid> GetAssetId();
         const std::filesystem::path GetFilePath();
+        const std::filesystem::path GetAssetInfoFilePath();
         void SwapParameter(std::string parameter_name, std::shared_ptr<assetparameters::Parameter> parameter);
 
         // template <class fieldType>
