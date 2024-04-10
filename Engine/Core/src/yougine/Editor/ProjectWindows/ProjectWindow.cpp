@@ -208,6 +208,14 @@ void editor::projectwindows::ProjectWindow::Draw()
     }
     ImGui::SameLine();
     ImGui::Text(path.c_str());
+    ImGui::SameLine();
+
+    if (ImGui::Button("AssetReload"))
+    {
+        projects::Project::GetInstance()->AssetInitialize();
+        CreateView(this->now_display_folderpath);
+    }
+
     ImGui::Separator();
 
     ImVec2 button_size(140, 40);
