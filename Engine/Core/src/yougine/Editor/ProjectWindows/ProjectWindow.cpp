@@ -210,6 +210,7 @@ void editor::projectwindows::ProjectWindow::Draw()
     ImGui::Text(path.c_str());
     ImGui::SameLine();
 
+    //アセットをリロードするボタン。
     if (ImGui::Button("AssetReload"))
     {
         projects::Project::GetInstance()->AssetInitialize();
