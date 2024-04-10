@@ -31,6 +31,24 @@ namespace yougine
         return gameobject;
     }
 
+    void Scene::RemoveGameObjcect(GameObject* remove_target)
+    {
+
+        auto it = std::find(gameobject_list.begin(), gameobject_list.end(), remove_target);
+        if (it != gameobject_list.end()) {
+            std::cout << "Found: " << *it << std::endl;
+            this->gameobject_list.remove_if([&](GameObject* x) {
+                bool to_remove = x->name == remove_target->name;
+
+                return to_remove;
+                });
+            delete remove_target;
+        }
+        else {
+            std::cout << "Not found" << std::endl;
+        }
+    }
+
     //処理変える
     void Scene::RemoveGameObject(GameObject* gameobject)
     {

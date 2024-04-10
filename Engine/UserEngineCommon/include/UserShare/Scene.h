@@ -32,6 +32,7 @@ namespace yougine
         std::string GetName();
         void SetName(std::string);
         GameObject* CreateGameObject(std::string, GameObject*);
+        void RemoveGameObjcect(GameObject* remove_target);
         GameObject* GetGameObjectByName(std::string);
         void InitializeAllGameObjcts();
 
