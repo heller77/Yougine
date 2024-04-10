@@ -27,5 +27,6 @@ namespace editor
         ~ComponentViewer();
         void DrawViews();
         std::string GetComponentName();
+        yougine::components::Component* GetComponent();
     };
 }

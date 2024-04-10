@@ -127,6 +127,18 @@ namespace editor
             bool c_tree = ImGui::CollapsingHeader(c_viewer->GetComponentName().c_str());
             if (c_tree)
             {
+                //コンポーネントを削除するボタン
+                if (ImGui::Button("remove"))
+                {
+                    auto component = c_viewer->GetComponent();
+                    auto gameobjcet = component->GetGameObject();
+                    gameobjcet->RemoveComponent(component);
+
+                    //viewを更新
+                    SelectionInfo::GetInstance()->InitializeComponentViewersOnChangeObject(SelectionInfo::GetInstance()->GetSelectObject());
+                    break;
+                }
+
                 c_viewer->DrawViews();
             }
         }

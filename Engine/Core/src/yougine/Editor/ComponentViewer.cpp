@@ -54,4 +54,9 @@ namespace editor
     {
         return component_name;
     }
+
+    yougine::components::Component* ComponentViewer::GetComponent()
+    {
+        return this->component;
+    }
 }
