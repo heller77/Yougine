@@ -155,6 +155,8 @@ namespace editor
                     selected = i;
                     selection_info->GetInstance()->GetSelectObject()->AddComponent(
                         componentfactory->CreateComponent(componentNames[selected]));
+                    //viewを更新
+                    SelectionInfo::GetInstance()->InitializeComponentViewersOnChangeObject(SelectionInfo::GetInstance()->GetSelectObject());
                 }
             ImGui::EndPopup();
         }
