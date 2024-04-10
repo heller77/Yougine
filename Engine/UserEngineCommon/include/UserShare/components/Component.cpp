@@ -15,6 +15,8 @@ namespace yougine::components
 
     Component::~Component()
     {
+        std::cout << "~Component  " << (int)this->GetComponentName() << std::endl;
+        UnregisterThisComponentFromComponentList();
     }
 
     //private
@@ -72,8 +74,10 @@ namespace yougine::components
 
     void Component::UnregisterThisComponentFromComponentList()
     {
-        this->register_component_list->RemoveComponentFromDictionary(this->component_name, this);
-        this->register_component_list = nullptr;
+        if (register_component_list != nullptr) {
+            this->register_component_list->RemoveComponentFromDictionary(this->component_name, this);
+            this->register_component_list = nullptr;
+        }
     }
 
     //登録されているかどうか

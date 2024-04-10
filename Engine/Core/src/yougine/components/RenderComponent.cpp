@@ -24,7 +24,7 @@ namespace yougine::components
 
         std::function<void(std::shared_ptr<assetnamespace::Asset>)> function =
             managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(
-                std::shared_ptr<components::Component>(this), &material, GETVALUENAME(material));
+                this, &material, GETVALUENAME(material));
 
         std::function<void(std::shared_ptr<assetnamespace::Asset>)> parentfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
             std::cout << "material change" << std::endl;

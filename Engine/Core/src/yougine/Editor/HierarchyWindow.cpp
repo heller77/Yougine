@@ -78,12 +78,37 @@ namespace editor
                 if (ImGui::IsWindowHovered())
                 {
                     selection_info->SetSelectionInfo(nullptr, true);
+
                 }
+            }
+            //右クリックしたら
+            if (ImGui::IsItemClicked(1))
+            {
+                ImGui::OpenPopup("contextmenu");
+            }
+            if (ImGui::BeginPopup("contextmenu"))
+            {
+                ImGui::Text("_contextmenu_");
+                auto nowselectGameObjcet = selection_info->GetSelectObject();
+                if (nowselectGameObjcet != nullptr) {
+                    std::string display_removeobject = "remove " + nowselectGameObjcet->GetName();
+                    if (ImGui::Selectable(display_removeobject.c_str()))
+                    {
+                        scene->RemoveGameObjcect(nowselectGameObjcet);
+                        //選択しているオブジェクトはなくなるので、nullをセット
+                        selection_info->SetSelectionInfo(nullptr, true);
+                        game_object = nullptr;
+                    }
+                }
+                ImGui::EndPopup();
             }
 
             if (is_open_tree)
             {
-                RecursiveTree(game_object->GetChildObjects());
+                if (game_object != nullptr) {
+                    auto child = game_object->GetChildObjects();
+                    RecursiveTree(child);
+                }
                 ImGui::TreePop();
             }
         }

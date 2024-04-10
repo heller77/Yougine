@@ -20,7 +20,7 @@ namespace yougine
     private:
         GameObject(Scene*, std::string, GameObject*);
         Scene* scene;
-        std::vector<components::Component*> components;
+        std::vector<std::shared_ptr<components::Component>> components;
         std::string name;
         Layer* layer;
         GameObject* gameobject_parent;
@@ -40,17 +40,18 @@ namespace yougine
         std::list<GameObject*> GetChildObjects();
         bool operator==(const GameObject& rhs) const;
         Scene* GetScene();
-
-
+        void Dispose();
+        ~GameObject();
         void AddComponent(components::Component* component);
         void RemoveComponent(components::Component* component);
         template <class T> T* GetComponent()
         {
             T* component;
 
-            for (components::Component* c : components)
+            for (auto& c : components)
             {
-                component = dynamic_cast<T*>(c);
+                auto c_ptr = c.get();
+                component = dynamic_cast<T*>(c_ptr);
                 if (component != nullptr)
                 {
                     return component;

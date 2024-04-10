@@ -36,7 +36,7 @@ namespace yougine::managers
          * \return
          */
         template <class fieldType>
-        static std::function<void(std::shared_ptr<assetnamespace::Asset>)> Generate_AssetTypeField_Switch_Function(std::shared_ptr<components::Component> component, std::shared_ptr<fieldType>* field, std::string paramter_name) {
+        static std::function<void(std::shared_ptr<assetnamespace::Asset>)> Generate_AssetTypeField_Switch_Function(components::Component* component, std::shared_ptr<fieldType>* field, std::string paramter_name) {
             std::function<void(std::shared_ptr<assetnamespace::Asset>)> function
                 = [=](std::shared_ptr<assetnamespace::Asset> input)
             {
