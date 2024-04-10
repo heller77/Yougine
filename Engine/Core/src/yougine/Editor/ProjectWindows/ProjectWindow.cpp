@@ -21,7 +21,7 @@ editor::projectwindows::ProjectWindow::ProjectWindow(editor::EditorWindowsManage
     yougine::Scene* scene)
     : EditorWindow(editor_windows_manager, editor::EditorWindowName::ProjectWindow)
 {
-    now_display_folderpath = projects::Project::GetInstance()->GetProjectFolderPath_ByTypeString();
+    now_display_folderpath = projects::Project::GetInstance()->GetUserFolderPath().string();
     auto lastchar = now_display_folderpath[now_display_folderpath.size() - 1];
     if (lastchar == '/') {
         now_display_folderpath.pop_back();
@@ -185,12 +185,38 @@ void editor::projectwindows::ProjectWindow::Draw()
     if (ImGui::Button("up"))
     {
         auto parent = std::filesystem::path(path).parent_path();
-        std::cout << "parent path : " << parent << std::endl;
-        this->now_display_folderpath = parent.string();
-        UpdateNextFrame();
+        //プロジェクトのパスより上だったら上がらない
+        auto projectpath = projects::Project::GetInstance()->GetUserFolderPath();
+        auto relativePath = parent.lexically_relative(projectpath);
+        bool isupper_fromProjectpath = false;
+        for (const auto& part : relativePath)
+        {
+            if (part == "..") {
+                // ".."が見つかった場合、基準パスより上にある
+                isupper_fromProjectpath = true;
+                break;
+            }
+        }
+
+        if (!isupper_fromProjectpath)
+        {
+            std::cout << "parent path : " << parent << std::endl;
+
+            this->now_display_folderpath = parent.string();
+            UpdateNextFrame();
+        }
     }
     ImGui::SameLine();
     ImGui::Text(path.c_str());
+    ImGui::SameLine();
+
+    //アセットをリロードするボタン。
+    if (ImGui::Button("AssetReload"))
+    {
+        projects::Project::GetInstance()->AssetInitialize();
+        CreateView(this->now_display_folderpath);
+    }
+
     ImGui::Separator();
 
     ImVec2 button_size(140, 40);
