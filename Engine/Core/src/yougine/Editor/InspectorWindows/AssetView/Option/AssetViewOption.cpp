@@ -8,11 +8,12 @@
 // }
 
 
-editor::inspectorwindows::assetviews::options::AssetViewOption::AssetViewOption(bool is_input_able, bool is_only_display_not_write, bool isAsset)
+editor::inspectorwindows::assetviews::options::AssetViewOption::AssetViewOption(bool is_input_able, bool is_only_display_not_write, bool isAsset, std::filesystem::path assetfile_extension)
 {
     this->is_input_able = is_input_able;
     this->is_only_display_not_write = is_only_display_not_write;
     this->isAsset = isAsset;
+    this->assetfile_extension = assetfile_extension;
 }
 
 void editor::inspectorwindows::assetviews::options::AssetViewOption::SetInputAction(
@@ -51,5 +52,18 @@ bool editor::inspectorwindows::assetviews::options::AssetViewOption::GetOnlyDisp
 bool editor::inspectorwindows::assetviews::options::AssetViewOption::GetIsAsset()
 {
     return this->isAsset;
+}
+
+std::filesystem::path editor::inspectorwindows::assetviews::options::AssetViewOption::GetAssetFileExtension()
+{
+    //アセットであれば返す
+    if (this->isAsset)
+    {
+        return assetfile_extension;
+    }
+    else
+    {
+        return "";
+    }
 }
 

@@ -16,7 +16,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     this->parameter[GETVALUENAME(uuid)] = std::make_shared<assetparameters::Parameter>(uuid->convertstring(), onlydisplay_option);
 
     //fragment shader　設定
-    auto fragment_assetoption = std::make_shared<option_type>(false, false, true);
+    auto fragment_assetoption = std::make_shared<option_type>(false, false, true, ".frag");
     // auto fragassetset_function
     //     = this->Generate_Field_SwitchFunction(&frag_asset_uuid, fragment_assetoption,
     //         GETVALUENAME(frag_asset_uuid));
@@ -40,7 +40,7 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
     this->parameter[GETVALUENAME(frag_asset)] = std::make_shared<assetparameters::Parameter>(frag_asset->GetAssetId(), fragment_assetoption);
 
     //vertexshader 設定
-    auto vertex_assetoption = std::make_shared<option_type>(false, false, true);
+    auto vertex_assetoption = std::make_shared<option_type>(false, false, true, ".vert");
     auto vert_function
         = this->Generate_Field_SwitchFunction(&vert_asset, vertex_assetoption,
             GETVALUENAME(vert_asset));

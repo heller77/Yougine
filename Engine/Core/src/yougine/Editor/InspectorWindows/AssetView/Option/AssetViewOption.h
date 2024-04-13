@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <filesystem>
 #include <functional>
 
 #include "UserShare/utilitys/uuid/YougineUuid.h"
@@ -32,9 +33,14 @@ namespace editor::inspectorwindows::assetviews::options
         bool is_only_display_not_write;
 
         bool isAsset;
+
+        /**
+         * \brief アセットのファイルの拡張子
+         */
+        std::filesystem::path assetfile_extension;
         std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> setAsset;
     public:
-        AssetViewOption(bool is_input_able = false, bool is_only_display_not_write = false, bool isAsset = false);
+        AssetViewOption(bool is_input_able = false, bool is_only_display_not_write = false, bool isAsset = false, std::filesystem::path assetfile_extension = "");
 
 
         void SetInputAction(std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> setAsset);
@@ -45,6 +51,7 @@ namespace editor::inspectorwindows::assetviews::options
 
         bool GetOnlyDisplayNotWrite();
         bool GetIsAsset();
+        std::filesystem::path GetAssetFileExtension();
     };
 
 
