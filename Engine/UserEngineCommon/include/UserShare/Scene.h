@@ -22,7 +22,6 @@ namespace yougine
         std::shared_ptr<managers::UserScriptComponentEntryPointManager> user_script_component_entry_point_manager;
         std::shared_ptr<InputManager> input_manager;
     private:
-        void RemoveGameObject(GameObject*);
         GameObject* RecursiveGameObjects(std::list<GameObject*>, std::string);
 
     public:
