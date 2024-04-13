@@ -112,8 +112,7 @@ AssetView::AssetView::AssetView(std::shared_ptr<editor::projectwindows::assets::
             //選んだらvalueなりにセットする
             // option->FireInputAction(utility::youginuuid::YougineUuid("fd"));
             auto yougineuuid = std::any_cast<std::shared_ptr < utility::youginuuid::YougineUuid >> (value);
-
-            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::AssetReference>(key.c_str(), yougineuuid, option->GetInputAction_input_Asset()));
+            this->parameter_vec.emplace_back(std::make_shared<utility::view::parameters::AssetReference>(key.c_str(), yougineuuid, option->GetAssetFileExtension(), option->GetInputAction_input_Asset()));
         }
 
         auto template_start_pos = type_name.find("<");

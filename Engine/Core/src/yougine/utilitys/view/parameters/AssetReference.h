@@ -5,6 +5,7 @@
 #include "ParameterView.h"
 #include "../../../Editor/ProjectWindows/Assets/element/Model/Asset.h"
 
+#include <filesystem>
 namespace utility::view::parameters
 {
     struct id_name
@@ -31,8 +32,11 @@ namespace utility::view::parameters
         int select_index;
         std::vector<id_name> id_names;
         std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> asset_set_func;
+
+        std::filesystem::path extension;
     public:
         void Draw() override;
-        AssetReference(std::string label, std::shared_ptr<utility::youginuuid::YougineUuid> yougine_uuid, std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> asset_set_func);
+        AssetReference(std::string label, std::shared_ptr<utility::youginuuid::YougineUuid> yougine_uuid,
+            std::filesystem::path extension, std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> asset_set_func);
     };
 }

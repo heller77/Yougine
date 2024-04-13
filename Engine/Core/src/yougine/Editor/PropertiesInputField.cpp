@@ -66,8 +66,9 @@ namespace editor
                     ImGui::Text(asset->GetAssetId()->convertstring().c_str());
                     asset->GetParameter();
 
+                    auto assetfile_extension = asset->GetFilePath().extension();
 
-                    std::make_shared<utility::view::parameters::AssetReference>(val_name, asset->GetAssetId(), [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
+                    std::make_shared<utility::view::parameters::AssetReference>(val_name, asset->GetAssetId(), assetfile_extension, [&](std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> input)
                         {
                             func(input);
                         })->Draw();
