@@ -15,15 +15,13 @@ namespace yougine::SceneFiles
     private:
         json obj_json;
 
-    public:
-        Scene* jb_scene;
-
     private:
-        void InitializeScene(Scene* scene);
+        Scene* InitializeScene(Scene* scene);
         void SetPropertiesToComponent(components::Component* component, nlohmann::basic_json<nlohmann::ordered_map> j_component);
 
     public:
-        void CreateScene();
-        void UpdateJsonObj(std::string filepath);
+        SceneLoader(std::string scenefilepath);
+        Scene* CreateScene();
+
     };
 }
