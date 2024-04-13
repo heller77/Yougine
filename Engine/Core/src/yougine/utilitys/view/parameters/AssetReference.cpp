@@ -18,6 +18,14 @@ void utility::view::parameters::AssetReference::Draw()
         {
 
             const bool is_selected = (select_index == n);
+            auto asset = assetdatabase->GetAsset(id_names[n].GetId());
+            std::filesystem::path filename = asset->GetFilePath();
+            auto filename_extension = filename.extension();
+            if (filename.extension() != this->extension && extension != "")
+            {
+                continue;
+            }
+
             //選んだ時
             if (ImGui::Selectable(id_names[n].GetName().c_str(), is_selected)) {
                 std::cout << n << " " << id_names[n].GetId() << std::endl;
@@ -34,9 +42,11 @@ void utility::view::parameters::AssetReference::Draw()
     }
 }
 
-utility::view::parameters::AssetReference::AssetReference(std::string label, std::shared_ptr<utility::youginuuid::YougineUuid> yougine_uuid, std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> asset_set_func)
+utility::view::parameters::AssetReference::AssetReference(std::string label, std::shared_ptr<utility::youginuuid::YougineUuid> yougine_uuid, std::filesystem::path extension, std::function<void(std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>)> asset_set_func)
 {
     this->label = label;
+
+    this->extension = extension;
 
     auto assetdatabase = projects::Project::GetInstance()->GetDataBase();
     const auto asset_map = assetdatabase->GetAssetList();
