@@ -9,7 +9,8 @@ void builders::UserScriptCompiler::Compile()
 {
     FreeLibrary(userscriptModule);
     auto dllfolder = builders::UserScriptCompiler::GetDLLPath().parent_path();
-    std::filesystem::remove_all(dllfolder);
+    // todo heller77 : pdbファイル名はどこかの変数で管理削除
+    std::filesystem::remove(dllfolder / "UserScriptProject.pdb");
 
     //cmake D:\Yougin\ -DCMAKE_BUILD_TYPE=Release -G"Visual Studio 16 2019" -B D:\Yougin\a
     //cmake --build D:\Yougin\a  --config Release
