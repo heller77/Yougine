@@ -1,8 +1,11 @@
 ﻿#include "MenuBar.h"
 
+#include <memory>
+
 #include "../BuildScript/Builder.h"
 #include "../BuildScript/UserScriptCompiler.h"
 #include "../Projects/Project.h"
+#include "../SceneFiles/SceneLoader.h"
 
 editor::MenuBar::MenuBar(EditorWindowsManager* editor_windows_manager, yougine::Scene* scene) : EditorWindow(editor_windows_manager, editor::EditorWindowName::MenuBar)
 {
@@ -51,6 +54,10 @@ void editor::MenuBar::Draw()
         {
             play = true;
             builders::UserScriptCompiler::Compile();
+
+            auto scenefilepath = projects::Project::GetInstance()->GetNowSceneFilePath();
+            auto sceneLoader = std::make_shared<yougine::SceneFiles::SceneLoader>(scenefilepath.string());
+            sceneLoader->SceneUpdate(scene);
         }
     }
     ImGui::SameLine();

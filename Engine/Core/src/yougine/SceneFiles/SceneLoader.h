@@ -22,6 +22,7 @@ namespace yougine::SceneFiles
     public:
         SceneLoader(std::string scenefilepath);
         Scene* CreateScene();
+        void SceneUpdate(Scene* scene);
 
     };
 }

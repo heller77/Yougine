@@ -47,6 +47,20 @@ namespace yougine::SceneFiles
         return scene;
     }
 
+    //シーンをリセットする（関数名updateよりresetかも）
+    void SceneLoader::SceneUpdate(Scene* scene)
+    {
+        auto gameobjects = scene->GetGameObjects();
+        for (int i = 0; i < gameobjects.size(); i++)
+        {
+            auto gameobjects = scene->GetGameObjects();
+            auto gameobject = gameobjects.back();
+            scene->RemoveGameObjcect(gameobject);
+        }
+
+        InitializeScene(scene);
+    }
+
     void SceneLoader::SetPropertiesToComponent(components::Component* component, nlohmann::basic_json<nlohmann::ordered_map> j_component)
     {
         std::vector<std::vector<std::any>>* accessable_properties_list = component->GetPtrAccessablePropertiesList();
