@@ -9,11 +9,12 @@ namespace yougine::components::camera
     class CameraComponent : public yougine::components::Component
     {
     private:
-        static std::shared_ptr<CameraComponent> main_camera;
+        static CameraComponent* main_camera;
 
     public:
         CameraComponent();
+        ~CameraComponent();
         TransformComponent* GetTransform();
-        static std::shared_ptr<CameraComponent> GetMainCamera();
+        static yougine::components::camera::CameraComponent* GetMainCamera();
     };
 }

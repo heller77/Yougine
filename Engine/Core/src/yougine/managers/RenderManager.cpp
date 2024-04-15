@@ -183,7 +183,7 @@ namespace yougine::managers
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
      */
-    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component, std::shared_ptr<components::camera::CameraComponent> camera)
+    void RenderManager::RenderOneGameObject(components::RenderComponent* render_component, components::camera::CameraComponent* camera)
     {
         geterror("RenderOneGameObject beforegetprogram");
 
