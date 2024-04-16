@@ -3,6 +3,8 @@
 #include <memory>
 #include <memory>
 
+#include "managers/LoopInfoManager.h"
+
 namespace yougine
 {
     Scene::Scene(std::string name)
@@ -96,14 +98,20 @@ namespace yougine
         }
     }
 
+    LoopInfo* Scene::GetLoopInfo()
+    {
+        return this->loop_info;
+    }
+
     void Scene::RegisterOnlyUpdate(components::userscriptcomponents::IUpdatable* i_updatable)
     {
         this->user_script_component_entry_point_manager->SetUpdate(i_updatable);
     }
 
 
-    void Scene::Update()
+    void Scene::Update(LoopInfoManager* loop_info_manager)
     {
+        this->loop_info = loop_info_manager->GetLoopInfo();
         this->input_manager->UpdateInput();
 
 
