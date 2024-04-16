@@ -6,9 +6,10 @@ namespace yougine::components
     {
         this->position = new utility::Vector3(x, y, z);
         this->rotation = utility::Quaternion::GenerateQuartanionFromEuler(0, 0, 0);
-
+        this->scale = new utility::Vector3(1, 1, 1);
         accessable_properties_list.push_back(std::vector<std::any>{position, GETVALUENAME(position)});
         accessable_properties_list.push_back(std::vector<std::any>{rotation, GETVALUENAME(rotation)});
+        accessable_properties_list.push_back(std::vector<std::any>{scale, GETVALUENAME(scale)});
     }
 
     /**

@@ -10,6 +10,7 @@ namespace yougine::components
     private:
         utility::Vector3* position;
         std::shared_ptr<utility::Quaternion> rotation;
+        utility::Vector3* scale;
     public:
         TransformComponent(float x, float y, float z);
         utility::Vector3 GetPosition();
