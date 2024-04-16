@@ -43,4 +43,15 @@ namespace yougine::components
         *this->rotation = quat;
     }
 
+    utility::Vector3 TransformComponent::GetScale()
+    {
+        return *this->scale;
+    }
+
+    void TransformComponent::SetScale(utility::Vector3 scale)
+    {
+        (*this->scale).x = scale.x;
+        (*this->scale).y = scale.y;
+        (*this->scale).z = scale.z;
+    }
 }

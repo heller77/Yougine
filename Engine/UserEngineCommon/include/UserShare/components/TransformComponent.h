@@ -17,6 +17,8 @@ namespace yougine::components
         void SetPosition(utility::Vector3 position);
         std::shared_ptr<utility::Quaternion> GetRotation();
         void SetRotation(std::shared_ptr<utility::Quaternion> quat);
+        utility::Vector3 GetScale();
+        void SetScale(utility::Vector3 scale);
 
     };
 }

@@ -219,9 +219,12 @@ namespace yougine::managers
         auto position = transform->GetPosition();
         //回転を取得
         auto rotation = transform->GetRotation();
+        //スケールを取得
+        auto scale = transform->GetScale();
+        glm::mat4 ScaleMat = glm::scale(glm::vec3(scale.x, scale.y, scale.z));
 
         //Model行列を定義
-        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z)) * rotation->ConvertToGlmMat4();
+        glm::mat4 Model = glm::translate(glm::vec3(position.x, position.y, position.z)) * rotation->ConvertToGlmMat4() * ScaleMat;
         glm::mat4 MVP = Projection * View * Model;
         auto vShader_mvp_pointer = glGetUniformLocation(render_component->GetProgram(), "mvp");
         glUniformMatrix4fv(vShader_mvp_pointer, 1, GL_FALSE, &MVP[0][0]);
