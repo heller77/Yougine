@@ -76,10 +76,9 @@ int main()
     int gVCBHeight = 300;
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
-    auto sceneloader = yougine::SceneFiles::SceneLoader();
-    sceneloader.UpdateJsonObj(project->GetProjectFolderPath_ByTypeString() + "\\build\\scene.json");
-    sceneloader.CreateScene();
-    yougine::Scene* scene = sceneloader.jb_scene;
+    auto scenefile = project->GetProjectFolderPath_ByTypeString() + "\\build\\scene.json";
+    auto sceneloader = yougine::SceneFiles::SceneLoader(scenefile);
+    yougine::Scene* scene = sceneloader.CreateScene();
     // int gVCBHeig3ht = 300;
     // //レンダーコンポーネントをAdd出来るかのコード（後で消す）
     // auto rendercomponent = new yougine::components::RenderComponent();
@@ -117,15 +116,19 @@ int main()
     //render
     auto rendermanager = yougine::managers::RenderManager(1920, 1080, windowframebuffer, scene->GetComponentList());
     scene->InitializeAllGameObjcts();
+
+
+    yougine::LoopInfoManager* loop_info_manager = new yougine::LoopInfoManager();
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
+        loop_info_manager->Update();
         // input_manager->UpdateInput();
         rendermanager.RenderScene();
         glfwSwapBuffers(window);
         glfwPollEvents();
 
         game_manager->Update();
-        scene->Update();
+        scene->Update(loop_info_manager);
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
         {
