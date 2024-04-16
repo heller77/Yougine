@@ -75,6 +75,7 @@ namespace yougine::components
         std::vector<GLuint> index_vector;
         void ShaderCompile();
         void InitializeMesh();
+        void Initialize();
 
     };
 }
