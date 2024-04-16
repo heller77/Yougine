@@ -16,53 +16,38 @@ namespace yougine::components
     RenderComponent::RenderComponent() : Component(components::ComponentName::kRender), program(0), vao(0)
     {
         namespace materials = editor::projectwindows::assets::elements::model::materials;
+
         //露出するパラメータ("2342161b-f95e-4c2f-81fb-f21fe464712a"はデフォルトで用意しているマテリアルのアセットID)
+        //materialを初期化、エディタに露出するように設定
         material = std::dynamic_pointer_cast<materials::Material>(projects::Project::GetInstance()->GetDataBase()->GetAsset("2342161b-f95e-4c2f-81fb-f21fe464712a"));
         auto asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(material);
-        // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
-        // auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
-
-        std::function<void(std::shared_ptr<assetnamespace::Asset>)> function =
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> material_change_function =
             managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(
                 this, &material, GETVALUENAME(material));
-
-        std::function<void(std::shared_ptr<assetnamespace::Asset>)> parentfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> materialsetfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
             std::cout << "material change" << std::endl;
-            function(input);
-            managers::RenderManager::geterror("RenderComponent() ");
-            if (this->program) { // 既存のプログラムがあれば削除
-                // glDeleteProgram(this->program);
-                program = -1;
-            }
-            managers::RenderManager::geterror("RenderComponent() ");
-
-            if (this->vao)
-            {
-                glBindVertexArray(0);
-                vao = -1;
-            }
-            managers::RenderManager::geterror("RenderComponent() ");
-
-
-            this->vbolist.Release();
-            managers::RenderManager::geterror("RenderComponent() ");
-
-
-            program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
-            managers::RenderManager::geterror("RenderComponent() ");
-
-            glGenVertexArrays(1, &vao);
-            managers::RenderManager::geterror("RenderComponent() ");
-
-            glBindVertexArray(vao);
-            managers::RenderManager::geterror("RenderComponent() ");
-
-            InitializeMesh();
-            managers::RenderManager::geterror("RenderComponent() ");
-
+            material_change_function(input);
+            Initialize();
         };
+        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), materialsetfunction});
 
-        accessable_properties_list.emplace_back(std::vector<std::any>{asset_cast, GETVALUENAME(material), parentfunction});
+
+        //meshを露出
+        this->mesh_asset
+            = std::dynamic_pointer_cast<editor::projectwindows::assets::elements::model::mesh::MeshAsset>(
+                projects::Project::GetInstance()->GetDataBase()->GetAsset("f9ad467e-3e2f-41fd-a2a1-9d313c1d0c88"));
+        auto mesh_asset_cast = static_cast<std::shared_ptr<editor::projectwindows::assets::elements::model::Asset>>(mesh_asset);
+
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> mesh_change_function =
+            managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(
+                this, &mesh_asset, GETVALUENAME(mesh_asset));
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> meshsetfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
+            std::cout << "mesh change" << std::endl;
+            mesh_change_function(input);
+            Initialize();
+        };
+        accessable_properties_list.emplace_back(std::vector<std::any>{mesh_asset_cast, GETVALUENAME(mesh_asset), meshsetfunction});
+
 
         // GLuint program, vao;
         // program = yougine::managers::RenderManager::ShaderInitFromFilePath(
@@ -89,7 +74,8 @@ namespace yougine::components
         tinygltf::TinyGLTF loader;
         std::string err, warn;
         // bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "./Resource/Mesh/cube/cube.gltf");
-        bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, "./Resource/Mesh/test_model/testmodel.gltf");
+        auto gltffilepath = this->mesh_asset->GetFilePath();
+        bool ret = loader.LoadASCIIFromFile(&model, &err, &warn, gltffilepath.string());
         std::cout << "scene length" << model.scenes.size() << std::endl;
         auto scene = model.scenes[0];
         auto nodeindex = scene.nodes[0]; //シーンの参照しているのノード（本当は複数あるパターンにも対応すべき）
@@ -197,6 +183,39 @@ namespace yougine::components
         managers::RenderManager::geterror("InitializeMesh() ");
 
 
+    }
+
+    void RenderComponent::Initialize()
+    {
+        if (this->program) { // 既存のプログラムがあれば削除
+                // glDeleteProgram(this->program);
+            program = -1;
+        }
+        managers::RenderManager::geterror("RenderComponent() ");
+
+        if (this->vao)
+        {
+            glBindVertexArray(0);
+            vao = -1;
+        }
+        managers::RenderManager::geterror("RenderComponent() ");
+
+
+        this->vbolist.Release();
+        managers::RenderManager::geterror("RenderComponent() ");
+
+
+        program = yougine::managers::RenderManager::ShaderInitFromFilePath(this->material->GetVertexShader(), this->material->GetFragmentShader());
+        managers::RenderManager::geterror("RenderComponent() ");
+
+        glGenVertexArrays(1, &vao);
+        managers::RenderManager::geterror("RenderComponent() ");
+
+        glBindVertexArray(vao);
+        managers::RenderManager::geterror("RenderComponent() ");
+
+        InitializeMesh();
+        managers::RenderManager::geterror("RenderComponent() ");
     }
 
     void RenderComponent::SetProgram(GLuint program)

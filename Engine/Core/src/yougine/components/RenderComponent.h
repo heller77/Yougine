@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/Mesh/MeshAsset.h"
 
 namespace yougine::components
 {
@@ -65,6 +66,7 @@ namespace yougine::components
     private:
 
         std::shared_ptr<editor::projectwindows::assets::elements::model::materials::Material> material;
+        std::shared_ptr<editor::projectwindows::assets::elements::model::mesh::MeshAsset> mesh_asset;
         GLuint program;
 
         GLuint vao;
@@ -75,6 +77,7 @@ namespace yougine::components
         std::vector<GLuint> index_vector;
         void ShaderCompile();
         void InitializeMesh();
+        void Initialize();
 
     };
 }

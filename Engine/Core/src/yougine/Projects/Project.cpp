@@ -8,6 +8,7 @@
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/Mesh/MeshAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects::Project::GenerateAssetFromFile(
@@ -19,6 +20,7 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
     std::string filename = path.filename().string();
 
     std::filesystem::path assetinfo_path = path.string() + ".assetinfo";
+    namespace  assetmodel = editor::projectwindows::assets::elements::model;
 
     //フォルダ以外
     std::cout << "extension " << extension << std::endl;
@@ -30,10 +32,9 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
         {
             std::cout << "assetinfo exist!! : " << filename << std::endl;
-            namespace shader = editor::projectwindows::assets::elements::model::shader;
-            return std::shared_ptr<shader::ShaderFileAsset>(new shader::ShaderFileAsset(assetinfo_path));
+            return std::shared_ptr<assetmodel::shader::ShaderFileAsset>(new assetmodel::shader::ShaderFileAsset(assetinfo_path));
         }
-        auto shaderasset = std::shared_ptr<editor::projectwindows::assets::elements::model::shader::ShaderFileAsset>(new editor::projectwindows::assets::elements::model::shader::ShaderFileAsset(path, uuid));
+        auto shaderasset = std::shared_ptr<assetmodel::shader::ShaderFileAsset>(new editor::projectwindows::assets::elements::model::shader::ShaderFileAsset(path, uuid));
         shaderasset->Export();
         return shaderasset;
     }
@@ -45,7 +46,7 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
             return nullptr;
         }
         //アセット生成
-        auto asset = std::make_shared<editor::projectwindows::assets::elements::model::TextAsset>(path, uuid);
+        auto asset = std::make_shared<assetmodel::TextAsset>(path, uuid);
         asset->Export();
         return asset;
 
@@ -55,9 +56,9 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
         {
             std::cout << "assetinfo exist!! : " << filename << std::endl;
-            return std::make_shared<editor::projectwindows::assets::elements::model::materials::Material>(assetinfo_path);
+            return std::make_shared<assetmodel::materials::Material>(assetinfo_path);
         }
-        auto material_asset = std::make_shared<editor::projectwindows::assets::elements::model::materials::Material>(path, uuid);
+        auto material_asset = std::make_shared<assetmodel::materials::Material>(path, uuid);
         material_asset->Export();
         return material_asset;
 
@@ -67,11 +68,22 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
         {
             std::cout << "assetinfo exist!! : " << filename << std::endl;
-            return std::make_shared<editor::projectwindows::assets::elements::model::customscript::CustomScriptAsset>(assetinfo_path);
+            return std::make_shared<assetmodel::customscript::CustomScriptAsset>(assetinfo_path);
         }
-        auto custom_script_asset = std::make_shared<editor::projectwindows::assets::elements::model::customscript::CustomScriptAsset>(path, uuid);
+        auto custom_script_asset = std::make_shared<assetmodel::customscript::CustomScriptAsset>(path, uuid);
         custom_script_asset->Export();
         return custom_script_asset;
+    }
+    else if (extension == "gltf")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assetmodel::mesh::MeshAsset>(assetinfo_path);
+        }
+        auto mesh_asset = std::make_shared<assetmodel::mesh::MeshAsset>(path, uuid);
+        mesh_asset->Export();
+        return mesh_asset;
     }
     else
     {
@@ -81,7 +93,7 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
             return nullptr;
         }
         //アセット生成
-        auto asset = std::make_shared<editor::projectwindows::assets::elements::model::TextAsset>(path, uuid);
+        auto asset = std::make_shared<assetmodel::TextAsset>(path, uuid);
         asset->Export();
         return asset;
     }
