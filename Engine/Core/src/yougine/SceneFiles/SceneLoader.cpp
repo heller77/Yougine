@@ -5,7 +5,7 @@
 
 namespace yougine::SceneFiles
 {
-    void SceneLoader::InitializeScene(Scene* scene)
+    Scene* SceneLoader::InitializeScene(Scene* scene)
     {
         for (nlohmann::basic_json<nlohmann::ordered_map> e : obj_json["Scene"]["Hierarchy"])
         {
@@ -34,27 +34,31 @@ namespace yougine::SceneFiles
 
             }
         }
+        return scene;
     }
 
 
-    void SceneLoader::CreateScene()
+    Scene* SceneLoader::CreateScene()
     {
         std::string scene_name = obj_json["Scene"]["Name"];
         Scene* scene = new Scene(scene_name);
 
-        jb_scene = scene;
-
         InitializeScene(scene);
+        return scene;
     }
 
-    void SceneLoader::UpdateJsonObj(std::string filepath)
+    //シーンをリセットする（関数名updateよりresetかも）
+    void SceneLoader::SceneUpdate(Scene* scene)
     {
-        std::ifstream reading(filepath, std::ios::in);
+        auto gameobjects = scene->GetGameObjects();
+        for (int i = 0; i < gameobjects.size(); i++)
+        {
+            auto gameobjects = scene->GetGameObjects();
+            auto gameobject = gameobjects.back();
+            scene->RemoveGameObjcect(gameobject);
+        }
 
-        json o_json;
-        reading >> o_json;
-
-        obj_json = o_json;
+        InitializeScene(scene);
     }
 
     void SceneLoader::SetPropertiesToComponent(components::Component* component, nlohmann::basic_json<nlohmann::ordered_map> j_component)
@@ -109,6 +113,13 @@ namespace yougine::SceneFiles
         }
     }
 
+    SceneLoader::SceneLoader(std::string scenefilepath)
+    {
+        std::ifstream reading(scenefilepath, std::ios::in);
 
+        json o_json;
+        reading >> o_json;
 
+        obj_json = o_json;
+    }
 }

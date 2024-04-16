@@ -91,7 +91,7 @@ int main()
 
     int gVCBWidth = 300;
     int gVCBHeight = 300;
-    auto sceneloader = yougine::SceneFiles::SceneLoader();
+
 
 
 
@@ -105,10 +105,8 @@ int main()
     if (error == 0)
     {
         //シーンファイルがあれば
-        auto sceneloader = yougine::SceneFiles::SceneLoader();
-        sceneloader.UpdateJsonObj(scenefilepath);
-        sceneloader.CreateScene();
-        scene = sceneloader.jb_scene;
+        auto sceneloader = yougine::SceneFiles::SceneLoader(scenefilepath);
+        scene = sceneloader.CreateScene();
         fclose(fp);
     }
     else

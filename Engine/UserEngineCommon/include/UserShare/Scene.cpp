@@ -49,21 +49,6 @@ namespace yougine
         }
     }
 
-    //処理変える
-    void Scene::RemoveGameObject(GameObject* gameobject)
-    {
-        std::list<GameObject*> new_list;
-
-        for (GameObject* obj : gameobject_list)
-        {
-            if (gameobject == obj)
-            {
-                new_list.push_back(obj);
-            }
-        }
-
-        gameobject_list = new_list;
-    }
 
     managers::ComponentList* Scene::GetComponentList()
     {

@@ -49,7 +49,7 @@ namespace yougine::managers
 
         GLuint depthBuffer;
 
-        void RenderOneGameObject(components::RenderComponent* render_component, std::shared_ptr<components::camera::CameraComponent> camera);
+        void RenderOneGameObject(components::RenderComponent* render_component, components::camera::CameraComponent* camera);
 
         void MeshBufferInit();
 

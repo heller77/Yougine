@@ -35,9 +35,7 @@ yougine::components::Component* yougine::componentfactorys::ComponentFacotory::C
         return new components::camera::CameraComponent();
     }
     //ここにユーザの作ったカスタムコンポーネントのelse if文も動的に入る予定
-    auto userscriptpath = builders::UserScriptCompiler::GetDLLPath();
-    // HMODULE hModule = LoadLibrary(TEXT("D:/Yougin/userscriptBuild/Release/MyNewDLLProject.dll"));
-    HMODULE hModule = LoadLibrary(userscriptpath.string().c_str());
+    HMODULE hModule = builders::UserScriptCompiler::GetModule();
     if (!hModule) {
         std::cerr << "DLLをロードできませんでした。" << std::endl;
         return nullptr;
