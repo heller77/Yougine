@@ -22,13 +22,13 @@ namespace yougine::components
         // std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> asset = material;
         // auto function = Generate_AssetTypeField_Switch_Function<materials::Material>(&material, GETVALUENAME(material));
 
-        std::function<void(std::shared_ptr<assetnamespace::Asset>)> function =
+        std::function<void(std::shared_ptr<assetnamespace::Asset>)> material_change_function =
             managers::ComponentExportParameterManager::Generate_AssetTypeField_Switch_Function(
                 this, &material, GETVALUENAME(material));
 
         std::function<void(std::shared_ptr<assetnamespace::Asset>)> parentfunction = [=](std::shared_ptr<assetnamespace::Asset> input) {
             std::cout << "material change" << std::endl;
-            function(input);
+            material_change_function(input);
             managers::RenderManager::geterror("RenderComponent() ");
             if (this->program) { // 既存のプログラムがあれば削除
                 // glDeleteProgram(this->program);
