@@ -14,7 +14,11 @@ namespace yougine
     {
     private:
         std::unique_ptr<LoopInfo> loop_info;
-        std::chrono::system_clock::time_point pre_time;
+
+        /**
+         * \brief 一フレーム前のタイムスタンプ
+         */
+        std::chrono::system_clock::time_point preframe_time;
     public:
         LoopInfoManager();
         LoopInfo* GetLoopInfo();

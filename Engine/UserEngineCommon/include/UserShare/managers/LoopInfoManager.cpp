@@ -18,7 +18,7 @@ void yougine::LoopInfoManager::Update()
 {
     //1フレーム前との時間差分を計算
     auto now = std::chrono::system_clock::now();
-    std::chrono::duration<double> diff = now - pre_time;
+    std::chrono::duration<double> diff = now - preframe_time;
     this->loop_info->delta_time = diff.count();
-    pre_time = now;
+    preframe_time = now;
 }
