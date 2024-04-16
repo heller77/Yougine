@@ -8,6 +8,7 @@
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/Mesh/MeshAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
 
 std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects::Project::GenerateAssetFromFile(
@@ -73,9 +74,16 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         custom_script_asset->Export();
         return custom_script_asset;
     }
-    else if (extension == ".gltf")
+    else if (extension == "gltf")
     {
-
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assetmodel::mesh::MeshAsset>(assetinfo_path);
+        }
+        auto mesh_asset = std::make_shared<assetmodel::mesh::MeshAsset>(path, uuid);
+        mesh_asset->Export();
+        return mesh_asset;
     }
     else
     {
