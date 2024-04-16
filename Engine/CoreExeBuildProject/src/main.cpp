@@ -31,6 +31,7 @@
 #include "SceneFiles/SceneFileExporter.h"
 #include "SceneFiles/SceneLoader.h"
 #include "UserShare/InputManager.h"
+#include "UserShare/managers/LoopInfoManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -177,11 +178,12 @@ int main()
     managerlist.push_back(rigidbodymanager);
     //GameManagerを生成
     GameManager* game_manager = new GameManager(managerlist);
-
+    yougine::LoopInfoManager* loop_info_manager = new yougine::LoopInfoManager();
     //一フレーム前にPlayだったか
     bool preIsPlay = false;
     while (glfwWindowShouldClose(window) == GL_FALSE)
     {
+        loop_info_manager->Update();
         input_manager->UpdateInput();
         /*
         if (input_manager->IsPushKey(yougine::KeyBind::RightClick))
@@ -198,7 +200,7 @@ int main()
                 scene->InitializeAllGameObjcts();
             }
             game_manager->Update();
-            scene->Update();
+            scene->Update(loop_info_manager);
         }
         preIsPlay = menubar->GetPlay();
 

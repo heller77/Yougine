@@ -63,6 +63,12 @@
     <ClInclude Include="include\UserShare\InputManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="include\UserShare\LoopInfo.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UserShare\managers\LoopInfoManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\UserShare\utilitys\Split.cpp">
@@ -99,6 +105,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="include\UserShare\InputManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="include\UserShare\LoopInfo.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="include\UserShare\managers\LoopInfoManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

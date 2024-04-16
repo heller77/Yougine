@@ -5,6 +5,7 @@
 
 #include "InputManager.h"
 #include "components/userscriptcomponents/IUpdatable.h"
+#include "managers/LoopInfoManager.h"
 #include "managers/UserScriptComponentEntryPointManager.h"
 #include "UserShare/Layer.h"
 #include "UserShare/MacroDifHeader.h"
@@ -21,6 +22,7 @@ namespace yougine
         std::string name;
         std::shared_ptr<managers::UserScriptComponentEntryPointManager> user_script_component_entry_point_manager;
         std::shared_ptr<InputManager> input_manager;
+        LoopInfo* loop_info;
     private:
         GameObject* RecursiveGameObjects(std::list<GameObject*>, std::string);
 
@@ -36,13 +38,14 @@ namespace yougine
         void InitializeAllGameObjcts();
 
         std::shared_ptr<InputManager> GetInputManager();
+        LoopInfo* GetLoopInfo();
 
         void RegisterOnlyUpdate(components::userscriptcomponents::IUpdatable* i_updatable);
         /*
          *ユーザが呼ばない!!
          *
          */
-        void Update();
+        void Update(LoopInfoManager* loop_info_manager);
     };
 
     inline std::shared_ptr<InputManager> Scene::GetInputManager()
