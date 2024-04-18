@@ -33,6 +33,7 @@
     <ClInclude Include="include\UserShare\managers\LoopInfoManager.h" />
     <ClInclude Include="include\UserShare\managers\UserScriptComponentEntryPointManager.h" />
     <ClInclude Include="include\UserShare\Scene.h" />
+    <ClInclude Include="include\UserShare\utilitys\VirtualKey.h" />
     <ClInclude Include="include\UserShare\utilitys\Quaternion.h" />
     <ClInclude Include="include\UserShare\utilitys\Split.h" />
     <ClInclude Include="include\UserShare\utilitys\uuid\YougineUuid.h" />
@@ -49,6 +50,7 @@
     <ClCompile Include="include\UserShare\managers\LoopInfoManager.cpp" />
     <ClCompile Include="include\UserShare\managers\UserScriptComponentEntryPointManager.cpp" />
     <ClCompile Include="include\UserShare\Scene.cpp" />
+    <ClCompile Include="include\UserShare\utilitys\VirtualKey.cpp" />
     <ClCompile Include="include\UserShare\utilitys\Quaternion.cpp" />
     <ClCompile Include="include\UserShare\utilitys\Split.cpp" />
     <ClCompile Include="include\UserShare\Layer.cpp" />
