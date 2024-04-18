@@ -12,14 +12,14 @@ namespace yougine
     {
         LeftClick,
         RightClick,
-        BindMax,
+
     };
 
     class EXPORT KeyInfo
     {
     public:
-        int state;
-        int state_old;
+        BYTE state[256];
+        BYTE state_old[256];
     };
 
     class EXPORT InputManager

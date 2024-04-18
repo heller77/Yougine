@@ -8,8 +8,8 @@ namespace yougine
     {
         keycode_list =
         {
-            { KeyBind::LeftClick, 0x01 },
-            { KeyBind::RightClick, 0x02 },
+            { KeyBind::LeftClick, VK_LBUTTON },
+            { KeyBind::RightClick, VK_RBUTTON },
         };
 
         key_info = new KeyInfo();
@@ -28,35 +28,43 @@ namespace yougine
 
         int n_state = 0;
 
-        for (int i = 0; i < (int)KeyBind::BindMax; i++)
-        {
-            if (key_state[GetKeyCodeID((KeyBind)i)] & 0x80)
-            {
-                n_state |= (1 << i);
-            }
-        }
+        // key_info->stateの内容をkey_info->state_oldにコピー
+        memcpy(key_info->state_old, key_info->state, sizeof(key_info->state));
 
-        key_info->state_old = key_info->state;
-        key_info->state = n_state;
+        // key_stateの内容をkey_info->stateにコピー
+        memcpy(key_info->state, key_state, sizeof(key_state));
     }
 
     bool InputManager::IsPressKey(KeyBind bind)
     {
-        int bit = (1 << (int)bind);
-        return key_info->state & bit;
+        auto keycode = GetKeyCodeID(bind);
+        int keyinfo = key_info->state[keycode];
+        bool isPress = keyinfo & 0x80;
+        return isPress;
     }
 
     bool InputManager::IsPushKey(KeyBind bind)
     {
-        int bit = (1 << (int)bind);
-        int state = key_info->state & ~(key_info->state_old);
-        return state & bit;
+        auto keycode = GetKeyCodeID(bind);
+        int keyinfo = key_info->state[keycode];
+        int oldkeyinfo = key_info->state_old[keycode];
+        bool isPress = keyinfo & 0x80;
+        bool isoldPress = oldkeyinfo & 0x80;
+
+        int state = isPress > isoldPress;
+        return state;
     }
 
     bool InputManager::IsReleaseKey(KeyBind bind)
     {
-        int bit = (1 << (int)bind);
-        int state = key_info->state_old & ~(key_info->state);
-        return state & bit;
+        auto keycode = GetKeyCodeID(bind);
+        int keyinfo = key_info->state[keycode];
+        int oldkeyinfo = key_info->state_old[keycode];
+        bool isPress = keyinfo & 0x80;
+        bool isoldPress = oldkeyinfo & 0x80;
+
+        int state = isPress < isoldPress;
+
+        return state;
     }
 }
