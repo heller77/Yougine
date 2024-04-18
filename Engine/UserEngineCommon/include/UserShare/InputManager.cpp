@@ -6,19 +6,23 @@ namespace yougine
 {
     InputManager::InputManager()
     {
-        keycode_list =
-        {
-            { KeyBind::LeftClick, VK_LBUTTON },
-            { KeyBind::RightClick, VK_RBUTTON },
-        };
+        keycode_list = GenerateKeyBind();
 
         key_info = new KeyInfo();
     }
 
 
-    int InputManager::GetKeyCodeID(KeyBind code)
+    int InputManager::GetKeyCodeID(VirtualKey code)
     {
-        return keycode_list[code];
+        auto iterator = keycode_list.find(code);
+
+        if (iterator != keycode_list.end()) {
+            return keycode_list[code];
+        }
+        else
+        {
+            return -1;
+        }
     }
 
     void InputManager::UpdateInput()
@@ -35,17 +39,26 @@ namespace yougine
         memcpy(key_info->state, key_state, sizeof(key_state));
     }
 
-    bool InputManager::IsPressKey(KeyBind bind)
+    bool InputManager::IsPressKey(VirtualKey bind)
     {
         auto keycode = GetKeyCodeID(bind);
+        if (keycode == -1)
+        {
+            return false;
+        }
         int keyinfo = key_info->state[keycode];
         bool isPress = keyinfo & 0x80;
         return isPress;
     }
 
-    bool InputManager::IsPushKey(KeyBind bind)
+    bool InputManager::IsPushKey(VirtualKey bind)
     {
         auto keycode = GetKeyCodeID(bind);
+        //登録されたキーコードでなければ
+        if (keycode == -1)
+        {
+            return false;
+        }
         int keyinfo = key_info->state[keycode];
         int oldkeyinfo = key_info->state_old[keycode];
         bool isPress = keyinfo & 0x80;
@@ -55,9 +68,15 @@ namespace yougine
         return state;
     }
 
-    bool InputManager::IsReleaseKey(KeyBind bind)
+    bool InputManager::IsReleaseKey(VirtualKey bind)
     {
         auto keycode = GetKeyCodeID(bind);
+        //登録されたキーコードでなければ
+        if (keycode == -1)
+        {
+            return false;
+        }
+
         int keyinfo = key_info->state[keycode];
         int oldkeyinfo = key_info->state_old[keycode];
         bool isPress = keyinfo & 0x80;
@@ -66,5 +85,24 @@ namespace yougine
         int state = isPress < isoldPress;
 
         return state;
+    }
+
+    void InputManager::PrintNowPressKey()
+    {
+        bool is_press_anykey = false;
+        // 全キーバインドをチェックするループ
+        for (int key = static_cast<int>(VirtualKey::MouseLeftClick); key <= static_cast<int>(VirtualKey::nine); ++key) {
+            if (this->IsPressKey(static_cast<VirtualKey>(key))) {
+                if (!is_press_anykey)
+                {
+                    std::cout << "[input] : ";
+                }
+                std::cout << GetKeyName(static_cast<VirtualKey>(key)) << " ";
+                is_press_anykey = true;
+            }
+        }
+        if (is_press_anykey) {
+            std::cout << std::endl;
+        }
     }
 }
