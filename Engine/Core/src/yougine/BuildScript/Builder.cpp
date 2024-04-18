@@ -27,7 +27,7 @@ void builders::Builder::Build(std::string exportpath, yougine::Scene* scene)
     // std::string gamebuildprojectpath = ".\\..\\..\\..\\GameBuildProject";
     auto gamebuildprojectpath = gemeengine_mainbody_path / "GameBuildProject";
     std::string cmakebuildcmd =
-        "cmake " + gamebuildprojectpath.string() + " -G\"Visual Studio 16 2019\" -DROOTPATH=" + "\"../Release\"" + " & cmake --build . --config Release & cmake --install . --prefix ./ --config Release ";
+        "cmake " + gamebuildprojectpath.string() + " -G\"Visual Studio 16 2019\" -DROOTPATH=" + gemeengine_mainbody_path.string() + " & cmake --build . --config Release & cmake --install . --prefix ./ --config Release ";
     auto build_cmd = cddirectoryCMD + " & " + cmakebuildcmd;
     system(build_cmd.c_str());
     //binにexeがあるので、そこにUserEngineCommon.dllを配置
