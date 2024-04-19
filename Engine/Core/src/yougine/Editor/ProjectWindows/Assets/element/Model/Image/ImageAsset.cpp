@@ -1,9 +1,15 @@
 ﻿#include "ImageAsset.h"
+
+#include "../AssetInfos/AssetInfoFileExporter.h"
 #include "tinygltf/stb_image.h"
 
 void editor::projectwindows::assets::elements::model::image::ImageAsset::Export()
 {
+    nlohmann::json json;
+    json[GETVALUENAME(uuid)] = uuid->convertstring();
 
+    auto exporter = std::make_shared<assetinfos::AssetInfoFileExporter>();
+    exporter->ExportAssetInfoFile(this->path, json);
 }
 
 std::string editor::projectwindows::assets::elements::model::image::ImageAsset::ToString()
