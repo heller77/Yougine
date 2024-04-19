@@ -2,8 +2,11 @@
 
 #include <iostream>
 #include <memory>
+#include <memory>
 
+#include "../../FunctionGenerator.h"
 #include "../../../Editor/ShaderGraph/ShaderType.h"
+#include "../../../managers/ComponentExportParameterManager.h"
 #include "imgui/stblib/imgui_stdlib.h"
 
 void utility::view::parameters::ShaderInputParameterView::Draw()
@@ -76,9 +79,10 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
         {
             ImGui::SameLine();
             auto value = element->Get_image_value();
-            auto filepath = value->GetFilePath();
-            ImGui::Text(filepath.string().c_str());
-
+            auto func
+                = FunctionGenerator::FunctionGenerator::Generate_Switch_Function<editor::projectwindows::assets::elements::model::image::ImageAsset>(value);
+            auto assetreference = std::make_shared<AssetReference>(value->GetFilePath().filename().string(), value->GetAssetId(), ".png", func);
+            assetreference->Draw();
             break;
         }
         default:

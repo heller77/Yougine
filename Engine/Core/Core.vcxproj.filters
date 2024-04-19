@@ -60,6 +60,7 @@
     <ClCompile Include="src\yougine\BuildScript\UserScriptCompiler.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Mesh\MeshAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.cpp" />
+    <ClCompile Include="src\yougine\utilitys\FunctionGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\yougine\Editor\HierarchyWindow.cpp">
@@ -195,6 +196,7 @@
     <ClInclude Include="src\yougine\BuildScript\UserScriptCompiler.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Mesh\MeshAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.h" />
+    <ClInclude Include="src\yougine\utilitys\FunctionGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yougine\test.frag" />
