@@ -169,6 +169,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Mesh\MeshAsset.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />

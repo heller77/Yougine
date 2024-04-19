@@ -7,6 +7,7 @@
 #include "../BuildScript/UserScriptCompiler.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/Image/ImageAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Mesh/MeshAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
@@ -84,6 +85,17 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         auto mesh_asset = std::make_shared<assetmodel::mesh::MeshAsset>(path, uuid);
         mesh_asset->Export();
         return mesh_asset;
+    }
+    else if (extension == "png" || extension == "jpeg")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assetmodel::image::ImageAsset>(assetinfo_path);
+        }
+        auto image_asset = std::make_shared<assetmodel::image::ImageAsset>(path, uuid);
+        image_asset->Export();
+        return image_asset;
     }
     else
     {
