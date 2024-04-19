@@ -33,10 +33,7 @@ static void glfw_error_callback(int error, const char* description)
 
 int main()
 {
-    auto project = projects::Project::GetInstance();
-    // project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
-    // project->AssetInitialize();
-    project->Initialize("./Resource/Project.json");
+
 
     glfwSetErrorCallback(glfw_error_callback);
 
@@ -74,6 +71,11 @@ int main()
 
     int gVCBWidth = 300;
     int gVCBHeight = 300;
+
+    auto project = projects::Project::GetInstance();
+    // project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
+    // project->AssetInitialize();
+    project->Initialize("./Resource/Project.json");
 
     // yougine::Scene* scene = new yougine::Scene("Scene1");
     auto scenefile = project->GetProjectFolderPath_ByTypeString() + "\\build\\scene.json";

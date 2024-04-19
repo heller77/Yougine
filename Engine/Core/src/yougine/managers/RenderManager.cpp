@@ -179,6 +179,12 @@ namespace yougine::managers
         glUniform3f(loc, value.x, value.y, value.z);
         RenderManager::geterror("glUniform3f");
     }
+    void SetTextureSampler(GLint program, const char* name, GLuint texture)
+    {
+        GLuint loc = glGetUniformLocation(program, name);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glUniform1i(loc, 0);
+    }
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -240,8 +246,13 @@ namespace yougine::managers
             else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kVec3)
             {
                 SetVec3Uniform(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_vec3_value());
+                geterror("renderobject");
             }
-
+            else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kImage)
+            {
+                SetTextureSampler(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), shader_input_and_type_struct->Get_image_value()->GetGLImage());
+                geterror("SetTextureSampler");
+            }
 
         }
 
@@ -253,6 +264,7 @@ namespace yougine::managers
         glDrawElements(GL_TRIANGLES, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
+        geterror("renderobject");
     }
 
     GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)

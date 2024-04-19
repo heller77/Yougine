@@ -41,10 +41,7 @@ static void glfw_error_callback(int error, const char* description)
 int main()
 {
 
-    auto project = projects::Project::GetInstance();
-    //projectのパスを設定
-    project->Initialize("./Resource/Project.json");
-    builders::UserScriptCompiler::Compile();
+
 
     glfwSetErrorCallback(glfw_error_callback);
 
@@ -95,7 +92,10 @@ int main()
 
 
 
-
+    auto project = projects::Project::GetInstance();
+    //projectのパスを設定
+    project->Initialize("./Resource/Project.json");
+    builders::UserScriptCompiler::Compile();
     //シーンファイルのパス
     std::string scenefilepath = project->GetNowSceneFilePath().string();
     yougine::Scene* scene;
