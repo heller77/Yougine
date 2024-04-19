@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 
+#include "../../../../../../managers/RenderManager.h"
 #include "../AssetInfos/AssetInfoFileExporter.h"
 #include "tinygltf/stb_image.h"
 
@@ -50,6 +51,7 @@ void editor::projectwindows::assets::elements::model::image::ImageAsset::Initial
     stbi_image_free(image);
 
     glBindTexture(GL_TEXTURE_2D, 0);
+    yougine::managers::RenderManager::geterror("image asset initialize");
 }
 
 editor::projectwindows::assets::elements::model::image::ImageAsset::ImageAsset(std::filesystem::path path,

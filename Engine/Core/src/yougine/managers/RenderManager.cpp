@@ -43,6 +43,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
+        geterror("in rendermanager constructer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -50,6 +51,7 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
+        geterror("in rendermanager constructer");
 
         //フレームバッファ
         GLuint frameBuffer;
