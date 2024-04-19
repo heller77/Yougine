@@ -16,12 +16,16 @@ namespace yougine::components
     {
         GLfloat position[3];
     };
-
+    struct ShaderVector2
+    {
+        GLfloat position[2];
+    };
     struct VBOList
     {
         GLuint vertexBuffer;
         GLuint elementBuffer;
         GLuint normalBuffer;
+        GLuint uvBuffer;
         void Release()
         {
             GLuint vboIDs[] = { vertexBuffer, elementBuffer, normalBuffer };
@@ -29,7 +33,7 @@ namespace yougine::components
             vertexBuffer = -1;
             elementBuffer = -1;
             normalBuffer = -1;
-
+            uvBuffer = -1;
         }
     };
     class RenderComponent : public components::Component

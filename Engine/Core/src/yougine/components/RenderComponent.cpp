@@ -131,6 +131,22 @@ namespace yougine::components
             normal_vector.push_back(v);
         }
 
+        //uvを読み出す
+        auto uv_accessors_index = mesh.primitives[0].attributes["TEXCOORD_0"];
+        auto uv_accessor = model.accessors[uv_accessors_index];
+        auto uv_buffer_view = buffer_views[uv_accessor.bufferView];
+        auto uv_buffer = model.buffers[uv_buffer_view.buffer];
+        const float* uv_data_fromgltf = reinterpret_cast<const float*>(&uv_buffer.data[
+            uv_buffer_view.byteOffset + uv_accessor.byteOffset]);
+
+        std::vector<ShaderVector2> uv_vector = {};
+        for (size_t i = 0; i < uv_accessor.count; ++i)
+        {
+            // std::cout << i << "番目 : " << "[" << indices_data_fromgltf[i] << "]" << std::endl;
+            ShaderVector2 uv = { uv_data_fromgltf[i * 2 + 0], uv_data_fromgltf[i * 2 + 1] };
+            uv_vector.push_back(uv);
+        }
+
 
         std::cout << std::endl;
         std::cout << "buffer num " << model.buffers[0].data.size() << std::endl;
@@ -179,6 +195,23 @@ namespace yougine::components
             glVertexAttribPointer(vertexshader_normal_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
             managers::RenderManager::geterror("InitializeMesh() glVertexAttribPointer");
         }
+
+        //uvバッファ
+        glGenBuffers(1, &this->vbolist.uvBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, this->vbolist.uvBuffer);
+        glBufferData(GL_ARRAY_BUFFER, uv_vector.size() * sizeof(ShaderVector2), uv_vector.data(), GL_STATIC_DRAW);
+        managers::RenderManager::geterror("InitializeMesh() ");
+
+        //シェーダに値を渡す
+        auto vertexshader_uv_attribute = glGetAttribLocation(program, "vUV");
+        if (vertexshader_uv_attribute > 0) {
+            glEnableVertexAttribArray(vertexshader_uv_attribute);
+            managers::RenderManager::geterror("InitializeMesh() glEnableVertexAttribArray");
+
+            glVertexAttribPointer(vertexshader_uv_attribute, 2, GL_FLOAT, GL_FALSE, 0, 0);
+            managers::RenderManager::geterror("InitializeMesh() glVertexAttribPointer");
+        }
+
         this->draw_point_count = indices_accessor.count;
         managers::RenderManager::geterror("InitializeMesh() ");
 
