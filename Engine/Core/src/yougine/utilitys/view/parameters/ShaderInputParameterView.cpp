@@ -72,6 +72,15 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
             }
             break;
         }
+        case  materials::ShaderInputParameterType::kImage:
+        {
+            ImGui::SameLine();
+            auto value = element->Get_image_value();
+            auto filepath = value->GetFilePath();
+            ImGui::Text(filepath.string().c_str());
+
+            break;
+        }
         default:
             ImGui::SameLine();
             ImGui::Text("Type not supported");
@@ -137,6 +146,10 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
             value->z = tmpvalue[2];
         }
         break;
+    }case materials::ShaderInputParameterType::kImage:
+    {
+        ImGui::SameLine();
+
     }
     default:
         ImGui::SameLine();
@@ -166,7 +179,8 @@ utility::view::parameters::ShaderInputParameterView::ShaderInputParameterView(
     this->type2text = {
         {materials::ShaderInputParameterType::kFloat, "float"},
         {materials::ShaderInputParameterType::kInt, "int"},
-        {materials::ShaderInputParameterType::kVec3, "vec3"}
+        {materials::ShaderInputParameterType::kVec3, "vec3"},
+        {materials::ShaderInputParameterType::kImage, "Image"},
     };
     this->new_value = shaderinputparameters::ShaderInputAndTypeStruct::GenerateDefaultInstance(materials::ShaderInputParameterType::kInt, "valuename");
 }

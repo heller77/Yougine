@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "../Image/ImageAsset.h"
 #include "../shader/ShaderFileAsset.h"
 #include "ShaderInputParameters/ShaderInputAndTypeStruct.h"
 
@@ -24,6 +25,7 @@ namespace editor::projectwindows::assets::elements::model::materials
         const std::string key_int = "int";
         const std::string key_float = "float";
         const std::string key_vec3 = "Vector3";
+        const std::string key_image = "Image";
 
     public:
         Material(const std::filesystem::path& path, const std::shared_ptr<utility::youginuuid::YougineUuid>& uuid);

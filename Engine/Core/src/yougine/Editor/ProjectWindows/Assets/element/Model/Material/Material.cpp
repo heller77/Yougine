@@ -74,8 +74,20 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
             else if (property[this->key_valuetype] == key_vec3)
             {
                 type = ShaderInputParameterType::kVec3;
-                utility::Vector3 vec3 = utility::Vector3(property[key_values]["x"].get<float>(), property[key_values]["y"].get<float>(), property[key_values]["z"].get<float>());
+                auto val = property[key_values];
+                utility::Vector3 vec3 = utility::Vector3(val["x"].get<float>(), val["y"].get<float>(), val["z"].get<float>());
                 parameter = std::make_shared <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], vec3);
+            }
+            else if (property[this->key_valuetype] == key_image)
+            {
+                //画像の場合
+                type = ShaderInputParameterType::kImage;
+                auto uuid = property[key_values][key_value].get<std::string>();
+
+                auto asset = projects::Project::GetInstance()->GetDataBase()->GetAsset(uuid);;
+                image::ImageAsset* imaage_asset = dynamic_cast<image::ImageAsset*>(asset.get());
+                parameter = std::make_shared
+                    <shaderinputparameters::ShaderInputAndTypeStruct>(type, property[key_valuename], imaage_asset);
             }
             shader_input_parameters.emplace_back(parameter);
         }
@@ -88,6 +100,9 @@ void editor::projectwindows::assets::elements::model::materials::Material::Initi
         shader_input_parameters.emplace_back(f2);
         auto ve3_color = std::make_shared<shaderinputparameters::ShaderInputAndTypeStruct>(ShaderInputParameterType::kVec3, "color_vec3", utility::Vector3(1, 1, 1));
         shader_input_parameters.emplace_back(ve3_color);
+        auto image
+            = shaderinputparameters::ShaderInputAndTypeStruct::GenerateDefaultInstance(ShaderInputParameterType::kImage, "imageinput");
+        shader_input_parameters.emplace_back(image);
     }
 
     this->parameter[GETVALUENAME(shader_input_parameters)] = std::make_shared<assetparameters::Parameter>(&shader_input_parameters, shaderinputs_assetoption);;
@@ -192,6 +207,12 @@ void editor::projectwindows::assets::elements::model::materials::Material::Expor
             tmp_property_json["y"] = value->y;
             tmp_property_json["z"] = value->z;
             json_propertylist[property_index][key_valuetype] = "Vector3";
+        }
+        if (shader_input_and_type_struct->GetValueType() == ShaderInputParameterType::kImage)
+        {
+            auto value = shader_input_and_type_struct->Get_image_value();
+            tmp_property_json[key_value] = value->GetAssetId()->convertstring();
+            json_propertylist[property_index][key_valuetype] = "Image";
         }
         json_propertylist[property_index][key_valuename] = valuename;
         json_propertylist[property_index][key_values] = tmp_property_json;
