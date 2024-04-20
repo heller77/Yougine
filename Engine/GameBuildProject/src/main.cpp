@@ -16,6 +16,7 @@
 
 #include <fstream>
 
+#include "BuildScript/UserScriptCompiler.h"
 #include "UserShare/components/TransformComponent.h"
 #include "Editor/ProjectWindows/ProjectWindow.h"
 #include "UserShare/managers/ComponentList.h"
@@ -73,6 +74,9 @@ int main()
     int gVCBHeight = 300;
 
     auto project = projects::Project::GetInstance();
+    //ビルドモードだと設定
+    project->SetBuild(true);
+
     // project->projectFolderPath = "D:\\Yougin\\";//プロジェクトパスを直書きしてるのでよろしくない
     // project->AssetInitialize();
     project->Initialize("./Resource/Project.json");

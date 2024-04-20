@@ -111,6 +111,11 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
     }
 }
 
+projects::Project::Project()
+{
+    isBuild = false;
+}
+
 projects::Project* projects::Project::GetInstance()
 {
     if (instance == nullptr)
@@ -328,6 +333,16 @@ std::filesystem::path projects::Project::GetEngineMainBodyPath()
 std::filesystem::path projects::Project::GetUserEngineCommonDLLPath()
 {
     return this->engine_mainbody_path / "UserEngineCommon.dll";
+}
+
+void projects::Project::SetBuild(bool isBuildMode)
+{
+    this->isBuild = isBuildMode;
+}
+
+bool projects::Project::GetIsBuild()
+{
+    return this->isBuild;
 }
 
 projects::Project* projects::Project::instance;

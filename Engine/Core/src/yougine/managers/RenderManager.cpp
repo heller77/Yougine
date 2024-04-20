@@ -11,6 +11,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Projects/Project.h"
 #include "UserShare/utilitys/Quaternion.h"
 
 namespace yougine
@@ -84,7 +85,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer colorBuffer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -92,20 +93,31 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer depthBuffer");
 
         //フレームバッファ
         GLuint frameBuffer = input_framebuffer;
-        // glGenFramebuffers(1, &frameBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-            this->colorBuffer, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-            this->depthBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        auto isbuild = projects::Project::GetInstance()->GetIsBuild();
+        std::cout << isbuild << std::endl;
+        if (!isbuild) {
+            glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+            geterror("in rendermanager constructer glBindFramebuffer");
+
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                this->colorBuffer, 0);
+            geterror("in rendermanager constructer glFramebufferTexture2D");
+
+
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
+                this->depthBuffer);
+            geterror("in rendermanager constructer glFramebufferRenderbuffer");
+
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            geterror("in rendermanager constructer glBindFramebuffer");
+        }
         this->frameBuffer = frameBuffer;
 
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer frameBuffer");
 
     }
 
