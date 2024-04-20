@@ -53,9 +53,14 @@ void editor::projectwindows::assets::elements::model::image::ImageAsset::Initial
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     yougine::managers::RenderManager::geterror("image asset initialize[glTexParameteri ]");
     std::cout << "texparameter -- " << std::endl;
-
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     // テクスチャへ画像データをgpuにアップロード
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, channels == 4 ? GL_RGBA : GL_RGB, GL_UNSIGNED_BYTE, image);
+    if (channels == 4) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+    }
+    else {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    }
     yougine::managers::RenderManager::geterror("image asset initialize[glTexImage2D ]");
 
     // cpu側のメモリを解放
