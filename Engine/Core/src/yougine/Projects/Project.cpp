@@ -7,6 +7,7 @@
 #include "../BuildScript/UserScriptCompiler.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/TextAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/CustomScripts/CustomScriptAsset.h"
+#include "../Editor/ProjectWindows/Assets/element/Model/Image/ImageAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Material/Material.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/Mesh/MeshAsset.h"
 #include "../Editor/ProjectWindows/Assets/element/Model/shader/ShaderFileAsset.h"
@@ -85,6 +86,17 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         mesh_asset->Export();
         return mesh_asset;
     }
+    else if (extension == "png" || extension == "jpeg")
+    {
+        if (std::filesystem::exists(std::filesystem::status(assetinfo_path)))
+        {
+            std::cout << "assetinfo exist!! : " << filename << std::endl;
+            return std::make_shared<assetmodel::image::ImageAsset>(assetinfo_path);
+        }
+        auto image_asset = std::make_shared<assetmodel::image::ImageAsset>(path, uuid);
+        image_asset->Export();
+        return image_asset;
+    }
     else
     {
         std::ifstream ifs(path.string());
@@ -97,6 +109,11 @@ std::shared_ptr<editor::projectwindows::assets::elements::model::Asset> projects
         asset->Export();
         return asset;
     }
+}
+
+projects::Project::Project()
+{
+    isBuild = false;
 }
 
 projects::Project* projects::Project::GetInstance()
@@ -316,6 +333,16 @@ std::filesystem::path projects::Project::GetEngineMainBodyPath()
 std::filesystem::path projects::Project::GetUserEngineCommonDLLPath()
 {
     return this->engine_mainbody_path / "UserEngineCommon.dll";
+}
+
+void projects::Project::SetBuild(bool isBuildMode)
+{
+    this->isBuild = isBuildMode;
+}
+
+bool projects::Project::GetIsBuild()
+{
+    return this->isBuild;
 }
 
 projects::Project* projects::Project::instance;

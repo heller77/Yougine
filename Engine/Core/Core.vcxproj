@@ -169,6 +169,7 @@
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.cpp" />
+    <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.cpp" />
     <ClCompile Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Mesh\MeshAsset.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="src\yougine\SceneExport_tamesiMain.cpp" />
     <ClCompile Include="src\yougine\SceneFiles\SceneLoader.cpp" />
     <ClCompile Include="src\yougine\SceneLoader_testMain.cpp" />
+    <ClCompile Include="src\yougine\utilitys\FunctionGenerator.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\AssetReference.cpp" />
     <ClCompile Include="src\yougine\utilitys\view\parameters\CustomParameter.cpp" />
     <ClCompile Include="src\yougine\Editor\ShaderGraph\ShaderfileOverwrite.cpp" />
@@ -225,6 +227,7 @@
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetInfos\AssetInfoFileExporter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\AssetParameter\Parameter.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\CustomScripts\CustomScriptAsset.h" />
+    <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Image\ImageAsset.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\Material.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameters\ShaderInputAndTypeStruct.h" />
     <ClInclude Include="src\yougine\Editor\ProjectWindows\Assets\element\Model\Material\ShaderInputParameterType.h" />
@@ -262,6 +265,7 @@
     <ClInclude Include="src\yougine\Editor\HierarchyWindow.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneFileExporter.h" />
     <ClInclude Include="src\yougine\SceneFiles\SceneLoader.h" />
+    <ClInclude Include="src\yougine\utilitys\FunctionGenerator.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\AssetReference.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\CustomParameter.h" />
     <ClInclude Include="src\yougine\utilitys\view\parameters\ParameterView.h" />

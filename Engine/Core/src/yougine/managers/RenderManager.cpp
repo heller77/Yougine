@@ -11,6 +11,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "../Projects/Project.h"
 #include "UserShare/utilitys/Quaternion.h"
 
 namespace yougine
@@ -43,6 +44,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
+        geterror("in rendermanager constructer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -50,6 +52,7 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
+        geterror("in rendermanager constructer");
 
         //フレームバッファ
         GLuint frameBuffer;
@@ -82,7 +85,7 @@ namespace yougine::managers
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         this->colorBuffer = colorBuffer;
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer colorBuffer");
 
         //デプスバッファ
         GLuint depthBuffer;
@@ -90,20 +93,31 @@ namespace yougine::managers
         glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
         glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
         this->depthBuffer = depthBuffer;
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer depthBuffer");
 
         //フレームバッファ
         GLuint frameBuffer = input_framebuffer;
-        // glGenFramebuffers(1, &frameBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
-            this->colorBuffer, 0);
-        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
-            this->depthBuffer);
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        auto isbuild = projects::Project::GetInstance()->GetIsBuild();
+        std::cout << isbuild << std::endl;
+        if (!isbuild) {
+            glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+            geterror("in rendermanager constructer glBindFramebuffer");
+
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D,
+                this->colorBuffer, 0);
+            geterror("in rendermanager constructer glFramebufferTexture2D");
+
+
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER,
+                this->depthBuffer);
+            geterror("in rendermanager constructer glFramebufferRenderbuffer");
+
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            geterror("in rendermanager constructer glBindFramebuffer");
+        }
         this->frameBuffer = frameBuffer;
 
-        geterror("in rendermanager constructer");
+        geterror("in rendermanager constructer frameBuffer");
 
     }
 
@@ -179,6 +193,12 @@ namespace yougine::managers
         glUniform3f(loc, value.x, value.y, value.z);
         RenderManager::geterror("glUniform3f");
     }
+    void SetTextureSampler(GLint program, const char* name, GLuint texture)
+    {
+        GLuint loc = glGetUniformLocation(program, name);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glUniform1i(loc, 0);
+    }
     /**
      * \brief ゲームオブジェクトを描画する
      * \param render_component 描画対象のレンダーコンポーネント
@@ -240,8 +260,13 @@ namespace yougine::managers
             else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kVec3)
             {
                 SetVec3Uniform(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), *shader_input_and_type_struct->Get_vec3_value());
+                geterror("renderobject");
             }
-
+            else if (shader_input_and_type_struct->GetValueType() == editor::projectwindows::assets::elements::model::materials::ShaderInputParameterType::kImage)
+            {
+                SetTextureSampler(render_component->GetProgram(), shader_input_and_type_struct->GetName()->c_str(), shader_input_and_type_struct->Get_image_value()->GetGLImage());
+                geterror("SetTextureSampler");
+            }
 
         }
 
@@ -253,6 +278,7 @@ namespace yougine::managers
         glDrawElements(GL_TRIANGLES, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
+        geterror("renderobject");
     }
 
     GLuint RenderManager::ShaderInit(std::string vs_shader_source, std::string fs_shader_source)

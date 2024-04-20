@@ -2,8 +2,11 @@
 
 #include <iostream>
 #include <memory>
+#include <memory>
 
+#include "../../FunctionGenerator.h"
 #include "../../../Editor/ShaderGraph/ShaderType.h"
+#include "../../../managers/ComponentExportParameterManager.h"
 #include "imgui/stblib/imgui_stdlib.h"
 
 void utility::view::parameters::ShaderInputParameterView::Draw()
@@ -72,6 +75,16 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
             }
             break;
         }
+        case  materials::ShaderInputParameterType::kImage:
+        {
+            ImGui::SameLine();
+            auto value = element->Get_image_value();
+            auto func
+                = FunctionGenerator::FunctionGenerator::Generate_Switch_Function<editor::projectwindows::assets::elements::model::image::ImageAsset>(value);
+            auto assetreference = std::make_shared<AssetReference>(value->GetFilePath().filename().string(), value->GetAssetId(), ".png", func);
+            assetreference->Draw();
+            break;
+        }
         default:
             ImGui::SameLine();
             ImGui::Text("Type not supported");
@@ -137,6 +150,10 @@ void utility::view::parameters::ShaderInputParameterView::Draw()
             value->z = tmpvalue[2];
         }
         break;
+    }case materials::ShaderInputParameterType::kImage:
+    {
+        ImGui::SameLine();
+
     }
     default:
         ImGui::SameLine();
@@ -166,7 +183,8 @@ utility::view::parameters::ShaderInputParameterView::ShaderInputParameterView(
     this->type2text = {
         {materials::ShaderInputParameterType::kFloat, "float"},
         {materials::ShaderInputParameterType::kInt, "int"},
-        {materials::ShaderInputParameterType::kVec3, "vec3"}
+        {materials::ShaderInputParameterType::kVec3, "vec3"},
+        {materials::ShaderInputParameterType::kImage, "Image"},
     };
     this->new_value = shaderinputparameters::ShaderInputAndTypeStruct::GenerateDefaultInstance(materials::ShaderInputParameterType::kInt, "valuename");
 }

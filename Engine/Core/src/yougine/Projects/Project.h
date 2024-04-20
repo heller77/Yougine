@@ -44,8 +44,10 @@ namespace projects
          */
         std::filesystem::path engine_mainbody_path;
 
+        bool isBuild;
 
     public:
+        Project();
 
         const std::string c_userfolder = "userFolder";
         const std::string c_libraryfolder = "libFolder";
@@ -84,6 +86,9 @@ namespace projects
 
         std::filesystem::path GetEngineMainBodyPath();
         std::filesystem::path GetUserEngineCommonDLLPath();
+
+        void SetBuild(bool isBuildMode);
+        bool GetIsBuild();
 
     };
 }
