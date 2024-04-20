@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "SelectionInfo.h"
 #include "../BuildScript/Builder.h"
 #include "../BuildScript/UserScriptCompiler.h"
 #include "../Projects/Project.h"
@@ -54,6 +55,9 @@ void editor::MenuBar::Draw()
         {
             play = true;
             builders::UserScriptCompiler::Compile();
+
+            //インスペクターを非表示に（シーンを再構築するので、表示するオブジェクトが消えるので）
+            SelectionInfo::GetInstance()->SetSelectionInfo(nullptr, false);
 
             auto scenefilepath = projects::Project::GetInstance()->GetNowSceneFilePath();
             auto sceneLoader = std::make_shared<yougine::SceneFiles::SceneLoader>(scenefilepath.string());
