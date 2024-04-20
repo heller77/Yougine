@@ -2,6 +2,7 @@
 
 #include "../component_factory/ComponentFactory.h"
 #include "../Projects/Project.h"
+#include "UserShare/utilitys/Quaternion.h"
 
 namespace yougine::SceneFiles
 {
@@ -90,6 +91,16 @@ namespace yougine::SceneFiles
                 (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).x = vec3.x;
                 (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).y = vec3.y;
                 (*std::any_cast<utility::Vector3*>((*accessable_properties_list)[apl_indesx][0])).z = vec3.z;
+            }
+            if (p["type"] == "utility::Quaternion")
+            {
+                utility::Quaternion quaternion = utility::Quaternion(p["values"]["x"].get<float>(), p["values"]["y"].get<float>(), p["values"]["z"].get<float>(), p["values"]["w"].get<float>());
+                // auto target = (*std::any_cast<std::shared_ptr<utility::Quaternion>>((*accessable_properties_list)[apl_indesx][0]));
+
+                (*std::any_cast<std::shared_ptr<utility::Quaternion>>((*accessable_properties_list)[apl_indesx][0])).x = quaternion.x;
+                (*std::any_cast<std::shared_ptr<utility::Quaternion>>((*accessable_properties_list)[apl_indesx][0])).y = quaternion.y;
+                (*std::any_cast<std::shared_ptr<utility::Quaternion>>((*accessable_properties_list)[apl_indesx][0])).z = quaternion.z;
+                (*std::any_cast<std::shared_ptr<utility::Quaternion>>((*accessable_properties_list)[apl_indesx][0])).w = quaternion.w;
             }
             if (p["type"] == "string")
             {

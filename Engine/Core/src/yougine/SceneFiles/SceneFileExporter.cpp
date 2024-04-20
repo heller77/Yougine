@@ -10,6 +10,7 @@
 #include "UserShare/utilitys/YougineMath.h"
 
 #include "../Editor/ProjectWindows/Assets/element/Model/Asset.h"
+#include "UserShare/utilitys/Quaternion.h"
 
 yougine::SceneFiles::SceneFileExporter::SceneFileExporter()
 {
@@ -124,6 +125,16 @@ void yougine::SceneFiles::SceneFileExporter::ScenefileExportFromScene(Scene* sce
                             auto id = value->GetAssetId()->convertstring();
                             tmp_property_json["value"] = id;
                             json_propertylist[property_index][key_of_valuetype] = "Asset";
+                        }
+                        else if (templatename == "class utility::Quaternion")
+                        {
+                            auto value = std::any_cast<std::shared_ptr<utility::Quaternion>>(var);
+
+                            tmp_property_json["x"] = value->x;
+                            tmp_property_json["y"] = value->y;
+                            tmp_property_json["z"] = value->z;
+                            tmp_property_json["w"] = value->w;
+                            json_propertylist[property_index][key_of_valuetype] = "utility::Quaternion";
                         }
                     }
 
