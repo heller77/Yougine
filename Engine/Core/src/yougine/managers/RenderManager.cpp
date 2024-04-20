@@ -275,6 +275,8 @@ namespace yougine::managers
         {
             cValue *= -1;
         }
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDrawElements(GL_TRIANGLES, render_component->draw_point_count, GL_UNSIGNED_INT, 0);
         // glDrawArrays(GL_TRIANGLE_STRIP,0, render_component->vertex_num);
         glBindVertexArray(0);
