@@ -50,6 +50,12 @@ void editor::MenuBar::Draw()
         if (play)
         {
             play = false;
+            //インスペクターを非表示に（シーンを再構築するので、表示するオブジェクトが消えるので）
+            SelectionInfo::GetInstance()->SetSelectionInfo(nullptr, false);
+
+            auto scenefilepath = projects::Project::GetInstance()->GetNowSceneFilePath();
+            auto sceneLoader = std::make_shared<yougine::SceneFiles::SceneLoader>(scenefilepath.string());
+            sceneLoader->SceneUpdate(scene);
         }
         else
         {
