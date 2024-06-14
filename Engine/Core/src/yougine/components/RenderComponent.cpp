@@ -94,7 +94,7 @@ namespace yougine::components
         std::cout << "position buffer data" << std::endl;
         //頂点座標をvertex_vectorに追加
         this->vertex_vector = {};
-        for (size_t i = 0; i < position_accessor.count; ++i)
+        for (unsigned long long i = 0; i < position_accessor.count; ++i)
         {
             // std::cout << i << "番目 : " << "[" << positions[i * 3 + 0] << "," << positions[i * 3 + 1] << "," << positions[
             //     i * 3 + 2] << "]" << std::endl;
@@ -109,7 +109,7 @@ namespace yougine::components
         std::cout << "index buffer data" << std::endl;
         //インデックスをindex_vectorに追加
         this->index_vector = {};
-        for (size_t i = 0; i < indices_accessor.count; ++i)
+        for (unsigned long long i = 0; i < indices_accessor.count; ++i)
         {
             // std::cout << i << "番目 : " << "[" << indices_data_fromgltf[i] << "]" << std::endl;
             this->index_vector.push_back(indices_data_fromgltf[i]);
@@ -124,7 +124,7 @@ namespace yougine::components
             normal_buffer_view.byteOffset + normal_accessor.byteOffset]);
 
         std::vector<ShaderVector3> normal_vector = {};
-        for (size_t i = 0; i < normal_accessor.count; ++i)
+        for (unsigned long long i = 0; i < normal_accessor.count; ++i)
         {
             // std::cout << i << "番目 : " << "[" << indices_data_fromgltf[i] << "]" << std::endl;
             ShaderVector3 v = { normal_data_fromgltf[i * 3 + 0], normal_data_fromgltf[i * 3 + 1], normal_data_fromgltf[i * 3 + 2] };
